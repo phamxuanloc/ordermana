@@ -15,9 +15,9 @@ class m161122_042210_initial_product extends Migration {
 			'in_stock'        => Schema::TYPE_INTEGER . '(11) NOT NULL DEFAULT "1"',
 			'base_price'      => Schema::TYPE_FLOAT . ' NOT NULL',
 			'description'     => Schema::TYPE_TIME . ' NULL',
-			'distribute_sale' => Schema::TYPE_DECIMAL . ' NOT NULL DEFAULT "0"',
-			'agent_sale'      => Schema::TYPE_DECIMAL . ' NOT NULL DEFAULT "0"',
-			'retail_sale'     => Schema::TYPE_DECIMAL . ' NOT NULL DEFAULT "0"',
+			'distribute_sale' => Schema::TYPE_FLOAT . ' NOT NULL',
+			'agent_sale'      => Schema::TYPE_FLOAT . ' NOT NULL',
+			'retail_sale'     => Schema::TYPE_FLOAT . ' NOT NULL',
 			'created_date'    => Schema::TYPE_TIMESTAMP,
 		], $tableOptions);
 	}
