@@ -14,6 +14,7 @@ class m161122_171009_initial_customer extends Migration {
 			'company_name' => Schema::TYPE_STRING . '(255) NULL',
 			'phone'        => Schema::TYPE_INTEGER . '(11) NOT NULL',
 			'city_id'      => Schema::TYPE_INTEGER . '(11)',
+			'user_id'      => Schema::TYPE_INTEGER . '(11)',
 		], $tableOptions);
 	}
 
