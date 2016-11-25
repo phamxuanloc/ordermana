@@ -13,7 +13,7 @@ AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+<html lang="<?= Yii::$app->language ?>" class="no-js">
 <head>
 	<meta charset="<?= Yii::$app->charset ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,10 +31,7 @@ AppAsset::register($this);
 
 	<div class="page-content-wrapper">
 		<div class="page-content">
-			<?= Breadcrumbs::widget([
-				'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-			]) ?>
-			<?= $content ?>
+			
 		</div>
 	</div>
 </div>
@@ -46,7 +43,22 @@ AppAsset::register($this);
 		<p class="pull-right"><?= Yii::powered() ?></p>
 	</div>
 </footer>
-
+<script>
+	jQuery(document).ready(function() {
+		Metronic.init(); // init metronic core componets
+		Layout.init(); // init layout
+		QuickSidebar.init(); // init quick sidebar
+		Demo.init(); // init demo features
+		Index.init();
+		Index.initDashboardDaterange();
+		Index.initJQVMAP(); // init index page's custom scripts
+		Index.initCalendar(); // init index page's custom scripts
+		Index.initCharts(); // init index page's custom scripts
+		Index.initChat();
+		Index.initMiniCharts();
+		Tasks.initDashboardWidget();
+	});
+</script>
 <?php $this->endBody() ?>
 </body>
 </html>
