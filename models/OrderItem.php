@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\components\Model;
 use Yii;
 
 /**
@@ -16,7 +17,7 @@ use Yii;
  * @property Order $order
  * @property Product $product
  */
-class OrderItem extends \yii\db\ActiveRecord
+class OrderItem extends Model
 {
     /**
      * @inheritdoc

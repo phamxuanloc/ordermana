@@ -1,6 +1,7 @@
 <?php
 namespace app\models;
 
+use app\components\Model;
 use Yii;
 
 /**
@@ -36,7 +37,22 @@ use Yii;
  * @property Category    $category
  * @property UserStock[] $userStocks
  */
-class Product extends \yii\db\ActiveRecord {
+class Product extends Model {
+
+	const STATUS        = [
+		'Chưa thanh toán',
+		'Đã thanh toán',
+		'Chưa nhận đủ',
+		'Đã nhận đủ',
+	];
+
+	const NOT_PAID      = 0;
+
+	const PAID          = 1;
+
+	const NOT_RECEIPTED = 2;
+
+	const RECEIPTED     = 3;
 
 	/**
 	 * @inheritdoc
