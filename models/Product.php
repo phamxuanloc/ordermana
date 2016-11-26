@@ -32,6 +32,8 @@ use Yii;
  * @property double      $price_tax
  * @property integer     $supplier_discount
  * @property string      $updated_date
+ * @property double      $representative_sale
+ * @property double      $big_agent_sale
  *
  * @property OrderItem[] $orderItems
  * @property Category    $category
@@ -74,6 +76,10 @@ class Product extends Model {
 					'distribute_sale',
 					'agent_sale',
 					'retail_sale',
+					'representative_sale',
+					'big_agent_sale',
+					'in_stock',
+
 				],
 				'required',
 			],
@@ -96,12 +102,17 @@ class Product extends Model {
 					'agent_sale',
 					'retail_sale',
 					'price_tax',
+					'representative_sale',
+					'big_agent_sale',
 				],
 				'number',
 			],
 			[
+				['description'],
+				'string',
+			],
+			[
 				[
-					'description',
 					'created_date',
 					'updated_date',
 				],
@@ -137,31 +148,33 @@ class Product extends Model {
 	 */
 	public function attributeLabels() {
 		return [
-			'id'                => 'ID',
-			'category_id'       => 'Danh mục',
-			'name'              => 'Tên sản phẩm',
-			'code'              => 'Mã sản phẩm',
-			'image'             => 'Ảnh',
-			'in_stock'          => 'Số lượng nhập kho',
-			'base_price'        => 'Giá nhập',
-			'description'       => 'Mô tả',
-			'distribute_sale'   => 'Giá cho đại diện',
-			'agent_sale'        => 'Giá bán cho đại lí',
-			'retail_sale'       => 'Giá bán lẻ',
-			'created_date'      => 'Ngày nhập',
-			'supplier'          => 'Nhà cung cấp',
-			'order_number'      => 'Mã đơn nhập',
-			'bill_number'       => 'Số hóa đơn',
-			'bill_image'        => 'Ảnh hóa đơn',
-			'receiver'          => 'Người nhận',
-			'deliver'           => 'Người giao',
-			'color'             => 'Màu sắc',
-			'weight'            => 'Khối lượng',
-			'unit'              => 'Đơn vị',
-			'status'            => 'Trạng thái',
-			'price_tax'         => 'Giá đã có thuế',
-			'supplier_discount' => 'Chiết khấu của nhà cung cấp',
-			'updated_date'      => 'Ngày cập nhật',
+			'id'                  => 'ID',
+			'category_id'         => 'Danh mục',
+			'name'                => 'Tên sản phẩm',
+			'code'                => 'Mã sản phẩm',
+			'image'               => 'Ảnh',
+			'in_stock'            => 'Số lượng nhập kho',
+			'base_price'          => 'Giá nhập',
+			'description'         => 'Mô tả',
+			'representative_sale' => 'Giá cho đại diện',
+			'big_agent_sale'      => 'Giá cho đại lí buôn',
+			'distribute_sale'     => 'Giá cho điểm phân phối',
+			'agent_sale'          => 'Giá bán cho đại lí',
+			'retail_sale'         => 'Giá bán lẻ',
+			'created_date'        => 'Ngày nhập',
+			'supplier'            => 'Nhà cung cấp',
+			'order_number'        => 'Mã đơn nhập',
+			'bill_number'         => 'Số hóa đơn',
+			'bill_image'          => 'Ảnh hóa đơn',
+			'receiver'            => 'Người nhận',
+			'deliver'             => 'Người giao',
+			'color'               => 'Màu sắc',
+			'weight'              => 'Khối lượng',
+			'unit'                => 'Đơn vị',
+			'status'              => 'Trạng thái',
+			'price_tax'           => 'Giá đã có thuế',
+			'supplier_discount'   => 'Chiết khấu của nhà cung cấp',
+			'updated_date'        => 'Ngày cập nhật',
 		];
 	}
 

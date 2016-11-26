@@ -21,7 +21,7 @@ use yii\helpers\Html;
 		<div class="panel-heading">Thông tin cơ bản</div>
 		<div class="panel-body">
 			<?= $form->field($model, 'supplier')->textInput(['maxlength' => true]) ?>
-			<?= $form->field($model, 'category_id')->textInput() ?>
+			<?= $form->field($model, 'category_id')->dropDownList($model->getCategoryOrder(), ['prompt' => 'Please choose category']) ?>
 			<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
 			<?= $form->field($model, 'code')->textInput() ?>
@@ -49,7 +49,7 @@ use yii\helpers\Html;
 		</div>
 	</div>
 </div>
-<div class="panel panel-primary">
+<div class="panel panel-info">
 	<div class="panel-heading">Thông tin nhập hàng</div>
 	<div class="panel-body">
 		<div class="col-sm-12" style="margin-bottom: 20px">
@@ -71,6 +71,15 @@ use yii\helpers\Html;
 		</div>
 		<div class="col-sm-6" style="margin-bottom: 15px">
 
+			<?= $form->field($model, 'base_price')->textInput() ?>
+		</div>
+		<div class="col-sm-6" style="margin-bottom: 15px">
+
+			<?= $form->field($model, 'in_stock')->textInput() ?>
+		</div>
+
+		<div class="col-sm-6" style="margin-bottom: 15px">
+
 			<?= $form->field($model, 'color')->textInput(['maxlength' => true]) ?>
 		</div>
 		<div class="col-sm-6" style="margin-bottom: 15px">
@@ -81,10 +90,7 @@ use yii\helpers\Html;
 
 			<?= $form->field($model, 'unit')->textInput(['maxlength' => true]) ?>
 		</div>
-		<div class="col-sm-6" style="margin-bottom: 15px">
 
-			<?= $form->field($model, 'in_stock')->textInput() ?>
-		</div>
 		<div class="col-sm-6" style="margin-bottom: 15px">
 
 			<?= $form->field($model, 'order_number')->textInput() ?>
@@ -104,29 +110,28 @@ use yii\helpers\Html;
 		</div>
 		<div class="col-sm-6" style="margin-bottom: 15px">
 
-			<?= $form->field($model, 'base_price')->textInput() ?>
-		</div>
-		<div class="col-sm-6" style="margin-bottom: 15px">
-
-			<?= $form->field($model, 'price_tax')->textInput() ?>
-		</div>
-		<div class="col-sm-6" style="margin-bottom: 15px">
-
 			<?= $form->field($model, 'supplier_discount')->textInput() ?>
 		</div>
 	</div>
 </div>
-<div class="panel panel-primary">
+<div class="panel panel-warning">
 	<div class="panel-heading">Thông tin xuất hàng</div>
 	<div class="panel-body">
-		<div class="col-sm-12">
-			<?= $form->field($model, 'distribute_sale')->textInput() ?>
+		<div class="col-sm-12" style="margin-bottom: 15px">
+			<?= $form->field($model, 'representative_sale')->textInput() ?>
 		</div>
-		<div class="col-sm-12">
+		<div class="col-sm-12" style="margin-bottom: 15px">
+
+			<?= $form->field($model, 'big_agent_sale')->textInput() ?>
+		</div>
+		<div class="col-sm-12" style="margin-bottom: 15px">
 
 			<?= $form->field($model, 'agent_sale')->textInput() ?>
 		</div>
-		<div class="col-sm-12">
+		<div class="col-sm-12" style="margin-bottom: 15px">
+			<?= $form->field($model, 'distribute_sale')->textInput() ?>
+		</div>
+		<div class="col-sm-12" style="margin-bottom: 15px">
 
 			<?= $form->field($model, 'retail_sale')->textInput() ?>
 		</div>

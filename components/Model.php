@@ -1,6 +1,7 @@
 <?php
 namespace app\components;
 
+use app\models\Category;
 use app\models\User;
 use Yii;
 use yii\console\Application;
@@ -61,6 +62,40 @@ class Model extends ActiveRecord {
 		return isset($this->$picture) ? $dir . $this->$picture : null;
 	}
 
-	public function getCategory() {
+	public static function getCategoryOrder() {
+		$cats     = Category::find()->where([
+			'parent_id' => 0,
+			'status'    => 1,
+		])->all();
+		$response = [];
+		foreach($cats as $cat) {
+			$response[$cat->id] = $cat->name;
+			$children           = $cat->find()->where([
+				'parent_id' => $cat->id,
+				'status'    => 1,
+			])->all();
+			if(count($children) > 0) {
+				$response = self::getChildrenCat($children, $response, 1);
+			}
+		}
+		return $response;
+	}
+
+	public function getChildrenCat($models, $response, $level) {
+		$prefix = '';
+		for($i = 0; $i < $level; $i ++) {
+			$prefix .= "-";
+		}
+		foreach($models as $model) {
+			$response[$model->id] = $prefix . $model->name;
+			$children             = $model->find()->where([
+				'parent_id' => $model->id,
+				'status'    => 1,
+			])->all();
+			if(count($children) > 0) {
+				$response = self::getChildrenCat($children, $response, $level + 1);
+			}
+		}
+		return $response;
 	}
 }
