@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "order".
+ * This is the model class for table "order_customer".
  *
  * @property integer $id
  * @property integer $user_id
@@ -16,20 +16,19 @@ use Yii;
  * @property integer $status
  * @property integer $update_by
  * @property integer $type
- * @property integer $parent_id
+ * @property integer $customer_id
  *
- * @property User $parent
+ * @property Customer $customer
  * @property User $user
- * @property OrderItem[] $orderItems
  */
-class Order extends \yii\db\ActiveRecord
+class OrderCustomer extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'order';
+        return 'order_customer';
     }
 
     /**
@@ -39,11 +38,11 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'total_amount', 'status'], 'required'],
-            [['user_id', 'status', 'update_by', 'type', 'parent_id'], 'integer'],
+            [['user_id', 'status', 'update_by', 'type', 'customer_id'], 'integer'],
             [['total_amount'], 'number'],
             [['created_date', 'update_at'], 'safe'],
             [['note'], 'string', 'max' => 255],
-            [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['parent_id' => 'id']],
+            [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['customer_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -63,16 +62,16 @@ class Order extends \yii\db\ActiveRecord
             'status' => 'Status',
             'update_by' => 'Update By',
             'type' => 'Type',
-            'parent_id' => 'Parent ID',
+            'customer_id' => 'Customer ID',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getParent()
+    public function getCustomer()
     {
-        return $this->hasOne(User::className(), ['id' => 'parent_id']);
+        return $this->hasOne(Customer::className(), ['id' => 'customer_id']);
     }
 
     /**
@@ -81,13 +80,5 @@ class Order extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getOrderItems()
-    {
-        return $this->hasMany(OrderItem::className(), ['order_id' => 'id']);
     }
 }

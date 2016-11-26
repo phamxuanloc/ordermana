@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'status',
             'update_by',
             'type',
-            'customer_id',
+            'parent_id',
         ],
     ]) ?>
 

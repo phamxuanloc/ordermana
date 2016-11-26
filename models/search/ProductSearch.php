@@ -18,9 +18,9 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['id', 'category_id', 'code', 'in_stock'], 'integer'],
-            [['name', 'image', 'description', 'created_date'], 'safe'],
-            [['base_price', 'distribute_sale', 'agent_sale', 'retail_sale'], 'number'],
+            [['id', 'category_id', 'code', 'in_stock', 'order_number', 'weight', 'status', 'supplier_discount'], 'integer'],
+            [['name', 'image', 'description', 'created_date', 'supplier', 'bill_number', 'bill_image', 'receiver', 'deliver', 'color', 'unit', 'updated_date'], 'safe'],
+            [['base_price', 'distribute_sale', 'agent_sale', 'retail_sale', 'price_tax'], 'number'],
         ];
     }
 
@@ -70,10 +70,23 @@ class ProductSearch extends Product
             'agent_sale' => $this->agent_sale,
             'retail_sale' => $this->retail_sale,
             'created_date' => $this->created_date,
+            'order_number' => $this->order_number,
+            'weight' => $this->weight,
+            'status' => $this->status,
+            'price_tax' => $this->price_tax,
+            'supplier_discount' => $this->supplier_discount,
+            'updated_date' => $this->updated_date,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'image', $this->image]);
+            ->andFilterWhere(['like', 'image', $this->image])
+            ->andFilterWhere(['like', 'supplier', $this->supplier])
+            ->andFilterWhere(['like', 'bill_number', $this->bill_number])
+            ->andFilterWhere(['like', 'bill_image', $this->bill_image])
+            ->andFilterWhere(['like', 'receiver', $this->receiver])
+            ->andFilterWhere(['like', 'deliver', $this->deliver])
+            ->andFilterWhere(['like', 'color', $this->color])
+            ->andFilterWhere(['like', 'unit', $this->unit]);
 
         return $dataProvider;
     }

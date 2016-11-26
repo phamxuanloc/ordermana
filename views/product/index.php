@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -36,8 +36,21 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'agent_sale',
             // 'retail_sale',
             // 'created_date',
+            // 'supplier',
+            // 'order_number',
+            // 'bill_number',
+            // 'bill_image',
+            // 'receiver',
+            // 'deliver',
+            // 'color',
+            // 'weight',
+            // 'unit',
+            // 'status',
+            // 'price_tax',
+            // 'supplier_discount',
+            // 'updated_date',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-<?php Pjax::end(); ?></div>
+</div>
