@@ -26,7 +26,7 @@ use yii\helpers\Html;
 
 			<?= $form->field($model, 'code')->textInput() ?>
 
-			<?= $form->field($model, 'product_img')->widget(FileInput::className(), [
+			<?= $form->field($model, 'bill_img')->widget(FileInput::className(), [
 				'options'       => ['accept' => 'image/*'],
 				'pluginOptions' => [
 					'allowedFileExtensions' => [
@@ -38,7 +38,7 @@ use yii\helpers\Html;
 					'initialPreview'        => $model->getIsNewRecord() ? [
 						Html::img(Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif', ['class' => 'file-preview-image']),
 					] : [
-						Html::img($model->getPictureUrl('image'), ['class' => 'file-preview-image']),
+						Html::img($model->getPictureUrl('bill_image'), ['class' => 'file-preview-image']),
 					],
 				],
 			]); ?>
@@ -47,7 +47,7 @@ use yii\helpers\Html;
 				'model'     => $model,
 				'attribute' => 'description',
 			]) ?>
-			<?= $form->field($model, 'status')->textInput() ?>
+			<?= $form->field($model, 'status')->dropDownList($model::STATUS) ?>
 		</div>
 	</div>
 </div>

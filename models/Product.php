@@ -124,6 +124,16 @@ class Product extends Model {
 				'safe',
 			],
 			[
+				['product_img'],
+				'file',
+				'extensions' => 'jpg, gif, png',
+			],
+			[
+				['bill_img'],
+				'file',
+				'extensions' => 'jpg, gif, png',
+			],
+			[
 				[
 					'name',
 					'image',

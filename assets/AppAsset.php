@@ -20,7 +20,7 @@ class AppAsset extends AssetBundle {
 	public $baseUrl   = '@web';
 
 	public $css       = [
-//		'css/site.css',
+		//		'css/site.css',
 		'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all',
 		'global/plugins/font-awesome/css/font-awesome.min.css',
 		'global/plugins/simple-line-icons/simple-line-icons.min.css',
@@ -36,15 +36,16 @@ class AppAsset extends AssetBundle {
 		'admin/layout/css/layout.css',
 		'admin/layout/css/themes/darkblue.css',
 		'admin/layout/css/custom.css',
+		'css/style.css',
 	];
 
 	public $js        = [
-				'global/plugins/respond.min.js',
-				'global/plugins/excanvas.min.js',
-//		'global/plugins/jquery.min.js',
+		'global/plugins/respond.min.js',
+		'global/plugins/excanvas.min.js',
+		//		'global/plugins/jquery.min.js',
 		'global/plugins/jquery-migrate.min.js',
 		'global/plugins/jquery-ui/jquery-ui.min.js',
-//		'global/plugins/bootstrap/js/bootstrap.min.js',
+		//		'global/plugins/bootstrap/js/bootstrap.min.js',
 		'global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js',
 		'global/plugins/jquery-slimscroll/jquery.slimscroll.min.js',
 		'global/plugins/jquery.blockui.min.js',
@@ -78,7 +79,7 @@ class AppAsset extends AssetBundle {
 	public $jsOptions = ['position' => View::POS_HEAD];
 
 	public $depends   = [
-				'yii\web\YiiAsset',
-				'yii\bootstrap\BootstrapPluginAsset',
+		'yii\web\YiiAsset',
+		'yii\bootstrap\BootstrapPluginAsset',
 	];
 }
