@@ -56,6 +56,10 @@ class Product extends Model {
 
 	const RECEIPTED     = 3;
 
+	public $product_img;
+
+	public $bill_img;
+
 	/**
 	 * @inheritdoc
 	 */
@@ -79,7 +83,6 @@ class Product extends Model {
 					'representative_sale',
 					'big_agent_sale',
 					'in_stock',
-
 				],
 				'required',
 			],
@@ -115,6 +118,8 @@ class Product extends Model {
 				[
 					'created_date',
 					'updated_date',
+					'product_img',
+					'bill_img',
 				],
 				'safe',
 			],
@@ -152,7 +157,7 @@ class Product extends Model {
 			'category_id'         => 'Danh mục',
 			'name'                => 'Tên sản phẩm',
 			'code'                => 'Mã sản phẩm',
-			'image'               => 'Ảnh',
+			'product_img'         => 'Ảnh sản phẩm',
 			'in_stock'            => 'Số lượng nhập kho',
 			'base_price'          => 'Giá nhập',
 			'description'         => 'Mô tả',
@@ -165,7 +170,7 @@ class Product extends Model {
 			'supplier'            => 'Nhà cung cấp',
 			'order_number'        => 'Mã đơn nhập',
 			'bill_number'         => 'Số hóa đơn',
-			'bill_image'          => 'Ảnh hóa đơn',
+			'bill_img'            => 'Ảnh hóa đơn',
 			'receiver'            => 'Người nhận',
 			'deliver'             => 'Người giao',
 			'color'               => 'Màu sắc',

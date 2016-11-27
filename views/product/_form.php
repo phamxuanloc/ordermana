@@ -26,7 +26,7 @@ use yii\helpers\Html;
 
 			<?= $form->field($model, 'code')->textInput() ?>
 
-			<?= $form->field($model, 'image')->widget(FileInput::className(), [
+			<?= $form->field($model, 'product_img')->widget(FileInput::className(), [
 				'options'       => ['accept' => 'image/*'],
 				'pluginOptions' => [
 					'allowedFileExtensions' => [
@@ -35,9 +35,11 @@ use yii\helpers\Html;
 						'png',
 					],
 					'showUpload'            => false,
-					//					$model->getIsNewRecord() ? '' : 'initialPreview' => [
-					//						Html::img($model->getPictureUrl('image'), ['class' => 'file-preview-image']),
-					//					],
+					'initialPreview'        => $model->getIsNewRecord() ? [
+						Html::img(Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif', ['class' => 'file-preview-image']),
+					] : [
+						Html::img($model->getPictureUrl('image'), ['class' => 'file-preview-image']),
+					],
 				],
 			]); ?>
 
@@ -54,7 +56,7 @@ use yii\helpers\Html;
 	<div class="panel-body">
 		<div class="col-sm-12" style="margin-bottom: 20px">
 
-			<?= $form->field($model, 'bill_image')->widget(FileInput::className(), [
+			<?= $form->field($model, 'bill_img')->widget(FileInput::className(), [
 				'options'       => ['accept' => 'image/*'],
 				'pluginOptions' => [
 					'allowedFileExtensions' => [
@@ -63,9 +65,11 @@ use yii\helpers\Html;
 						'png',
 					],
 					'showUpload'            => false,
-					//					$model->getIsNewRecord() ? '' : 'initialPreview' => [
-					//						Html::img($model->getPictureUrl('image'), ['class' => 'file-preview-image']),
-					//					],
+					'initialPreview'        => $model->getIsNewRecord() ? [
+						Html::img(Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif', ['class' => 'file-preview-image']),
+					] : [
+						Html::img($model->getPictureUrl('bill_image'), ['class' => 'file-preview-image']),
+					],
 				],
 			]); ?>
 		</div>
@@ -138,7 +142,7 @@ use yii\helpers\Html;
 	</div>
 </div>
 <div class="form-group">
-	<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+	<?= Html::submitButton($model->isNewRecord ? 'Nhập sản phẩm' : 'Cập nhật', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 </div>
 
 <?php ActiveForm::end(); ?>

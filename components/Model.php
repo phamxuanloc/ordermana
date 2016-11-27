@@ -26,17 +26,17 @@ class Model extends ActiveRecord {
 		}
 	}
 
-	public function uploadPicture($picture = '') {
+	public function uploadPicture($picture = '',$attribute) {
 		// get the uploaded file instance. for multiple file uploads
 		// the following data will return an array (you may need to use
 		// getInstances method)
-		$img = UploadedFile::getInstance($this, $picture);
+		$img = UploadedFile::getInstance($this, $attribute);
 		// if no image was uploaded abort the upload
 		if(empty($img)) {
 			return false;
 		}
 		// generate a unique file name
-		$dir = Yii::getAlias('@app') . '/uploads/' . $this->tableName() . '/';
+		$dir = Yii::getAlias('@app/web') . '/uploads/' . $this->tableName() . '/';
 		if(!is_dir($dir)) {
 			@mkdir($dir, 0777, true);
 		}
@@ -50,7 +50,7 @@ class Model extends ActiveRecord {
 		Yii::$app->params['uploadUrl'] = Yii::$app->urlManager->baseUrl . '/uploads/' . $this->tableName() . '/';
 		$image                         = !empty($this->$picture) ? $this->$picture : Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif';
 		clearstatcache();
-		if(is_file(Yii::getAlias("@app") . '/uploads/' . $this->tableName() . '/' . $image)) {
+		if(is_file(Yii::getAlias("@app/web") . '/uploads/' . $this->tableName() . '/' . $image)) {
 			return Yii::$app->params['uploadUrl'] . $image;
 		} else {
 			return $image;
@@ -58,7 +58,7 @@ class Model extends ActiveRecord {
 	}
 
 	public function getPictureFile($picture = '') {
-		$dir = Yii::getAlias('@app') . '/uploads/' . $this->tableName() . '/';
+		$dir = Yii::getAlias('@app/web') . '/uploads/' . $this->tableName() . '/';
 		return isset($this->$picture) ? $dir . $this->$picture : null;
 	}
 
