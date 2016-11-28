@@ -62,21 +62,16 @@ class ProductController extends Controller {
 	public function actionReceipt() {
 		$model = new Product();
 		if($model->load(Yii::$app->request->post()) && $model->save()) {
-			$img = UploadedFile::getInstance($model, 'bill_img');
-			var_dump($img);die;
-			$img      = $model->uploadPicture('image', 'product_img');
-			$bill_img = $model->uploadPicture('bill_image', 'bill_img');
+			$img          = $model->uploadPicture('image', 'product_img');
+			$product_bill = $model->uploadPicture('bill_image', 'product_bill');
 			if($model->save()) {
 				if($img !== false) {
 					$path = $model->getPictureFile('image');
 					$img->saveAs($path);
 				}
-				if($bill_img !== false) {
+				if($product_bill !== false) {
 					$path = $model->getPictureFile('bill_image');
-					$bill_img->saveAs($path);
-					echo 'b';die;
-				}else{
-					echo 'a';die;
+					$product_bill->saveAs($path);
 				}
 				return $this->redirect(['index']);
 			}

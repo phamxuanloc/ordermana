@@ -41,7 +41,7 @@ class Model extends ActiveRecord {
 			@mkdir($dir, 0777, true);
 		}
 		$ext            = $img->getExtension();
-		$this->$picture = $this->getPrimaryKey() . '_image' . ".{$ext}";
+		$this->$picture = $this->getPrimaryKey() . '_'."$picture" . ".{$ext}";
 		// the uploaded image instance
 		return $img;
 	}

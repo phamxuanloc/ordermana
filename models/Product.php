@@ -55,10 +55,10 @@ class Product extends Model {
 	const NOT_RECEIPTED = 2;
 
 	const RECEIPTED     = 3;
+	public $product_bill;
 
 	public $product_img;
 
-	public $bill_img;
 
 	/**
 	 * @inheritdoc
@@ -119,7 +119,7 @@ class Product extends Model {
 					'created_date',
 					'updated_date',
 					'product_img',
-					'bill_img',
+					'product_bill',
 				],
 				'safe',
 			],
@@ -129,7 +129,7 @@ class Product extends Model {
 				'extensions' => 'jpg, gif, png',
 			],
 			[
-				['bill_img'],
+				['product_bill'],
 				'file',
 				'extensions' => 'jpg, gif, png',
 			],
@@ -180,7 +180,7 @@ class Product extends Model {
 			'supplier'            => 'Nhà cung cấp',
 			'order_number'        => 'Mã đơn nhập',
 			'bill_number'         => 'Số hóa đơn',
-			'bill_img'            => 'Ảnh hóa đơn',
+			'product_bill'            => 'Ảnh hóa đơn',
 			'receiver'            => 'Người nhận',
 			'deliver'             => 'Người giao',
 			'color'               => 'Màu sắc',

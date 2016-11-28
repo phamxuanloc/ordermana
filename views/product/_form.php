@@ -26,7 +26,7 @@ use yii\helpers\Html;
 
 			<?= $form->field($model, 'code')->textInput() ?>
 
-			<?= $form->field($model, 'bill_img')->widget(FileInput::className(), [
+			<?= $form->field($model, 'product_bill')->widget(FileInput::className(), [
 				'options'       => ['accept' => 'image/*'],
 				'pluginOptions' => [
 					'allowedFileExtensions' => [
@@ -42,7 +42,22 @@ use yii\helpers\Html;
 					],
 				],
 			]); ?>
-
+			<?= $form->field($model, 'product_img')->widget(FileInput::className(), [
+				'options'       => ['accept' => 'image/*'],
+				'pluginOptions' => [
+					'allowedFileExtensions' => [
+						'jpg',
+						'gif',
+						'png',
+					],
+					'showUpload'            => false,
+					'initialPreview'        => $model->getIsNewRecord() ? [
+						Html::img(Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif', ['class' => 'file-preview-image']),
+					] : [
+						Html::img($model->getPictureUrl('image'), ['class' => 'file-preview-image']),
+					],
+				],
+			]); ?>
 			<?= $form->field($model, 'description')->widget(RoxyMceWidget::className(), [
 				'model'     => $model,
 				'attribute' => 'description',
@@ -54,25 +69,7 @@ use yii\helpers\Html;
 <div class="panel panel-info">
 	<div class="panel-heading">Thông tin nhập hàng</div>
 	<div class="panel-body">
-		<div class="col-sm-12" style="margin-bottom: 20px">
 
-			<?= $form->field($model, 'bill_img')->widget(FileInput::className(), [
-				'options'       => ['accept' => 'image/*'],
-				'pluginOptions' => [
-					'allowedFileExtensions' => [
-						'jpg',
-						'gif',
-						'png',
-					],
-					'showUpload'            => false,
-					'initialPreview'        => $model->getIsNewRecord() ? [
-						Html::img(Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif', ['class' => 'file-preview-image']),
-					] : [
-						Html::img($model->getPictureUrl('bill_image'), ['class' => 'file-preview-image']),
-					],
-				],
-			]); ?>
-		</div>
 		<div class="col-sm-6" style="margin-bottom: 15px">
 
 			<?= $form->field($model, 'base_price')->textInput() ?>
