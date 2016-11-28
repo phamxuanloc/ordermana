@@ -43,6 +43,13 @@ $config  = [
 			'rules'           => [
 			],
 		],
+		'view' => [
+			'theme' => [
+				'pathMap' => [
+					'@dektrium/user/views' => '@app/views/user'
+				],
+			],
+		],
 	],
 	'modules'    => [
 		'user' => [
