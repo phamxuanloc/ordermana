@@ -63,8 +63,8 @@ class Category extends Model {
 	public function attributeLabels() {
 		return [
 			'id'         => 'ID',
-			'parent_id'  => 'Parent ID',
-			'status'     => 'Status',
+			'parent_id'  => 'Danh mục cha',
+			'status'     => 'Trạng thái',
 			'sort_order' => 'Sort Order',
 			'image'      => 'Image',
 			'name'       => 'Tên',

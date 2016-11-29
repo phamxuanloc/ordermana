@@ -41,7 +41,7 @@ use yii\helpers\Url;
 				<!-- END RESPONSIVE QUICK SEARCH FORM -->
 			</li>
 			<li class="start active open">
-				<a href="<?=Url::home()?>">
+				<a href="<?= Url::home() ?>">
 					<i class="icon-home"></i>
 					<span class="title">Dashboard</span>
 					<span class="selected"></span>
@@ -119,11 +119,12 @@ use yii\helpers\Url;
 							Phân quyền</a>
 					</li>
 					<li>
-						<a href="ui_buttons.html">
+						<a href="<?= Url::to(['/user/admin/index']) ?>">
 							Danh sách tài khoản</a>
 					</li>
 					<li>
-						<a href="ui_confirmations.html">
+						<a href="<?= Url::to(['/user/admin/create']) ?>">
+
 							Thêm mới tài khoản</a>
 					</li>
 				</ul>
@@ -145,7 +146,44 @@ use yii\helpers\Url;
 					</li>
 				</ul>
 			</li>
+			<li>
+				<a href="javascript:;">
+					<i class="icon-docs"></i>
+					<span class="title">Quản lý Danh mục sản phẩm</span>
+					<span class="arrow "></span>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="<?= Url::to(['/category']) ?>">
+							<i class="icon-paper-plane"></i>
+							<span class="badge badge-warning"></span>Danh sách danh mục</a>
+					</li>
+					<li>
+						<a href="<?= Url::to(['/category/create']) ?>">
+							<i class="icon-user-following"></i>
+							<span class="badge badge-success badge-roundless">new</span>Thêm mới danh mục</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<i class="icon-present"></i>
+					<span class="title">Nhà cung cấp</span>
+					<span class="arrow "></span>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="<?= Url::to(['/provider']) ?>">
+							Danh sách nhà cung cấp</a>
+					</li>
+					<li>
+						<a href="<?= Url::to(['/provider/create']) ?>">
+							Thêm mới nhà cung cấp</a>
+					</li>
+				</ul>
+			</li>
 		</ul>
+
 		<!-- END SIDEBAR MENU -->
 	</div>
 </div>

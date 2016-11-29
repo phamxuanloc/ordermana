@@ -1,7 +1,6 @@
 <?php
-
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Category */
@@ -10,19 +9,19 @@ use yii\widgets\ActiveForm;
 
 <div class="category-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+	<?php $form = ActiveForm::begin([
+		'layout' => 'horizontal',
+	]); ?>
 
-    <?= $form->field($model, 'parent_id')->textInput() ?>
-    
-    <?= $form->field($model, 'sort_order')->textInput() ?>
+	<?= $form->field($model, 'parent_id')->dropDownList($model->getCategoryOrder(), ['prompt' => 'Danh mục']) ?>
 
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+	<?= $form->field($model, 'status')->dropDownList($model::STATUS) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
+	<div class="form-group">
+		<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+	</div>
 
-    <?php ActiveForm::end(); ?>
+	<?php ActiveForm::end(); ?>
 
 </div>

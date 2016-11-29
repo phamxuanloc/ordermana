@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Category */
+/* @var $model app\models\Provider */
 
-$this->title = 'Tạo mới Danh mục sản phẩm';
-$this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
+$this->title = 'Thêm mới nhà cung cấp';
+$this->params['breadcrumbs'][] = ['label' => 'Providers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="category-create">
+<div class="provider-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

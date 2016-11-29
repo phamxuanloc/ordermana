@@ -43,22 +43,25 @@ $config  = [
 			'rules'           => [
 			],
 		],
-		'view' => [
+		'view'         => [
 			'theme' => [
 				'pathMap' => [
-					'@dektrium/user/views' => '@app/views/user'
+					'@dektrium/user/views' => '@app/views/user',
 				],
 			],
 		],
 	],
 	'modules'    => [
 		'user' => [
-			'class'    => 'dektrium\user\Module',
-			'modelMap' => [
-				'User'      => 'navatech\role\models\User',
+			'class'         => 'dektrium\user\Module',
+			'modelMap'      => [
+				'User'      => 'app\models\User',
 				//IMPORTANT & REQUIRED, change to your User model if overridden
 				'LoginForm' => 'navatech\role\models\LoginForm',
 				//IMPORTANT & REQUIRED
+			],
+			'controllerMap' => [
+				'admin' => 'app\controllers\AdminController',
 			],
 		],
 		'role' => [

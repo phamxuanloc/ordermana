@@ -81,6 +81,8 @@ class ProductSearch extends Product {
 		// add conditions that should always apply here
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
+			'sort' => ['defaultOrder' => ['id' => SORT_DESC]],
+
 		]);
 		$this->load($params);
 		if(!$this->validate()) {
