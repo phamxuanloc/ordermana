@@ -66,7 +66,7 @@ use yii\helpers\Url;
 							Lịch sử nhập kho</a>
 					</li>
 					<li>
-						<a href="ecommerce_orders.html">
+						<a href="<?= Url::to(['/order/order-item']) ?>">
 							<i class="icon-basket"></i>
 							Xuất kho</a>
 					</li>
@@ -90,7 +90,7 @@ use yii\helpers\Url;
 				</a>
 				<ul class="sub-menu">
 					<li>
-						<a href="layout_horizontal_sidebar_menu.html">
+						<a href="<?= Url::to(['/order']) ?>">
 							Danh sách đơn hàng</a>
 					</li>
 					<li>
@@ -98,7 +98,7 @@ use yii\helpers\Url;
 							Danh sách đơn hàng bán lẻ</a>
 					</li>
 					<li>
-						<a href="index_horizontal_menu.html">
+						<a href="<?= Url::to(['/order/order-item']) ?>">
 							Tạo đơn hàng</a>
 					</li>
 					<li>

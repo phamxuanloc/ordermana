@@ -4,6 +4,7 @@ namespace app\controllers;
 use app\components\Controller;
 use app\models\Product;
 use app\models\search\ProductSearch;
+use navatech\role\filters\RoleFilter;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
@@ -25,6 +26,18 @@ class ProductController extends Controller {
 					'delete' => ['POST'],
 				],
 			],
+			'role'  => [
+				'class'   => RoleFilter::className(),
+				'name'    => 'Trang Nhập kho',
+				//NOT REQUIRED, only if you want to translate
+				'actions' => [
+					'receipt' => 'Nhập kho công ty',
+					//without translate
+					'index'   => 'Danh sách ',
+					'update'  => 'Cập nhật kho công ty ',
+					//with translated, which will display on role _form
+				],
+			],
 		];
 	}
 
@@ -35,7 +48,11 @@ class ProductController extends Controller {
 	public function actionIndex() {
 		$searchModel  = new ProductSearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		$product_num  = Product::find()->count();
+		$product_sum  = Product::find()->sum('base_price');
 		return $this->render('index', [
+			'product_num'  => $product_num,
+			'product_sum'  => $product_sum,
 			'searchModel'  => $searchModel,
 			'dataProvider' => $dataProvider,
 		]);

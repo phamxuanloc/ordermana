@@ -110,15 +110,15 @@ class Order extends Model {
 	public function attributeLabels() {
 		return [
 			'id'           => 'ID',
-			'user_id'      => 'User ID',
-			'total_amount' => 'Total Amount',
-			'note'         => 'Note',
-			'created_date' => 'Created Date',
-			'update_at'    => 'Update At',
-			'status'       => 'Status',
-			'update_by'    => 'Update By',
-			'type'         => 'Type',
-			'parent_id'    => 'Parent ID',
+			'user_id'      => 'Người mua',
+			'total_amount' => 'Tổng tiền',
+			'note'         => 'Ghi chú',
+			'created_date' => 'Ngày mua',
+			'update_at'    => 'Ngày cập nhật',
+			'status'       => 'Trạng thái',
+			'update_by'    => 'Cập nhật bởi',
+			'type'         => 'Loại đơn hàng',
+			'parent_id'    => 'Người bán',
 			'downline'     => 'Xuất cho',
 		];
 	}
@@ -133,7 +133,7 @@ class Order extends Model {
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
-	public function getUser() {
+	public function getUsers() {
 		return $this->hasOne(User::className(), ['id' => 'user_id']);
 	}
 
@@ -143,4 +143,5 @@ class Order extends Model {
 	public function getOrderItems() {
 		return $this->hasMany(OrderItem::className(), ['order_id' => 'id']);
 	}
+	
 }

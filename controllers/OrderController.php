@@ -3,6 +3,7 @@ namespace app\controllers;
 
 use app\models\OrderItem;
 use app\models\Product;
+use navatech\role\filters\RoleFilter;
 use Yii;
 use app\models\Order;
 use app\models\search\OrderSearch;
@@ -27,6 +28,17 @@ class OrderController extends Controller {
 					'delete' => ['POST'],
 				],
 			],
+			'role'  => [
+				'class'   => RoleFilter::className(),
+				'name'    => 'Trang xuất kho',
+				//NOT REQUIRED, only if you want to translate
+				'actions' => [
+					'order-item' => 'Xuất kho công ty',
+					//without translate
+					'index'      => 'Danh sách',
+					//with translated, which will display on role _form
+				],
+			],
 		];
 	}
 
@@ -37,9 +49,13 @@ class OrderController extends Controller {
 	public function actionIndex() {
 		$searchModel  = new OrderSearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		$order_num    = Order::find()->count();
+		$order_sum    = Order::find()->sum('total_amount');
 		return $this->render('index', [
 			'searchModel'  => $searchModel,
 			'dataProvider' => $dataProvider,
+			'order_num'    => $order_num,
+			'order_sum'    => $order_sum,
 		]);
 	}
 
@@ -104,8 +120,14 @@ class OrderController extends Controller {
 				$check_order = OrderItem::findOne(['order_id' => $order_id]);
 				if($check_order == null) {
 					$this->findModel($order_id)->delete();
+				} else {
+					$count = OrderItem::find()->where(['order_id' => $order_id])->sum('total_price');
+					$order->updateAttributes(['total_amount' => $count]);
 				}
-				return $this->redirect(Url::to(['/order']));
+				return $this->redirect(Url::to([
+					'/order/view',
+					'id' => $order_id,
+				]));
 			} else {
 				echo '<pre>';
 				print_r($order->errors);
