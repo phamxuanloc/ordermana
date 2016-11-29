@@ -47,7 +47,10 @@ class Category extends Model {
 				'integer',
 			],
 			[
-				['image'],
+				[
+					'image',
+					'name',
+				],
 				'string',
 				'max' => 255,
 			],
@@ -64,6 +67,7 @@ class Category extends Model {
 			'status'     => 'Status',
 			'sort_order' => 'Sort Order',
 			'image'      => 'Image',
+			'name'       => 'Tên',
 		];
 	}
 

@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'parent_id',
-            'type',
+            'name',
             'sort_order',
             'image',
 

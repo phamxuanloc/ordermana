@@ -41,7 +41,7 @@ use yii\helpers\Url;
 				<!-- END RESPONSIVE QUICK SEARCH FORM -->
 			</li>
 			<li class="start active open">
-				<a href="javascript:;">
+				<a href="<?=Url::home()?>">
 					<i class="icon-home"></i>
 					<span class="title">Dashboard</span>
 					<span class="selected"></span>
@@ -115,7 +115,7 @@ use yii\helpers\Url;
 				</a>
 				<ul class="sub-menu">
 					<li>
-						<a href="<?= Url::to(['user/role']) ?>">
+						<a href="<?= Url::to(['/role']) ?>">
 							Phân quyền</a>
 					</li>
 					<li>

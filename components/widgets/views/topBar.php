@@ -8,8 +8,8 @@ use yii\helpers\Url;
 	<div class="page-header-inner">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a href="index.html">
-				<img src="../../assets/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
+			<a href="<?= Url::home() ?>">
+				<img style="width: 39%;" src="https://myphamlinhnham.vn/wp-content/themes/thietkewebwordpress/img/logo.png" alt="logo" class="logo-default"/>
 			</a>
 			<div class="menu-toggler sidebar-toggler hide">
 			</div>
@@ -323,9 +323,9 @@ use yii\helpers\Url;
 				<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
 				<li class="dropdown dropdown-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-						<img alt="" class="img-circle" src="../../assets/admin/layout/img/avatar3_small.jpg"/>
+						<img alt="" class="img-circle" src="http://www.spml.ie/wp-content/uploads/2015/05/no_image_thumb-400x272.gif"/>
 					<span class="username username-hide-on-mobile">
-					Nick </span>
+					<?=\Yii::$app->getUser()->getIdentity()!=null?\Yii::$app->getUser()->getIdentity()->username:''?> </span>
 						<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
@@ -356,7 +356,7 @@ use yii\helpers\Url;
 								<i class="icon-lock"></i> Lock Screen </a>
 						</li>
 						<li>
-							<a href="login.html">
+							<a href="<?= Url::to(['/user/security/logout']) ?>" data-method="POST">
 								<i class="icon-key"></i> Log Out </a>
 						</li>
 					</ul>
