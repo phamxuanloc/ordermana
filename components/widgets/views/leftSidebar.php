@@ -56,12 +56,12 @@ use yii\helpers\Url;
 				</a>
 				<ul class="sub-menu">
 					<li>
-						<a href="<?= Url::to(['product/receipt']) ?>">
+						<a href="<?= Url::to(['/product/receipt']) ?>">
 							<i class="icon-home"></i>
 							Nhập kho</a>
 					</li>
 					<li>
-						<a href="<?= Url::to(['product/index']) ?>">
+						<a href="<?= Url::to(['/product/index']) ?>">
 							<i class="icon-home"></i>
 							Lịch sử nhập kho</a>
 					</li>
@@ -115,7 +115,7 @@ use yii\helpers\Url;
 				</a>
 				<ul class="sub-menu">
 					<li>
-						<a href="ui_general.html">
+						<a href="<?= Url::to(['user/role']) ?>">
 							Phân quyền</a>
 					</li>
 					<li>

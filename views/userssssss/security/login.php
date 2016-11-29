@@ -22,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 <!-- END HEAD -->
 
 <body class=" login">
+<?php $this->beginBody() ?>
 <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
 <div class="menu-toggler sidebar-toggler">
 </div>
@@ -395,6 +396,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 <div class="copyright">
 	2014 © Metronic. Admin Dashboard Template.
 </div>
+<?php $this->endBody() ?>
 </body>
 <script>
 	jQuery(document).ready(function() {
@@ -405,3 +407,4 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 	});
 </script>
 </html>
+<?php $this->endPage() ?>
