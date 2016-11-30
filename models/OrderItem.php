@@ -111,4 +111,12 @@ class OrderItem extends Model {
 		$category = Category::findOne($this->product->category_id);
 		return ArrayHelper::map($category->products, 'id', 'name');
 	}
+
+	public function getItemStatus() {
+		if($this->status == self::STATUS_RECEIPTED) {
+			return 'Đã nhận';
+		} else {
+			return 'Chưa nhận';
+		}
+	}
 }

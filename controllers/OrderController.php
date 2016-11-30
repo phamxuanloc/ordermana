@@ -49,14 +49,23 @@ class OrderController extends Controller {
 	 */
 	public function actionIndex() {
 		$searchModel  = new OrderSearch();
-		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-		$order_num    = Order::find()->count();
-		$order_sum    = Order::find()->sum('total_amount');
+		$params       = Yii::$app->request->queryParams;
+		$dataProvider = $searchModel->search($params);
+		$order_num    = $searchModel->getInfo($params, 'quantity');
+		$order_sum    = $searchModel->getInfo($params, 'total_money');
+		$order_pre    = $searchModel->getInfo($params, 'pre_quantity');
+		$order_big    = $searchModel->getInfo($params, 'big_quantity');
+		$order_age    = $searchModel->getInfo($params, 'age_quantity');
+		$order_dis    = $searchModel->getInfo($params, 'dis_quantity');
 		return $this->render('index', [
 			'searchModel'  => $searchModel,
 			'dataProvider' => $dataProvider,
 			'order_num'    => $order_num,
 			'order_sum'    => $order_sum,
+			'order_pre'    => $order_pre,
+			'order_big'    => $order_big,
+			'order_age'    => $order_age,
+			'order_dis'    => $order_dis,
 		]);
 	}
 
@@ -72,15 +81,17 @@ class OrderController extends Controller {
 		$items = $model->orderItems;
 		Yii::$app->session->setFlash('warning', 'Chú ý: Chuyển trạng thái qua "Đã nhận đủ" để xuất kho');
 		if($model->load(Yii::$app->request->post())) {
-			$model->scenario = 'update_status';
+			$model->scenario  = 'update_status';
+			$model->update_at = date('Y-m-d H:i:s');
+			$model->update_by = $this->user->id;
 			if($model->save()) {
-				//				echo'a';die;
 				if($model->status == $model::RECEIPTED) {
 					foreach($items as $item) {
 						if($item->status != $item::STATUS_RECEIPTED) {
 							if($item->quantity > $item->product->in_stock) {
-								Yii::$app->session->setFlash('danger', 'Chú ý: Sản phẩm ' . $item->product->name . ' không đủ để xuất');
+								Yii::$app->session->setFlash('danger', 'Chú ý: Sản phẩm ' . $item->product->name . ' không đủ số lượng để xuất');
 								$model->updateAttributes(['status' => $model::NOT_RECEIPTED]);
+								$item->updateAttributes(['status' => $item::STATUS_NOT_RECEIPTED]);
 								//							return $this->redirect(['/view','id'=>$id]);
 							} else {
 								$isset_stock = UserStock::findOne([
@@ -96,6 +107,7 @@ class OrderController extends Controller {
 									$stock->in_stock   = $item->quantity;
 									$stock->save();
 								}
+								$item->updateAttributes(['status' => $item::STATUS_RECEIPTED]);
 								$item->product->updateAttributes(['in_stock' => $item->product->in_stock - $item->quantity]);
 							}
 						}
@@ -109,7 +121,7 @@ class OrderController extends Controller {
 				echo '<pre>';
 				print_r($model->errors);
 				die;
-			};
+			}
 		}
 		return $this->render('view', [
 			'model' => $model,
@@ -180,7 +192,10 @@ class OrderController extends Controller {
 			}
 		}
 		if(isset($_POST['category'])) {
-			$products = Product::findAll(['category_id' => $_POST['category']]);
+			$products = Product::findAll([
+				'category_id' => $_POST['category'],
+				'status'      => $order::RECEIPTED,
+			]);
 			$html     = '<option value>Chọn sản phẩm</option>';
 			foreach($products as $product) {
 				$html .= '<option value="' . $product->id . '">' . $product->name . '</option>';

@@ -33,6 +33,10 @@ class Model extends ActiveRecord {
 
 	const ROLE_D     = 5;
 
+	public $start_date;
+
+	public $end_date;
+
 	/**
 	 *  * Khởi tạo người dùng đã đăng nhập
 	 */
@@ -136,6 +140,7 @@ class Model extends ActiveRecord {
 		}
 		return $price;
 	}
+
 	/**
 	 * @param       $parent_id
 	 * @param array $array_children

@@ -1,7 +1,7 @@
 <?php
 use app\models\Product;
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\ProductSearch */
@@ -12,21 +12,25 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="product-index">
 
 	<h1><?= Html::encode($this->title) ?></h1>
-	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+	<div class="panel panel-info">
+		<div class="panel-heading">Tìm kiếm</div>
+		<div class="panel-body">
+			<?php echo $this->render('_search', ['model' => $searchModel]); ?>
+		</div>
+	</div>
 	<p>
 		<?= Html::a('Nhập sản phẩm vào kho', ['receipt'], ['class' => 'btn btn-success']) ?>
 	</p>
 	<div class="panel panel-default">
 		<div class="panel-heading">Thống kê</div>
 		<div class="panel-body">
-			<p>Tổng số hàng trong kho:<?= $product_num ?></p>
-			<p>Tổng số tiền nhập giá gốc:<?= $product_sum ?></p>
+			<p>Tổng số hàng trong kho: <?= $product_num ?> Sản phẩm</p>
+			<p>Tổng số tiền nhập giá gốc: <?= $product_sum ?> VNĐ</p>
 		</div>
 	</div>
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
-		'filterModel'  => $searchModel,
+//		'filterModel'  => $searchModel,
 		'columns'      => [
 			['class' => 'yii\grid\SerialColumn'],
 			[

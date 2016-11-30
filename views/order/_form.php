@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
 		"IN",
 		"id",
 		$children,
-	])->all(), 'id', 'username'),
+	])->andWhere(['role_id' => $_GET['role']])->all(), 'id', 'username'),
 ])->label('Xuất cho tài khoản') ?>
 <div class="item-header">
 	<div class="col-sm-1 id grid-display"><p style="text-transform: uppercase">STT</p></div>

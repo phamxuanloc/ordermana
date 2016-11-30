@@ -144,30 +144,26 @@ $this->params['breadcrumbs'][] = $this->title;
 	</div>
 	<?php $form = ActiveForm::begin() ?>
 	<div class="item-header">
-		<div class="col-sm-1 id grid-display"><p style="text-transform: uppercase">STT</p></div>
 		<div class="col-sm-2 code grid-display"><p style="text-transform: uppercase">Mã sản phẩm</p></div>
-		<div class="col-sm-3 category-select grid-display">
+		<div class="col-sm-2 category-select grid-display">
 			<p style="text-transform: uppercase">Tên danh mục</p>
 		</div>
 		<div class="product-select grid-display col-sm-3"><p style="text-transform: uppercase">Tên sản phẩm</p>
 		</div>
 		<div class="quantity grid-display col-sm-1"><p style="text-transform: uppercase">Số lượng</p></div>
-		<div class="price-show grid-display col-sm-2"><p style="text-transform: uppercase">Tổng tiền</p>
+		<div class="price-show grid-display col-sm-2"><p style="text-transform: uppercase">Tổng tiền</p></div>
+		<div class="status-show grid-display col-sm-2"><p style="text-transform: uppercase">Trạng thái</p>
 		</div>
 	</div>
 	<div class="items">
 		<?php $i = 0; ?>
 		<?php foreach($items as $item) { ?>
 			<div class="item-detail">
-				<div class="col-sm-1 id grid-display"><?= Html::input('text', '', $i, [
-						'class'    => 'ordinal form-control form-height form-boder',
-						"disabled" => true,
-					]) ?></div>
 				<div class="col-sm-2 code grid-display"><?= Html::input('text', 'code', $item->isNewRecord ? '' : $item->product->code, [
 						'class'    => 'form-control form-height form-boder',
 						"disabled" => true,
 					]) ?></div>
-				<div class="col-sm-3 category-select grid-display"><?= Html::dropDownList('', $item->isNewRecord ? '' : $item->product->category_id, Category::getCategoryOrder(), [
+				<div class="col-sm-2 category-select grid-display"><?= Html::dropDownList('', $item->isNewRecord ? '' : $item->product->category_id, Category::getCategoryOrder(), [
 						'class'    => 'form-control form-height form-boder ',
 						'prompt'   => 'Chọn danh mục',
 						'style'    => 'float:left',
@@ -196,6 +192,11 @@ $this->params['breadcrumbs'][] = $this->title;
 						'class'    => 'form-control form-height form-boder',
 						'disabled' => true,
 					]) ?></div>
+				<div class="col-sm-2 grid-display"><?= Html::activeTextInput($item, 'status', [
+						'class'    => 'form-control form-height form-boder',
+						'disabled' => true,
+						'value'    => $item->getItemStatus(),
+					]) ?></div>
 			</div>
 			<?php
 			$i ++;
@@ -223,7 +224,9 @@ $this->params['breadcrumbs'][] = $this->title;
 	<!---->
 	<!--		</div>-->
 	<!--	</div>-->
-	<?= $form->field($model, 'status')->dropDownList($model::STATUS) ?>
+	<?= $form->field($model, 'status')->dropDownList($model::STATUS, [
+		'disabled' => $model->status == $model::PAID ? true : false,
+	])->label('Trạng thái đơn hàng') ?>
 	<div class="row action-pager" style="margin-top: 20px">
 		<div class="col-sm-6 action-item order-accept">
 			<?= Html::submitButton('Cập nhật trạng thái', ['class' => 'fleft btn btn-info']) ?>

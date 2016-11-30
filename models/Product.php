@@ -32,6 +32,8 @@ use Yii;
  * @property double      $price_tax
  * @property integer     $supplier_discount
  * @property string      $updated_date
+ * @property string      $start_date
+ * @property string      $end_date
  * @property double      $representative_sale
  * @property double      $big_agent_sale
  *
@@ -55,10 +57,10 @@ class Product extends Model {
 	const NOT_RECEIPTED = 2;
 
 	const RECEIPTED     = 3;
+
 	public $product_bill;
 
 	public $product_img;
-
 
 	/**
 	 * @inheritdoc
@@ -95,6 +97,7 @@ class Product extends Model {
 					'weight',
 					'status',
 					'supplier_discount',
+					'provider_id',
 				],
 				'integer',
 			],
@@ -120,6 +123,8 @@ class Product extends Model {
 					'updated_date',
 					'product_img',
 					'product_bill',
+					'start_date',
+					'end_date',
 				],
 				'safe',
 			],
@@ -180,7 +185,7 @@ class Product extends Model {
 			'supplier'            => 'Nhà cung cấp',
 			'order_number'        => 'Mã đơn nhập',
 			'bill_number'         => 'Số hóa đơn',
-			'product_bill'            => 'Ảnh hóa đơn',
+			'product_bill'        => 'Ảnh hóa đơn',
 			'receiver'            => 'Người nhận',
 			'deliver'             => 'Người giao',
 			'color'               => 'Màu sắc',

@@ -1,7 +1,10 @@
 <?php
+use app\models\Provider;
 use kartik\file\FileInput;
+use kartik\select2\Select2;
 use navatech\roxymce\widgets\RoxyMceWidget;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -20,7 +23,9 @@ use yii\helpers\Html;
 	<div class="panel panel-primary">
 		<div class="panel-heading">Thông tin cơ bản</div>
 		<div class="panel-body">
-			<?= $form->field($model, 'supplier')->textInput(['maxlength' => true]) ?>
+			<?= $form->field($model, 'provider_id')->widget(Select2::className(), [
+				'data' => ArrayHelper::map(Provider::find()->all(), 'id', 'name'),
+			])->label('Nhà cung cấp') ?>
 			<?= $form->field($model, 'category_id')->dropDownList($model->getCategoryOrder(), ['prompt' => 'Please choose category']) ?>
 			<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

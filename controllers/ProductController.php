@@ -8,7 +8,6 @@ use navatech\role\filters\RoleFilter;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
-use yii\web\UploadedFile;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -48,8 +47,8 @@ class ProductController extends Controller {
 	public function actionIndex() {
 		$searchModel  = new ProductSearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-		$product_num  = Product::find()->count();
-		$product_sum  = Product::find()->sum('base_price');
+		$product_num  = $searchModel->getInfo(Yii::$app->request->queryParams, 'quantity');
+		$product_sum  = $searchModel->getInfo(Yii::$app->request->queryParams, 'total_money');
 		return $this->render('index', [
 			'product_num'  => $product_num,
 			'product_sum'  => $product_sum,

@@ -110,7 +110,13 @@ class Order extends Model {
 
 	public function scenarios() {
 		// TODO: Change the auto generated stub
-		return ArrayHelper::merge(parent::scenarios(), ['update_status' => ['status']]);
+		return ArrayHelper::merge(parent::scenarios(), [
+			'update_status' => [
+				'status',
+				'update_at',
+				'update_by',
+			],
+		]);
 	}
 
 	/**

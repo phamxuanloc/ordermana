@@ -63,23 +63,18 @@ use yii\helpers\Url;
 					<li>
 						<a href="<?= Url::to(['/product/index']) ?>">
 							<i class="icon-home"></i>
-							Lịch sử nhập kho</a>
+							Thống kê xuất kho</a>
 					</li>
 					<li>
 						<a href="<?= Url::to(['/order/order-item']) ?>">
 							<i class="icon-basket"></i>
 							Xuất kho</a>
 					</li>
-					<li>
-						<a href="ecommerce_products.html">
-							<i class="icon-handbag"></i>
-							Thống kê kho công ty</a>
-					</li>
-					<li>
-						<a href="ecommerce_products.html">
-							<i class="icon-handbag"></i>
-							Thống kê kho</a>
-					</li>
+<!--					<li>-->
+<!--						<a href="ecommerce_products.html">-->
+<!--							<i class="icon-handbag"></i>-->
+<!--							Thống kê chi tiết kho</a>-->
+<!--					</li>-->
 				</ul>
 			</li>
 			<li>

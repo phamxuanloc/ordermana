@@ -1,7 +1,7 @@
 <?php
-
+use kartik\date\DatePicker;
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\search\OrderSearch */
@@ -10,36 +10,45 @@ use yii\widgets\ActiveForm;
 
 <div class="order-search">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+	<?php $form = ActiveForm::begin([
+		'action' => ['index'],
+		'method' => 'get',
+		'layout' => 'horizontal',
+	]); ?>
 
-    <?= $form->field($model, 'id') ?>
+	<div class="col-sm-6">
 
-    <?= $form->field($model, 'user_id') ?>
+		<?= $form->field($model, 'start_date')->widget(DatePicker::className(), [
+			'pluginOptions' => [
+				'autoclose' => true,
+				'format'    => 'yyyy-mm-dd',
+			],
+		])->label('Từ ngày') ?>
+	</div>
+	<div class="col-sm-6">
 
-    <?= $form->field($model, 'total_amount') ?>
+		<?= $form->field($model, 'end_date')->widget(DatePicker::className(), [
+			'pluginOptions' => [
+				'autoclose' => true,
+				'format'    => 'yyyy-mm-dd',
+			],
+		])->label('Đến ngày') ?>
+	</div>
+	<?php // echo $form->field($model, 'update_at') ?>
 
-    <?= $form->field($model, 'note') ?>
+	<?php // echo $form->field($model, 'status') ?>
 
-    <?= $form->field($model, 'created_date') ?>
+	<?php // echo $form->field($model, 'update_by') ?>
 
-    <?php // echo $form->field($model, 'update_at') ?>
+	<?php // echo $form->field($model, 'type') ?>
 
-    <?php // echo $form->field($model, 'status') ?>
+	<?php // echo $form->field($model, 'parent_id') ?>
 
-    <?php // echo $form->field($model, 'update_by') ?>
+	<div class="form-group">
+		<?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+		<?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+	</div>
 
-    <?php // echo $form->field($model, 'type') ?>
-
-    <?php // echo $form->field($model, 'parent_id') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
+	<?php ActiveForm::end(); ?>
 
 </div>
