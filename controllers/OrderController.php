@@ -6,6 +6,7 @@ use app\models\Order;
 use app\models\OrderItem;
 use app\models\Product;
 use app\models\search\OrderSearch;
+use app\models\UserStock;
 use navatech\role\filters\RoleFilter;
 use Yii;
 use yii\filters\VerbFilter;
@@ -70,6 +71,46 @@ class OrderController extends Controller {
 		$model = $this->findModel($id);
 		$items = $model->orderItems;
 		Yii::$app->session->setFlash('warning', 'Chú ý: Chuyển trạng thái qua "Đã nhận đủ" để xuất kho');
+		if($model->load(Yii::$app->request->post())) {
+			$model->scenario = 'update_status';
+			if($model->save()) {
+				//				echo'a';die;
+				if($model->status == $model::RECEIPTED) {
+					foreach($items as $item) {
+						if($item->status != $item::STATUS_RECEIPTED) {
+							if($item->quantity > $item->product->in_stock) {
+								Yii::$app->session->setFlash('danger', 'Chú ý: Sản phẩm ' . $item->product->name . ' không đủ để xuất');
+								$model->updateAttributes(['status' => $model::NOT_RECEIPTED]);
+								//							return $this->redirect(['/view','id'=>$id]);
+							} else {
+								$isset_stock = UserStock::findOne([
+									'product_id' => $item->product_id,
+									'user_id'    => $item->order->user_id,
+								]);
+								if($isset_stock != null) {
+									$isset_stock->updateAttributes(['in_stock' => $isset_stock->in_stock + $item->quantity]);
+								} else {
+									$stock             = new UserStock();
+									$stock->user_id    = $item->order->user_id;
+									$stock->product_id = $item->product_id;
+									$stock->in_stock   = $item->quantity;
+									$stock->save();
+								}
+								$item->product->updateAttributes(['in_stock' => $item->product->in_stock - $item->quantity]);
+							}
+						}
+					}
+				}
+				return $this->redirect([
+					'view',
+					'id' => $id,
+				]);
+			} else {
+				echo '<pre>';
+				print_r($model->errors);
+				die;
+			};
+		}
 		return $this->render('view', [
 			'model' => $model,
 			'items' => $items,

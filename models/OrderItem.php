@@ -19,6 +19,15 @@ use yii\helpers\ArrayHelper;
  */
 class OrderItem extends Model {
 
+	const STATUS               = [
+		'Chưa nhận',
+		'Đã nhận',
+	];
+
+	const STATUS_RECEIPTED     = 1;
+
+	const STATUS_NOT_RECEIPTED = 0;
+
 	/**
 	 * @inheritdoc
 	 */
@@ -45,6 +54,7 @@ class OrderItem extends Model {
 					'order_id',
 					'product_id',
 					'quantity',
+					'status',
 				],
 				'integer',
 			],
@@ -79,6 +89,7 @@ class OrderItem extends Model {
 			'product_id'  => 'Product ID',
 			'quantity'    => 'Quantity',
 			'total_price' => 'Total Price',
+			'status'      => 'Trạng thái',
 		];
 	}
 

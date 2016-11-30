@@ -108,6 +108,11 @@ class Order extends Model {
 		];
 	}
 
+	public function scenarios() {
+		// TODO: Change the auto generated stub
+		return ArrayHelper::merge(parent::scenarios(), ['update_status' => ['status']]);
+	}
+
 	/**
 	 * @inheritdoc
 	 */
@@ -163,6 +168,4 @@ class Order extends Model {
 			return 'Đơn hàng lẻ';
 		}
 	}
-
-	
 }
