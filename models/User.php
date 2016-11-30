@@ -66,6 +66,7 @@ class User extends BaseUser {
 				'role_id',
 				'phone',
 				'facebook_link',
+				'parent_id',
 			],
 			'update'   => [
 				'username',
@@ -75,6 +76,7 @@ class User extends BaseUser {
 				'role_id',
 				'phone',
 				'facebook_link',
+				'parent_id',
 			],
 			'settings' => [
 				'username',

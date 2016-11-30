@@ -3,6 +3,7 @@ namespace app\models;
 
 use app\components\Model;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "order".
@@ -162,4 +163,6 @@ class Order extends Model {
 			return 'Đơn hàng lẻ';
 		}
 	}
+
+	
 }

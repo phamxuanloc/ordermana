@@ -12,6 +12,11 @@ use yii\widgets\ActiveForm;
 /** @var \app\models\Order $order */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<div class="order-title text-center ">
+	<h3>ĐƠN HÀNG</h3>
+	<p>(Sử dụng chức năng bên dưới để lên đơn đặt hàng)</p>
+</div>
+
 <?php $form = ActiveForm::begin() ?>
 <?= $form->field($order, 'downline')->widget(Select2::className(), [
 	'data' => ArrayHelper::map(User::find()->andWhere([
@@ -20,6 +25,18 @@ use yii\widgets\ActiveForm;
 		$children,
 	])->all(), 'id', 'username'),
 ])->label('Xuất cho tài khoản') ?>
+<div class="item-header">
+	<div class="col-sm-1 id grid-display"><p style="text-transform: uppercase">STT</p></div>
+	<div class="col-sm-2 code grid-display"><p style="text-transform: uppercase">Mã sản phẩm</p></div>
+	<div class="col-sm-3 category-select grid-display">
+		<p style="text-transform: uppercase">Tên danh mục</p>
+	</div>
+	<div class="product-select grid-display col-sm-3"><p style="text-transform: uppercase">Tên sản phẩm</p>
+	</div>
+	<div class="quantity grid-display col-sm-1"><p style="text-transform: uppercase">Số lượng</p></div>
+	<div class="price-show grid-display col-sm-2"><p style="text-transform: uppercase">Tổng tiền</p>
+	</div>
+</div>
 <div class="items">
 	<?php for(
 		$i = 1; $i < 6; $i ++

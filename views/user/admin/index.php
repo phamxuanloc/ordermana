@@ -53,6 +53,13 @@ $this->params['breadcrumbs'][] = $this->title;
 			},
 		],
 		[
+			'attribute' => 'role',
+			'value'     => function (\app\models\User $data) {
+				return $data->role->name;
+			},
+			'header'=>'Loại tài khoản'
+		],
+		[
 			'header'  => Yii::t('user', 'Confirmation'),
 			'value'   => function ($model) {
 				if($model->isConfirmed) {

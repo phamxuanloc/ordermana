@@ -3,6 +3,7 @@
 /* @var $content string */
 use app\components\widgets\LeftSidebar;
 use app\components\widgets\TopBar;
+use yii\bootstrap\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;

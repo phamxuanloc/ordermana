@@ -11,6 +11,8 @@
  * @var yii\widgets\ActiveForm    $form
  * @var dektrium\user\models\User $user
  */
+use app\components\Model;
+use app\models\User;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 
@@ -24,7 +26,8 @@ use yii\helpers\ArrayHelper;
 		'status' => 1,
 	])->all(), 'id', 'name'),
 ])->label('Thành phố') ?>
-<?= $form->field($user, 'role_id')->widget(Select2::className(), [
-	'data' => ArrayHelper::map(\navatech\role\models\Role::find()->all(), 'id', 'name'),
-])->label('Quyền hạn') ?>
+
+<?= $form->field($user, 'parent_id')->widget(Select2::className(), [
+	'data' => $_GET['role'] != Model::ROLE_ADMIN ? ArrayHelper::map(User::find()->where(['role_id' => $role - 1])->all(), 'id', 'username') : null,
+])->label('Tuyến trên') ?>
 <?= $form->field($user, 'password')->passwordInput() ?>

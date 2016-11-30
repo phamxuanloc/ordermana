@@ -3,6 +3,7 @@ namespace app\models;
 
 use app\components\Model;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "order_item".
@@ -24,7 +25,7 @@ class OrderItem extends Model {
 	public static function tableName() {
 		return 'order_item';
 	}
-	
+
 	/**
 	 * @inheritdoc
 	 */
@@ -93,5 +94,10 @@ class OrderItem extends Model {
 	 */
 	public function getProduct() {
 		return $this->hasOne(Product::className(), ['id' => 'product_id']);
+	}
+
+	public function getProductByCategory() {
+		$category = Category::findOne($this->product->category_id);
+		return ArrayHelper::map($category->products, 'id', 'name');
 	}
 }

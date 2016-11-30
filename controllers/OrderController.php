@@ -1,16 +1,16 @@
 <?php
 namespace app\controllers;
 
+use app\components\Controller;
+use app\models\Order;
 use app\models\OrderItem;
 use app\models\Product;
+use app\models\search\OrderSearch;
 use navatech\role\filters\RoleFilter;
 use Yii;
-use app\models\Order;
-use app\models\search\OrderSearch;
-use app\components\Controller;
+use yii\filters\VerbFilter;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * OrderController implements the CRUD actions for Order model.
@@ -67,8 +67,12 @@ class OrderController extends Controller {
 	 * @return mixed
 	 */
 	public function actionView($id) {
+		$model = $this->findModel($id);
+		$items = $model->orderItems;
+		Yii::$app->session->setFlash('warning', 'Chú ý: Chuyển trạng thái qua "Đã nhận đủ" để xuất kho');
 		return $this->render('view', [
-			'model' => $this->findModel($id),
+			'model' => $model,
+			'items' => $items,
 		]);
 	}
 
