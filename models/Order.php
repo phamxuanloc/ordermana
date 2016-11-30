@@ -29,6 +29,7 @@ class Order extends Model {
 		'Đã thanh toán',
 		'Chưa nhận đủ',
 		'Đã nhận đủ',
+		'Đã hủy',
 	];
 
 	const NOT_PAID      = 0;
@@ -38,6 +39,8 @@ class Order extends Model {
 	const NOT_RECEIPTED = 2;
 
 	const RECEIPTED     = 3;
+
+	const CANCEL        = 3;
 
 	public $downline;
 
@@ -143,5 +146,20 @@ class Order extends Model {
 	public function getOrderItems() {
 		return $this->hasMany(OrderItem::className(), ['order_id' => 'id']);
 	}
-	
+
+	public function getType() {
+		if($this->type == $this::ROLE_ADMIN) {
+			return 'Đơn hàng lỗi';
+		} elseif($this->type == $this::ROLE_PRE) {
+			return 'Xuất kho cho đại diện';
+		} elseif($this->type == $this::ROLE_BIGA) {
+			return 'Xuất kho cho đại lí bán buôn';
+		} elseif($this->type == $this::ROLE_A) {
+			return 'Xuất kho cho đại lí bán lẻ';
+		} elseif($this->type == $this::ROLE_D) {
+			return 'Xuất kho cho điểm phân phối';
+		} else {
+			return 'Đơn hàng lẻ';
+		}
+	}
 }
