@@ -82,12 +82,12 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 <?php $this->endBody() ?>
 </body>
 <script>
-	jQuery(document).ready(function() {
-		Metronic.init(); // init metronic core components
-		Layout.init(); // init current layout
-		Login.init();
-		Demo.init();
-	});
+//	jQuery(document).ready(function() {
+//		Metronic.init(); // init metronic core components
+//		Layout.init(); // init current layout
+//		Login.init();
+//		Demo.init();
+//	});
 </script>
 </html>
 <?php $this->endPage() ?>

@@ -89,19 +89,16 @@ class AdminController extends BaseAdminController {
 			$this->performAjaxValidation($user);
 			$this->trigger(self::EVENT_BEFORE_CREATE, $event);
 			if($user->load(\Yii::$app->request->post())) {
-				$user->role_id = $role;
+				$user->role_id   = $role;
 				if($user->create()) {
 					\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
 					$this->trigger(self::EVENT_AFTER_CREATE, $event);
 					return $this->redirect([
-//						'update',
-//						'id' => $user->id,
-						'index'
+						//						'update',
+						//						'id' => $user->id,
+						'index',
 					]);
 				} else {
-					echo '<pre>';
-					print_r($user->errors);
-					die;
 				}
 			}
 			return $this->render('create', [

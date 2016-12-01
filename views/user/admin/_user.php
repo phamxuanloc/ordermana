@@ -17,7 +17,7 @@ use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 
 ?>
-<?= $form->field($user, 'phone')->textInput(['type' => 'number']) ?>
+<?= $form->field($user, 'phone')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'email')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'username')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'facebook_link')->textInput(['maxlength' => 255]) ?>

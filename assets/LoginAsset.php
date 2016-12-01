@@ -35,30 +35,30 @@ class LoginAsset extends AssetBundle {
 	];
 
 	public $js        = [
-		'global/plugins/respond.min.js',
-		'global/plugins/excanvas.min.js',
-		//		'global/plugins/jquery.min.js',
-		'global/plugins/jquery-migrate.min.js',
-		'global/plugins/jquery-ui/jquery-ui.min.js',
-		//		'global/plugins/bootstrap/js/bootstrap.min.js',
-		'global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js',
-		'global/plugins/jquery-slimscroll/jquery.slimscroll.min.js',
-		'global/plugins/jquery.blockui.min.js',
-		'global/plugins/jquery.cokie.min.js',
-		'global/plugins/uniform/jquery.uniform.min.js',
-		'global/plugins/bootstrap-switch/js/bootstrap-switch.min.js',
-		'global/plugins/jquery.pulsate.min.js',
-		'global/plugins/jquery.sparkline.min.js',
-		'global/scripts/metronic.js',
-		'admin/layout/scripts/layout.js',
-		'admin/layout/scripts/quick-sidebar.js',
-		'admin/pages/scripts/index.js',
-		'admin/pages/scripts/tasks.js',
-		'admin/layout/scripts/demo.js',
-		'admin/pages/scripts/login.js',
+//		'global/plugins/respond.min.js',
+//		'global/plugins/excanvas.min.js',
+//		'global/plugins/jquery.min.js',
+//		'global/plugins/jquery-migrate.min.js',
+//		'global/plugins/jquery-ui/jquery-ui.min.js',
+//		'global/plugins/bootstrap/js/bootstrap.min.js',
+//		'global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js',
+//		'global/plugins/jquery-slimscroll/jquery.slimscroll.min.js',
+//		'global/plugins/jquery.blockui.min.js',
+//		'global/plugins/jquery.cokie.min.js',
+//		'global/plugins/uniform/jquery.uniform.min.js',
+//		'global/plugins/bootstrap-switch/js/bootstrap-switch.min.js',
+//		'global/plugins/jquery.pulsate.min.js',
+//		'global/plugins/jquery.sparkline.min.js',
+//		'global/scripts/metronic.js',
+//		'admin/layout/scripts/layout.js',
+//		'admin/layout/scripts/quick-sidebar.js',
+//		'admin/pages/scripts/index.js',
+//		'admin/pages/scripts/tasks.js',
+//		'admin/layout/scripts/demo.js',
+//		'admin/pages/scripts/login.js',
 	];
 
-	public $jsOptions = ['position' => View::POS_HEAD];
+//	public $jsOptions = ['position' => View::POS_HEAD];
 
 	public $depends   = [
 		'yii\web\YiiAsset',

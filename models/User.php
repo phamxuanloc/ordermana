@@ -1,6 +1,7 @@
 <?php
 namespace app\models;
 
+use dektrium\user\helpers\Password;
 use navatech\role\models\Role;
 use navatech\role\models\User as BaseUser;
 use Yii;
@@ -100,6 +101,7 @@ class User extends BaseUser {
 					'updated_at',
 					'role_id',
 					'phone',
+					'email',
 				],
 				'required',
 			],
@@ -144,8 +146,8 @@ class User extends BaseUser {
 			],
 			[
 				[
-					'email',
 					'phone',
+					'email',
 				],
 				'unique',
 			],
@@ -226,5 +228,28 @@ class User extends BaseUser {
 
 	public function getCities() {
 		return $this->hasOne(City::className(), ['id' => 'city']);
+	}
+
+	public function create() {
+		if($this->getIsNewRecord() == false) {
+			throw new \RuntimeException('Calling "' . __CLASS__ . '::' . __METHOD__ . '" on existing user');
+		}
+		$transaction = $this->getDb()->beginTransaction();
+		try {
+			$this->confirmed_at = time();
+			$this->password     = $this->password == null ? Password::generate(8) : $this->password;
+			$this->trigger(self::BEFORE_CREATE);
+			if(!$this->save()) {
+				$transaction->rollBack();
+				return false;
+			}
+			$this->trigger(self::AFTER_CREATE);
+			$transaction->commit();
+			return true;
+		} catch(\Exception $e) {
+			$transaction->rollBack();
+			\Yii::warning($e->getMessage());
+			return false;
+		}
 	}
 }

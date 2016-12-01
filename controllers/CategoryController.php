@@ -60,8 +60,13 @@ class CategoryController extends Controller {
 	 */
 	public function actionCreate() {
 		$model = new Category();
-		if($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect(['index']);
+		if($model->load(Yii::$app->request->post())) {
+			if($model->parent_id == null) {
+				$model->parent_id = 0;
+			}
+			if($model->save()) {
+				return $this->redirect(['index']);
+			}
 		} else {
 			return $this->render('create', [
 				'model' => $model,
