@@ -62,6 +62,9 @@ class OrderSearch extends Order {
 	public function search($params) {
 		$query = Order::find();
 		// add conditions that should always apply here
+		if($this->user->role_id != $this::ROLE_ADMIN) {
+			$query->where(['parent_id' => $this->id]);
+		}
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 			'sort'  => ['defaultOrder' => ['id' => SORT_DESC]],

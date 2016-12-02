@@ -53,6 +53,9 @@ class UserStockSearch extends UserStock {
 	public function search($params) {
 		$query = UserStock::find();
 		// add conditions that should always apply here
+		if($this->user->role_id != $this::ROLE_ADMIN) {
+			$query->where(['user_id' => $this->user->id]);
+		}
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 			'sort'  => ['defaultOrder' => ['id' => SORT_DESC]],

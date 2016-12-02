@@ -1,4 +1,9 @@
 <?php
+use app\controllers\AdminController;
+use app\controllers\OrderController;
+use app\controllers\ProductController;
+use navatech\role\controllers\DefaultController;
+use navatech\role\helpers\RoleChecker;
 use yii\helpers\Url;
 
 ?>
@@ -55,26 +60,40 @@ use yii\helpers\Url;
 					<span class="arrow "></span>
 				</a>
 				<ul class="sub-menu">
+					<?php if(RoleChecker::isAuth(ProductController::className(), 'index')) { ?>
+						<li>
+							<a href="<?= Url::to(['/product/receipt']) ?>">
+								<i class="icon-home"></i>
+								Nhập kho</a>
+						</li>
+					<?php } ?>
+
+					<?php if(RoleChecker::isAuth(ProductController::className(), 'index')) { ?>
+
+						<li>
+							<a href="<?= Url::to(['/product/index']) ?>">
+								<i class="icon-home"></i>
+								Thống kê xuất kho</a>
+						</li>
+					<?php } ?>
+
+					<?php if(RoleChecker::isAuth(OrderController::className(), 'index')) { ?>
+						<li>
+							<a href="<?= Url::to(['/order/order-item']) ?>">
+								<i class="icon-basket"></i>
+								Xuất kho</a>
+						</li>
+					<?php } ?>
 					<li>
-						<a href="<?= Url::to(['/product/receipt']) ?>">
-							<i class="icon-home"></i>
-							Nhập kho</a>
-					</li>
-					<li>
-						<a href="<?= Url::to(['/product/index']) ?>">
-							<i class="icon-home"></i>
-							Thống kê xuất kho</a>
-					</li>
-					<li>
-						<a href="<?= Url::to(['/order/order-item']) ?>">
+						<a href="<?= Url::to(['/stock']) ?>">
 							<i class="icon-basket"></i>
-							Xuất kho</a>
+							Sản phẩm trong kho người dùng</a>
 					</li>
-<!--					<li>-->
-<!--						<a href="ecommerce_products.html">-->
-<!--							<i class="icon-handbag"></i>-->
-<!--							Thống kê chi tiết kho</a>-->
-<!--					</li>-->
+					<!--					<li>-->
+					<!--						<a href="ecommerce_products.html">-->
+					<!--							<i class="icon-handbag"></i>-->
+					<!--							Thống kê chi tiết kho</a>-->
+					<!--					</li>-->
 				</ul>
 			</li>
 			<li>
@@ -84,18 +103,23 @@ use yii\helpers\Url;
 					<span class="arrow "></span>
 				</a>
 				<ul class="sub-menu">
-					<li>
-						<a href="<?= Url::to(['/order']) ?>">
-							Danh sách đơn hàng</a>
-					</li>
+					<?php if(RoleChecker::isAuth(OrderController::className(), 'index')) { ?>
+						<li>
+							<a href="<?= Url::to(['/order']) ?>">
+								Danh sách đơn hàng</a>
+						</li>
+					<?php } ?>
 					<li>
 						<a href="layout_horizontal_sidebar_menu.html">
 							Danh sách đơn hàng bán lẻ</a>
 					</li>
-					<li>
-						<a href="<?= Url::to(['/order/order-item']) ?>">
-							Tạo đơn hàng</a>
-					</li>
+					<?php if(RoleChecker::isAuth(OrderController::className(), 'index')) { ?>
+						<li>
+							<a href="<?= Url::to(['/order/order-item']) ?>">
+								Tạo đơn hàng</a>
+						</li>
+					<?php } ?>
+
 					<li>
 						<a href="layout_horizontal_menu1.html">
 							Tạo đơn hàng bán lẻ</a>
@@ -109,25 +133,39 @@ use yii\helpers\Url;
 					<span class="arrow "></span>
 				</a>
 				<ul class="sub-menu">
-					<li>
-						<a href="<?= Url::to(['/role']) ?>">
-							Phân quyền</a>
-					</li>
-					<li>
-						<a href="<?= Url::to(['/user/admin/tree']) ?>">
-							Tổng quan hệ thống</a>
-					</li>
-					<li>
-						<a href="<?= Url::to(['/user/admin/index']) ?>">
-							Danh sách tài khoản</a>
-					</li>
-					<li>
-						<a href="<?= Url::to(['/user/admin/create']) ?>">
+					<?php if(RoleChecker::isAuth(DefaultController::className(), 'create')) { ?>
+						<li>
+							<a href="<?= Url::to(['/role']) ?>">
+								Phân quyền</a>
+						</li>
+					<?php } ?>
+					<?php if(RoleChecker::isAuth(AdminController::className(), 'tree')) { ?>
 
-							Thêm mới tài khoản</a>
-					</li>
+						<li>
+							<a href="<?= Url::to(['/user/admin/tree']) ?>">
+								Tổng quan hệ thống</a>
+						</li>
+					<?php } ?>
+
+					<?php if(RoleChecker::isAuth(AdminController::className(), 'index')) { ?>
+
+						<li>
+							<a href="<?= Url::to(['/user/admin/index']) ?>">
+								Danh sách tài khoản</a>
+						</li>
+					<?php } ?>
+
+					<?php if(RoleChecker::isAuth(AdminController::className(), 'create')) { ?>
+
+						<li>
+							<a href="<?= Url::to(['/user/admin/create']) ?>">
+
+								Thêm mới tài khoản</a>
+						</li>
+					<?php } ?>
 				</ul>
 			</li>
+
 			<li>
 				<a href="javascript:;">
 					<i class="icon-puzzle"></i>
@@ -145,42 +183,49 @@ use yii\helpers\Url;
 					</li>
 				</ul>
 			</li>
-			<li>
-				<a href="javascript:;">
-					<i class="icon-docs"></i>
-					<span class="title">Quản lý Danh mục sản phẩm</span>
-					<span class="arrow "></span>
-				</a>
-				<ul class="sub-menu">
-					<li>
-						<a href="<?= Url::to(['/category']) ?>">
-							<i class="icon-paper-plane"></i>
-							<span class="badge badge-warning"></span>Danh sách danh mục</a>
-					</li>
-					<li>
-						<a href="<?= Url::to(['/category/create']) ?>">
-							<i class="icon-user-following"></i>
-							<span class="badge badge-success badge-roundless">new</span>Thêm mới danh mục</a>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<a href="javascript:;">
-					<i class="icon-present"></i>
-					<span class="title">Nhà cung cấp</span>
-					<span class="arrow "></span>
-				</a>
-				<ul class="sub-menu">
-					<li>
-						<a href="<?= Url::to(['/provider']) ?>">
-							Danh sách nhà cung cấp</a>
-					</li>
-					<li>
-						<a href="<?= Url::to(['/provider/create']) ?>">
-							Thêm mới nhà cung cấp</a>
-					</li>
-				</ul>
-			</li>
+			<?php if(RoleChecker::isAuth(\app\controllers\CategoryController::className(), 'create')) { ?>
+
+				<li>
+					<a href="javascript:;">
+						<i class="icon-docs"></i>
+						<span class="title">Quản lý Danh mục sản phẩm</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="<?= Url::to(['/category']) ?>">
+								<i class="icon-paper-plane"></i>
+								<span class="badge badge-warning"></span>Danh sách danh mục</a>
+						</li>
+						<li>
+							<a href="<?= Url::to(['/category/create']) ?>">
+								<i class="icon-user-following"></i>
+								<span class="badge badge-success badge-roundless">new</span>Thêm mới danh mục</a>
+						</li>
+					</ul>
+				</li>
+			<?php } ?>
+			<?php if(RoleChecker::isAuth(\app\controllers\ProviderController::className(), 'create')) { ?>
+
+				<li>
+					<a href="javascript:;">
+						<i class="icon-present"></i>
+						<span class="title">Nhà cung cấp</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="<?= Url::to(['/provider']) ?>">
+								Danh sách nhà cung cấp</a>
+						</li>
+						<li>
+							<a href="<?= Url::to(['/provider/create']) ?>">
+								Thêm mới nhà cung cấp</a>
+						</li>
+					</ul>
+				</li>
+			<?php } ?>
+
 		</ul>
 
 		<!-- END SIDEBAR MENU -->

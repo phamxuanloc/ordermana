@@ -15,7 +15,7 @@ use Yii;
  * @property string  $update_at
  *
  * @property Product $product
- * @property User    $user
+ * @property User    $users
  */
 class UserStock extends Model {
 
@@ -76,11 +76,11 @@ class UserStock extends Model {
 	public function attributeLabels() {
 		return [
 			'id'           => 'ID',
-			'user_id'      => 'User ID',
-			'product_id'   => 'Product ID',
-			'in_stock'     => 'In Stock',
-			'created_date' => 'Created Date',
-			'update_at'    => 'Update At',
+			'user_id'      => 'Người sở hữu',
+			'product_id'   => 'Tên sản phẩm',
+			'in_stock'     => 'Trong kho',
+			'created_date' => 'Ngày nhập',
+			'update_at'    => 'Ngày cập nhật',
 		];
 	}
 
@@ -94,7 +94,7 @@ class UserStock extends Model {
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
-	public function getUser() {
+	public function getUsers() {
 		return $this->hasOne(User::className(), ['id' => 'user_id']);
 	}
 }

@@ -2,7 +2,6 @@
 namespace app\models;
 
 use dektrium\user\helpers\Password;
-use kartik\tree\models\TreeTrait;
 use navatech\role\models\Role;
 use navatech\role\models\User as BaseUser;
 use Yii;
@@ -40,6 +39,7 @@ use yii\helpers\ArrayHelper;
  * @property UserStock[]     $userStocks
  */
 class User extends BaseUser {
+
 	/**
 	 * @inheritdoc
 	 */
@@ -252,4 +252,20 @@ class User extends BaseUser {
 			return false;
 		}
 	}
+
+//	public function getUserList($role) {
+//		$user = Yii::$app->user->identity;
+//		$child_array=[];
+//
+//		if($role - $user->role_id == 1) {
+//			return ArrayHelper::map(User::find()->where(['id' => $user->getId()])->all(), 'id', 'username');
+//		} elseif($role - $user->role_id == 2) {
+//			$children=User::find()->where(['parent_id'=>$user->getId()])->all();
+//			foreach($children as $child){
+//				
+//			}
+//		}
+//	}
+//	public function get
+	
 }

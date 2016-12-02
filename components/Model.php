@@ -124,9 +124,15 @@ class Model extends ActiveRecord {
 	}
 
 	public static function getUserTree() {
-		$cats     = User::find()->where([
-			'parent_id' => null,
-		])->all();
+		if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN) {
+			$cats = User::find()->where([
+				'parent_id' => null,
+			])->all();
+		} else {
+			$cats = User::find()->where([
+				'parent_id' => Yii::$app->user->identity->getId(),
+			])->all();
+		}
 		$response = [];
 		foreach($cats as $cat) {
 			$children = $cat->find()->where([

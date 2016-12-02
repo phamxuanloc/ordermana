@@ -91,7 +91,6 @@ class Product extends Model {
 			[
 				[
 					'category_id',
-					'code',
 					'in_stock',
 					'order_number',
 					'weight',
@@ -149,6 +148,8 @@ class Product extends Model {
 					'deliver',
 					'color',
 					'unit',
+					'code',
+
 				],
 				'string',
 				'max' => 255,

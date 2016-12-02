@@ -106,11 +106,15 @@ class AdminController extends BaseAdminController {
 				if($user->create()) {
 					\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
 					$this->trigger(self::EVENT_AFTER_CREATE, $event);
-					return $this->redirect([
-						//						'update',
-						//						'id' => $user->id,
-						'index',
-					]);
+					if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
+						return $this->redirect([
+							'tree',
+						]);
+					} else {
+						return $this->redirect([
+							'index',
+						]);
+					}
 				} else {
 				}
 			}
