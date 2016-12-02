@@ -254,18 +254,18 @@ class User extends BaseUser {
 	}
 
 //	public function getUserList($role) {
-//		$user = Yii::$app->user->identity;
-//		$child_array=[];
-//
+//		$user        = Yii::$app->user->identity;
+//		$child_array = [];
 //		if($role - $user->role_id == 1) {
 //			return ArrayHelper::map(User::find()->where(['id' => $user->getId()])->all(), 'id', 'username');
 //		} elseif($role - $user->role_id == 2) {
-//			$children=User::find()->where(['parent_id'=>$user->getId()])->all();
-//			foreach($children as $child){
-//				
+//			$children = User::find()->where(['parent_id' => $user->getId()])->all();
+//			foreach($children as $child) {
 //			}
 //		}
 //	}
-//	public function get
-	
+//
+//	public function getUserByLv() {
+//	
+//	}
 }

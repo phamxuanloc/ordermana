@@ -28,10 +28,7 @@ use yii\helpers\ArrayHelper;
 ])->label('Thành phố') ?>
 <?php if($role != Model::ROLE_ADMIN) { ?>
 	<?= $form->field($user, 'parent_id')->widget(Select2::className(), [
-		'data' => $_GET['role'] != Model::ROLE_ADMIN ? (Yii::$app->user->identity->role_id == Model::ROLE_ADMIN ? ArrayHelper::map(User::find()->where(['role_id' => $role - 1])->all(), 'id', 'username') : ArrayHelper::map(User::find()->where([
-			'role_id' => $role - 1,
-			'id'      => Yii::$app->user->id,
-		])->all(), 'id', 'username')) : null,
+		'data' => $role != Model::ROLE_ADMIN ? Model::getUserList($role) : null,
 	])->label(Model::ROLE[$role - 1]) ?>
 <?php } ?>
 <?= $form->field($user, 'password')->passwordInput() ?>

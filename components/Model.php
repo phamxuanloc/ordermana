@@ -123,6 +123,37 @@ class Model extends ActiveRecord {
 		return $response;
 	}
 
+	public static function getUserList($role) {
+		if($role - Yii::$app->user->identity->role_id == 1) {
+			$response = ArrayHelper::map($cats = User::find()->where([
+				'id' => Yii::$app->user->id,
+			])->all(), 'id', 'username');
+		} else {
+			$cats     = User::find()->where([
+				'parent_id' => Yii::$app->user->id,
+			])->all();
+			$response = [];
+			$response = self::getChildrenLv($cats, $response, $role, Yii::$app->user->identity->role_id + 1);
+		}
+		return $response;
+	}
+
+	public function getChildrenLv($models, $response, $level, $real_lv) {
+		foreach($models as $model) {
+			if($level == $real_lv) {
+				$response[$model->id] = $model->username;
+			} else {
+				$children = $model->find()->where([
+					'parent_id' => $model->id,
+				])->all();
+				if(count($children) > 0) {
+					$response = self::getChildrenLv($children, $response, $level, $real_lv + 1);
+				}
+			}
+		}
+		return $response;
+	}
+
 	public static function getUserTree() {
 		if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN) {
 			$cats = User::find()->where([

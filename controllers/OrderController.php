@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use app\components\Controller;
+use app\components\Model;
 use app\models\Order;
 use app\models\OrderItem;
 use app\models\Product;
