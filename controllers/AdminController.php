@@ -33,6 +33,10 @@ class AdminController extends BaseAdminController {
 					//without translate
 					'index'  => 'Danh sách ',
 					'update' => 'Cập nhật ',
+					'create' => 'Thêm mới người dùng',
+					'tree'   => 'Xem cây hệ thống',
+					'delete' => 'Xóa người dùng',
+					'block'  => 'Khóa người dùng'
 					//with translated, which will display on role _form
 				],
 			],
@@ -81,6 +85,14 @@ class AdminController extends BaseAdminController {
 
 	public function actionCreate($role = null) {
 		if($role != null) {
+			if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
+				if(\Yii::$app->user->identity->role_id >= $role) {
+					return $this->redirect([
+						'create',
+						'role' => \Yii::$app->user->identity->role_id + 1,
+					]);
+				}
+			}
 			/** @var User $user */
 			$user  = \Yii::createObject([
 				'class'    => User::className(),
@@ -113,6 +125,6 @@ class AdminController extends BaseAdminController {
 
 	public function actionTree() {
 		$model = new  Model();
-		return $this->render('tree',['model'=>$model]);
+		return $this->render('tree', ['model' => $model]);
 	}
 }

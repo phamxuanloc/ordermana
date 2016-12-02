@@ -4,6 +4,7 @@ namespace app\controllers;
 use app\components\Controller;
 use app\models\Category;
 use app\models\search\CategorySearch;
+use navatech\role\filters\RoleFilter;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
@@ -22,6 +23,20 @@ class CategoryController extends Controller {
 				'class'   => VerbFilter::className(),
 				'actions' => [
 					'delete' => ['POST'],
+				],
+			],
+			'role'  => [
+				'class'   => RoleFilter::className(),
+				'name'    => 'Trang Dannh mục',
+				//NOT REQUIRED, only if you want to translate
+				'actions' => [
+					'create' => 'Tạo danh mục',
+					//without translate
+					'index'  => 'Danh sách',
+					//					'view'       => 'Chi tiết đơn hàng',
+					'delete' => 'Xóa danh mục',
+					'update' => 'Cập nhật danh mục'
+					//with translated, which will display on role _form
 				],
 			],
 		];

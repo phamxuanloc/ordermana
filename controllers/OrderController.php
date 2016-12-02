@@ -40,6 +40,8 @@ class OrderController extends Controller {
 					'order-item' => 'Xuất kho công ty',
 					//without translate
 					'index'      => 'Danh sách',
+					'view'       => 'Chi tiết đơn hàng',
+					'delete'     => 'Xóa đơn hàng'
 					//with translated, which will display on role _form
 				],
 			],
@@ -51,7 +53,7 @@ class OrderController extends Controller {
 	 * @return mixed
 	 */
 	public function actionIndex() {
-		$searchModel = new OrderSearch();
+		$searchModel  = new OrderSearch();
 		$params       = Yii::$app->request->queryParams;
 		$dataProvider = $searchModel->search($params);
 		$order_num    = $searchModel->getInfo($params, 'quantity');
@@ -228,20 +230,19 @@ class OrderController extends Controller {
 	 *
 	 * @return mixed
 	 */
-	public function actionUpdate($id) {
-		$model = $this->findModel($id);
-		if($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect([
-				'view',
-				'id' => $model->id,
-			]);
-		} else {
-			return $this->render('update', [
-				'model' => $model,
-			]);
-		}
-	}
-
+	//	public function actionUpdate($id) {
+	//		$model = $this->findModel($id);
+	//		if($model->load(Yii::$app->request->post()) && $model->save()) {
+	//			return $this->redirect([
+	//				'view',
+	//				'id' => $model->id,
+	//			]);
+	//		} else {
+	//			return $this->render('update', [
+	//				'model' => $model,
+	//			]);
+	//		}
+	//	}
 	/**
 	 * Deletes an existing Order model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
