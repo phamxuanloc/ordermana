@@ -123,6 +123,54 @@ class Model extends ActiveRecord {
 		return $response;
 	}
 
+	public static function getUserTree() {
+		$cats     = User::find()->where([
+			'parent_id' => null,
+		])->all();
+		$response = [];
+		foreach($cats as $cat) {
+			$children = $cat->find()->where([
+				'parent_id' => $cat->id,
+			])->all();
+			if(count($children) > 0) {
+				$response[] = [
+					'text'  => "<span style='color: sandybrown;font-weight: bold'>$cat->username</span>",
+					'nodes' => self::getChildrenUser($children),
+				];
+			} else {
+				$response[]['text'] = "<span style='color: sandybrown; font-weight: bold'>$cat->username</span>";
+			}
+		}
+		return $response;
+	}
+
+	/**
+	 * @param $models
+	 * @param $response
+	 * @param $level
+	 *
+	 * @return mixed
+	 */
+	public function getChildrenUser($models) {
+		$i        = 0;
+		$response = [];
+		foreach($models as $model) {
+			$children = $model->find()->where([
+				'parent_id' => $model->id,
+			])->all();
+			if(count($children) > 0) {
+				$response[$i] = [
+					'text'  => $model->username,
+					'nodes' => self::getChildrenUser($children),
+				];
+			} else {
+				$response [$i] = ['text' => $model->username];
+			}
+			$i ++;
+		}
+		return $response;
+	}
+
 	public function getPrice($role, $id) {
 		$product = Product::findOne($id);
 		if($role == self::ROLE_ADMIN) {

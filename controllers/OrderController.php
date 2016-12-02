@@ -8,10 +8,12 @@ use app\models\Product;
 use app\models\search\OrderSearch;
 use app\models\User;
 use app\models\UserStock;
+use execut\widget\TreeView;
 use navatech\role\filters\RoleFilter;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
+use yii\web\JsExpression;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -49,7 +51,7 @@ class OrderController extends Controller {
 	 * @return mixed
 	 */
 	public function actionIndex() {
-		$searchModel  = new OrderSearch();
+		$searchModel = new OrderSearch();
 		$params       = Yii::$app->request->queryParams;
 		$dataProvider = $searchModel->search($params);
 		$order_num    = $searchModel->getInfo($params, 'quantity');

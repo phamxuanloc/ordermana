@@ -114,6 +114,10 @@ use yii\helpers\Url;
 							Phân quyền</a>
 					</li>
 					<li>
+						<a href="<?= Url::to(['/user/admin/tree']) ?>">
+							Tổng quan hệ thống</a>
+					</li>
+					<li>
 						<a href="<?= Url::to(['/user/admin/index']) ?>">
 							Danh sách tài khoản</a>
 					</li>

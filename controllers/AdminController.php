@@ -9,6 +9,7 @@
  */
 namespace app\controllers;
 
+use app\components\Model;
 use app\models\User;
 use dektrium\user\controllers\AdminController as BaseAdminController;
 use navatech\role\filters\RoleFilter;
@@ -89,7 +90,7 @@ class AdminController extends BaseAdminController {
 			$this->performAjaxValidation($user);
 			$this->trigger(self::EVENT_BEFORE_CREATE, $event);
 			if($user->load(\Yii::$app->request->post())) {
-				$user->role_id   = $role;
+				$user->role_id = $role;
 				if($user->create()) {
 					\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
 					$this->trigger(self::EVENT_AFTER_CREATE, $event);
@@ -108,5 +109,10 @@ class AdminController extends BaseAdminController {
 		} else {
 			return $this->render('create_role');
 		}
+	}
+
+	public function actionTree() {
+		$model = new  Model();
+		return $this->render('tree',['model'=>$model]);
 	}
 }
