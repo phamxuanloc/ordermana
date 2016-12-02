@@ -6,6 +6,7 @@ use app\models\Order;
 use app\models\OrderItem;
 use app\models\Product;
 use app\models\search\OrderSearch;
+use app\models\User;
 use app\models\UserStock;
 use navatech\role\filters\RoleFilter;
 use Yii;

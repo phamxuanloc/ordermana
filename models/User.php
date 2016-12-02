@@ -2,6 +2,7 @@
 namespace app\models;
 
 use dektrium\user\helpers\Password;
+use kartik\tree\models\TreeTrait;
 use navatech\role\models\Role;
 use navatech\role\models\User as BaseUser;
 use Yii;
@@ -39,7 +40,6 @@ use yii\helpers\ArrayHelper;
  * @property UserStock[]     $userStocks
  */
 class User extends BaseUser {
-
 	/**
 	 * @inheritdoc
 	 */

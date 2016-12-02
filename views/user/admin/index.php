@@ -8,6 +8,7 @@
  * file that was distributed with this source code.
  */
 use dektrium\user\models\UserSearch;
+use kartik\tree\TreeView;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -22,9 +23,6 @@ use yii\widgets\Pjax;
 $this->title                   = Yii::t('user', 'Manage users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-
-
 <?= $this->render('/admin/_menu') ?>
 
 <?php Pjax::begin() ?>
