@@ -14,6 +14,8 @@ use app\models\User;
 use dektrium\user\controllers\AdminController as BaseAdminController;
 use navatech\role\filters\RoleFilter;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 class AdminController extends BaseAdminController {
 
@@ -64,8 +66,26 @@ class AdminController extends BaseAdminController {
 	}
 
 	public function actionUpdate($id) {
-		// TODO: Change the auto generated stub
-		return parent::actionUpdate($id);
+		Url::remember('', 'actions-redirect');
+		$user           = $this->findModel($id);
+		$role           = $user->role_id;
+		$model          = new Model();
+		$user->scenario = 'update';
+		if(!ArrayHelper::isIn($user->id, $model->getTotalChildren($model->user->id))) {
+			return $this->goHome();
+		}
+		$event = $this->getUserEvent($user);
+		$this->performAjaxValidation($user);
+		$this->trigger(self::EVENT_BEFORE_UPDATE, $event);
+		if($user->load(\Yii::$app->request->post()) && $user->save()) {
+			\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'Account details have been updated'));
+			$this->trigger(self::EVENT_AFTER_UPDATE, $event);
+			return $this->refresh();
+		}
+		return $this->render('_account', [
+			'user' => $user,
+			'role' => $role,
+		]);
 	}
 
 	public function actionAssignments($id) {
@@ -94,10 +114,17 @@ class AdminController extends BaseAdminController {
 				}
 			}
 			/** @var User $user */
-			$user  = \Yii::createObject([
-				'class'    => User::className(),
-				'scenario' => 'create',
-			]);
+			if($role == Model::ROLE_ADMIN) {
+				$user = \Yii::createObject([
+					'class'    => User::className(),
+					'scenario' => 'admin',
+				]);
+			} else {
+				$user = \Yii::createObject([
+					'class'    => User::className(),
+					'scenario' => 'create',
+				]);
+			}
 			$event = $this->getUserEvent($user);
 			$this->performAjaxValidation($user);
 			$this->trigger(self::EVENT_BEFORE_CREATE, $event);

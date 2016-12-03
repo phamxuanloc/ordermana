@@ -8,11 +8,12 @@ use Yii;
 use yii\console\Application;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\web\UploadedFile;
 
 class Model extends ActiveRecord {
 
-	/**@var User */
+	/**@var User $user */
 	public $user;
 
 	const ROLE       = [

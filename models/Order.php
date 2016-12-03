@@ -20,7 +20,7 @@ use yii\helpers\ArrayHelper;
  * @property integer     $parent_id
  *
  * @property User        $parent
- * @property User        $user
+ * @property User        $users
  * @property OrderItem[] $orderItems
  */
 class Order extends Model {

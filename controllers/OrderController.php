@@ -2,19 +2,15 @@
 namespace app\controllers;
 
 use app\components\Controller;
-use app\components\Model;
 use app\models\Order;
 use app\models\OrderItem;
 use app\models\Product;
 use app\models\search\OrderSearch;
-use app\models\User;
 use app\models\UserStock;
-use execut\widget\TreeView;
 use navatech\role\filters\RoleFilter;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
-use yii\web\JsExpression;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -85,6 +81,11 @@ class OrderController extends Controller {
 	public function actionView($id) {
 		$model = $this->findModel($id);
 		$items = $model->orderItems;
+		if($this->user->role_id != $model::ROLE_ADMIN) {
+			if($model->parent->id != $this->user->id) {
+				return $this->goHome();
+			}
+		}
 		Yii::$app->session->setFlash('warning', 'Chú ý: Chuyển trạng thái qua "Đã nhận đủ" để xuất kho');
 		if($model->load(Yii::$app->request->post())) {
 			$model->scenario  = 'update_status';

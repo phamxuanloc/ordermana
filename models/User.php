@@ -69,6 +69,16 @@ class User extends BaseUser {
 				'facebook_link',
 				'parent_id',
 			],
+			'admin'    => [
+				'username',
+				'email',
+				'password',
+				'city',
+				'role_id',
+				'phone',
+				'facebook_link',
+				'parent_id',
+			],
 			'update'   => [
 				'username',
 				'email',
@@ -102,8 +112,16 @@ class User extends BaseUser {
 					'role_id',
 					'phone',
 					'email',
+					'password',
 				],
 				'required',
+				'message' => 'Không được để trống {attribute}',
+			],
+			[
+				['parent_id'],
+				'required',
+				'on'      => 'create',
+				'message' => 'Không được để trống {attribute}',
 			],
 			[
 				[
@@ -150,10 +168,12 @@ class User extends BaseUser {
 					'email',
 				],
 				'unique',
+				'message' => '{attribute} phải duy nhất',
 			],
 			[
 				['username'],
 				'unique',
+				'message' => '{attribute} phải duy nhất',
 			],
 			[
 				['role_id'],
@@ -174,6 +194,7 @@ class User extends BaseUser {
 			'username'          => 'Tên đăng nhập',
 			'email'             => 'Email',
 			'password_hash'     => 'Password Hash',
+			'password'          => 'Mật khẩu',
 			'auth_key'          => 'Auth Key',
 			'confirmed_at'      => 'Confirmed At',
 			'unconfirmed_email' => 'Unconfirmed Email',
@@ -253,19 +274,19 @@ class User extends BaseUser {
 		}
 	}
 
-//	public function getUserList($role) {
-//		$user        = Yii::$app->user->identity;
-//		$child_array = [];
-//		if($role - $user->role_id == 1) {
-//			return ArrayHelper::map(User::find()->where(['id' => $user->getId()])->all(), 'id', 'username');
-//		} elseif($role - $user->role_id == 2) {
-//			$children = User::find()->where(['parent_id' => $user->getId()])->all();
-//			foreach($children as $child) {
-//			}
-//		}
-//	}
-//
-//	public function getUserByLv() {
-//	
-//	}
+	//	public function getUserList($role) {
+	//		$user        = Yii::$app->user->identity;
+	//		$child_array = [];
+	//		if($role - $user->role_id == 1) {
+	//			return ArrayHelper::map(User::find()->where(['id' => $user->getId()])->all(), 'id', 'username');
+	//		} elseif($role - $user->role_id == 2) {
+	//			$children = User::find()->where(['parent_id' => $user->getId()])->all();
+	//			foreach($children as $child) {
+	//			}
+	//		}
+	//	}
+	//
+	//	public function getUserByLv() {
+	//	
+	//	}
 }
