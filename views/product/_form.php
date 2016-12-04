@@ -77,7 +77,17 @@ use yii\helpers\Html;
 
 		<div class="col-sm-6" style="margin-bottom: 15px">
 
-			<?= $form->field($model, 'base_price')->textInput() ?>
+			<?= $form->field($model, 'base_price')->widget('\yii\widgets\MaskedInput', [
+				'options'       => [
+					'class'       => 'col-sm-12 form-control',
+				],
+				'clientOptions' => [
+					'alias' =>  'decimal',
+					'groupSeparator' => ',',
+					'autoGroup' => true,
+					'removeMaskOnSubmit' => true
+				],
+			]) ?>
 		</div>
 		<div class="col-sm-6" style="margin-bottom: 15px">
 
@@ -124,22 +134,72 @@ use yii\helpers\Html;
 	<div class="panel-heading">Thông tin xuất hàng</div>
 	<div class="panel-body">
 		<div class="col-sm-12" style="margin-bottom: 15px">
-			<?= $form->field($model, 'representative_sale')->textInput() ?>
+			<?= $form->field($model, 'representative_sale')->widget('\yii\widgets\MaskedInput', [
+				'options'       => [
+					'class'       => 'col-sm-12 form-control',
+				],
+				'clientOptions' => [
+					'alias' =>  'decimal',
+					'groupSeparator' => ',',
+					'autoGroup' => true,
+					'removeMaskOnSubmit' => true
+				],
+			]) ?>
 		</div>
 		<div class="col-sm-12" style="margin-bottom: 15px">
 
-			<?= $form->field($model, 'big_agent_sale')->textInput() ?>
+			<?= $form->field($model, 'big_agent_sale')->widget('\yii\widgets\MaskedInput', [
+				'options'       => [
+					'class'       => 'col-sm-12 form-control',
+				],
+				'clientOptions' => [
+					'alias' =>  'decimal',
+					'groupSeparator' => ',',
+					'autoGroup' => true,
+					'removeMaskOnSubmit' => true
+				],
+			]) ?>
 		</div>
 		<div class="col-sm-12" style="margin-bottom: 15px">
 
-			<?= $form->field($model, 'agent_sale')->textInput() ?>
+			<?= $form->field($model, 'agent_sale')->widget('\yii\widgets\MaskedInput', [
+				'options'       => [
+					'class'       => 'col-sm-12 form-control',
+				],
+				'clientOptions' => [
+					'alias' =>  'decimal',
+					'groupSeparator' => ',',
+					'autoGroup' => true,
+					'removeMaskOnSubmit' => true
+				],
+			])?>
 		</div>
 		<div class="col-sm-12" style="margin-bottom: 15px">
-			<?= $form->field($model, 'distribute_sale')->textInput() ?>
+			<?= $form->field($model, 'distribute_sale')->widget('\yii\widgets\MaskedInput', [
+				'options'       => [
+					'class'       => 'col-sm-12 form-control',
+				],
+				'clientOptions' => [
+					'alias' =>  'decimal',
+					'groupSeparator' => ',',
+					'autoGroup' => true,
+					'removeMaskOnSubmit' => true
+				],
+			]) ?>
 		</div>
 		<div class="col-sm-12" style="margin-bottom: 15px">
 
-			<?= $form->field($model, 'retail_sale')->textInput() ?>
+			<?= $form->field($model, 'retail_sale')->widget('\yii\widgets\MaskedInput', [
+				'options'       => [
+					'class'       => 'col-sm-12 form-control',
+				],
+				'clientOptions' => [
+					'alias' =>  'decimal',
+					'groupSeparator' => ',',
+					'autoGroup' => true,
+					'removeMaskOnSubmit' => true
+				],
+			]) ?>
 		</div>
 	</div>
 </div>

@@ -87,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //                        ],
 //                        [
 //                            'label' => Yii::t('user', 'Delete'),
-//                            'url'   => ['/user/admin/delete', 'id' => $user->id],
+//                        fd    'url'   => ['/user/admin/delete', 'id' => $user->id],
 //                            'linkOptions' => [
 //                                'class' => 'text-danger',
 //                                'data-method' => 'post',

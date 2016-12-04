@@ -102,13 +102,13 @@ class Product extends Model {
 			],
 			[
 				[
-					'base_price',
-					'distribute_sale',
-					'agent_sale',
-					'retail_sale',
+					//					'base_price',
+					//					'distribute_sale',
+					//					'agent_sale',
+					//					'retail_sale',
 					'price_tax',
-					'representative_sale',
-					'big_agent_sale',
+					//					'representative_sale',
+					//					'big_agent_sale',
 				],
 				'number',
 			],
@@ -149,7 +149,6 @@ class Product extends Model {
 					'color',
 					'unit',
 					'code',
-
 				],
 				'string',
 				'max' => 255,
@@ -218,5 +217,13 @@ class Product extends Model {
 	 */
 	public function getUserStocks() {
 		return $this->hasMany(UserStock::className(), ['product_id' => 'id']);
+	}
+
+	public function convertPrice($attribute) {
+		return str_replace(',', '', $attribute);
+	}
+
+	public function beforeSave($insert) {
+		return parent::beforeSave($insert);
 	}
 }
