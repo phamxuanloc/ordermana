@@ -87,7 +87,7 @@ use yii\helpers\Url;
 					<li>
 						<a href="<?= Url::to(['/stock']) ?>">
 							<i class="icon-basket"></i>
-							Sản phẩm trong kho người dùng</a>
+							Kho hàng người dùng</a>
 					</li>
 					<!--					<li>-->
 					<!--						<a href="ecommerce_products.html">-->
@@ -225,7 +225,19 @@ use yii\helpers\Url;
 					</ul>
 				</li>
 			<?php } ?>
-
+			<li>
+				<a href="javascript:;">
+					<i class="icon-home"></i>
+					<span class="title">Quản lý showroom</span>
+					<span class="arrow "></span>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="#">
+							Danh sách showroom</a>
+					</li>
+				</ul>
+			</li>
 		</ul>
 
 		<!-- END SIDEBAR MENU -->

@@ -65,35 +65,35 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'data-confirm' => Yii::t('user', 'Are you sure you want to confirm this user?'),
                             ],
                         ],
-                        [
-                            'label' => Yii::t('user', 'Block'),
-                            'url'   => ['/user/admin/block', 'id' => $user->id],
-                            'visible' => !$user->isBlocked,
-                            'linkOptions' => [
-                                'class' => 'text-danger',
-                                'data-method' => 'post',
-                                'data-confirm' => Yii::t('user', 'Are you sure you want to block this user?'),
-                            ],
-                        ],
-                        [
-                            'label' => Yii::t('user', 'Unblock'),
-                            'url'   => ['/user/admin/block', 'id' => $user->id],
-                            'visible' => $user->isBlocked,
-                            'linkOptions' => [
-                                'class' => 'text-success',
-                                'data-method' => 'post',
-                                'data-confirm' => Yii::t('user', 'Are you sure you want to unblock this user?'),
-                            ],
-                        ],
-                        [
-                            'label' => Yii::t('user', 'Delete'),
-                            'url'   => ['/user/admin/delete', 'id' => $user->id],
-                            'linkOptions' => [
-                                'class' => 'text-danger',
-                                'data-method' => 'post',
-                                'data-confirm' => Yii::t('user', 'Are you sure you want to delete this user?'),
-                            ],
-                        ],
+//                        [
+//                            'label' => Yii::t('user', 'Block'),
+//                            'url'   => ['/user/admin/block', 'id' => $user->id],
+//                            'visible' => !$user->isBlocked,
+//                            'linkOptions' => [
+//                                'class' => 'text-danger',
+//                                'data-method' => 'post',
+//                                'data-confirm' => Yii::t('user', 'Are you sure you want to block this user?'),
+//                            ],
+//                        ],
+//                        [
+//                            'label' => Yii::t('user', 'Unblock'),
+//                            'url'   => ['/user/admin/block', 'id' => $user->id],
+//                            'visible' => $user->isBlocked,
+//                            'linkOptions' => [
+//                                'class' => 'text-success',
+//                                'data-method' => 'post',
+//                                'data-confirm' => Yii::t('user', 'Are you sure you want to unblock this user?'),
+//                            ],
+//                        ],
+//                        [
+//                            'label' => Yii::t('user', 'Delete'),
+//                            'url'   => ['/user/admin/delete', 'id' => $user->id],
+//                            'linkOptions' => [
+//                                'class' => 'text-danger',
+//                                'data-method' => 'post',
+//                                'data-confirm' => Yii::t('user', 'Are you sure you want to delete this user?'),
+//                            ],
+//                        ],
                     ],
                 ]) ?>
             </div>

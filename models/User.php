@@ -69,7 +69,7 @@ class User extends BaseUser {
 				'facebook_link',
 				'parent_id',
 			],
-			'admin'    => [
+			'admin_create'   => [
 				'username',
 				'email',
 				'password',
@@ -105,11 +105,6 @@ class User extends BaseUser {
 			[
 				[
 					'username',
-					'password_hash',
-					'auth_key',
-					'created_at',
-					'updated_at',
-					'role_id',
 					'phone',
 					'email',
 					'password',

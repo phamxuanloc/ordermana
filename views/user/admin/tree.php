@@ -68,6 +68,14 @@ $groupsContent = TreeView::widget([
 		'levels'            => 2,
 		'color'=>'green'
 	],
-]);
+]);?>
+<p>Chú thích</p>
+<p><button type="button" class="btn btn-danger">Admin</button>
+	<button type="button" class="btn btn-warning">Đại diện</button>
+	<button type="button" class="btn btn-info">Đại lí bán buôn</button>
+	<button type="button" class="btn btn-primary">Đại lý</button>
+	<button type="button" class="btn btn-default">Nhà phân phối</button>
+</p>
+<?php
 echo $groupsContent;
 ?>

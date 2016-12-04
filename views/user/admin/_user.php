@@ -12,14 +12,15 @@
  * @var dektrium\user\models\User $user
  */
 use app\components\Model;
-use app\models\User;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 
 ?>
 <?= $form->field($user, 'phone')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'email')->textInput(['maxlength' => 255]) ?>
-<?= $form->field($user, 'username')->textInput(['maxlength' => 255]) ?>
+<?php if(!isset($_GET['id'])) { ?>
+	<?= $form->field($user, 'username')->textInput(['maxlength' => 255]) ?>
+<?php } ?>
 <?= $form->field($user, 'facebook_link')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'city')->widget(Select2::className(), [
 	'data' => ArrayHelper::map(\app\models\City::find()->andWhere([

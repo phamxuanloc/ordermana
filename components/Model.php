@@ -8,7 +8,6 @@ use Yii;
 use yii\console\Application;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\web\UploadedFile;
 
 class Model extends ActiveRecord {
@@ -130,6 +129,7 @@ class Model extends ActiveRecord {
 				'id' => Yii::$app->user->id,
 			])->all(), 'id', 'username');
 		} else {
+
 			$cats     = User::find()->where([
 				'parent_id' => Yii::$app->user->id,
 			])->all();
@@ -141,7 +141,7 @@ class Model extends ActiveRecord {
 
 	public function getChildrenLv($models, $response, $level, $real_lv) {
 		foreach($models as $model) {
-			if($level == $real_lv) {
+			if($level == $real_lv+1) {
 				$response[$model->id] = $model->username;
 			} else {
 				$children = $model->find()->where([
@@ -156,6 +156,7 @@ class Model extends ActiveRecord {
 	}
 
 	public static function getUserTree() {
+		$model = new Model();
 		if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN) {
 			$cats = User::find()->where([
 				'parent_id' => null,
@@ -167,17 +168,22 @@ class Model extends ActiveRecord {
 		}
 		$response = [];
 		foreach($cats as $cat) {
+			$color    = $model->getColor($cat->role_id);
 			$children = $cat->find()->where([
 				'parent_id' => $cat->id,
 			])->all();
 			if(count($children) > 0) {
 				$response[] = [
-					'text'  => "<span style='color: sandybrown;font-weight: bold'>$cat->username</span>",
+					'text'  => "<span style='color: $color;font-weight: bold'>$cat->username</span>",
 					'nodes' => self::getChildrenUser($children),
 				];
 			} else {
-				$response[]['text'] = "<span style='color: sandybrown; font-weight: bold'>$cat->username</span>";
+				$response[]['text'] = "<span style='color: $color; font-weight: bold'>$cat->username</span>";
 			}
+		}
+		if(Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
+			$color    = $model->getColor(Yii::$app->user->identity->role_id);
+			$response = [ArrayHelper::merge(['text' => "<span style='color:$color; font-weight: bold'>" . Yii::$app->user->identity->username . "</span>"], ['nodes' => $response])];
 		}
 		return $response;
 	}
@@ -192,17 +198,19 @@ class Model extends ActiveRecord {
 	public function getChildrenUser($models) {
 		$i        = 0;
 		$response = [];
+		$data = new Model();
 		foreach($models as $model) {
+			$color=$data->getColor($model->role_id);
 			$children = $model->find()->where([
 				'parent_id' => $model->id,
 			])->all();
 			if(count($children) > 0) {
 				$response[$i] = [
-					'text'  => $model->username,
+					'text'  => "<span style='color:$color;'>" .$model->username."</span>",
 					'nodes' => self::getChildrenUser($children),
 				];
 			} else {
-				$response [$i] = ['text' => $model->username];
+				$response [$i] = ['text' => "<span style='color:$color;'>" .$model->username."</span>"];
 			}
 			$i ++;
 		}
@@ -260,5 +268,20 @@ class Model extends ActiveRecord {
 			$array_children[] = $lv1->id;
 		}
 		return $array_children;
+	}
+
+	public function getColor($role) {
+		if($role == $this::ROLE_ADMIN) {
+			$color = '#F3565D';
+		} elseif($role == $this::ROLE_PRE) {
+			$color = '#dfba49';
+		} elseif($role == $this::ROLE_BIGA) {
+			$color = '#72b8f2';
+		} elseif($role == $this::ROLE_A) {
+			$color = '#428bca';
+		} else {
+			$color = '#333';
+		}
+		return $color;
 	}
 }

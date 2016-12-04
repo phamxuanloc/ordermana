@@ -71,8 +71,10 @@ class AdminController extends BaseAdminController {
 		$role           = $user->role_id;
 		$model          = new Model();
 		$user->scenario = 'update';
-		if(!ArrayHelper::isIn($user->id, $model->getTotalChildren($model->user->id))) {
-			return $this->goHome();
+		if($id != $model->user->id) {
+			if(!ArrayHelper::isIn($user->id, $model->getTotalChildren($model->user->id))) {
+				return $this->goHome();
+			}
 		}
 		$event = $this->getUserEvent($user);
 		$this->performAjaxValidation($user);
@@ -117,7 +119,7 @@ class AdminController extends BaseAdminController {
 			if($role == Model::ROLE_ADMIN) {
 				$user = \Yii::createObject([
 					'class'    => User::className(),
-					'scenario' => 'admin',
+					'scenario' => 'admin_create',
 				]);
 			} else {
 				$user = \Yii::createObject([
@@ -143,6 +145,9 @@ class AdminController extends BaseAdminController {
 						]);
 					}
 				} else {
+					echo '<pre>';
+					print_r($user->errors);
+					die;
 				}
 			}
 			return $this->render('create', [
@@ -156,6 +161,9 @@ class AdminController extends BaseAdminController {
 
 	public function actionTree() {
 		$model = new  Model();
+		//		echo '<pre>';
+		//		print_r($model::getUserTree());
+		//		die;
 		return $this->render('tree', ['model' => $model]);
 	}
 }

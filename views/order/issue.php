@@ -22,13 +22,13 @@ use yii\helpers\Url;
 	<?= Html::a('Xuất kho cho đại lý', Url::to([
 		'/order/order-item',
 		'role' => $order::ROLE_A,
-	]), ['class' => 'btn btn-default']) ?>
+	]), ['class' => 'btn btn-primary']) ?>
 <?php } ?>
 <?php if(Yii::$app->user->identity->role_id < Model::ROLE_A) { ?>
 
 	<?= Html::a('Xuất kho cho điểm phân phối', Url::to([
 		'/order/order-item',
 		'role' => $order::ROLE_D,
-	]), ['class' => 'btn btn-danger']) ?>
+	]), ['class' => 'btn btn-default']) ?>
 <?php } ?>
 
