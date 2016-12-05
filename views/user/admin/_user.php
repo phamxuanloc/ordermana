@@ -29,7 +29,7 @@ use yii\helpers\ArrayHelper;
 ])->label('Thành phố') ?>
 <?php if($role != Model::ROLE_ADMIN) { ?>
 	<?= $form->field($user, 'parent_id')->widget(Select2::className(), [
-		'data' => $role != Model::ROLE_ADMIN ? Model::getUserList($role) : null,
-	])->label(Model::ROLE[$role - 1]) ?>
+		'data' => [Yii::$app->user->id => Yii::$app->user->identity->username],
+	])->label('Người quản lý') ?>
 <?php } ?>
 <?= $form->field($user, 'password')->passwordInput() ?>

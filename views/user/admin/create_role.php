@@ -22,20 +22,20 @@ use yii\helpers\Url;
 		'role' => Model::ROLE_PRE,
 	]), ['class' => 'btn btn-warning']) ?>
 <?php } ?>
-<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN || Model::ROLE_BIGA - Yii::$app->user->identity->role_id >= 1) { ?>
+<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN || Yii::$app->user->identity->role_id < Model::ROLE_BIGA ) { ?>
 
 	<?= Html::a('Tạo tài khoản đại lý bán buôn', Url::to([
 		'/user/admin/create',
 		'role' => Model::ROLE_BIGA,
 	]), ['class' => 'btn btn-info']) ?>
 <?php } ?>
-<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN || Model::ROLE_A - Yii::$app->user->identity->role_id >= 2) { ?>
+<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN || Yii::$app->user->identity->role_id < Model::ROLE_A ) { ?>
 	<?= Html::a('Tạo tài khoản đại lý bán lẻ', Url::to([
 		'/user/admin/create',
 		'role' => Model::ROLE_A,
 	]), ['class' => 'btn btn-primary']) ?>
 <?php } ?>
-<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN || Model::ROLE_D - Yii::$app->user->identity->role_id >= 3) { ?>
+<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN || Yii::$app->user->identity->role_id < Model::ROLE_D) { ?>
 	<?= Html::a('Tạo tài khoản điểm phân phối', Url::to([
 		'/user/admin/create',
 		'role' => Model::ROLE_D,

@@ -13,6 +13,7 @@ use app\components\Model;
 use app\models\User;
 use dektrium\user\controllers\AdminController as BaseAdminController;
 use navatech\role\filters\RoleFilter;
+use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -33,12 +34,13 @@ class AdminController extends BaseAdminController {
 				//NOT REQUIRED, only if you want to translate
 				'actions' => [
 					//without translate
-					'index'  => 'Danh sách ',
-					'update' => 'Cập nhật ',
-					'create' => 'Thêm mới người dùng',
-					'tree'   => 'Xem cây hệ thống',
-					'delete' => 'Xóa người dùng',
-					'block'  => 'Khóa người dùng'
+					'index'         => 'Danh sách ',
+					'update'        => 'Cập nhật ',
+					'create'        => 'Thêm mới người dùng',
+					'create?role=5' => 'Thêm mới npp',
+					'tree'          => 'Xem cây hệ thống',
+					'delete'        => 'Xóa người dùng',
+					'block'         => 'Khóa người dùng'
 					//with translated, which will display on role _form
 				],
 			],
@@ -105,58 +107,197 @@ class AdminController extends BaseAdminController {
 		return parent::actionUpdateProfile($id);
 	}
 
-	public function actionCreate($role = null) {
-		if($role != null) {
-			if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
-				if(\Yii::$app->user->identity->role_id >= $role) {
+	public function actionCreate() {
+		//		echo \Yii::$app->user->identity->role_id;die;
+		//			if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
+		//				if(\Yii::$app->user->identity->role_id >= $role) {
+		//					return $this->redirect([
+		//						'create',
+		//						'role' => \Yii::$app->user->identity->role_id + 1,
+		//					]);
+		//				}
+		//			}
+		/** @var User $user */
+		return $this->render('create_role');
+	}
+
+	public function actionCreateAdmin() {
+		$user = \Yii::createObject([
+			'class'    => User::className(),
+			'scenario' => 'admin_create',
+		]);
+		//			$user = \Yii::createObject([
+		//				'class'    => User::className(),
+		//				'scenario' => 'create',
+		//			]);
+		$role  = Model::ROLE_ADMIN;
+		$event = $this->getUserEvent($user);
+		$this->performAjaxValidation($user);
+		$this->trigger(self::EVENT_BEFORE_CREATE, $event);
+		if($user->load(\Yii::$app->request->post())) {
+			$user->role_id = Model::ROLE_ADMIN;
+			if($user->create()) {
+				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
+				$this->trigger(self::EVENT_AFTER_CREATE, $event);
+				if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
 					return $this->redirect([
-						'create',
-						'role' => \Yii::$app->user->identity->role_id + 1,
+						'tree',
+					]);
+				} else {
+					return $this->redirect([
+						'index',
 					]);
 				}
-			}
-			/** @var User $user */
-			if($role == Model::ROLE_ADMIN) {
-				$user = \Yii::createObject([
-					'class'    => User::className(),
-					'scenario' => 'admin_create',
-				]);
 			} else {
-				$user = \Yii::createObject([
-					'class'    => User::className(),
-					'scenario' => 'create',
-				]);
+				echo '<pre>';
+				print_r($user->errors);
+				die;
 			}
-			$event = $this->getUserEvent($user);
-			$this->performAjaxValidation($user);
-			$this->trigger(self::EVENT_BEFORE_CREATE, $event);
-			if($user->load(\Yii::$app->request->post())) {
-				$user->role_id = $role;
-				if($user->create()) {
-					\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
-					$this->trigger(self::EVENT_AFTER_CREATE, $event);
-					if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
-						return $this->redirect([
-							'tree',
-						]);
-					} else {
-						return $this->redirect([
-							'index',
-						]);
-					}
-				} else {
-					echo '<pre>';
-					print_r($user->errors);
-					die;
-				}
-			}
-			return $this->render('create', [
-				'user' => $user,
-				'role' => $role,
-			]);
-		} else {
-			return $this->render('create_role');
 		}
+		return $this->render('create', [
+			'user' => $user,
+			'role' => $role,
+		]);
+	}
+
+	public function actionCreatePre() {
+		$user  = \Yii::createObject([
+			'class'    => User::className(),
+			'scenario' => 'create',
+		]);
+		$role  = Model::ROLE_PRE;
+		$event = $this->getUserEvent($user);
+		$this->performAjaxValidation($user);
+		$this->trigger(self::EVENT_BEFORE_CREATE, $event);
+		if($user->load(\Yii::$app->request->post())) {
+			$user->role_id = $role;
+			if($user->create()) {
+				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
+				$this->trigger(self::EVENT_AFTER_CREATE, $event);
+				if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
+					return $this->redirect([
+						'tree',
+					]);
+				} else {
+					return $this->redirect([
+						'index',
+					]);
+				}
+			} else {
+				echo '<pre>';
+				print_r($user->errors);
+				die;
+			}
+		}
+		return $this->render('create', [
+			'user' => $user,
+			'role' => $role,
+		]);
+	}
+
+	public function actionCreateBig() {
+		$user  = \Yii::createObject([
+			'class'    => User::className(),
+			'scenario' => 'create',
+		]);
+		$role  = Model::ROLE_BIGA;
+		$event = $this->getUserEvent($user);
+		$this->performAjaxValidation($user);
+		$this->trigger(self::EVENT_BEFORE_CREATE, $event);
+		if($user->load(\Yii::$app->request->post())) {
+			$user->role_id = $role;
+			if($user->create()) {
+				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
+				$this->trigger(self::EVENT_AFTER_CREATE, $event);
+				if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
+					return $this->redirect([
+						'tree',
+					]);
+				} else {
+					return $this->redirect([
+						'index',
+					]);
+				}
+			} else {
+				echo '<pre>';
+				print_r($user->errors);
+				die;
+			}
+		}
+		return $this->render('create', [
+			'user' => $user,
+			'role' => $role,
+		]);
+	}
+
+	public function actionCreateAge() {
+		$user  = \Yii::createObject([
+			'class'    => User::className(),
+			'scenario' => 'create',
+		]);
+		$role  = Model::ROLE_A;
+		$event = $this->getUserEvent($user);
+		$this->performAjaxValidation($user);
+		$this->trigger(self::EVENT_BEFORE_CREATE, $event);
+		if($user->load(\Yii::$app->request->post())) {
+			$user->role_id = $role;
+			if($user->create()) {
+				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
+				$this->trigger(self::EVENT_AFTER_CREATE, $event);
+				if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
+					return $this->redirect([
+						'tree',
+					]);
+				} else {
+					return $this->redirect([
+						'index',
+					]);
+				}
+			} else {
+				echo '<pre>';
+				print_r($user->errors);
+				die;
+			}
+		}
+		return $this->render('create', [
+			'user' => $user,
+			'role' => $role,
+		]);
+	}
+
+	public function actionCreateDis() {
+		$user  = \Yii::createObject([
+			'class'    => User::className(),
+			'scenario' => 'create',
+		]);
+		$role  = Model::ROLE_D;
+		$event = $this->getUserEvent($user);
+		$this->performAjaxValidation($user);
+		$this->trigger(self::EVENT_BEFORE_CREATE, $event);
+		if($user->load(\Yii::$app->request->post())) {
+			$user->role_id = $role;
+			if($user->create()) {
+				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
+				$this->trigger(self::EVENT_AFTER_CREATE, $event);
+				if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
+					return $this->redirect([
+						'tree',
+					]);
+				} else {
+					return $this->redirect([
+						'index',
+					]);
+				}
+			} else {
+				echo '<pre>';
+				print_r($user->errors);
+				die;
+			}
+		}
+		return $this->render('create', [
+			'user' => $user,
+			'role' => $role,
+		]);
 	}
 
 	public function actionTree() {
