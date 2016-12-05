@@ -31,6 +31,7 @@ class Order extends Model {
 		'Chưa nhận đủ',
 		'Đã nhận đủ',
 		'Đã hủy',
+		'Đã xác nhận',
 	];
 
 	const NOT_PAID      = 0;
@@ -41,7 +42,9 @@ class Order extends Model {
 
 	const RECEIPTED     = 3;
 
-	const CANCEL        = 3;
+	const CANCEL        = 4;
+
+	const CONFIRM       = 5;
 
 	public $downline;
 
