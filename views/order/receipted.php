@@ -57,8 +57,9 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'attribute' => 'status',
 				'value'     => function (Order $data) {
-					return $data::STATUS[$data->status];
+					return "<span class='{$data->getColorStatus()}'>".$data::STATUS[$data->status]."</span>";
 				},
+				'format'=>'raw'
 			],
 			// 'update_by',
 			// 'type',
@@ -66,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'class'    => 'yii\grid\ActionColumn',
 				'template' => '{view-client}',
-				'header'   => 'Xem chi tiết',
+				'header'   => 'Xác nhận đơn hàng',
 				'buttons'        => [
 					'view-client'   => function($url, $model, $key) {
 						return Html::a('<i class="glyphicon glyphicon-eye-open"></i>', Url::to([

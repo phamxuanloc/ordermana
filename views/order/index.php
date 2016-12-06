@@ -1,5 +1,6 @@
 <?php
 use app\models\Order;
+use navatech\role\helpers\RoleChecker;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -56,16 +57,21 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'attribute' => 'status',
 				'value'     => function (Order $data) {
-					return $data::STATUS[$data->status];
+					return "<span class='{$data->getColorStatus()}'>" . $data::STATUS[$data->status] . "</span>";
 				},
+				'format'    => 'raw',
 			],
 			// 'update_by',
 			// 'type',
 			// 'parent_id',
 			[
-				'class'    => 'yii\grid\ActionColumn',
-				'template' => '{view}',
-				'header'   => 'Xem chi tiết',
+				'class'          => 'yii\grid\ActionColumn',
+				'template'       => '{view} {delete}',
+				'visibleButtons' => [
+					'view'   => RoleChecker::isAuth(\app\controllers\OrderController::className(), 'view'),
+					'delete' => RoleChecker::isAuth(\app\controllers\OrderController::className(), 'delete'),
+				],
+				'header'         => 'Xem chi tiết',
 			],
 		],
 	]); ?>

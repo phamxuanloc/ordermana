@@ -177,4 +177,16 @@ class Order extends Model {
 			return 'Đơn hàng lẻ';
 		}
 	}
+
+	public function getColorStatus() {
+		if($this->status == $this::RECEIPTED) {
+			return 'btn-success';
+		} elseif($this->status == $this::CONFIRM) {
+			return 'btn-info';
+		} elseif($this->status == $this::NOT_PAID || $this->status == $this::NOT_RECEIPTED) {
+			return 'btn-danger';
+		} else {
+			return 'btn-warning';
+		}
+	}
 }
