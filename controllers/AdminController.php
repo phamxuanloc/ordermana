@@ -112,7 +112,7 @@ class AdminController extends BaseAdminController {
 	}
 
 	public function actionCreate() {
-		
+
 		/** @var User $user */
 		return $this->render('create_role');
 	}
@@ -128,6 +128,8 @@ class AdminController extends BaseAdminController {
 		$this->trigger(self::EVENT_BEFORE_CREATE, $event);
 		if($user->load(\Yii::$app->request->post())) {
 			$user->role_id = Model::ROLE_ADMIN;
+			$user->confirmed_at = 1456114858;
+
 			if($user->create()) {
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
 				$this->trigger(self::EVENT_AFTER_CREATE, $event);
@@ -163,6 +165,8 @@ class AdminController extends BaseAdminController {
 		$this->trigger(self::EVENT_BEFORE_CREATE, $event);
 		if($user->load(\Yii::$app->request->post())) {
 			$user->role_id = $role;
+			$user->confirmed_at = 1456114858;
+
 			if($user->create()) {
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
 				$this->trigger(self::EVENT_AFTER_CREATE, $event);
@@ -198,6 +202,7 @@ class AdminController extends BaseAdminController {
 		$this->trigger(self::EVENT_BEFORE_CREATE, $event);
 		if($user->load(\Yii::$app->request->post())) {
 			$user->role_id = $role;
+			$user->confirmed_at = 1456114858;
 			if($user->create()) {
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
 				$this->trigger(self::EVENT_AFTER_CREATE, $event);
@@ -233,6 +238,8 @@ class AdminController extends BaseAdminController {
 		$this->trigger(self::EVENT_BEFORE_CREATE, $event);
 		if($user->load(\Yii::$app->request->post())) {
 			$user->role_id = $role;
+			$user->confirmed_at = 1456114858;
+
 			if($user->create()) {
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
 				$this->trigger(self::EVENT_AFTER_CREATE, $event);
@@ -268,6 +275,8 @@ class AdminController extends BaseAdminController {
 		$this->trigger(self::EVENT_BEFORE_CREATE, $event);
 		if($user->load(\Yii::$app->request->post())) {
 			$user->role_id = $role;
+			$user->confirmed_at = 1456114858;
+
 			if($user->create()) {
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
 				$this->trigger(self::EVENT_AFTER_CREATE, $event);

@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	</div>
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
-//		'filterModel'  => $searchModel,
+		//		'filterModel'  => $searchModel,
 		'columns'      => [
 			['class' => 'yii\grid\SerialColumn'],
 			[
@@ -58,7 +58,12 @@ $this->params['breadcrumbs'][] = $this->title;
 			// 'color',
 			// 'weight',
 			// 'unit',
-			// 'status',
+			[
+				'attribute' => 'status',
+				'value'     => function (Product $data) {
+					return $data::STATUS[$data->status];
+				},
+			],
 			// 'price_tax',
 			// 'supplier_discount',
 			// 'updated_date',

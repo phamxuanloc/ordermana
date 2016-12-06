@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
 			'in_stock',
 			'created_date',
-			['class' => 'yii\grid\ActionColumn'],
+//			['class' => 'yii\grid\ActionColumn'],
 		],
 	]); ?>
 	<?php Pjax::end(); ?></div>

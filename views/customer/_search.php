@@ -31,6 +31,24 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'user_id') ?>
 
+    <?php // echo $form->field($model, 'point') ?>
+
+    <?php // echo $form->field($model, 'parent_id') ?>
+
+    <?php // echo $form->field($model, 'is_move') ?>
+
+    <?php // echo $form->field($model, 'link_fb') ?>
+
+    <?php // echo $form->field($model, 'sale') ?>
+
+    <?php // echo $form->field($model, 'note') ?>
+
+    <?php // echo $form->field($model, 'is_call') ?>
+
+    <?php // echo $form->field($model, 'call_by') ?>
+
+    <?php // echo $form->field($model, 'call_at') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>

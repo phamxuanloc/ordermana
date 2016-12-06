@@ -245,6 +245,7 @@ class ProductSearch extends Product {
 			'unit',
 			$this->unit,
 		]);
+		$query->andFilterWhere(['status' => $this::RECEIPTED]);
 		if($attribute == 'quantity') {
 			return $query->sum('in_stock');
 		} elseif($attribute == 'total_money') {

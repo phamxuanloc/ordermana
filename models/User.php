@@ -50,26 +50,16 @@ class User extends BaseUser {
 	public function scenarios() {
 		$scenarios = parent::scenarios();
 		return ArrayHelper::merge($scenarios, [
-			'register' => [
+			'register'     => [
 				'username',
 				'email',
 				'password',
 			],
-			'connect'  => [
+			'connect'      => [
 				'username',
 				'email',
 			],
-			'create'   => [
-				'username',
-				'email',
-				'password',
-				'city',
-				'role_id',
-				'phone',
-				'facebook_link',
-				'parent_id',
-			],
-			'admin_create'   => [
+			'create'       => [
 				'username',
 				'email',
 				'password',
@@ -79,7 +69,7 @@ class User extends BaseUser {
 				'facebook_link',
 				'parent_id',
 			],
-			'update'   => [
+			'admin_create' => [
 				'username',
 				'email',
 				'password',
@@ -89,7 +79,17 @@ class User extends BaseUser {
 				'facebook_link',
 				'parent_id',
 			],
-			'settings' => [
+			'update'       => [
+				'username',
+				'email',
+				'password',
+				'city',
+				'role_id',
+				'phone',
+				'facebook_link',
+				'parent_id',
+			],
+			'settings'     => [
 				'username',
 				'email',
 				'password',
@@ -106,14 +106,19 @@ class User extends BaseUser {
 				[
 					'username',
 					'phone',
-//					'email',
-					'password',
+					//					'email',
 				],
 				'required',
 				'message' => 'Không được để trống {attribute}',
 			],
 			[
 				['parent_id'],
+				'required',
+				'on'      => 'create',
+				'message' => 'Không được để trống {attribute}',
+			],
+			[
+				['password'],
 				'required',
 				'on'      => 'create',
 				'message' => 'Không được để trống {attribute}',
@@ -160,7 +165,7 @@ class User extends BaseUser {
 			[
 				[
 					'phone',
-//					'email',
+					//					'email',
 				],
 				'unique',
 				'message' => '{attribute} phải duy nhất',

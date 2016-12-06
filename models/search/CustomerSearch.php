@@ -18,8 +18,8 @@ class CustomerSearch extends Customer
     public function rules()
     {
         return [
-            [['id', 'phone', 'city_id', 'user_id'], 'integer'],
-            [['name', 'address', 'email', 'company_name'], 'safe'],
+            [['id', 'phone', 'city_id', 'user_id', 'point', 'parent_id', 'is_move'], 'integer'],
+            [['name', 'address', 'email', 'company_name', 'link_fb', 'sale', 'note', 'is_call', 'call_by', 'call_at'], 'safe'],
         ];
     }
 
@@ -47,8 +47,6 @@ class CustomerSearch extends Customer
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => ['defaultOrder' => ['id' => SORT_DESC]],
-
         ]);
 
         $this->load($params);
@@ -65,12 +63,21 @@ class CustomerSearch extends Customer
             'phone' => $this->phone,
             'city_id' => $this->city_id,
             'user_id' => $this->user_id,
+            'point' => $this->point,
+            'parent_id' => $this->parent_id,
+            'is_move' => $this->is_move,
+            'call_at' => $this->call_at,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'address', $this->address])
             ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'company_name', $this->company_name]);
+            ->andFilterWhere(['like', 'company_name', $this->company_name])
+            ->andFilterWhere(['like', 'link_fb', $this->link_fb])
+            ->andFilterWhere(['like', 'sale', $this->sale])
+            ->andFilterWhere(['like', 'note', $this->note])
+            ->andFilterWhere(['like', 'is_call', $this->is_call])
+            ->andFilterWhere(['like', 'call_by', $this->call_by]);
 
         return $dataProvider;
     }

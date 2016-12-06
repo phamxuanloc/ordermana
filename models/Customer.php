@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use app\components\Model;
 use Yii;
 
 /**
@@ -16,11 +15,21 @@ use Yii;
  * @property integer $phone
  * @property integer $city_id
  * @property integer $user_id
+ * @property integer $point
+ * @property integer $parent_id
+ * @property integer $is_move
+ * @property string $link_fb
+ * @property string $sale
+ * @property string $note
+ * @property string $is_call
+ * @property string $call_by
+ * @property string $call_at
  *
+ * @property User $parent
  * @property User $user
- * @property Order[] $orders
+ * @property OrderCustomer[] $orderCustomers
  */
-class Customer extends Model
+class Customer extends \app\components\Model
 {
     /**
      * @inheritdoc
@@ -37,8 +46,11 @@ class Customer extends Model
     {
         return [
             [['name', 'phone'], 'required'],
-            [['phone', 'city_id', 'user_id'], 'integer'],
-            [['name', 'address', 'email', 'company_name'], 'string', 'max' => 255],
+            [['phone', 'city_id', 'user_id', 'point', 'parent_id', 'is_move'], 'integer'],
+            [['note'], 'string'],
+            [['call_at'], 'safe'],
+            [['name', 'address', 'email', 'company_name', 'link_fb', 'sale', 'is_call', 'call_by'], 'string', 'max' => 255],
+            [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['parent_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -57,7 +69,24 @@ class Customer extends Model
             'phone' => 'Phone',
             'city_id' => 'City ID',
             'user_id' => 'User ID',
+            'point' => 'Point',
+            'parent_id' => 'Parent ID',
+            'is_move' => 'Is Move',
+            'link_fb' => 'Link Fb',
+            'sale' => 'Sale',
+            'note' => 'Note',
+            'is_call' => 'Is Call',
+            'call_by' => 'Call By',
+            'call_at' => 'Call At',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParent()
+    {
+        return $this->hasOne(User::className(), ['id' => 'parent_id']);
     }
 
     /**
@@ -71,8 +100,8 @@ class Customer extends Model
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getOrders()
+    public function getOrderCustomers()
     {
-        return $this->hasMany(Order::className(), ['customer_id' => 'id']);
+        return $this->hasMany(OrderCustomer::className(), ['customer_id' => 'id']);
     }
 }

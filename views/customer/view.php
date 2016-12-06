@@ -36,6 +36,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'phone',
             'city_id',
             'user_id',
+            'point',
+            'parent_id',
+            'is_move',
+            'link_fb',
+            'sale',
+            'note:ntext',
+            'is_call',
+            'call_by',
+            'call_at',
         ],
     ]) ?>
 

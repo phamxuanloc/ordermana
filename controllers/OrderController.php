@@ -82,7 +82,7 @@ class OrderController extends Controller {
 		$order_big    = $searchModel->getInfoClient($params, 'big_quantity');
 		$order_age    = $searchModel->getInfoClient($params, 'age_quantity');
 		$order_dis    = $searchModel->getInfoClient($params, 'dis_quantity');
-		return $this->render('index', [
+		return $this->render('receipted', [
 			'searchModel'  => $searchModel,
 			'dataProvider' => $dataProvider,
 			'order_num'    => $order_num,
@@ -106,9 +106,18 @@ class OrderController extends Controller {
 		$items = $model->orderItems;
 		Yii::$app->session->setFlash('warning', 'Chú ý: Bấm xác nhận để xác nhận đã nhận đủ hàng');
 		if($model->load(Yii::$app->request->post())) {
-			$model->scenario = 'update_status';
+			$model->scenario  = 'update_status';
+			$model->update_at = date('Y-m-d H:i:s');
+			$model->update_by = $this->user->id;
+			if($model->save()) {
+				Yii::$app->session->setFlash('success', 'Chú ý: Đã xác nhận thành công');
+				return $this->redirect([
+					'view-client',
+					'id' => $id,
+				]);
+			};
 		}
-		return $this->render('view_client', [
+		return $this->render('view-client', [
 			'model' => $model,
 			'items' => $items,
 		]);

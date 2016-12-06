@@ -2,6 +2,7 @@
 use app\models\Order;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\OrderSearch */
@@ -64,8 +65,16 @@ $this->params['breadcrumbs'][] = $this->title;
 			// 'parent_id',
 			[
 				'class'    => 'yii\grid\ActionColumn',
-				'template' => '{view}',
+				'template' => '{view-client}',
 				'header'   => 'Xem chi tiết',
+				'buttons'        => [
+					'view-client'   => function($url, $model, $key) {
+						return Html::a('<i class="glyphicon glyphicon-eye-open"></i>', Url::to([
+							'order/view-client',
+							'id' => $model->id,
+						]));
+					},
+				],
 			],
 		],
 	]); ?>

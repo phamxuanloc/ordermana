@@ -37,8 +37,7 @@ class Provider extends \app\components\Model
             [['name'], 'required'],
             [['created_date'], 'safe'],
             [['note'], 'string'],
-            [['payment'], 'integer'],
-            [['name', 'address', 'phone', 'email', 'company', 'tax_code'], 'string', 'max' => 255],
+            [['name', 'address', 'phone','payment','email', 'company', 'tax_code'], 'string', 'max' => 255],
         ];
     }
 
