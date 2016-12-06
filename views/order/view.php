@@ -225,7 +225,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<!--		</div>-->
 	<!--	</div>-->
 	<?= $form->field($model, 'status')->dropDownList($model::STATUS, [
-		'disabled' => $model->status == $model::PAID ? true : false,
+		'disabled' => $model->status == $model::RECEIPTED || $model->status == $model::CONFIRM ? true : false,
 	])->label('Trạng thái đơn hàng') ?>
 	<div class="row action-pager" style="margin-top: 20px">
 		<div class="col-sm-6 action-item order-accept">

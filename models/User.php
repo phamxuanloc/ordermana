@@ -106,7 +106,7 @@ class User extends BaseUser {
 				[
 					'username',
 					'phone',
-					'email',
+//					'email',
 					'password',
 				],
 				'required',
@@ -160,7 +160,7 @@ class User extends BaseUser {
 			[
 				[
 					'phone',
-					'email',
+//					'email',
 				],
 				'unique',
 				'message' => '{attribute} phải duy nhất',

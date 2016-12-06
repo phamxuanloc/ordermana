@@ -6,6 +6,7 @@
  * Time: 6:07 PM
  */
 use app\models\Category;
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 /* @var $model app\models\Order */
 /* @var $items app\models\OrderItem */
@@ -58,3 +59,18 @@ use yii\helpers\Html;
 		$i ++;
 	} ?>
 </div>
+<?php $form = ActiveForm::begin() ?>
+
+<?= $form->field($model, 'status')->dropDownList($model::STATUS, [
+	'disabled' => $model->status == $model::RECEIPTED || $model->status = $model::CONFIRM ? true : false,
+])->label('Trạng thái đơn hàng') ?>
+	<div class="row action-pager" style="margin-top: 20px">
+		<div class="col-sm-6 action-item order-accept">
+			<?= Html::submitButton('Cập nhật trạng thái', ['class' => 'fleft btn btn-info']) ?>
+		</div>
+		<!--	<div class="col-sm-6 action-item order-cancel">-->
+		<!--		<a class="fright" href="">Hủy đơn</a>-->
+		<!---->
+		<!--	</div>-->
+	</div>
+<?php \yii\widgets\ActiveForm::end() ?>

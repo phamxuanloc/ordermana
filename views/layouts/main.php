@@ -31,8 +31,8 @@ AppAsset::register($this);
 	<?= LeftSidebar::widget() ?>
 
 	<div class="page-content-wrapper">
-		<div class="page-content">
-			<?=$content?>
+		<div class="page-content clearfix">
+			<?= $content ?>
 		</div>
 	</div>
 </div>

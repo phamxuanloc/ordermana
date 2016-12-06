@@ -60,7 +60,7 @@ use yii\helpers\Url;
 					<span class="arrow "></span>
 				</a>
 				<ul class="sub-menu">
-					<?php if(RoleChecker::isAuth(ProductController::className(), 'index')) { ?>
+					<?php if(RoleChecker::isAuth(ProductController::className(), 'receipt')) { ?>
 						<li>
 							<a href="<?= Url::to(['/product/receipt']) ?>">
 								<i class="icon-home"></i>
@@ -73,11 +73,11 @@ use yii\helpers\Url;
 						<li>
 							<a href="<?= Url::to(['/product/index']) ?>">
 								<i class="icon-home"></i>
-								Thống kê xuất kho</a>
+								Thống kê nhập kho</a>
 						</li>
 					<?php } ?>
 
-					<?php if(RoleChecker::isAuth(OrderController::className(), 'index')) { ?>
+					<?php if(RoleChecker::isAuth(OrderController::className(), 'order-item')) { ?>
 						<li>
 							<a href="<?= Url::to(['/order/order-item']) ?>">
 								<i class="icon-basket"></i>
@@ -106,14 +106,20 @@ use yii\helpers\Url;
 					<?php if(RoleChecker::isAuth(OrderController::className(), 'index')) { ?>
 						<li>
 							<a href="<?= Url::to(['/order']) ?>">
-								Danh sách đơn hàng</a>
+								Danh sách đơn hàng xuất kho</a>
+						</li>
+					<?php } ?>
+					<?php if(RoleChecker::isAuth(OrderController::className(), 'index')) { ?>
+						<li>
+							<a href="<?= Url::to(['/order/receipted']) ?>">
+								Danh sách đơn hàng nhập kho</a>
 						</li>
 					<?php } ?>
 					<li>
 						<a href="layout_horizontal_sidebar_menu.html">
 							Danh sách đơn hàng bán lẻ</a>
 					</li>
-					<?php if(RoleChecker::isAuth(OrderController::className(), 'index')) { ?>
+					<?php if(RoleChecker::isAuth(OrderController::className(), 'order-item')) { ?>
 						<li>
 							<a href="<?= Url::to(['/order/order-item']) ?>">
 								Tạo đơn hàng</a>

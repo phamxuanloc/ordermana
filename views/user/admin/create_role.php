@@ -8,36 +8,37 @@
  * @time    4:39 PM
  */
 use app\components\Model;
+use app\controllers\AdminController;
+use navatech\role\helpers\RoleChecker;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 ?>
-<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN) { ?>
+<?php if(RoleChecker::isAuth(AdminController::className(), 'create-admin', Yii::$app->user->identity->role_id)) { ?>
 	<?= Html::a('Tạo tài khoản admin công ty', Url::to([
-		'/user/admin/create',
-		'role' => Model::ROLE_ADMIN,
+		'/user/admin/create-admin',
 	]), ['class' => 'btn btn-danger']) ?>
+<?php } ?>
+
+<?php if(RoleChecker::isAuth(AdminController::className(), 'create-pre', Yii::$app->user->identity->role_id)) { ?>
+
 	<?= Html::a('Tạo tài khoản đại diện', Url::to([
-		'/user/admin/create',
-		'role' => Model::ROLE_PRE,
+		'/user/admin/create-pre',
 	]), ['class' => 'btn btn-warning']) ?>
 <?php } ?>
-<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN || Yii::$app->user->identity->role_id < Model::ROLE_BIGA ) { ?>
+<?php if(RoleChecker::isAuth(AdminController::className(), 'create-big', Yii::$app->user->identity->role_id)) { ?>
 
 	<?= Html::a('Tạo tài khoản đại lý bán buôn', Url::to([
-		'/user/admin/create',
-		'role' => Model::ROLE_BIGA,
+		'/user/admin/create-big',
 	]), ['class' => 'btn btn-info']) ?>
 <?php } ?>
-<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN || Yii::$app->user->identity->role_id < Model::ROLE_A ) { ?>
+<?php if(RoleChecker::isAuth(AdminController::className(), 'create-age', Yii::$app->user->identity->role_id)) { ?>
 	<?= Html::a('Tạo tài khoản đại lý bán lẻ', Url::to([
-		'/user/admin/create',
-		'role' => Model::ROLE_A,
+		'/user/admin/create-age',
 	]), ['class' => 'btn btn-primary']) ?>
 <?php } ?>
-<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN || Yii::$app->user->identity->role_id < Model::ROLE_D) { ?>
+<?php if(RoleChecker::isAuth(AdminController::className(), 'create-dis', Yii::$app->user->identity->role_id)) { ?>
 	<?= Html::a('Tạo tài khoản điểm phân phối', Url::to([
-		'/user/admin/create',
-		'role' => Model::ROLE_D,
+		'/user/admin/create-dis',
 	]), ['class' => 'btn btn-default']) ?>
 <?php } ?>

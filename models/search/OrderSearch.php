@@ -63,7 +63,57 @@ class OrderSearch extends Order {
 		$query = Order::find();
 		// add conditions that should always apply here
 		if($this->user->role_id != $this::ROLE_ADMIN) {
-			$query->where(['parent_id' => $this->id]);
+			$query->where(['parent_id' => $this->user->id]);
+		}
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+			'sort'  => ['defaultOrder' => ['id' => SORT_DESC]],
+		]);
+		$this->load($params);
+		if(!$this->validate()) {
+			// uncomment the following line if you do not want to return any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
+		if($this->start_date != null) {
+			$query->andFilterWhere([
+				'>=',
+				'created_date',
+				$this->start_date,
+			]);
+		}
+		if($this->end_date != null) {
+			$query->andFilterWhere([
+				'<=',
+				'created_date',
+				$this->end_date,
+			]);
+		}
+		// grid filtering conditions
+		$query->andFilterWhere([
+			'id'           => $this->id,
+			'user_id'      => $this->user_id,
+			'total_amount' => $this->total_amount,
+			'created_date' => $this->created_date,
+			'update_at'    => $this->update_at,
+			'status'       => $this->status,
+			'update_by'    => $this->update_by,
+			'type'         => $this->type,
+			'parent_id'    => $this->parent_id,
+		]);
+		$query->andFilterWhere([
+			'like',
+			'note',
+			$this->note,
+		]);
+		return $dataProvider;
+	}
+
+	public function searchClient($params) {
+		$query = Order::find();
+		// add conditions that should always apply here
+		if($this->user->role_id != $this::ROLE_ADMIN) {
+			$query->where(['user_id' => $this->user->id]);
 		}
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
@@ -112,6 +162,73 @@ class OrderSearch extends Order {
 	public function getInfo($params, $attribute) {
 		$query = Order::find();
 		// add conditions that should always apply here
+		if($this->user->role_id != $this::ROLE_ADMIN) {
+			$query->where(['parent_id' => $this->user->id]);
+		}
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+			'sort'  => ['defaultOrder' => ['id' => SORT_DESC]],
+		]);
+		$this->load($params);
+		if(!$this->validate()) {
+			// uncomment the following line if you do not want to return any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
+		if($this->start_date != null) {
+			$query->andFilterWhere([
+				'>=',
+				'created_date',
+				$this->start_date,
+			]);
+		}
+		if($this->end_date != null) {
+			$query->andFilterWhere([
+				'<=',
+				'created_date',
+				$this->end_date,
+			]);
+		}
+		// grid filtering conditions
+		$query->andFilterWhere([
+			'id'           => $this->id,
+			'user_id'      => $this->user_id,
+			'total_amount' => $this->total_amount,
+			'created_date' => $this->created_date,
+			'update_at'    => $this->update_at,
+			'status'       => $this->status,
+			'update_by'    => $this->update_by,
+			'type'         => $this->type,
+			'parent_id'    => $this->parent_id,
+		]);
+		$query->andFilterWhere([
+			'like',
+			'note',
+			$this->note,
+		]);
+		if($attribute == 'quantity') {
+			return $query->count();
+		} elseif($attribute == 'pre_quantity') {
+			return $query->andWhere(['type' => $this::ROLE_PRE])->count();
+		} elseif($attribute == 'big_quantity') {
+			return $query->andWhere(['type' => $this::ROLE_BIGA])->count();
+		} elseif($attribute == 'age_quantity') {
+			return $query->andWhere(['type' => $this::ROLE_A])->count();
+		} elseif($attribute == 'dis_quantity') {
+			return $query->andWhere(['type' => $this::ROLE_D])->count();
+		} elseif($attribute == 'total_money') {
+			return $query->sum('total_amount');
+		} else {
+			return '0';
+		}
+	}
+
+	public function getInfoClient($params, $attribute) {
+		$query = Order::find();
+		// add conditions that should always apply here
+		if($this->user->role_id != $this::ROLE_ADMIN) {
+			$query->where(['user_id' => $this->user->id]);
+		}
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 			'sort'  => ['defaultOrder' => ['id' => SORT_DESC]],

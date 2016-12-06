@@ -34,13 +34,17 @@ class AdminController extends BaseAdminController {
 				//NOT REQUIRED, only if you want to translate
 				'actions' => [
 					//without translate
-					'index'         => 'Danh sách ',
-					'update'        => 'Cập nhật ',
-					'create'        => 'Thêm mới người dùng',
-					'create?role=5' => 'Thêm mới npp',
-					'tree'          => 'Xem cây hệ thống',
-					'delete'        => 'Xóa người dùng',
-					'block'         => 'Khóa người dùng'
+					'index'        => 'Danh sách ',
+					'update'       => 'Cập nhật ',
+					'create'       => 'Thêm mới người dùng',
+					'create-admin' => 'Tạo admin',
+					'create-pre'   => 'Tạo đại diện',
+					'create-big'   => 'Tạo đại lý bán buôn',
+					'create-age'   => 'Tạo đại lý bán lẻ',
+					'create-dis'   => 'Tạo điểm phân phối',
+					'tree'         => 'Xem cây hệ thống',
+					'delete'       => 'Xóa người dùng',
+					'block'        => 'Khóa người dùng'
 					//with translated, which will display on role _form
 				],
 			],
@@ -108,28 +112,16 @@ class AdminController extends BaseAdminController {
 	}
 
 	public function actionCreate() {
-		//		echo \Yii::$app->user->identity->role_id;die;
-		//			if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
-		//				if(\Yii::$app->user->identity->role_id >= $role) {
-		//					return $this->redirect([
-		//						'create',
-		//						'role' => \Yii::$app->user->identity->role_id + 1,
-		//					]);
-		//				}
-		//			}
+		
 		/** @var User $user */
 		return $this->render('create_role');
 	}
 
 	public function actionCreateAdmin() {
-		$user = \Yii::createObject([
+		$user  = \Yii::createObject([
 			'class'    => User::className(),
 			'scenario' => 'admin_create',
 		]);
-		//			$user = \Yii::createObject([
-		//				'class'    => User::className(),
-		//				'scenario' => 'create',
-		//			]);
 		$role  = Model::ROLE_ADMIN;
 		$event = $this->getUserEvent($user);
 		$this->performAjaxValidation($user);

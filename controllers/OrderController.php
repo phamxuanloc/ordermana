@@ -36,9 +36,10 @@ class OrderController extends Controller {
 				'actions' => [
 					'order-item' => 'Xuất kho công ty',
 					//without translate
-					'index'      => 'Danh sách',
+					'index'      => 'Danh sách đơn hàng xuất kho',
 					'view'       => 'Chi tiết đơn hàng',
-					'delete'     => 'Xóa đơn hàng'
+					'delete'     => 'Xóa đơn hàng',
+					'receipted'  => 'Danh sách đơn hàng nhập kho'
 					//with translated, which will display on role _form
 				],
 			],
@@ -71,6 +72,28 @@ class OrderController extends Controller {
 		]);
 	}
 
+	public function actionReceipted() {
+		$searchModel  = new OrderSearch();
+		$params       = Yii::$app->request->queryParams;
+		$dataProvider = $searchModel->searchClient($params);
+		$order_num    = $searchModel->getInfoClient($params, 'quantity');
+		$order_sum    = $searchModel->getInfoClient($params, 'total_money');
+		$order_pre    = $searchModel->getInfoClient($params, 'pre_quantity');
+		$order_big    = $searchModel->getInfoClient($params, 'big_quantity');
+		$order_age    = $searchModel->getInfoClient($params, 'age_quantity');
+		$order_dis    = $searchModel->getInfoClient($params, 'dis_quantity');
+		return $this->render('index', [
+			'searchModel'  => $searchModel,
+			'dataProvider' => $dataProvider,
+			'order_num'    => $order_num,
+			'order_sum'    => $order_sum,
+			'order_pre'    => $order_pre,
+			'order_big'    => $order_big,
+			'order_age'    => $order_age,
+			'order_dis'    => $order_dis,
+		]);
+	}
+
 	/**
 	 * Displays a single Order model.
 	 *
@@ -78,68 +101,75 @@ class OrderController extends Controller {
 	 *
 	 * @return mixed
 	 */
+	public function actionViewClient($id) {
+		$model = $this->findModel($id);
+		$items = $model->orderItems;
+		Yii::$app->session->setFlash('warning', 'Chú ý: Bấm xác nhận để xác nhận đã nhận đủ hàng');
+		if($model->load(Yii::$app->request->post())) {
+			$model->scenario = 'update_status';
+		}
+		return $this->render('view_client', [
+			'model' => $model,
+			'items' => $items,
+		]);
+	}
+
 	public function actionView($id) {
 		$model = $this->findModel($id);
 		$items = $model->orderItems;
-		if($this->user->role_id == $model::ROLE_ADMIN) {
-
-			Yii::$app->session->setFlash('warning', 'Chú ý: Chuyển trạng thái qua "Đã nhận đủ" để xuất kho');
-			if($model->load(Yii::$app->request->post())) {
-				$model->scenario  = 'update_status';
-				$model->update_at = date('Y-m-d H:i:s');
-				$model->update_by = $this->user->id;
-				if($model->save()) {
-					if($model->status == $model::RECEIPTED) {
-						foreach($items as $item) {
-							if($item->status != $item::STATUS_RECEIPTED) {
-								if($item->quantity > $item->product->in_stock) {
-									Yii::$app->session->setFlash('danger', 'Chú ý: Sản phẩm ' . $item->product->name . ' không đủ số lượng để xuất');
-									$model->updateAttributes(['status' => $model::NOT_RECEIPTED]);
-									$item->updateAttributes(['status' => $item::STATUS_NOT_RECEIPTED]);
-									//							return $this->redirect(['/view','id'=>$id]);
+		Yii::$app->session->setFlash('warning', 'Chú ý: Chuyển trạng thái qua "Đã nhận đủ" để xuất kho');
+		if($this->user->role_id != $model::ROLE_ADMIN) {
+			if($model->parent_id != $this->user->id) {
+				return $this->goHome();
+			}
+		}
+		if($model->load(Yii::$app->request->post())) {
+			$model->scenario  = 'update_status';
+			$model->update_at = date('Y-m-d H:i:s');
+			$model->update_by = $this->user->id;
+			if($model->save()) {
+				if($model->status == $model::RECEIPTED) {
+					foreach($items as $item) {
+						if($item->status != $item::STATUS_RECEIPTED) {
+							if($item->quantity > $item->product->in_stock) {
+								Yii::$app->session->setFlash('danger', 'Chú ý: Sản phẩm ' . $item->product->name . ' không đủ số lượng để xuất');
+								$model->updateAttributes(['status' => $model::NOT_RECEIPTED]);
+								$item->updateAttributes(['status' => $item::STATUS_NOT_RECEIPTED]);
+								//							return $this->redirect(['/view','id'=>$id]);
+							} else {
+								$isset_stock = UserStock::findOne([
+									'product_id' => $item->product_id,
+									'user_id'    => $item->order->user_id,
+								]);
+								if($isset_stock != null) {
+									$isset_stock->updateAttributes(['in_stock' => $isset_stock->in_stock + $item->quantity]);
 								} else {
-									$isset_stock = UserStock::findOne([
-										'product_id' => $item->product_id,
-										'user_id'    => $item->order->user_id,
-									]);
-									if($isset_stock != null) {
-										$isset_stock->updateAttributes(['in_stock' => $isset_stock->in_stock + $item->quantity]);
-									} else {
-										$stock             = new UserStock();
-										$stock->user_id    = $item->order->user_id;
-										$stock->product_id = $item->product_id;
-										$stock->in_stock   = $item->quantity;
-										$stock->save();
-									}
-									$item->updateAttributes(['status' => $item::STATUS_RECEIPTED]);
-									$item->product->updateAttributes(['in_stock' => $item->product->in_stock - $item->quantity]);
+									$stock             = new UserStock();
+									$stock->user_id    = $item->order->user_id;
+									$stock->product_id = $item->product_id;
+									$stock->in_stock   = $item->quantity;
+									$stock->save();
 								}
+								$item->updateAttributes(['status' => $item::STATUS_RECEIPTED]);
+								$item->product->updateAttributes(['in_stock' => $item->product->in_stock - $item->quantity]);
 							}
 						}
 					}
-					return $this->redirect([
-						'view',
-						'id' => $id,
-					]);
-				} else {
-					echo '<pre>';
-					print_r($model->errors);
-					die;
 				}
+				return $this->redirect([
+					'view',
+					'id' => $id,
+				]);
+			} else {
+				echo '<pre>';
+				print_r($model->errors);
+				die;
 			}
-			return $this->render('view', [
-				'model' => $model,
-				'items' => $items,
-			]);
-		} else {
-			if($model->parent->id != $this->user->id) {
-				return $this->goHome();
-			}
-			return $this->render('view_client', [
-				'model' => $model,
-				'items' => $items,
-			]);
 		}
+		return $this->render('view', [
+			'model' => $model,
+			'items' => $items,
+		]);
 	}
 
 	/**
