@@ -180,11 +180,11 @@ use yii\helpers\Url;
 				</a>
 				<ul class="sub-menu">
 					<li>
-						<a href="components_pickers.html">
+						<a href="<?= Url::to(['/customer']) ?>">
 							Danh sách khách hàng lẻ</a>
 					</li>
 					<li>
-						<a href="components_context_menu.html">
+						<a href="<?= Url::to(['/customer/create']) ?>">
 							Thêm khách hàng lẻ</a>
 					</li>
 				</ul>
