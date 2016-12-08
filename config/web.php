@@ -52,7 +52,7 @@ $config  = [
 		],
 	],
 	'modules'    => [
-		'user' => [
+		'user'  => [
 			'class'         => 'dektrium\user\Module',
 			'modelMap'      => [
 				'User'       => 'app\models\User',
@@ -65,13 +65,17 @@ $config  = [
 				'admin' => 'app\controllers\AdminController',
 			],
 		],
-		'role' => [
+		'role'  => [
 			'class'       => 'navatech\role\Module',
 			'controllers' => [ //namespaces of controllers
 				'app\controllers',
 				'navatech\role\controllers',
 			],
 		],
+//		'audit' => [
+//			'class'                  => 'bedezign\yii2\audit\Audit',
+//			'accessRoles' => ['@'],
+//		],
 	],
 	'params'     => $params,
 ];

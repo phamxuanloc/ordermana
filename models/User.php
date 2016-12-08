@@ -21,12 +21,14 @@ use yii\helpers\ArrayHelper;
  * @property string          $phone
  * @property integer         $blocked_at
  * @property string          $registration_ip
+ * @property string          $address
  * @property integer         $created_at
  * @property integer         $updated_at
  * @property integer         $flags
  * @property integer         $role_id
  * @property integer         $parent_id
  * @property integer         $city
+ * @property integer         $id_number
  *
  * @property Customer[]      $customers
  * @property Order[]         $orders
@@ -68,6 +70,8 @@ class User extends BaseUser {
 				'phone',
 				'facebook_link',
 				'parent_id',
+				'address',
+				'id_number',
 			],
 			'admin_create' => [
 				'username',
@@ -78,6 +82,8 @@ class User extends BaseUser {
 				'phone',
 				'facebook_link',
 				'parent_id',
+				'address',
+				'id_number',
 			],
 			'update'       => [
 				'username',
@@ -88,6 +94,8 @@ class User extends BaseUser {
 				'phone',
 				'facebook_link',
 				'parent_id',
+				'address',
+				'id_number',
 			],
 			'settings'     => [
 				'username',
@@ -106,6 +114,7 @@ class User extends BaseUser {
 				[
 					'username',
 					'phone',
+					'id_number'
 					//					'email',
 				],
 				'required',
@@ -206,6 +215,8 @@ class User extends BaseUser {
 			'role_id'           => 'Role ID',
 			'parent_id'         => 'Tuyến trên',
 			'city'              => 'Thành phố',
+			'id_number'         => 'Số cmt',
+			'address'           => 'Địa chỉ hiện tại',
 		];
 	}
 
@@ -289,4 +300,8 @@ class User extends BaseUser {
 	//	public function getUserByLv() {
 	//	
 	//	}
+	public static function getUsername($user_id) {
+		$user = User::findOne(['id' => $user_id]);
+		return $user->username;
+	}
 }

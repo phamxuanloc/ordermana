@@ -20,6 +20,8 @@ use yii\helpers\ArrayHelper;
 	<?= $form->field($user, 'username')->textInput(['maxlength' => 255]) ?>
 <?php } ?>
 <?= $form->field($user, 'phone')->textInput(['maxlength' => 255]) ?>
+<?= $form->field($user, 'id_number')->textInput() ?>
+<?= $form->field($user, 'address')->textInput() ?>
 <?= $form->field($user, 'email')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'facebook_link')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'city')->widget(Select2::className(), [

@@ -1,5 +1,7 @@
 <?php
+use kartik\select2\Select2;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 //use yii\widgets\ActiveForm;
@@ -19,17 +21,21 @@ use yii\helpers\Html;
 	<?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
 	<?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-	
+
 	<?= $form->field($model, 'phone')->textInput() ?>
 
-	<?= $form->field($model, 'city_id')->textInput() ?>
-	
-	<?= $form->field($model, 'point')->textInput() ?>
+	<?= $form->field($model, 'city_id')->widget(Select2::className(), [
+		'data' => ArrayHelper::map(\app\models\City::find()->andWhere([
+			'status' => 1,
+		])->all(), 'id', 'name'),
+	])->label('Thành phố') ?>
 
-	<?= $form->field($model, 'parent_id')->textInput() ?>
-	
+	<?= $form->field($model, 'parent_id')->widget(Select2::className(), [
+		'data' => ArrayHelper::map(\app\models\User::find()->where(['blocked_at' => null])->all(), 'id', 'username'),
+	])->label('Người sở hữu') ?>
+
 	<?= $form->field($model, 'link_fb')->textInput(['maxlength' => true]) ?>
-	
+
 	<?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
 
 	<?= $form->field($model, 'is_call')->textInput(['maxlength' => true]) ?>

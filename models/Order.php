@@ -1,7 +1,7 @@
 <?php
 namespace app\models;
 
-use app\components\Model;
+use app\components\ModelTrail;
 use Yii;
 use yii\helpers\ArrayHelper;
 
@@ -23,7 +23,7 @@ use yii\helpers\ArrayHelper;
  * @property User        $users
  * @property OrderItem[] $orderItems
  */
-class Order extends Model {
+class Order extends ModelTrail {
 
 	const STATUS        = [
 		'Chưa thanh toán',
@@ -140,7 +140,6 @@ class Order extends Model {
 			'downline'     => 'Xuất cho',
 		];
 	}
-
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
