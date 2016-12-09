@@ -30,16 +30,26 @@ use Yii;
  */
 class Customer extends \app\components\Model {
 
-	const IS_CALL = [
-		'Đã gọi',
+	const IS_CALL     = [
 		'Chưa gọi',
+		'Đã gọi',
 	];
 
-	const IS_MOVE = [
+	const CALLED      = 0;
+
+	const NOT_CALL    = 1;
+
+	const IS_MOVE     = [
 		'Mới tạo',
 		'Chuyển lần 1',
 		'Chuyển lần 2',
 	];
+
+	const CREATED     = 0;
+
+	const MOVE_FIRST  = 1;
+
+	const MOVE_SECOND = 2;
 
 	/**
 	 * @inheritdoc
