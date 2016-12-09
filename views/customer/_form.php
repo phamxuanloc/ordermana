@@ -38,11 +38,16 @@ use yii\helpers\Html;
 
 	<?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
 
-	<?= $form->field($model, 'is_call')->textInput(['maxlength' => true]) ?>
+	<?= $form->field($model, 'is_call')->dropDownList($model::IS_CALL) ?>
 
 	<?= $form->field($model, 'call_by')->textInput(['maxlength' => true]) ?>
 
-	<?= $form->field($model, 'call_at')->textInput() ?>
+	<?= $form->field($model, 'call_at')->widget(\kartik\date\DatePicker::className(), [
+		'pluginOptions' => [
+			'autoclose' => true,
+			'format'    => 'yyyy-mm-dd',
+		],
+	]) ?>
 
 	<div class="form-group">
 		<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -25,6 +25,7 @@ use Yii;
  * @property string          $call_at
  *
  * @property User            $parent
+ * @property City            $city
  * @property User            $user
  * @property OrderCustomer[] $orderCustomers
  */
@@ -164,5 +165,9 @@ class Customer extends \app\components\Model {
 	 */
 	public function getOrderCustomers() {
 		return $this->hasMany(OrderCustomer::className(), ['customer_id' => 'id']);
+	}
+
+	public function getCity() {
+		return $this->hasOne(City::className(), ['id' => 'city_id']);
 	}
 }
