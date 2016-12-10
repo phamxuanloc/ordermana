@@ -58,9 +58,9 @@ class CustomerController extends Controller {
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
-	public function actionCreate() {
+	public function actionMove() {
 		$model = new Customer();
-		if($model->load(Yii::$app->request->post()) && $model->save()) {
+		if($model->load(Yii::$app->request->post())) {
 			return $this->redirect(['index']);
 		} else {
 			return $this->render('create', [

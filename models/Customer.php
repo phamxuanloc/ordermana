@@ -16,6 +16,7 @@ use Yii;
  * @property integer         $user_id
  * @property integer         $point
  * @property integer         $parent_id
+ * @property integer         $last_parent_id
  * @property integer         $is_move
  * @property string          $link_fb
  * @property string          $sale
@@ -25,6 +26,7 @@ use Yii;
  * @property string          $call_at
  *
  * @property User            $parent
+ * @property User            $lastParent
  * @property City            $city
  * @property User            $user
  * @property OrderCustomer[] $orderCustomers
@@ -79,6 +81,7 @@ class Customer extends \app\components\Model {
 					'point',
 					'parent_id',
 					'is_move',
+					'last_parent_id',
 				],
 				'integer',
 			],
@@ -126,23 +129,24 @@ class Customer extends \app\components\Model {
 	 */
 	public function attributeLabels() {
 		return [
-			'id'           => 'ID',
-			'name'         => 'Họ tên',
-			'address'      => 'Địa chỉ',
-			'email'        => 'Email',
-			'company_name' => 'Company Name',
-			'phone'        => 'Số điện thoại',
-			'city_id'      => 'Thành phố',
-			'user_id'      => 'Người tạo',
-			'point'        => 'Điểm',
-			'parent_id'    => 'Người sở hữu',
-			'is_move'      => 'Trạng thái',
-			'link_fb'      => 'Link Fb',
-			'sale'         => 'Sale',
-			'note'         => 'Ghi chú',
-			'is_call'      => 'Trạng thái gọi',
-			'call_by'      => 'Người gọi',
-			'call_at'      => 'Ngày gọi',
+			'id'             => 'ID',
+			'name'           => 'Họ tên',
+			'address'        => 'Địa chỉ',
+			'email'          => 'Email',
+			'company_name'   => 'Company Name',
+			'phone'          => 'Số điện thoại',
+			'city_id'        => 'Thành phố',
+			'user_id'        => 'Người tạo',
+			'point'          => 'Điểm',
+			'parent_id'      => 'Người sở hữu',
+			'last_parent_id' => 'Người sở hữu',
+			'is_move'        => 'Trạng thái',
+			'link_fb'        => 'Link Fb',
+			'sale'           => 'Sale',
+			'note'           => 'Ghi chú',
+			'is_call'        => 'Trạng thái gọi',
+			'call_by'        => 'Người gọi',
+			'call_at'        => 'Ngày gọi',
 		];
 	}
 
@@ -151,6 +155,13 @@ class Customer extends \app\components\Model {
 	 */
 	public function getParent() {
 		return $this->hasOne(User::className(), ['id' => 'parent_id']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getLastParent() {
+		return $this->hasOne(User::className(), ['id' => 'last_parent_id']);
 	}
 
 	/**

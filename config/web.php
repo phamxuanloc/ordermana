@@ -72,10 +72,10 @@ $config  = [
 				'navatech\role\controllers',
 			],
 		],
-//		'audit' => [
-//			'class'                  => 'bedezign\yii2\audit\Audit',
-//			'accessRoles' => ['@'],
-//		],
+		'audit' => [
+			'class'                  => 'bedezign\yii2\audit\Audit',
+			'accessRoles' => ['@'],
+		],
 	],
 	'params'     => $params,
 ];
