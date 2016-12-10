@@ -124,6 +124,9 @@ class Model extends ActiveRecord {
 		return $response;
 	}
 
+	/**
+	 *Trả về array người dùng có cùng cấp độ
+	 */
 	public static function getUserList($role) {
 		if($role - Yii::$app->user->identity->role_id == 1) {
 			$response = ArrayHelper::map($cats = User::find()->where([
@@ -134,19 +137,19 @@ class Model extends ActiveRecord {
 				'parent_id' => Yii::$app->user->id,
 			])->all();
 			$response = [];
-			$response = self::getChildrenLv($cats, $response, $role, Yii::$app->user->identity->role_id+1);
+			$response = self::getChildrenLv($cats, $response, $role, Yii::$app->user->identity->role_id + 1);
 		}
 		return $response;
 	}
 
 	public function getChildrenLv($models, $response, $level, $real_lv) {
 		foreach($models as $model) {
-			if($level ==$model->role_id+1) {
+			if($level == $model->role_id + 1) {
 				$response[$model->id] = $model->username;
-			}else {
-//				if($model->role_id == $level){
-//					$response[$model->id] = $model->username;
-//				}
+			} else {
+				//				if($model->role_id == $level){
+				//					$response[$model->id] = $model->username;
+				//				}
 				$children = $model->find()->where([
 					'parent_id' => $model->id,
 				])->all();
@@ -320,18 +323,18 @@ class Model extends ActiveRecord {
 		}
 		return $response;
 	}
-	public function getOwnerCustomer(){
-		$customer=[];
 
-		if($this->user->role_id==self::ROLE_ADMIN){
-			foreach(Customer::find()->all() as $cus){
-				$customer[$cus->id]=$cus->name.'-'.$cus->phone;
+	public function getOwnerCustomer() {
+		$customer = [];
+		if($this->user->role_id == self::ROLE_ADMIN) {
+			foreach(Customer::find()->all() as $cus) {
+				$customer[$cus->id] = $cus->name . '-' . $cus->phone;
 			}
-		}else{
-			foreach(Customer::find()->where(['parent_id'=>$this->user->id])->all() as $cus){
-				$customer[$cus->id]=$cus->name.'-'.$cus->phone;
+		} else {
+			foreach(Customer::find()->where(['parent_id' => $this->user->id])->andWhere('is_move<2')->all() as $cus) {
+				$customer[$cus->id] = $cus->name . '-' . $cus->phone;
 			}
 		}
-			return $customer;
+		return $customer;
 	}
 }

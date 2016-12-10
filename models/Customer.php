@@ -54,6 +54,8 @@ class Customer extends \app\components\Model {
 
 	const MOVE_SECOND = 2;
 
+	public $list_customer;
+
 	/**
 	 * @inheritdoc
 	 */
@@ -82,6 +84,7 @@ class Customer extends \app\components\Model {
 					'parent_id',
 					'is_move',
 					'last_parent_id',
+					'list_customer',
 				],
 				'integer',
 			],

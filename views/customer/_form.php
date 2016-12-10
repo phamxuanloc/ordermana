@@ -29,11 +29,11 @@ use yii\helpers\Html;
 			'status' => 1,
 		])->all(), 'id', 'name'),
 	])->label('Thành phố') ?>
-
-	<?= $form->field($model, 'parent_id')->widget(Select2::className(), [
-		'data' => ArrayHelper::map(\app\models\User::find()->where(['blocked_at' => null])->all(), 'id', 'username'),
-	])->label('Người sở hữu') ?>
-
+	<?php if($model->isNewRecord) { ?>
+		<?= $form->field($model, 'parent_id')->widget(Select2::className(), [
+			'data' => ArrayHelper::map(\app\models\User::find()->where(['blocked_at' => null])->all(), 'id', 'username'),
+		])->label('Người sở hữu') ?>
+	<?php } ?>
 	<?= $form->field($model, 'link_fb')->textInput(['maxlength' => true]) ?>
 
 	<?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>

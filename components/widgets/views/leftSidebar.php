@@ -116,7 +116,7 @@ use yii\helpers\Url;
 						</li>
 					<?php } ?>
 					<li>
-						<a href="<?=Url::to(['/order-customer'])?>">
+						<a href="<?= Url::to(['/order-customer']) ?>">
 							Danh sách đơn hàng bán lẻ</a>
 					</li>
 					<?php if(RoleChecker::isAuth(OrderController::className(), 'order-item')) { ?>
@@ -127,7 +127,7 @@ use yii\helpers\Url;
 					<?php } ?>
 
 					<li>
-						<a href="<?=Url::to(['/order-customer/order-item'])?>">
+						<a href="<?= Url::to(['/order-customer/order-item']) ?>">
 							Tạo đơn hàng bán lẻ</a>
 					</li>
 				</ul>
@@ -186,6 +186,10 @@ use yii\helpers\Url;
 					<li>
 						<a href="<?= Url::to(['/customer/create']) ?>">
 							Thêm khách hàng lẻ</a>
+					</li>
+					<li>
+						<a href="<?= Url::to(['/customer/move']) ?>">
+							Chuyển khách hàng lẻ</a>
 					</li>
 				</ul>
 			</li>

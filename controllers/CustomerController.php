@@ -1,12 +1,12 @@
 <?php
 namespace app\controllers;
 
-use Yii;
 use app\models\Customer;
 use app\models\search\CustomerSearch;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * CustomerController implements the CRUD actions for Customer model.
@@ -58,15 +58,43 @@ class CustomerController extends Controller {
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
-	public function actionMove() {
+	public function actionCreate() {
 		$model = new Customer();
-		if($model->load(Yii::$app->request->post())) {
+		if($model->load(Yii::$app->request->post()) && $model->save()) {
+			$model->updateAttributes(['user_id' => Yii::$app->user->id]);
 			return $this->redirect(['index']);
 		} else {
 			return $this->render('create', [
 				'model' => $model,
 			]);
 		}
+	}
+
+	public function actionMove() {
+		$model    = new Customer();
+		$children = $model->getTotalChildren(Yii::$app->user->id);
+		if($model->load(Yii::$app->request->post())) {
+			$customer = Customer::findOne($model->list_customer);
+			if($customer->is_move >= 2) {
+				Yii::$app->session->setFlash('danger', 'Chỉ được chuyển tối đa 2 lần');
+				return $this->render('move', [
+					'model'    => $model,
+					'children' => $children,
+				]);
+			} elseif($customer->is_move == 1) {
+				$customer->updateAttributes(['last_parent_id' => $customer->parent_id]);
+				$customer->updateAttributes(['parent_id' => $model->parent_id]);
+				return $this->redirect(['index']);
+			} else {
+				$customer->updateAttributes(['parent_id' => $model->parent_id]);
+				$customer->updateAttributes(['is_move' => 1]);
+				return $this->redirect(['index']);
+			}
+		}
+		return $this->render('move', [
+			'model'    => $model,
+			'children' => $children,
+		]);
 	}
 
 	/**
