@@ -1,6 +1,7 @@
 <?php
 namespace app\models;
 
+use app\components\Model;
 use app\components\ModelTrail;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -23,7 +24,7 @@ use yii\helpers\ArrayHelper;
  * @property User        $users
  * @property OrderItem[] $orderItems
  */
-class Order extends ModelTrail {
+class Order extends Model {
 
 	const STATUS        = [
 		'Chưa thanh toán',

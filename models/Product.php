@@ -2,7 +2,6 @@
 namespace app\models;
 
 use app\components\Model;
-use app\components\ModelTrail;
 use Yii;
 
 /**
@@ -42,7 +41,7 @@ use Yii;
  * @property Category    $category
  * @property UserStock[] $userStocks
  */
-class Product extends ModelTrail {
+class Product extends Model {
 
 	const STATUS        = [
 		'Chưa thanh toán',
@@ -227,10 +226,13 @@ class Product extends ModelTrail {
 	public function beforeSave($insert) {
 		return parent::beforeSave($insert);
 	}
-	public function behaviors()
-	{
+
+	public function behaviors() {
 		return [
-			'bedezign\yii2\audit\AuditTrailBehavior'
+			'AuditTrailBehavior' => [
+				'class'   => 'bedezign\yii2\audit\AuditTrailBehavior',
+				'allowed' => ['in_stock'],
+			],
 		];
 	}
 }

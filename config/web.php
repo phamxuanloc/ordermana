@@ -75,6 +75,7 @@ $config  = [
 		'audit' => [
 			'class'                  => 'bedezign\yii2\audit\Audit',
 			'accessRoles' => ['@'],
+			'ignoreActions' => ['audit/*', 'debug/*'],
 		],
 	],
 	'params'     => $params,
