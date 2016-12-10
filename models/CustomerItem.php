@@ -3,6 +3,7 @@ namespace app\models;
 
 use app\components\Model;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "customer_item".
@@ -14,9 +15,18 @@ use Yii;
  * @property double        $total_price
  *
  * @property OrderCustomer $orderCustomer
+ * @property Product       $product
  */
 class CustomerItem extends Model {
 
+	const STATUS               = [
+		'Chưa nhận',
+		'Đã nhận',
+	];
+
+	const STATUS_RECEIPTED     = 1;
+
+	const STATUS_NOT_RECEIPTED = 0;
 	/**
 	 * @inheritdoc
 	 */
@@ -79,5 +89,24 @@ class CustomerItem extends Model {
 	 */
 	public function getOrderCustomer() {
 		return $this->hasOne(OrderCustomer::className(), ['id' => 'order_customer_id']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getProduct() {
+		return $this->hasOne(Product::className(), ['id' => 'product_id']);
+	}
+	public function getProductByCategory() {
+		$category = Category::findOne($this->product->category_id);
+		return ArrayHelper::map($category->products, 'id', 'name');
+	}
+
+	public function getItemStatus() {
+		if($this->status == self::STATUS_RECEIPTED) {
+			return 'Đã nhận';
+		} else {
+			return 'Chưa nhận';
+		}
 	}
 }

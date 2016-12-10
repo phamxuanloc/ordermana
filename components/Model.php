@@ -2,6 +2,7 @@
 namespace app\components;
 
 use app\models\Category;
+use app\models\Customer;
 use app\models\Product;
 use app\models\User;
 use Yii;
@@ -318,5 +319,19 @@ class Model extends ActiveRecord {
 			}
 		}
 		return $response;
+	}
+	public function getOwnerCustomer(){
+		$customer=[];
+
+		if($this->user->role_id==self::ROLE_ADMIN){
+			foreach(Customer::find()->all() as $cus){
+				$customer[$cus->id]=$cus->name.'-'.$cus->phone;
+			}
+		}else{
+			foreach(Customer::find()->where(['parent_id'=>$this->user->id])->all() as $cus){
+				$customer[$cus->id]=$cus->name.'-'.$cus->phone;
+			}
+		}
+			return $customer;
 	}
 }

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\OrderCustomer;
 use Yii;
 use app\models\CustomerItem;
 use app\models\search\CustomerItemSearch;
@@ -92,7 +93,6 @@ class CustomerItemController extends Controller
             ]);
         }
     }
-
     /**
      * Deletes an existing CustomerItem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

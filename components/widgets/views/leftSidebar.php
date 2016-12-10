@@ -116,7 +116,7 @@ use yii\helpers\Url;
 						</li>
 					<?php } ?>
 					<li>
-						<a href="layout_horizontal_sidebar_menu.html">
+						<a href="<?=Url::to(['/order-customer'])?>">
 							Danh sách đơn hàng bán lẻ</a>
 					</li>
 					<?php if(RoleChecker::isAuth(OrderController::className(), 'order-item')) { ?>
@@ -127,7 +127,7 @@ use yii\helpers\Url;
 					<?php } ?>
 
 					<li>
-						<a href="layout_horizontal_menu1.html">
+						<a href="<?=Url::to(['/order-customer/order-item'])?>">
 							Tạo đơn hàng bán lẻ</a>
 					</li>
 				</ul>
