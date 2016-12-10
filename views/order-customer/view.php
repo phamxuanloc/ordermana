@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
-/* @var $model app\models\Order */
+/* @var $model app\models\OrderCustomer */
 /* @var $items app\models\CustomerItem */
 /* @var $item app\models\CustomerItem */
 $this->title                   = 'Chi tiết đơn hàng #LN-00' . $model->id;
@@ -91,10 +91,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="portlet-body">
                     <div class="row static-info">
                         <div class="col-md-5 name">
-                            Tên tài khoản:
+                            Tên khách hàng:
                         </div>
                         <div class="col-md-7 value">
-                            <?= $model->users->username ?>
+                            <?= $model->customer->name ?>
                         </div>
                     </div>
                     <div class="row static-info">
@@ -102,7 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             Email:
                         </div>
                         <div class="col-md-7 value">
-                            <?= $model->users->email ?>
+                            <?= $model->customer->email ?>
                         </div>
                     </div>
                     <div class="row static-info">
@@ -110,7 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             Thành phố:
                         </div>
                         <div class="col-md-7 value">
-                            <?= $model->users->cities->name ?>
+                            <?= $model->customer->city->name ?>
                         </div>
                     </div>
                     <div class="row static-info">
@@ -118,15 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             Số điện thoại:
                         </div>
                         <div class="col-md-7 value">
-                            <?= $model->users->phone ?>
-                        </div>
-                    </div>
-                    <div class="row static-info">
-                        <div class="col-md-5 name">
-                            Loại tài khoản:
-                        </div>
-                        <div class="col-md-7 value">
-                            <?= $model::ROLE[$model->users->role_id] ?>
+                            <?= $model->customer->phone ?>
                         </div>
                     </div>
                 </div>

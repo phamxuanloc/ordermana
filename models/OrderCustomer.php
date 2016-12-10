@@ -111,15 +111,15 @@ class OrderCustomer extends Model {
 	public function attributeLabels() {
 		return [
 			'id'           => 'ID',
-			'user_id'      => 'User ID',
-			'total_amount' => 'Total Amount',
-			'note'         => 'Note',
-			'created_date' => 'Created Date',
+			'user_id'      => 'Người tạo đơn',
+			'total_amount' => 'Tổng tiền',
+			'note'         => 'Ghi chú',
+			'created_date' => 'Ngày tạo',
 			'update_at'    => 'Update At',
-			'status'       => 'Status',
+			'status'       => 'Trạng thái',
 			'update_by'    => 'Update By',
 			'type'         => 'Type',
-			'customer_id'  => 'Customer ID',
+			'customer_id'  => 'Khách hàng',
 		];
 	}
 
