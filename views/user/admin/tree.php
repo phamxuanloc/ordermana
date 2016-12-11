@@ -79,4 +79,4 @@ $groupsContent = TreeView::widget([
 </p>
 <?php
 echo $groupsContent;
-?>h
+?>

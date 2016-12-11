@@ -31,7 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
 	'dataProvider' => $dataProvider,
 	'filterModel'  => $searchModel,
 	'layout'       => "{items}\n{pager}",
-	'columns'      => [
+	'columns' => [
+		['class'  => 'yii\grid\SerialColumn',
+		 'header' => 'STT',
+		],
 		'username',
 		'email:email',
 		[
@@ -55,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'value'     => function (\app\models\User $data) {
 				return $data->role->name;
 			},
-			'header'=>'Loại tài khoản'
+			'header'    => 'Loại tài khoản',
 		],
 		[
 			'header'  => Yii::t('user', 'Confirmation'),
