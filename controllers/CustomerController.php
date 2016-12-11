@@ -3,8 +3,10 @@ namespace app\controllers;
 
 use app\models\Customer;
 use app\models\search\CustomerSearch;
+use app\models\User;
 use Yii;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -59,13 +61,20 @@ class CustomerController extends Controller {
 	 * @return mixed
 	 */
 	public function actionCreate() {
-		$model = new Customer();
+		$model          = new Customer();
+		$children       = $model->getTotalChildren(Yii::$app->user->id);
+		$total_children = ArrayHelper::merge([Yii::$app->user->id => Yii::$app->user->identity->username], ArrayHelper::map(User::find()->where([
+			'IN',
+			'id',
+			$children,
+		])->all(), 'id', 'username'));
 		if($model->load(Yii::$app->request->post()) && $model->save()) {
 			$model->updateAttributes(['user_id' => Yii::$app->user->id]);
 			return $this->redirect(['index']);
 		} else {
 			return $this->render('create', [
-				'model' => $model,
+				'model'          => $model,
+				'total_children' => $total_children,
 			]);
 		}
 	}
