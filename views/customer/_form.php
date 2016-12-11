@@ -35,7 +35,8 @@ use yii\helpers\Html;
 		])->label('Người sở hữu') ?>
 	<?php } ?>
 	<?= $form->field($model, 'link_fb')->textInput(['maxlength' => true]) ?>
-
+	<?php echo $form->field($model, 'source')->textInput() ?>
+	<?php echo $form->field($model, 'product')->textInput() ?>
 	<?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
 
 	<?= $form->field($model, 'is_call')->dropDownList($model::IS_CALL) ?>
@@ -49,8 +50,8 @@ use yii\helpers\Html;
 		],
 	]) ?>
 
-	<div class="form-group">
-		<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+	<div class="col-sm-offset-3">
+		<?= Html::submitButton($model->isNewRecord ? 'Thêm mới' : 'Cập nhật', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 	</div>
 
 	<?php ActiveForm::end(); ?>
