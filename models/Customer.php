@@ -101,6 +101,7 @@ class Customer extends \app\components\Model {
 				[
 					'call_at',
 					'created_date',
+					'birthday',
 				],
 				'safe',
 			],
@@ -164,6 +165,7 @@ class Customer extends \app\components\Model {
 			'source'         => 'Nguồn khách hàng',
 			'id_number'      => 'Số cmt',
 			'created_date'   => 'Ngày tạo',
+			'birthday'       => 'Ngày sinh',
 		];
 	}
 

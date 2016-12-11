@@ -24,6 +24,12 @@ $this->params['breadcrumbs'][] = $this->title;
 			'created_date',
 			'name',
 			'address',
+			[
+				'attribute' => 'birthday',
+				'value'     => function (Customer $data) {
+					return Yii::$app->formatter->asDate($data->birthday, 'Y-M-d');
+				},
+			],
 			'email:email',
 			'phone',
 			'id_number',

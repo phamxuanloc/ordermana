@@ -72,6 +72,7 @@ class User extends BaseUser {
 				'parent_id',
 				'address',
 				'id_number',
+				'birthday',
 			],
 			'admin_create' => [
 				'username',
@@ -84,6 +85,7 @@ class User extends BaseUser {
 				'parent_id',
 				'address',
 				'id_number',
+				'birthday',
 			],
 			'update'       => [
 				'username',
@@ -96,6 +98,7 @@ class User extends BaseUser {
 				'parent_id',
 				'address',
 				'id_number',
+				'birthday',
 			],
 			'settings'     => [
 				'username',
@@ -114,7 +117,8 @@ class User extends BaseUser {
 				[
 					'username',
 					'phone',
-					'id_number'
+					'id_number',
+					'birthday'
 					//					'email',
 				],
 				'required',
@@ -218,6 +222,7 @@ class User extends BaseUser {
 			'city'              => 'Thành phố',
 			'id_number'         => 'Số cmt',
 			'address'           => 'Địa chỉ hiện tại',
+			'birthday'          => 'Sinh nhật',
 		];
 	}
 

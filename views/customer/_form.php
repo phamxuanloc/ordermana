@@ -1,5 +1,6 @@
 <?php
 use app\models\User;
+use kartik\date\DatePicker;
 use kartik\select2\Select2;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -22,7 +23,12 @@ use yii\helpers\Html;
 	<?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
 	<?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
+	<?= $form->field($model, 'birthday')->widget(DatePicker::className(), [
+		'pluginOptions' => [
+			'autoclose' => true,
+			'format'    => 'yyyy-mm-dd',
+		],
+	]) ?>
 	<?= $form->field($model, 'phone')->textInput() ?>
 	<?= $form->field($model, 'id_number')->textInput() ?>
 
@@ -45,7 +51,7 @@ use yii\helpers\Html;
 
 	<?= $form->field($model, 'call_by')->textInput(['maxlength' => true]) ?>
 
-	<?= $form->field($model, 'call_at')->widget(\kartik\date\DatePicker::className(), [
+	<?= $form->field($model, 'call_at')->widget(DatePicker::className(), [
 		'pluginOptions' => [
 			'autoclose' => true,
 			'format'    => 'yyyy-mm-dd',

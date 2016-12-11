@@ -12,6 +12,7 @@
  * @var dektrium\user\models\User $user
  */
 use app\components\Model;
+use kartik\date\DatePicker;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 
@@ -21,6 +22,12 @@ use yii\helpers\ArrayHelper;
 <?php } ?>
 <?= $form->field($user, 'phone')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'id_number')->textInput() ?>
+<?= $form->field($user, 'birthday')->widget(DatePicker::className(), [
+	'pluginOptions' => [
+		'autoclose' => true,
+		'format'    => 'yyyy-mm-dd',
+	],
+]) ?>
 <?= $form->field($user, 'address')->textInput() ?>
 <?= $form->field($user, 'email')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'facebook_link')->textInput(['maxlength' => 255]) ?>
