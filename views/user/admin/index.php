@@ -31,9 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
 	'dataProvider' => $dataProvider,
 	'filterModel'  => $searchModel,
 	'layout'       => "{items}\n{pager}",
-	'columns' => [
-		['class'  => 'yii\grid\SerialColumn',
-		 'header' => 'STT',
+	'columns'      => [
+		[
+			'class'  => 'yii\grid\SerialColumn',
+			'header' => 'STT',
 		],
 		'username',
 		'email:email',

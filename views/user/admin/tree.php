@@ -1,7 +1,5 @@
 <?php
 use execut\widget\TreeView;
-use yii\bootstrap\Modal;
-use yii\web\JsExpression;
 
 /** @var app\components\Model $model */
 $data = $model->getUserTree();
@@ -59,24 +57,25 @@ $groupsContent = TreeView::widget([
 			'placeholder' => 'Tìm kiếm tài khoản .....',
 		],
 	],
-	'defaultIcon'=>'glyphicon glyphicon-user',
+	'defaultIcon'   => 'glyphicon glyphicon-user',
 	'clientOptions' => [
 		//		'on'nodes'elected'    => $onSelect,
 		'selectedBackColor' => 'rgb(40, 153, 57)',
 		'borderColor'       => '#fff',
 		'enableLinks'       => true,
-//		'emptyIcon'         => 'glyphicon glyphicon-remove-sign',
+		//		'emptyIcon'         => 'glyphicon glyphicon-remove-sign',
 		'levels'            => 2,
-		'color'=>'green'
+		'color'             => 'green',
 	],
-]);?>
-<p>Chú thích</p>
-<p><button type="button" class="btn btn-danger">Admin</button>
-	<button type="button" class="btn btn-warning">Đại diện</button>
-	<button type="button" class="btn btn-info">Đại lí bán buôn</button>
-	<button type="button" class="btn btn-primary">Đại lý</button>
-	<button type="button" class="btn btn-default">Nhà phân phối</button>
-</p>
+]); ?>
+	<p>Chú thích</p>
+	<p>
+		<button type="button" class="btn btn-danger">Admin(<?= $adm_num ?>)</button>
+		<button type="button" class="btn btn-warning">Đại diện(<?= $pre_num ?>)</button>
+		<button type="button" class="btn btn-info">Đại lí bán buôn(<?= $big_num ?>)</button>
+		<button type="button" class="btn btn-primary">Đại lý(<?= $age_num ?>)</button>
+		<button type="button" class="btn btn-default">Nhà phân phối(<?= $dis_num ?>)</button>
+	</p>
 <?php
 echo $groupsContent;
 ?>
