@@ -1,7 +1,7 @@
 <?php
 use app\models\Customer;
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\CustomerSearch */
@@ -28,7 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
 					return $data->city->name;
 				},
 			],
-			// 'user_id',
+			[
+				'attribute' => 'user_id',
+				'value'     => function (Customer $data) {
+					return $data->user->username;
+				},
+			],
 			// 'point',
 			[
 				'attribute' => 'parent_id',
@@ -36,13 +41,20 @@ $this->params['breadcrumbs'][] = $this->title;
 					return $data->parent->username;
 				},
 			],
+			'source',
+			'product',
 			// 'is_move',
-			// 'link_fb',
+			'link_fb',
 			// 'sale',
-			// 'note:ntext',
-			// 'is_call',
-			// 'call_by',
-			// 'call_at',
+			'note:ntext',
+			[
+				'attribute' => 'is_call',
+				'value'     => function (Customer $data) {
+					return $data::IS_CALL[$data->is_call];
+				},
+			],
+			'call_by',
+			'call_at',
 			['class' => 'yii\grid\ActionColumn'],
 		],
 	]); ?>

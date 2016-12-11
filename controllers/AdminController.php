@@ -303,9 +303,7 @@ class AdminController extends BaseAdminController {
 
 	public function actionTree() {
 		$model = new  Model();
-		//		echo '<pre>';
-		//		print_r($model::getUserTree());
-		//		die;
+		
 		return $this->render('tree', ['model' => $model]);
 	}
 }

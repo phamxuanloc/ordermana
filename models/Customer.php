@@ -24,6 +24,8 @@ use Yii;
  * @property string          $is_call
  * @property string          $call_by
  * @property string          $call_at
+ * @property string          $source
+ * @property string          $product
  *
  * @property User            $parent
  * @property User            $lastParent
@@ -89,7 +91,10 @@ class Customer extends \app\components\Model {
 				'integer',
 			],
 			[
-				['note'],
+				[
+					'note',
+					'product',
+				],
 				'string',
 			],
 			[
@@ -106,6 +111,7 @@ class Customer extends \app\components\Model {
 					'sale',
 					'is_call',
 					'call_by',
+					'source',
 				],
 				'string',
 				'max' => 255,
@@ -142,14 +148,16 @@ class Customer extends \app\components\Model {
 			'user_id'        => 'Người tạo',
 			'point'          => 'Điểm',
 			'parent_id'      => 'Người sở hữu',
-			'last_parent_id' => 'Người sở hữu',
+			'last_parent_id' => 'Người sở hữu trước',
 			'is_move'        => 'Trạng thái',
 			'link_fb'        => 'Link Fb',
 			'sale'           => 'Sale',
-			'note'           => 'Ghi chú',
+			'note'           => 'Ghi chú phản hồi',
 			'is_call'        => 'Trạng thái gọi',
 			'call_by'        => 'Người gọi',
 			'call_at'        => 'Ngày gọi',
+			'product'        => 'Sản phầm đăng ký mua',
+			'source'         => 'Nguồn khách hàng',
 		];
 	}
 

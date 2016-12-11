@@ -1,5 +1,6 @@
 <?php
 use execut\widget\TreeView;
+use yii\bootstrap\Modal;
 use yii\web\JsExpression;
 
 /** @var app\components\Model $model */
@@ -78,4 +79,4 @@ $groupsContent = TreeView::widget([
 </p>
 <?php
 echo $groupsContent;
-?>
+?>h
