@@ -152,6 +152,7 @@ class User extends BaseUser {
 					'unconfirmed_email',
 					'phone',
 					'facebook_link',
+					'id_number',
 				],
 				'string',
 				'max' => 255,

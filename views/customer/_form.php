@@ -23,6 +23,7 @@ use yii\helpers\Html;
 	<?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
 	<?= $form->field($model, 'phone')->textInput() ?>
+	<?= $form->field($model, 'id_number')->textInput() ?>
 
 	<?= $form->field($model, 'city_id')->widget(Select2::className(), [
 		'data' => ArrayHelper::map(\app\models\City::find()->andWhere([

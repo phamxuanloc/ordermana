@@ -17,11 +17,16 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
 		'columns'      => [
-			['class' => 'yii\grid\SerialColumn'],
+			[
+				'class'  => 'yii\grid\SerialColumn',
+				'header' => 'STT',
+			],
+			'created_date',
 			'name',
 			'address',
 			'email:email',
 			'phone',
+			'id_number',
 			[
 				'attribute' => 'city_id',
 				'value'     => function (Customer $data) {

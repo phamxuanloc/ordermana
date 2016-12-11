@@ -98,7 +98,10 @@ class Customer extends \app\components\Model {
 				'string',
 			],
 			[
-				['call_at'],
+				[
+					'call_at',
+					'created_date',
+				],
 				'safe',
 			],
 			[
@@ -112,6 +115,7 @@ class Customer extends \app\components\Model {
 					'is_call',
 					'call_by',
 					'source',
+					'id_number',
 				],
 				'string',
 				'max' => 255,
@@ -158,6 +162,8 @@ class Customer extends \app\components\Model {
 			'call_at'        => 'Ngày gọi',
 			'product'        => 'Sản phầm đăng ký mua',
 			'source'         => 'Nguồn khách hàng',
+			'id_number'      => 'Số cmt',
+			'created_date'   => 'Ngày tạo',
 		];
 	}
 
