@@ -16,9 +16,15 @@ class UserSearch extends \dektrium\user\models\UserSearch {
 
 	public function search($params) {
 		$query = $this->finder->getUserQuery();
-//		if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
-//		$query->where([''])
-//		}
+		if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
+			$model    = new Model();
+			$children = $model->getTotalChildren(\Yii::$app->user->id);
+			$query->where([
+				'IN',
+				'id',
+				$children,
+			]);
+		}
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 			'sort'  => ['defaultOrder' => ['id' => SORT_DESC]],

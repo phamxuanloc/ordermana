@@ -77,9 +77,11 @@ class AdminController extends BaseAdminController {
 		$role           = $user->role_id;
 		$model          = new Model();
 		$user->scenario = 'update';
-		if($id != $model->user->id) {
-			if(!ArrayHelper::isIn($user->id, $model->getTotalChildren($model->user->id))) {
-				return $this->goHome();
+		if(Yii::$app->user->identity->role_id != $model::ROLE_ADMIN) {
+			if($id != $model->user->id) {
+				if(!ArrayHelper::isIn($user->id, $model->getTotalChildren($model->user->id))) {
+					return $this->goHome();
+				}
 			}
 		}
 		$event = $this->getUserEvent($user);
@@ -88,7 +90,7 @@ class AdminController extends BaseAdminController {
 		if($user->load(\Yii::$app->request->post()) && $user->save()) {
 			\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'Account details have been updated'));
 			$this->trigger(self::EVENT_AFTER_UPDATE, $event);
-			return $this->refresh();
+			return $this->redirect(['index']);
 		}
 		return $this->render('_account', [
 			'user' => $user,
