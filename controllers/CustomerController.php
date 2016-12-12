@@ -34,7 +34,6 @@ class CustomerController extends Controller {
 	 * @return mixed
 	 */
 	public function actionIndex() {
-		echo 'a';die;
 		$searchModel = new CustomerSearch();
 		if(isset($_POST['hasEditable'])) {
 			// use Yii's response format to encode output as JSON
