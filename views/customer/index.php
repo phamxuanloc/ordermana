@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'attribute' => 'birthday',
 				'value'     => function (Customer $data) {
-					return $data->birthday != null ? Yii::$app->formatter->asDate($data->birthday, 'Y-M-d') : '';
+					return $data->birthday != null ? Yii::$app->formatter->asDate($data->birthday, 'd-M-Y') : '';
 				},
 			],
 			'email:email',
