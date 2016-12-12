@@ -34,7 +34,18 @@ class CustomerController extends Controller {
 	 * @return mixed
 	 */
 	public function actionIndex() {
-		$searchModel  = new CustomerSearch();
+		$searchModel = new CustomerSearch();
+		if(isset($_POST['hasEditable'])) {
+			// use Yii's response format to encode output as JSON
+			\Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+			$model                       = $this->findModel($_POST['editableKey']);
+			// read your posted model attributes
+			// read or convert your posted information
+			$model->updateAttributes(['name' => $_POST['Customer'][0]['name']]);
+			// return JSON encoded output in the below format
+			// alternatively you can return a validation error
+			// return ['output'=>'', 'message'=>'Validation error'];
+		}
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 		return $this->render('index', [
 			'searchModel'  => $searchModel,

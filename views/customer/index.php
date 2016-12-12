@@ -1,6 +1,6 @@
 <?php
 use app\models\Customer;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -16,13 +16,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
+		'export'       => false,
+				'pjax'         => true,
 		'columns'      => [
 			[
-				'class'  => 'yii\grid\SerialColumn',
+				'class'  => 'kartik\grid\SerialColumn',
 				'header' => 'STT',
 			],
 			'created_date',
-			'name',
+			[
+				'class'           => 'kartik\grid\EditableColumn',
+				'attribute'       => 'name',
+				'editableOptions' => [
+					'inputType' => \kartik\editable\Editable::INPUT_TEXT,
+//					'asPopover'=>false
+					//					'options'=>[
+					//						'pluginOptions'=>['min'=>0, 'max'=>5000]
+					//					]
+				],
+			],
 			'address',
 			[
 				'attribute' => 'birthday',
@@ -66,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
 			'call_by',
 			'call_at',
-			['class' => 'yii\grid\ActionColumn'],
+			['class' => 'kartik\grid\ActionColumn'],
 		],
 	]); ?>
 </div>

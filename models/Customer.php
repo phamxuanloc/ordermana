@@ -102,6 +102,7 @@ class Customer extends \app\components\Model {
 					'call_at',
 					'created_date',
 					'birthday',
+					'name',
 				],
 				'safe',
 			],

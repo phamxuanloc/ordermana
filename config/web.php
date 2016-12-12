@@ -77,6 +77,9 @@ $config  = [
 			'accessRoles' => ['@'],
 			'ignoreActions' => ['audit/*', 'debug/*'],
 		],
+		'gridview' =>  [
+			'class' => '\kartik\grid\Module'
+		]
 	],
 	'params'     => $params,
 ];
