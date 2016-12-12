@@ -50,7 +50,14 @@ class AdminController extends BaseAdminController {
 			],
 		];
 	}
-
+	public function beforeAction($action) {
+		if(Yii::$app->user->isGuest && Yii::$app->controller->action->id !== 'login') {
+			$this->redirect(Url::to(['/user/security/login']));
+			return false;
+		} else {
+			return parent::beforeAction($action);
+		}
+	}
 	public function actionIndex() {
 		// TODO: Change the auto generated stub
 		return parent::actionIndex();
