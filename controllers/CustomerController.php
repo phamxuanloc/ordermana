@@ -1,13 +1,13 @@
 <?php
 namespace app\controllers;
 
+use app\components\Controller;
 use app\models\Customer;
 use app\models\search\CustomerSearch;
 use app\models\User;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 /**
