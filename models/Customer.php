@@ -80,7 +80,6 @@ class Customer extends \app\components\Model {
 			[
 				[
 					'phone',
-					'city_id',
 					'user_id',
 					'point',
 					'parent_id',
@@ -118,6 +117,7 @@ class Customer extends \app\components\Model {
 					'call_by',
 					'source',
 					'id_number',
+					'city_id',
 				],
 				'string',
 				'max' => 255,
@@ -198,7 +198,4 @@ class Customer extends \app\components\Model {
 		return $this->hasMany(OrderCustomer::className(), ['customer_id' => 'id']);
 	}
 
-	public function getCity() {
-		return $this->hasOne(City::className(), ['id' => 'city_id']);
-	}
 }

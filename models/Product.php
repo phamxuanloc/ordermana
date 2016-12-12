@@ -195,6 +195,7 @@ class Product extends Model {
 			'price_tax'           => 'Giá đã có thuế',
 			'supplier_discount'   => 'Chiết khấu của nhà cung cấp',
 			'updated_date'        => 'Ngày cập nhật',
+			'excel'               => 'File excel',
 		];
 	}
 

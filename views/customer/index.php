@@ -1,6 +1,8 @@
 <?php
 use app\models\Customer;
+use kartik\file\FileInput;
 use kartik\grid\GridView;
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -13,11 +15,35 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<h1><?= Html::encode($this->title) ?></h1>
 	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+	<?= $this->render('/_alert', [
+		'module' => Yii::$app->getModule('user'),
+	]) ?>
+	<?php $form = ActiveForm::begin([
+		'layout'  => 'horizontal',
+		'options' => [
+			'enctype' => 'multipart/form-data',
+		],
+	]); ?>
+	<?= $form->field($file, 'excel', [
+	])->widget(FileInput::className(), [
+		'pluginOptions' => [
+			'allowedFileExtensions' => [
+				'xlsx',
+			],
+			'showUpload'            => false,
+		],
+	]) ?>
+	<!--	<button style="float: right;clear: right">--><?php //echo  ?><!--</button>-->
+	<?= Html::submitButton('Import Excel', [
+		'class'    => 'btn green uppercase col-sm-offset-3',
+		'tabindex' => '3',
+		//		'style'    => 'float: right;clear: right',
+	]) ?>
+	<?php ActiveForm::end(); ?>
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
 		'export'       => false,
-				'pjax'         => true,
+		'pjax'         => true,
 		'columns'      => [
 			[
 				'class'  => 'kartik\grid\SerialColumn',
@@ -29,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute'       => 'name',
 				'editableOptions' => [
 					'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-//					'asPopover'=>false
+					//					'asPopover'=>false
 					//					'options'=>[
 					//						'pluginOptions'=>['min'=>0, 'max'=>5000]
 					//					]
@@ -47,9 +73,6 @@ $this->params['breadcrumbs'][] = $this->title;
 			'id_number',
 			[
 				'attribute' => 'city_id',
-				'value'     => function (Customer $data) {
-					return $data->city->name;
-				},
 			],
 			[
 				'attribute' => 'user_id',

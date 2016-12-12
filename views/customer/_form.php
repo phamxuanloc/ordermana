@@ -35,7 +35,7 @@ use yii\helpers\Html;
 	<?= $form->field($model, 'city_id')->widget(Select2::className(), [
 		'data' => ArrayHelper::map(\app\models\City::find()->andWhere([
 			'status' => 1,
-		])->all(), 'id', 'name'),
+		])->all(), 'name', 'name'),
 	])->label('Thành phố') ?>
 	<?php if($model->isNewRecord) { ?>
 		<?= $form->field($model, 'parent_id')->widget(Select2::className(), [
