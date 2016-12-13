@@ -57,7 +57,7 @@ class CustomerController extends Controller {
 			for($row = 8; $row <= $highestRow; $row ++) {
 				$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, null, false, false);
 				if($rowData[0][2] != null && $rowData[0][3] != null) {
-					if($customer = Customer::findOne(['phone' => $rowData[0][3]])) {
+					if($customer = Customer::findOne(['phone' => ''.$rowData[0][3]])) {
 						$customer->updateAttributes([
 							'name'     => $rowData[0][2],
 							'birthday' => date('Y-m-d', \PHPExcel_Shared_Date::ExcelToPHP($rowData[0][4])),
