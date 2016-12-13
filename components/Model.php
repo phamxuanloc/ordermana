@@ -181,19 +181,21 @@ class Model extends ActiveRecord {
 			])->all();
 			if(count($children) > 0) {
 				$response[] = [
-					'text'  => "<span style='color: $color;font-weight: bold;' data-toggle='modal' data-target='#myModal'>$cat->username</span>",
-					'url'   => Url::to([
+					'text' => "<span style='color: $color;font-weight: bold;' data-toggle='modal' data-target='#myModal'>$cat->username</span>",
+					'url'  => Url::to([
 						'/user/admin/profile',
 						'id' => $cat->id,
 					]),
-					'nodes' => self::getChildrenUser($children),
+										'nodes' => self::getChildrenUser($children),
 				];
 			} else {
-				$response[]['url']  = Url::to([
-					'/user/admin/profile',
-					'id' => $cat->id,
-				]);
-				$response[]['text'] = "<span style='color: $color; font-weight: bold' data-toggle='modal' data-target='#myModal'>$cat->username</span>";
+				$response[] = [
+					'url'  => Url::to([
+						'/user/admin/profile',
+						'id' => $cat->id,
+					]),
+					'text' => "<span style='color: $color; font-weight: bold' data-toggle='modal' data-target='#myModal'>$cat->username</span>",
+				];
 			}
 		}
 		if(Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
