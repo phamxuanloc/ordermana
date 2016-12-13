@@ -110,15 +110,21 @@ $groupsContent = TreeView::widget([
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Thông tin cơ bản</h4>
+					<h4 class="modal-title" style="color: #00aa00; font-weight: bold">Thông tin cơ bản</h4>
 				</div>
 				<div class="modal-body">
-					<div class="col-sm-6" id="username">Têm đămg nhập: <p style="display: inline-block"></p></div>
-					<div class="col-sm-6" id="created">Ngày tạo: <p style="display: inline-block"></p></div>
-					<div class="col-sm-6" id="phone">Số điện thoại:  <p style="display: inline-block"></p></div>
-					<div class="col-sm-6" id="id-num">Số chứng minh thư: <p style="display: inline-block"></p></div>
-					<div class="col-sm-6" id="city">Thành phố: <p style="display: inline-block"></p></div>
-					<div class="col-sm-6" id="email">Email; <p style="display: inline-block"></p></div>
+					<div class="col-sm-6" id="username" style="color: #7a43b6; font-weight: bold">Têm đămg nhập:
+						<p style="display: inline-block; color: #3fbf79"></p></div>
+					<div class="col-sm-6" id="created" style="color: #7a43b6; font-weight: bold">Ngày tạo:
+						<p style="display: inline-block;color: #3fbf79""></p></div>
+					<div class="col-sm-6" id="phone" style="color: #7a43b6; font-weight: bold">Số điện thoại:
+						<p style="display: inline-block;color: #3fbf79""></p></div>
+					<div class="col-sm-6" id="id-num" style="color: #7a43b6; font-weight: bold">Số chứng minh thư:
+						<p style="display: inline-block;color: #3fbf79""></p></div>
+					<div class="col-sm-6" id="city" style="color: #7a43b6; font-weight: bold">Thành phố:
+						<p style="display: inline-block;color: #3fbf79""></p></div>
+					<div class="col-sm-6" id="email" style="color: #7a43b6; font-weight: bold">Email:
+						<p style="display: inline-block ;color: #3fbf79"></p></div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
