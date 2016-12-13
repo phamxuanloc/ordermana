@@ -352,14 +352,24 @@ class AdminController extends BaseAdminController {
 
 	public function actionProfile($id) {
 		if(isset($_POST['a'])) {
-			$account = User::findOne($id);
-			$value   = [
-				'phone'    => $account->phone,
-				'city'     => $account->cities->name,
-				'email'    => $account->email,
-				'id'       => $account->id_number,
-				'username' => $account->username,
-				'created'  => date('d-m-Y',$account->created_at),
+			$account        = User::findOne($id);
+			$quantity_stock = 0;
+			$total_amount   = 0;
+			foreach($account->userStocks as $stock) {
+				$quantity_stock += $stock->in_stock;
+			};
+			foreach($account->orders as $order) {
+				$total_amount += $order->total_amount;
+			}
+			$value = [
+				'phone'          => $account->phone,
+				'city'           => $account->cities->name,
+				'email'          => $account->email,
+				'id'             => $account->id_number,
+				'username'       => $account->username,
+				'created'        => date('d-m-Y', $account->created_at),
+				'quantity' => $quantity_stock,
+				'amount'   => $total_amount,
 			];
 			return json_encode($value);
 		}

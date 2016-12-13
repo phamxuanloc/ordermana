@@ -1,8 +1,6 @@
 <?php
 use execut\widget\TreeView;
-use yii\bootstrap\Modal;
 use yii\web\JsExpression;
-use yii\widgets\Pjax;
 
 /** @var app\components\Model $model */
 $data = $model->getUserTree();
@@ -53,6 +51,8 @@ function (undefined,item) {
  var data_id = $('.modal-body').find('#id-num p');
  var data_username = $('.modal-body').find('#username p');
  var data_created = $('.modal-body').find('#created p');
+ var data_quantity = $('.modal-body').find('#quantity p');
+ var data_amount = $('.modal-body').find('#amount p');
        $.ajax({
 			url    : item.url,
 			type   : "post",
@@ -67,6 +67,8 @@ function (undefined,item) {
 			data_id.html(data.id);
 			data_created.html(data.created);
 			data_username.html(data.username);
+			data_quantity.html(data.quantity);
+			data_amount.html(data.amount);
 			}
 			
 		});
@@ -125,6 +127,11 @@ $groupsContent = TreeView::widget([
 						<p style="display: inline-block;color: #3fbf79""></p></div>
 					<div class="col-sm-6" id="email" style="color: #7a43b6; font-weight: bold">Email:
 						<p style="display: inline-block ;color: #3fbf79"></p></div>
+					<div class="col-sm-6" id="quantity" style="color: #7a43b6; font-weight: bold">Số sản phẩm đã nhập:
+						<p style="display: inline-block ;color: #3fbf79"></p></div>
+					<div class="col-sm-6" id="amount" style="color: #7a43b6; font-weight: bold">Tổng số tiền đã nhập hàng:
+						<p style="display: inline-block ;color: #3fbf79"></p> VNĐ
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
