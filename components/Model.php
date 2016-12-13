@@ -9,6 +9,7 @@ use Yii;
 use yii\console\Application;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\web\UploadedFile;
 
 class Model extends ActiveRecord {
@@ -180,16 +181,32 @@ class Model extends ActiveRecord {
 			])->all();
 			if(count($children) > 0) {
 				$response[] = [
-					'text'  => "<span style='color: $color;font-weight: bold'>$cat->username</span>",
+					'text'  => "<span style='color: $color;font-weight: bold;' data-toggle='modal' data-target='#myModal'>$cat->username</span>",
+					'url'   => Url::to([
+						'/user/admin/profile',
+						'id' => $cat->id,
+					]),
 					'nodes' => self::getChildrenUser($children),
 				];
 			} else {
-				$response[]['text'] = "<span style='color: $color; font-weight: bold'>$cat->username</span>";
+				$response[]['url']  = Url::to([
+					'/user/admin/profile',
+					'id' => $cat->id,
+				]);
+				$response[]['text'] = "<span style='color: $color; font-weight: bold' data-toggle='modal' data-target='#myModal'>$cat->username</span>";
 			}
 		}
 		if(Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
 			$color    = $model->getColor(Yii::$app->user->identity->role_id);
-			$response = [ArrayHelper::merge(['text' => "<span style='color:$color; font-weight: bold'>" . Yii::$app->user->identity->username . "</span>"], ['nodes' => $response])];
+			$response = [
+				ArrayHelper::merge([
+					'text' => "<span style='color:$color; font-weight: bold' data-toggle='modal' data-target='#myModal'>" . Yii::$app->user->identity->username . "</span>",
+					'url'  => Url::to([
+						'/user/admin/profile',
+						'id' => Yii::$app->user->id,
+					]),
+				], ['nodes' => $response]),
+			];
 		}
 		return $response;
 	}
@@ -212,11 +229,21 @@ class Model extends ActiveRecord {
 			])->all();
 			if(count($children) > 0) {
 				$response[$i] = [
-					'text'  => "<span style='color:$color;'>" . $model->username . "</span>",
+					'text'  => "<span style='color:$color;' data-toggle='modal' data-target='#myModal'>" . $model->username . "</span>",
+					'url'   => Url::to([
+						'/user/admin/profile',
+						'id' => $model->id,
+					]),
 					'nodes' => self::getChildrenUser($children),
 				];
 			} else {
-				$response [$i] = ['text' => "<span style='color:$color;'>" . $model->username . "</span>"];
+				$response [$i] = [
+					'text' => "<span style='color:$color;' data-toggle='modal' data-target='#myModal'>" . $model->username . "</span>",
+					'url'  => Url::to([
+						'/user/admin/profile',
+						'id' => $model->id,
+					]),
+				];
 			}
 			$i ++;
 		}

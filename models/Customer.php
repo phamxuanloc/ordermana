@@ -25,6 +25,7 @@ use Yii;
  * @property string          $call_by
  * @property string          $call_at
  * @property string          $source
+ * @property string          $id_number
  * @property string          $product
  *
  * @property User            $parent
@@ -197,5 +198,4 @@ class Customer extends \app\components\Model {
 	public function getOrderCustomers() {
 		return $this->hasMany(OrderCustomer::className(), ['customer_id' => 'id']);
 	}
-
 }

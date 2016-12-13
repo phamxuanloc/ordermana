@@ -50,6 +50,7 @@ class AdminController extends BaseAdminController {
 			],
 		];
 	}
+
 	public function beforeAction($action) {
 		if(Yii::$app->user->isGuest && Yii::$app->controller->action->id !== 'login') {
 			$this->redirect(Url::to(['/user/security/login']));
@@ -58,6 +59,7 @@ class AdminController extends BaseAdminController {
 			return parent::beforeAction($action);
 		}
 	}
+
 	public function actionIndex() {
 		// TODO: Change the auto generated stub
 		return parent::actionIndex();
@@ -346,5 +348,20 @@ class AdminController extends BaseAdminController {
 			'age_num' => $age_num,
 			'dis_num' => $dis_num,
 		]);
+	}
+
+	public function actionProfile($id) {
+		if(isset($_POST['a'])) {
+			$account = User::findOne($id);
+			$value   = [
+				'phone'    => $account->phone,
+				'city'     => $account->cities->name,
+				'email'    => $account->email,
+				'id'       => $account->id_number,
+				'username' => $account->username,
+				'created'  => date('d-m-Y',$account->created_at),
+			];
+			return json_encode($value);
+		}
 	}
 }
