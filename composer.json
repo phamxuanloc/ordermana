@@ -32,7 +32,8 @@
 		"execut/yii2-widget-bootstraptreeview": "dev-master",
 		"bedezign/yii2-audit": "^1.0",
 		"kartik-v/yii2-grid": "@dev",
-		"kartik-v/yii2-editable": "@dev"
+		"kartik-v/yii2-editable": "@dev",
+		"kartik-v/yii2-export" : "*"
 	},
 	"require-dev" : {
 		"yiisoft/yii2-debug" : "~2.0.0",
