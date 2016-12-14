@@ -227,13 +227,4 @@ class Product extends Model {
 	public function beforeSave($insert) {
 		return parent::beforeSave($insert);
 	}
-
-	public function behaviors() {
-		return [
-			'AuditTrailBehavior' => [
-				'class'   => 'bedezign\yii2\audit\AuditTrailBehavior',
-				'allowed' => ['in_stock'],
-			],
-		];
-	}
 }
