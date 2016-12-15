@@ -11,7 +11,7 @@ use yii\helpers\Html;
 
 	<?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
 
-	<?= $form->field($model, 'content')->textInput(['maxlength' => true])->label('Nội dung') ?>
+	<?= $form->field($model, 'content')->widget(\navatech\roxymce\widgets\RoxyMceWidget::className(), ['model' => $model])->label('Nội dung') ?>
 
 	<?= $form->field($model, 'role_id')->widget(\kartik\select2\Select2::className(), [
 		'data'    => \yii\helpers\ArrayHelper::merge(['All'], $model::ROLE),

@@ -65,6 +65,10 @@ $config  = [
 				'admin' => 'app\controllers\AdminController',
 			],
 		],
+		'roxymce' => [
+			'class' => 'navatech\roxymce\Module',
+			'uploadUrl' => 'uploads/images',
+		],
 		'role'     => [
 			'class'       => 'navatech\role\Module',
 			'controllers' => [ //namespaces of controllers

@@ -3,11 +3,11 @@ namespace app\controllers;
 
 use app\components\Controller;
 use app\models\Alert;
+use app\models\ContactForm;
+use app\models\LoginForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
 
 class SiteController extends Controller {
 
@@ -59,11 +59,11 @@ class SiteController extends Controller {
 	public function actionIndex() {
 		$alert_all = Alert::find()->where(['role_id' => 0])->orderBy('id DESC')->one();
 		if($alert_all != null) {
-			Yii::$app->session->setFlash('danger', $alert_all->content);
+			Yii::$app->session->setFlash('danger', '<span style="font-weight: bolder; font-size: medium">Thông báo: </span>' . $alert_all->content);
 		}
 		$alert_role = Alert::find()->where(['role_id' => $this->user->role_id])->orderBy('id DESC')->one();
 		if($alert_role != null) {
-			Yii::$app->session->setFlash('success', $alert_role->content);
+			Yii::$app->session->setFlash('success', '<span style="font-weight: bolder; font-size: medium">Thông báo: </span>' . $alert_role->content);
 		}
 		return $this->render('index');
 	}
