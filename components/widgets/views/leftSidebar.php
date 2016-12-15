@@ -235,6 +235,26 @@ use yii\helpers\Url;
 					</ul>
 				</li>
 			<?php } ?>
+			<?php if(RoleChecker::isAuth(\app\controllers\AlertController::className(), 'create')) { ?>
+
+				<li>
+					<a href="javascript:;">
+						<i class="icon-present"></i>
+						<span class="title">Quản lý thông báo</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="<?= Url::to(['/alert']) ?>">
+								Danh sách thông báo</a>
+						</li>
+						<li>
+							<a href="<?= Url::to(['/alert/create']) ?>">
+								Thêm mới thông báo</a>
+						</li>
+					</ul>
+				</li>
+			<?php } ?>
 			<li>
 				<a href="javascript:;">
 					<i class="icon-home"></i>

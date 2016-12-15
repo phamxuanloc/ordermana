@@ -1,125 +1,123 @@
 <?php
-
 namespace app\controllers;
 
 use app\components\Controller;
+use app\models\Alert;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
-class SiteController extends Controller
-{
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
+class SiteController extends Controller {
 
-    /**
-     * @inheritdoc
-     */
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
+		return [
+			'access' => [
+				'class' => AccessControl::className(),
+				'only'  => ['logout'],
+				'rules' => [
+					[
+						'actions' => ['logout'],
+						'allow'   => true,
+						'roles'   => ['@'],
+					],
+				],
+			],
+			'verbs'  => [
+				'class'   => VerbFilter::className(),
+				'actions' => [
+					'logout' => ['post'],
+				],
+			],
+		];
+	}
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function actions() {
+		return [
+			'error'   => [
+				'class' => 'yii\web\ErrorAction',
+			],
+			'captcha' => [
+				'class'           => 'yii\captcha\CaptchaAction',
+				'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+			],
+		];
+	}
 
-    /**
-     * Login action.
-     *
-     * @return string
-     */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+	/**
+	 * Displays homepage.
+	 *
+	 * @return string
+	 */
+	public function actionIndex() {
+		$alert_all = Alert::find()->where(['role_id' => 0])->orderBy('id DESC')->one();
+		if($alert_all != null) {
+			Yii::$app->session->setFlash('danger', $alert_all->content);
+		}
+		$alert_role = Alert::find()->where(['role_id' => $this->user->role_id])->orderBy('id DESC')->one();
+		if($alert_role != null) {
+			Yii::$app->session->setFlash('success', $alert_role->content);
+		}
+		return $this->render('index');
+	}
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
+	/**
+	 * Login action.
+	 *
+	 * @return string
+	 */
+	public function actionLogin() {
+		if(!Yii::$app->user->isGuest) {
+			return $this->goHome();
+		}
+		$model = new LoginForm();
+		if($model->load(Yii::$app->request->post()) && $model->login()) {
+			return $this->goBack();
+		}
+		return $this->render('login', [
+			'model' => $model,
+		]);
+	}
 
-    /**
-     * Logout action.
-     *
-     * @return string
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
+	/**
+	 * Logout action.
+	 *
+	 * @return string
+	 */
+	public function actionLogout() {
+		Yii::$app->user->logout();
+		return $this->goHome();
+	}
 
-        return $this->goHome();
-    }
+	/**
+	 * Displays contact page.
+	 *
+	 * @return string
+	 */
+	public function actionContact() {
+		$model = new ContactForm();
+		if($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+			Yii::$app->session->setFlash('contactFormSubmitted');
+			return $this->refresh();
+		}
+		return $this->render('contact', [
+			'model' => $model,
+		]);
+	}
 
-    /**
-     * Displays contact page.
-     *
-     * @return string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
+	/**
+	 * Displays about page.
+	 *
+	 * @return string
+	 */
+	public function actionAbout() {
+		return $this->render('about');
+	}
 }
