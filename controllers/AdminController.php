@@ -362,16 +362,20 @@ class AdminController extends BaseAdminController {
 				$total_amount += $order->total_amount;
 			}
 			$value = [
-				'phone'          => $account->phone,
-				'city'           => $account->cities->name,
-				'email'          => $account->email,
-				'id'             => $account->id_number,
-				'username'       => $account->username,
-				'created'        => date('d-m-Y', $account->created_at),
+				'phone'    => $account->phone,
+				'city'     => $account->cities->name,
+				'email'    => $account->email,
+				'id'       => $account->id_number,
+				'username' => $account->username,
+				'created'  => date('d-m-Y', $account->created_at),
 				'quantity' => $quantity_stock,
 				'amount'   => $total_amount,
 			];
 			return json_encode($value);
 		}
+	}
+
+	public function actionChangeParent() {
+		return $this->render('change-parent');
 	}
 }
