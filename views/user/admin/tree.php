@@ -140,7 +140,9 @@ $groupsContent = TreeView::widget([
 
 		</div>
 	</div>
-
+<?= $this->render('/_alert', [
+	'module' => Yii::$app->getModule('user'),
+]) ?>
 <?php
 echo $groupsContent;
 ?>

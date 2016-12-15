@@ -152,9 +152,15 @@ use yii\helpers\Url;
 								Tổng quan hệ thống</a>
 						</li>
 					<?php } ?>
+					<?php if(RoleChecker::isAuth(AdminController::className(), 'change-parent')) { ?>
+
+						<li>
+							<a href="<?= Url::to(['/user/admin/change-parent']) ?>">
+								Chuyển hệ thống</a>
+						</li>
+					<?php } ?>
 
 					<?php if(RoleChecker::isAuth(AdminController::className(), 'index')) { ?>
-
 						<li>
 							<a href="<?= Url::to(['/user/admin/index']) ?>">
 								Danh sách tài khoản</a>

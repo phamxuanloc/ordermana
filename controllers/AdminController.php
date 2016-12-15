@@ -10,6 +10,7 @@
 namespace app\controllers;
 
 use app\components\Model;
+use app\models\ChangeForm;
 use app\models\User;
 use dektrium\user\controllers\AdminController as BaseAdminController;
 use navatech\role\filters\RoleFilter;
@@ -34,17 +35,18 @@ class AdminController extends BaseAdminController {
 				//NOT REQUIRED, only if you want to translate
 				'actions' => [
 					//without translate
-					'index'        => 'Danh sách ',
-					'update'       => 'Cập nhật ',
-					'create'       => 'Thêm mới người dùng',
-					'create-admin' => 'Tạo admin',
-					'create-pre'   => 'Tạo đại diện',
-					'create-big'   => 'Tạo đại lý bán buôn',
-					'create-age'   => 'Tạo đại lý bán lẻ',
-					'create-dis'   => 'Tạo điểm phân phối',
-					'tree'         => 'Xem cây hệ thống',
-					'delete'       => 'Xóa người dùng',
-					'block'        => 'Khóa người dùng'
+					'index'         => 'Danh sách ',
+					'update'        => 'Cập nhật ',
+					'create'        => 'Thêm mới người dùng',
+					'create-admin'  => 'Tạo admin',
+					'create-pre'    => 'Tạo đại diện',
+					'create-big'    => 'Tạo đại lý bán buôn',
+					'create-age'    => 'Tạo đại lý bán lẻ',
+					'create-dis'    => 'Tạo điểm phân phối',
+					'tree'          => 'Xem cây hệ thống',
+					'delete'        => 'Xóa người dùng',
+					'block'         => 'Khóa người dùng',
+					'change-parent' => 'Di chuyển hệ thống'
 					//with translated, which will display on role _form
 				],
 			],
@@ -376,6 +378,16 @@ class AdminController extends BaseAdminController {
 	}
 
 	public function actionChangeParent() {
-		return $this->render('change-parent');
+		$model = new ChangeForm();
+		if($model->load(Yii::$app->request->post())) {
+			if($model->changeParent()) {
+				Yii::$app->session->setFlash('success', 'Chuyển thành công');
+				return $this->redirect(['/user/admin/tree']);
+			} else {
+				Yii::$app->session->setFlash('danger', 'Không thành công');
+				return $this->refresh();
+			}
+		}
+		return $this->render('change-parent', ['model' => $model]);
 	}
 }
