@@ -21,6 +21,45 @@ AppAsset::register($this);
 	<?= Html::csrfMetaTags() ?>
 	<title><?= Html::encode($this->title) ?></title>
 	<?php $this->head() ?>
+<!--	<script>-->
+<!--		var OneSignal = window.OneSignal || [];-->
+<!--		OneSignal.push(["init", {-->
+<!--			appId: "cb897a36-fc44-4820-98cc-b1b94c682040",-->
+<!--			autoRegister: false, /* Set to true to automatically prompt visitors */-->
+<!--			subdomainName: 'loc123.onesignal.com',-->
+<!--			notifyButton: {-->
+<!--				enable: true, /* Set to false to hide */-->
+<!--				text: {-->
+<!--					'tip.state.unsubscribed': 'Đăng ký nhận thông báo video',-->
+<!--					'tip.state.subscribed': 'Bạn đã đăng ký nhận thông báo',-->
+<!--					'tip.state.blocked': 'Bạn đã chặn hiển thị thông báo',-->
+<!--					'message.prenotify': 'Click để đăng ký nhận thông báo về video mới nhất',-->
+<!--					'message.action.subscribed': 'Cảm ơn bạn đã đăng ký!',-->
+<!--					'message.action.resubscribed': 'Bạn đã đăng ký nhận thông báo',-->
+<!--					'message.action.unsubscribed': 'Bạn đã hủy đăng ký nhận thông báo',-->
+<!--					'dialog.main.title': 'Quản lý thông báo',-->
+<!--					'dialog.main.button.subscribe': 'ĐĂNG KÝ',-->
+<!--					'dialog.main.button.unsubscribe': 'HỦY ĐĂNG KÝ',-->
+<!--					'dialog.blocked.title': 'Bỏ chặn thông báo',-->
+<!--					'dialog.blocked.message': 'Thực hiện các hướng dẫn sau để cho phép thông báo:'-->
+<!--				}-->
+<!--			},-->
+<!--		welcomeNotification: {-->
+<!--			title: 'ovuinhi.com',-->
+<!--			message: 'Cảm ơn bạn đã đăng ký!'-->
+<!--		},-->
+<!--			promptOptions: {-->
+<!--				siteName: 'ovuinhi.com',-->
+<!--				actionMessage: 'Nhận thông báo mới nhất về Video giải trí hài hước với Kênh video Ovuinhi.com.',-->
+<!--				exampleNotificationTitle: 'Ovuinhi.com',-->
+<!--				exampleNotificationMessage: 'Nhận thông báo video mới nhất',-->
+<!--				exampleNotificationCaption: 'Bạn có thể dừng nhận thông báo bất kỳ lúc nào',-->
+<!--				acceptButtonText: 'CHO PHÉP',-->
+<!--				cancelButtonText: 'BỎ QUA'-->
+<!--			}-->
+<!--		}]);-->
+<!--	</script>-->
+
 </head>
 <body class="page-header-fixed page-quick-sidebar-over-content page-sidebar-closed-hide-logo page-container-bg-solid">
 <?php $this->beginBody() ?>

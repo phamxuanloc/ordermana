@@ -13,7 +13,10 @@ use yii\helpers\Html;
 
 	<?= $form->field($model, 'content')->textInput(['maxlength' => true])->label('Nội dung') ?>
 
-	<?= $form->field($model, 'role_id')->dropDownList(\yii\helpers\ArrayHelper::merge(['All'], $model::ROLE))->label('Gửi đến') ?>
+	<?= $form->field($model, 'role_id')->widget(\kartik\select2\Select2::className(), [
+		'data'    => \yii\helpers\ArrayHelper::merge(['All'], $model::ROLE),
+		'options' => ['multiple' => true],
+	])->label('Gửi đến') ?>
 
 	<div class="form-group">
 		<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

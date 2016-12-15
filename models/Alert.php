@@ -27,15 +27,23 @@ class Alert extends Model {
 	public function rules() {
 		return [
 			[
-				['content'],
+				[
+					'content',
+					'role_id',
+				],
+
 				'required',
+				'message'=>'{attribute} không được để trống',
 			],
+			//			[
+			//				['role_id'],
+			//				'integer',
+			//			],
 			[
-				['role_id'],
-				'integer',
-			],
-			[
-				['created_date'],
+				[
+					'created_date',
+					'role_id',
+				],
 				'safe',
 			],
 			[

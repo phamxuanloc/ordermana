@@ -73,7 +73,14 @@ class AlertController extends Controller {
 	 */
 	public function actionCreate() {
 		$model = new Alert();
-		if($model->load(Yii::$app->request->post()) && $model->save()) {
+		if($model->load(Yii::$app->request->post())) {
+			$role_array = $model->role_id;
+			foreach($role_array as $role) {
+				$alert          = new Alert();
+				$alert->role_id = $role;
+				$alert->content = $model->content;
+				$alert->save();
+			}
 			return $this->redirect(['index']);
 		} else {
 			return $this->render('create', [
@@ -103,6 +110,7 @@ class AlertController extends Controller {
 			]);
 		}
 	}
+
 	/**
 	 * Deletes an existing Alert model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
