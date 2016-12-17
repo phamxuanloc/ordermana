@@ -31,9 +31,8 @@ class Alert extends Model {
 					'content',
 					'role_id',
 				],
-
 				'required',
-				'message'=>'{attribute} không được để trống',
+				'message' => '{attribute} không được để trống',
 			],
 			//			[
 			//				['role_id'],
@@ -49,7 +48,7 @@ class Alert extends Model {
 			[
 				['content'],
 				'string',
-				'max' => 255,
+				'max' => 1000,
 			],
 		];
 	}
