@@ -1,6 +1,6 @@
 <?php
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\AlertSearch */
@@ -21,7 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
 		//        'filterModel' => $searchModel,
 		'columns'      => [
 			['class' => 'yii\grid\SerialColumn'],
-			'content',
+			[
+				'attribute' => 'content',
+				'format'    => 'raw',
+			],
 			[
 				'attribute' => 'role_id',
 				'value'     => function (\app\models\Alert $data) {

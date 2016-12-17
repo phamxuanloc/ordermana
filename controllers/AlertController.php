@@ -1,13 +1,13 @@
 <?php
 namespace app\controllers;
 
-use navatech\role\filters\RoleFilter;
-use Yii;
+use app\components\Controller;
 use app\models\Alert;
 use app\models\search\AlertSearch;
-use app\components\Controller;
-use yii\web\NotFoundHttpException;
+use navatech\role\filters\RoleFilter;
+use Yii;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * AlertController implements the CRUD actions for Alert model.
@@ -99,11 +99,20 @@ class AlertController extends Controller {
 	 */
 	public function actionUpdate($id) {
 		$model = $this->findModel($id);
-		if($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect([
-				'view',
-				'id' => $model->id,
-			]);
+		if($model->load(Yii::$app->request->post())) {
+			$old[]      = $model->getOldAttribute('role_id');
+			$role_array = $model->role_id;
+			if($role_array == $old) {
+				$model->updateAttributes(['content'=>$model->content]);
+			} else {
+				foreach($role_array as $role) {
+					$alert          = new Alert();
+					$alert->role_id = $role;
+					$alert->content = $model->content;
+					$alert->save();
+				}
+			}
+			return $this->redirect(['index']);
 		} else {
 			return $this->render('update', [
 				'model' => $model,

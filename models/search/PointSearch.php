@@ -5,12 +5,12 @@ namespace app\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Alert;
+use app\models\Point;
 
 /**
- * AlertSearch represents the model behind the search form about `app\models\Alert`.
+ * PointSearch represents the model behind the search form about `app\models\Point`.
  */
-class AlertSearch extends Alert
+class PointSearch extends Point
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class AlertSearch extends Alert
     public function rules()
     {
         return [
-            [['id', 'role_id'], 'integer'],
-            [['content', 'created_date'], 'safe'],
+            [['id', 'point_begin', 'point_end'], 'integer'],
+            [['prize', 'created_date'], 'safe'],
         ];
     }
 
@@ -41,13 +41,12 @@ class AlertSearch extends Alert
      */
     public function search($params)
     {
-        $query = Alert::find();
+        $query = Point::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => ['defaultOrder' => ['id' => SORT_DESC]],
         ]);
 
         $this->load($params);
@@ -61,11 +60,12 @@ class AlertSearch extends Alert
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'role_id' => $this->role_id,
+            'point_begin' => $this->point_begin,
+            'point_end' => $this->point_end,
             'created_date' => $this->created_date,
         ]);
 
-        $query->andFilterWhere(['like', 'content', $this->content]);
+        $query->andFilterWhere(['like', 'prize', $this->prize]);
 
         return $dataProvider;
     }

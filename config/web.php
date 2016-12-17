@@ -50,6 +50,9 @@ $config  = [
 				],
 			],
 		],
+		'setting' => [
+			'class' => 'navatech\setting\Setting',
+		],
 	],
 	'modules'    => [
 		'user'     => [
@@ -64,6 +67,10 @@ $config  = [
 			'controllerMap' => [
 				'admin' => 'app\controllers\AdminController',
 			],
+		],
+		'setting'  => [
+			'class'               => 'navatech\setting\Module',
+			'controllerNamespace' => 'navatech\setting\controllers',
 		],
 		'roxymce' => [
 			'class' => 'navatech\roxymce\Module',
