@@ -221,6 +221,30 @@ use yii\helpers\Url;
 					</ul>
 				</li>
 			<?php } ?>
+			<?php if(RoleChecker::isAuth(\app\controllers\PointController::className())) { ?>
+
+				<li>
+					<a href="javascript:;">
+						<i class="icon-puzzle"></i>
+						<span class="title">Quản lý hệ thống điểm khách hàng</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="<?= Url::to(['/point']) ?>">
+								Danh sách mốc điểm</a>
+						</li>
+						<li>
+							<a href="<?= Url::to(['/point/create']) ?>">
+								Thêm mốc điểm</a>
+						</li>
+						<li>
+							<a href="<?= Url::to(['/setting']) ?>">
+								Cấu hình đổi điểm</a>
+						</li>
+					</ul>
+				</li>
+			<?php } ?>
 			<?php if(RoleChecker::isAuth(\app\controllers\ProviderController::className(), 'create')) { ?>
 
 				<li>

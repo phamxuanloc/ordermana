@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
 			'total_amount',
 			'note',
+			'discount',
 			'created_date',
 			// 'update_at',
 			[

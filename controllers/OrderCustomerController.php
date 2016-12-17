@@ -4,6 +4,7 @@ namespace app\controllers;
 use app\components\Controller;
 use app\models\CustomerItem;
 use app\models\OrderCustomer;
+use app\models\Point;
 use app\models\Product;
 use app\models\search\OrderCustomerSearch;
 use app\models\UserStock;
@@ -91,7 +92,7 @@ class OrderCustomerController extends Controller {
 			'items' => $items,
 		]);
 	}
-	
+
 	public function actionOrderItem() {
 		$orderItem = new CustomerItem();
 		$order     = new OrderCustomer();
@@ -135,7 +136,22 @@ class OrderCustomerController extends Controller {
 					$this->findModel($order_id)->delete();
 				} else {
 					$count = CustomerItem::find()->where(['order_customer_id' => $order_id])->sum('total_price');
-					$order->updateAttributes(['total_amount' => $count]);
+					$point = Point::find()->where([
+						'<=',
+						'point_begin',
+						$order->customer->point,
+					])->andWhere([
+						'>=',
+						'point_end',
+						$order->customer->point,
+					])->one();
+					if($point != null) {
+						$discount = ($point->discount) * $count;
+						$order->updateAttributes(['total_amount' => $count - $discount]);
+					} else {
+						$order->updateAttributes(['total_amount' => $count]);
+					}
+					$order->customer->updateAttributes(['point' => round($order->total_amount / 10000) * Yii::$app->setting->get('point_change')]);
 				}
 				return $this->redirect(Url::to([
 					'/order-customer/view',

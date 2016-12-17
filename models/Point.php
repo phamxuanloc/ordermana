@@ -9,6 +9,7 @@ use Yii;
  * @property integer $id
  * @property integer $point_begin
  * @property integer $point_end
+ * @property integer $discount
  * @property string  $prize
  * @property string  $created_date
  */

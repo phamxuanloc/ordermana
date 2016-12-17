@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Point */
 
-$this->title = 'Create Point';
+$this->title = 'Tạo mốc điểm';
 $this->params['breadcrumbs'][] = ['label' => 'Points', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -7,19 +7,20 @@ use Yii;
 /**
  * This is the model class for table "order_customer".
  *
- * @property integer      $id
- * @property integer      $user_id
- * @property double       $total_amount
- * @property string       $note
- * @property string       $created_date
- * @property string       $update_at
- * @property integer      $status
- * @property integer      $update_by
- * @property integer      $type
- * @property integer      $customer_id
+ * @property integer        $id
+ * @property integer        $user_id
+ * @property double         $total_amount
+ * @property string         $note
+ * @property string         $created_date
+ * @property string         $update_at
+ * @property integer        $status
+ * @property integer        $update_by
+ * @property integer        $discount
+ * @property integer        $type
+ * @property integer        $customer_id
  *
- * @property Customer     $customer
- * @property User         $user
+ * @property Customer       $customer
+ * @property User           $users
  * @property CustomerItem[] $customerItem
  */
 class OrderCustomer extends Model {
@@ -41,7 +42,7 @@ class OrderCustomer extends Model {
 	const RECEIPTED     = 3;
 
 	const CANCEL        = 4;
-	
+
 	/**
 	 * @inheritdoc
 	 */
@@ -69,6 +70,7 @@ class OrderCustomer extends Model {
 					'update_by',
 					'type',
 					'customer_id',
+					'discount',
 				],
 				'integer',
 			],
@@ -120,6 +122,7 @@ class OrderCustomer extends Model {
 			'update_by'    => 'Update By',
 			'type'         => 'Type',
 			'customer_id'  => 'Khách hàng',
+			'discount'     => 'Giảm giá',
 		];
 	}
 
