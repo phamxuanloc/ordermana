@@ -34,6 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
 		'columns'      => [
 			['class' => 'yii\grid\SerialColumn'],
 			[
+				'attribute' => 'created_date',
+				'value'     => function (Product $data) {
+					return Yii::$app->formatter->asDate($data->created_date, 'd-M-Y');
+				},
+			],
+			[
 				'attribute' => 'category_id',
 				'value'     => function (Product $data) {
 					return $data->category->name;
@@ -48,7 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
 			// 'distribute_sale',
 			// 'agent_sale',
 			// 'retail_sale',
-			// 'created_date',
 			// 'supplier',
 			// 'order_number',
 			// 'bill_number',
