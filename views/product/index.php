@@ -40,6 +40,13 @@ $this->params['breadcrumbs'][] = $this->title;
 				},
 			],
 			[
+				'attribute' => 'receipted_date',
+				'value'     => function (Product $data) {
+					return Yii::$app->formatter->asDate($data->receipted_date, 'H:m:s d-M-Y');
+				},
+				'format'    => 'raw',
+			],
+			[
 				'attribute' => 'category_id',
 				'value'     => function (Product $data) {
 					return $data->category->name;

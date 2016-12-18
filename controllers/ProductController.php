@@ -3,6 +3,7 @@ namespace app\controllers;
 
 use app\components\Controller;
 use app\models\Product;
+use app\models\ProductHistory;
 use app\models\search\ProductSearch;
 use navatech\role\filters\RoleFilter;
 use Yii;
@@ -81,6 +82,22 @@ class ProductController extends Controller {
 			$img          = $model->uploadPicture('image', 'product_img');
 			$product_bill = $model->uploadPicture('bill_image', 'product_bill');
 			if($model->save()) {
+				$history              = new ProductHistory();
+				$history->category_id = $model->category_id;
+				$history->code        = $model->code;
+				$history->name        = $model->name;
+				$history->old_value   = 0;
+				$history->new_value   = $model->in_stock;
+				$history->product_id  = $model->id;
+				if($model->status == $model::RECEIPTED) {
+					$history->receipted_date = date('Y-m-d H:i:s');
+					$model->updateAttributes(['receipted_date' => $history->receipted_date]);
+				}
+				if(!$history->save()) {
+					echo '<pre>';
+					print_r($history->errors);
+					die;
+				};
 				if($img !== false) {
 					$path = $model->getPictureFile('image');
 					$img->saveAs($path);
@@ -111,7 +128,26 @@ class ProductController extends Controller {
 		$model    = $this->findModel($id);
 		$oldImage = $model->image;
 		$oldBill  = $model->bill_image;
-		if($model->load(Yii::$app->request->post()) && $model->save()) {
+		if($model->load(Yii::$app->request->post())) {
+			if($model->getOldAttribute('in_stock') != $model->in_stock) {
+				$history              = new ProductHistory();
+				$history->category_id = $model->category_id;
+				$history->code        = $model->code;
+				$history->name        = $model->name;
+				$history->old_value   = $model->getOldAttribute('in_stock');
+				$history->new_value   = $model->in_stock;
+				$history->product_id  = $model->id;
+				if($model->status == $model::RECEIPTED) {
+					$history->receipted_date = date('Y-m-d H:i:s');
+					$model->updateAttributes(['receipted_date' => $history->receipted_date]);
+				}
+				if(!$history->save()) {
+					echo '<pre>';
+					print_r($history->errors);
+					die;
+				};
+			}
+			$model->save();
 			$img      = $model->uploadPicture('image', 'product_img');
 			$bill_img = $model->uploadPicture('bill_image', 'bill_img');
 			if($img == false) {

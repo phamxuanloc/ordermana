@@ -79,21 +79,22 @@ use yii\helpers\Html;
 
 			<?= $form->field($model, 'base_price')->widget('\yii\widgets\MaskedInput', [
 				'options'       => [
-					'class'       => 'col-sm-12 form-control',
+					'class' => 'col-sm-12 form-control',
 				],
 				'clientOptions' => [
-					'alias' =>  'decimal',
-					'groupSeparator' => ',',
-					'autoGroup' => true,
-					'removeMaskOnSubmit' => true
+					'alias'              => 'decimal',
+					'groupSeparator'     => ',',
+					'autoGroup'          => true,
+					'removeMaskOnSubmit' => true,
 				],
 			]) ?>
 		</div>
+		<?php if($model->isNewRecord) ?>
 		<div class="col-sm-6" style="margin-bottom: 15px">
 
 			<?= $form->field($model, 'in_stock')->textInput() ?>
 		</div>
-
+		<?php ?>
 		<div class="col-sm-6" style="margin-bottom: 15px">
 
 			<?= $form->field($model, 'color')->textInput(['maxlength' => true]) ?>
@@ -136,13 +137,13 @@ use yii\helpers\Html;
 		<div class="col-sm-12" style="margin-bottom: 15px">
 			<?= $form->field($model, 'representative_sale')->widget('\yii\widgets\MaskedInput', [
 				'options'       => [
-					'class'       => 'col-sm-12 form-control',
+					'class' => 'col-sm-12 form-control',
 				],
 				'clientOptions' => [
-					'alias' =>  'decimal',
-					'groupSeparator' => ',',
-					'autoGroup' => true,
-					'removeMaskOnSubmit' => true
+					'alias'              => 'decimal',
+					'groupSeparator'     => ',',
+					'autoGroup'          => true,
+					'removeMaskOnSubmit' => true,
 				],
 			]) ?>
 		</div>
@@ -150,13 +151,13 @@ use yii\helpers\Html;
 
 			<?= $form->field($model, 'big_agent_sale')->widget('\yii\widgets\MaskedInput', [
 				'options'       => [
-					'class'       => 'col-sm-12 form-control',
+					'class' => 'col-sm-12 form-control',
 				],
 				'clientOptions' => [
-					'alias' =>  'decimal',
-					'groupSeparator' => ',',
-					'autoGroup' => true,
-					'removeMaskOnSubmit' => true
+					'alias'              => 'decimal',
+					'groupSeparator'     => ',',
+					'autoGroup'          => true,
+					'removeMaskOnSubmit' => true,
 				],
 			]) ?>
 		</div>
@@ -164,26 +165,26 @@ use yii\helpers\Html;
 
 			<?= $form->field($model, 'agent_sale')->widget('\yii\widgets\MaskedInput', [
 				'options'       => [
-					'class'       => 'col-sm-12 form-control',
+					'class' => 'col-sm-12 form-control',
 				],
 				'clientOptions' => [
-					'alias' =>  'decimal',
-					'groupSeparator' => ',',
-					'autoGroup' => true,
-					'removeMaskOnSubmit' => true
+					'alias'              => 'decimal',
+					'groupSeparator'     => ',',
+					'autoGroup'          => true,
+					'removeMaskOnSubmit' => true,
 				],
-			])?>
+			]) ?>
 		</div>
 		<div class="col-sm-12" style="margin-bottom: 15px">
 			<?= $form->field($model, 'distribute_sale')->widget('\yii\widgets\MaskedInput', [
 				'options'       => [
-					'class'       => 'col-sm-12 form-control',
+					'class' => 'col-sm-12 form-control',
 				],
 				'clientOptions' => [
-					'alias' =>  'decimal',
-					'groupSeparator' => ',',
-					'autoGroup' => true,
-					'removeMaskOnSubmit' => true
+					'alias'              => 'decimal',
+					'groupSeparator'     => ',',
+					'autoGroup'          => true,
+					'removeMaskOnSubmit' => true,
 				],
 			]) ?>
 		</div>
@@ -191,13 +192,13 @@ use yii\helpers\Html;
 
 			<?= $form->field($model, 'retail_sale')->widget('\yii\widgets\MaskedInput', [
 				'options'       => [
-					'class'       => 'col-sm-12 form-control',
+					'class' => 'col-sm-12 form-control',
 				],
 				'clientOptions' => [
-					'alias' =>  'decimal',
-					'groupSeparator' => ',',
-					'autoGroup' => true,
-					'removeMaskOnSubmit' => true
+					'alias'              => 'decimal',
+					'groupSeparator'     => ',',
+					'autoGroup'          => true,
+					'removeMaskOnSubmit' => true,
 				],
 			]) ?>
 		</div>

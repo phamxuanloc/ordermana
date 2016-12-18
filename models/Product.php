@@ -33,6 +33,7 @@ use Yii;
  * @property integer     $supplier_discount
  * @property string      $updated_date
  * @property string      $start_date
+ * @property string      $receipted_date
  * @property string      $end_date
  * @property double      $representative_sale
  * @property double      $big_agent_sale
@@ -124,6 +125,7 @@ class Product extends Model {
 					'product_bill',
 					'start_date',
 					'end_date',
+					'receipted_date',
 				],
 				'safe',
 			],
@@ -181,7 +183,7 @@ class Product extends Model {
 			'distribute_sale'     => 'Giá cho điểm phân phối',
 			'agent_sale'          => 'Giá bán cho đại lí',
 			'retail_sale'         => 'Giá bán lẻ',
-			'created_date'        => 'Ngày nhập',
+			'created_date'        => 'Ngày tạo',
 			'supplier'            => 'Nhà cung cấp',
 			'order_number'        => 'Mã đơn nhập',
 			'bill_number'         => 'Số hóa đơn',
@@ -194,7 +196,7 @@ class Product extends Model {
 			'status'              => 'Trạng thái',
 			'price_tax'           => 'Giá đã có thuế',
 			'supplier_discount'   => 'Chiết khấu của nhà cung cấp',
-			'updated_date'        => 'Ngày cập nhật',
+			'receipted_date'      => 'Ngày nhập hàng về',
 			'excel'               => 'File excel',
 		];
 	}
