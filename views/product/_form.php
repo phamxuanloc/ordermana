@@ -89,12 +89,10 @@ use yii\helpers\Html;
 				],
 			]) ?>
 		</div>
-		<?php if($model->isNewRecord) ?>
 		<div class="col-sm-6" style="margin-bottom: 15px">
 
 			<?= $form->field($model, 'in_stock')->textInput() ?>
 		</div>
-		<?php ?>
 		<div class="col-sm-6" style="margin-bottom: 15px">
 
 			<?= $form->field($model, 'color')->textInput(['maxlength' => true]) ?>
