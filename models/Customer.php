@@ -36,10 +36,12 @@ use Yii;
  */
 class Customer extends \app\components\Model {
 
-	const IS_CALL     = [
+	const IS_CALL = [
 		'Chưa gọi',
 		'Đã gọi',
 	];
+
+	public $count;
 
 	const CALLED      = 0;
 
@@ -87,6 +89,7 @@ class Customer extends \app\components\Model {
 					'is_move',
 					'last_parent_id',
 					'list_customer',
+					'count',
 				],
 				'integer',
 			],
@@ -168,6 +171,7 @@ class Customer extends \app\components\Model {
 			'id_number'      => 'Số cmt',
 			'created_date'   => 'Ngày tạo',
 			'birthday'       => 'Ngày sinh',
+			'count'          => 'Số sản phẩm đã mua',
 		];
 	}
 
@@ -197,5 +201,10 @@ class Customer extends \app\components\Model {
 	 */
 	public function getOrderCustomers() {
 		return $this->hasMany(OrderCustomer::className(), ['customer_id' => 'id']);
+	}
+
+	public function getProductCount() {
+		$item = CustomerItem::find()->where(['customer_id' => $this->id])->sum('quantity');
+		return $item != null ? $item : 0;
 	}
 }

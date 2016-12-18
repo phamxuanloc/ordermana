@@ -2,11 +2,11 @@
 namespace app\controllers;
 
 use app\components\Controller;
-use app\models\City;
 use app\models\Customer;
 use app\models\search\CustomerSearch;
 use app\models\UploadExcel;
 use app\models\User;
+use navatech\role\filters\RoleFilter;
 use Yii;
 use yii\base\Exception;
 use yii\filters\VerbFilter;
@@ -28,6 +28,19 @@ class CustomerController extends Controller {
 				'class'   => VerbFilter::className(),
 				'actions' => [
 					'delete' => ['POST'],
+				],
+			],
+			'role'  => [
+				'class'   => RoleFilter::className(),
+				'name'    => 'Trang quản lý khách lẻ',
+				//NOT REQUIRED, only if you want to translate
+				'actions' => [
+					//without translate
+					'index'  => 'Danh sách khách ',
+					'update' => 'Cập nhật khách ',
+					'delete' => 'Xóa khách ',
+					'move'   => 'Chuyển khách'
+					//with translated, which will display on role _form
 				],
 			],
 		];
@@ -57,7 +70,7 @@ class CustomerController extends Controller {
 			for($row = 8; $row <= $highestRow; $row ++) {
 				$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, null, false, false);
 				if($rowData[0][2] != null && $rowData[0][3] != null) {
-					if($customer = Customer::findOne(['phone' => ''.$rowData[0][3]])) {
+					if($customer = Customer::findOne(['phone' => '' . $rowData[0][3]])) {
 						$customer->updateAttributes([
 							'name'     => $rowData[0][2],
 							'birthday' => date('Y-m-d', \PHPExcel_Shared_Date::ExcelToPHP($rowData[0][4])),
@@ -71,7 +84,7 @@ class CustomerController extends Controller {
 					} else {
 						$customer            = new Customer();
 						$customer->name      = $rowData[0][2];
-						$customer->phone     = ''.$rowData[0][3];
+						$customer->phone     = '' . $rowData[0][3];
 						$customer->birthday  = date('Y-m-d', \PHPExcel_Shared_Date::ExcelToPHP($rowData[0][4]));
 						$customer->email     = $rowData[0][5];
 						$customer->link_fb   = $rowData[0][6];

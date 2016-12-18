@@ -1,9 +1,13 @@
 <?php
+use app\controllers\CustomerController;
+use app\controllers\CustomerItemController;
 use app\models\Customer;
 use kartik\file\FileInput;
 use kartik\grid\GridView;
+use navatech\role\helpers\RoleChecker;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\CustomerSearch */
@@ -99,9 +103,31 @@ $this->params['breadcrumbs'][] = $this->title;
 					return $data::IS_CALL[$data->is_call];
 				},
 			],
+			[
+				'attribute' => 'count',
+				'value'     => function (Customer $data) {
+					return $data->getProductCount();
+				},
+			],
 			'call_by',
 			'call_at',
-			['class' => 'kartik\grid\ActionColumn'],
+			[
+				'class'          => 'kartik\grid\ActionColumn',
+				'header'         => 'Hành động',
+				'visibleButtons' => [
+					'view'   => RoleChecker::isAuth(CustomerItemController::className(), 'detail'),
+					'update' => RoleChecker::isAuth(CustomerController::className(), 'update'),
+					'delete' => RoleChecker::isAuth(CustomerController::className(), 'delete'),
+				],
+				'buttons'        => [
+					'view' => function ($url, $model, $key) {
+						return Html::a('<i class="fa fa-shopping-cart" aria-hidden="true"></i>', Url::to([
+							'customer-item/detail',
+							'id' => $model->id,
+						]));
+					},
+				],
+			],
 		],
 	]); ?>
 </div>

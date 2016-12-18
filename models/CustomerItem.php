@@ -12,10 +12,13 @@ use yii\helpers\ArrayHelper;
  * @property integer       $order_customer_id
  * @property integer       $product_id
  * @property integer       $quantity
+ * @property integer       $customer_id
+ * @property integer       $status
  * @property double        $total_price
  *
  * @property OrderCustomer $orderCustomer
  * @property Product       $product
+ * @property customer      $customer
  */
 class CustomerItem extends Model {
 
@@ -27,6 +30,7 @@ class CustomerItem extends Model {
 	const STATUS_RECEIPTED     = 1;
 
 	const STATUS_NOT_RECEIPTED = 0;
+
 	/**
 	 * @inheritdoc
 	 */
@@ -54,6 +58,7 @@ class CustomerItem extends Model {
 					'product_id',
 					'quantity',
 					'status',
+					'customer_id',
 				],
 				'integer',
 			],
@@ -78,9 +83,9 @@ class CustomerItem extends Model {
 		return [
 			'id'                => 'ID',
 			'order_customer_id' => 'Order Customer ID',
-			'product_id'        => 'Product ID',
-			'quantity'          => 'Quantity',
-			'total_price'       => 'Total Price',
+			'product_id'        => 'Tên sản phẩm',
+			'quantity'          => 'Số lượng',
+			'total_price'       => 'Tổng tiền',
 		];
 	}
 
@@ -97,9 +102,14 @@ class CustomerItem extends Model {
 	public function getProduct() {
 		return $this->hasOne(Product::className(), ['id' => 'product_id']);
 	}
+
 	public function getProductByCategory() {
 		$category = Category::findOne($this->product->category_id);
 		return ArrayHelper::map($category->products, 'id', 'name');
+	}
+
+	public function getCustomer() {
+		return $this->hasOne(Customer::className(), ['id' => 'customer_id']);
 	}
 
 	public function getItemStatus() {

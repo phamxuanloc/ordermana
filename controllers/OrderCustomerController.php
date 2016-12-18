@@ -8,6 +8,7 @@ use app\models\Point;
 use app\models\Product;
 use app\models\search\OrderCustomerSearch;
 use app\models\UserStock;
+use navatech\role\filters\RoleFilter;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
@@ -27,6 +28,18 @@ class OrderCustomerController extends Controller {
 				'class'   => VerbFilter::className(),
 				'actions' => [
 					'delete' => ['POST'],
+				],
+			],
+			'role'  => [
+				'class'   => RoleFilter::className(),
+				'name'    => 'Trang Đơn hàng khách lẻ',
+				//NOT REQUIRED, only if you want to translate
+				'actions' => [
+					//without translate
+					'index'   => 'Danh sách ',
+					'view'  => 'Chi tiết đơn hàng ',
+					'order-item'=>'Tạo đơn hàng'
+					//with translated, which will display on role _form
 				],
 			],
 		];
@@ -200,19 +213,19 @@ class OrderCustomerController extends Controller {
 	 *
 	 * @return mixed
 	 */
-	public function actionUpdate($id) {
-		$model = $this->findModel($id);
-		if($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect([
-				'view',
-				'id' => $model->id,
-			]);
-		} else {
-			return $this->render('update', [
-				'model' => $model,
-			]);
-		}
-	}
+//	public function actionUpdate($id) {
+//		$model = $this->findModel($id);
+//		if($model->load(Yii::$app->request->post()) && $model->save()) {
+//			return $this->redirect([
+//				'view',
+//				'id' => $model->id,
+//			]);
+//		} else {
+//			return $this->render('update', [
+//				'model' => $model,
+//			]);
+//		}
+//	}
 
 	/**
 	 * Deletes an existing OrderCustomer model.
