@@ -63,6 +63,7 @@ class Product extends Model {
 
 	public $product_img;
 
+
 	/**
 	 * @inheritdoc
 	 */
@@ -98,6 +99,7 @@ class Product extends Model {
 					'status',
 					'supplier_discount',
 					'provider_id',
+					'discount',
 				],
 				'integer',
 			],

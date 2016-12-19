@@ -233,7 +233,8 @@ class OrderController extends Controller {
 						$orderItem->setAttributes($item);
 						$product = Product::findOne($item['product_id']);
 						if($product) {
-							$orderItem->total_price = $product->getPrice($role, $product->id) * ($orderItem->quantity);
+							$discount               = $item['discount'];
+							$orderItem->total_price = ($product->getPrice($role, $product->id) - $discount) * ($orderItem->quantity);
 						}
 						if(($orderItem->quantity) <= 0) {
 							$orderItem->quantity    = 0;

@@ -28,6 +28,8 @@ class OrderItem extends Model {
 
 	const STATUS_NOT_RECEIPTED = 0;
 
+	public $discount;
+
 	/**
 	 * @inheritdoc
 	 */
@@ -55,6 +57,7 @@ class OrderItem extends Model {
 					'product_id',
 					'quantity',
 					'status',
+					'discount',
 				],
 				'integer',
 			],
@@ -90,6 +93,7 @@ class OrderItem extends Model {
 			'quantity'    => 'Quantity',
 			'total_price' => 'Total Price',
 			'status'      => 'Trạng thái',
+			'discount'    => 'Giảm giá(VNĐ)',
 		];
 	}
 
