@@ -5,6 +5,12 @@ $config  = [
 	'id'         => 'basic',
 	'basePath'   => dirname(__DIR__),
 	'bootstrap'  => ['log'],
+	'on beforeRequest' => function() {
+		$user = Yii::$app->user->identity;
+		if ($user) {
+			Yii::$app->setTimeZone('Asia/Ho_Chi_Minh');
+		}
+	},
 	'components' => [
 		'request'      => [
 			'baseUrl'             => $baseUrl,

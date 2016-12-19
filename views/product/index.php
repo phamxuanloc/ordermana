@@ -35,15 +35,15 @@ $this->params['breadcrumbs'][] = $this->title;
 			['class' => 'yii\grid\SerialColumn'],
 			[
 				'attribute' => 'created_date',
-				'value'     => function (Product $data) {
-					return Yii::$app->formatter->asDate($data->created_date, 'H:m:s d-M-Y');
-				},
+//				'value'     => function (Product $data) {
+//					return Yii::$app->formatter->asDate($data->created_date);
+//				},
 			],
 			[
 				'attribute' => 'receipted_date',
-				'value'     => function (Product $data) {
-					return Yii::$app->formatter->asDate($data->receipted_date, 'H:m:s d-M-Y');
-				},
+//				'value'     => function (Product $data) {
+//					return Yii::$app->formatter->asDate($data->receipted_date, 'H:m:s d-M-Y');
+//				},
 				'format'    => 'raw',
 			],
 			[

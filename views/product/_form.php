@@ -95,6 +95,14 @@ use yii\helpers\Html;
 		</div>
 		<div class="col-sm-6" style="margin-bottom: 15px">
 
+			<?= $form->field($model, 'receipted_date')->widget(\kartik\widgets\DateTimePicker::className(), [
+				'pluginOptions' => [
+					'autoclose' => true,
+				],
+			]) ?>
+		</div>
+		<div class="col-sm-6" style="margin-bottom: 15px">
+
 			<?= $form->field($model, 'color')->textInput(['maxlength' => true]) ?>
 		</div>
 		<div class="col-sm-6" style="margin-bottom: 15px">
