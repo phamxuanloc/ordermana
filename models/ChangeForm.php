@@ -55,11 +55,9 @@ class ChangeForm extends Form {
 	}
 
 	public function changeParent() {
-		$children = $this->getUserParent();
-		if(count($children) > 0 && $this->from_user != $this->to_user) {
-			foreach($children as $child) {
-				$child->updateAttributes(['parent_id' => $this->to_user]);
-			}
+		if($this->from_user != $this->to_user) {
+			$user_change = User::findOne($this->from_user);
+			$user_change->updateAttributes(['parent_id' => $this->to_user]);
 			return true;
 		} else {
 			return false;
