@@ -136,13 +136,13 @@ class OrderController extends Controller {
 			$model->scenario  = 'update_status';
 			$model->update_at = date('Y-m-d H:i:s');
 			$model->update_by = $this->user->id;
-			if($model->getOldAttribute('status') != $model::CONFIRM && $model->status == $model::RECEIPTED) {
-				Yii::$app->session->setFlash('danger', 'Chú ý: Bạn phải đợi khách hàng xác nhận mới có thể xuất kho');
-				return $this->redirect([
-					'view',
-					'id' => $id,
-				]);
-			}
+//			if($model->getOldAttribute('status') != $model::CONFIRM && $model->status == $model::RECEIPTED) {
+//				Yii::$app->session->setFlash('danger', 'Chú ý: Bạn phải đợi khách hàng xác nhận mới có thể xuất kho');
+//				return $this->redirect([
+//					'view',
+//					'id' => $id,
+//				]);
+//			}
 			if($model->status == $model::CONFIRM) {
 				Yii::$app->session->setFlash('danger', 'Chú ý: Chỉ khách hàng mới có thể xác nhận');
 				return $this->redirect([
