@@ -68,6 +68,15 @@ class SiteController extends Controller {
 		return $this->render('index');
 	}
 
+	public function actionCheckPoint() {
+		if(!Yii::$app->user->isGuest) {
+			return $this->goHome();
+		}
+		return $this->render('check-point', [
+			//			'model' => $model,
+		]);
+	}
+
 	/**
 	 * Login action.
 	 *
