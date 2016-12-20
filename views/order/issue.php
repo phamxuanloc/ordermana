@@ -12,14 +12,14 @@ use yii\helpers\Url;
 	]), ['class' => 'btn btn-warning']) ?>
 <?php } ?>
 <?php if(Yii::$app->user->identity->role_id < Model::ROLE_BIGA) { ?>
-	<?= Html::a('Xuất kho cho đại lý bán buôn', Url::to([
+	<?= Html::a('Xuất kho cho đại lý', Url::to([
 		'/order/order-item',
 		'role' => $order::ROLE_BIGA,
 	]), ['class' => 'btn btn-success']) ?>
 <?php } ?>
 <?php if(Yii::$app->user->identity->role_id < Model::ROLE_A) { ?>
 
-	<?= Html::a('Xuất kho cho đại lý', Url::to([
+	<?= Html::a('Xuất kho cho đại lý bán lẻ| NPP', Url::to([
 		'/order/order-item',
 		'role' => $order::ROLE_A,
 	]), ['class' => 'btn btn-primary']) ?>

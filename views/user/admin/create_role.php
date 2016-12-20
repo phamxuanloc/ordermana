@@ -28,12 +28,12 @@ use yii\helpers\Url;
 <?php } ?>
 <?php if(RoleChecker::isAuth(AdminController::className(), 'create-big', Yii::$app->user->identity->role_id)) { ?>
 
-	<?= Html::a('Tạo tài khoản đại lý bán buôn', Url::to([
+	<?= Html::a('Tạo tài khoản đại lý', Url::to([
 		'/user/admin/create-big',
 	]), ['class' => 'btn btn-success']) ?>
 <?php } ?>
 <?php if(RoleChecker::isAuth(AdminController::className(), 'create-age', Yii::$app->user->identity->role_id)) { ?>
-	<?= Html::a('Tạo tài khoản đại lý bán lẻ', Url::to([
+	<?= Html::a('Tạo tài khoản đại lý bán lẻ| NPP', Url::to([
 		'/user/admin/create-age',
 	]), ['class' => 'btn btn-primary']) ?>
 <?php } ?>
