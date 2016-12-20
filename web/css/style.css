@@ -9,3 +9,8 @@
     text-align: center; }
 .grid-display input {
     float: left; }
+.btn-success{
+    color: #fff;
+    background-color: #5d2d77;
+    border-color: #5d2d77;
+}

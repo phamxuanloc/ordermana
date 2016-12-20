@@ -100,7 +100,7 @@ $groupsContent = TreeView::widget([
 	<p>
 		<button type="button" class="btn btn-danger">Admin(<?= $adm_num ?>)</button>
 		<button type="button" class="btn btn-warning">Đại diện(<?= $pre_num ?>)</button>
-		<button type="button" class="btn btn-info">Đại lí bán buôn(<?= $big_num ?>)</button>
+		<button type="button" class="btn btn-success">Đại lí bán buôn(<?= $big_num ?>)</button>
 		<button type="button" class="btn btn-primary">Đại lý(<?= $age_num ?>)</button>
 		<button type="button" class="btn btn-default">Nhà phân phối(<?= $dis_num ?>)</button>
 	</p>

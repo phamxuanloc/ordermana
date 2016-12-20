@@ -231,7 +231,7 @@ class Model extends ActiveRecord {
 			])->all();
 			if(count($children) > 0) {
 				$response[$i] = [
-					'text'  => "<span style='color:$color;' data-toggle='modal' data-target='#myModal'>" . $model->username . "</span>",
+					'text'  => "<span style='color:$color;font-weight: 800' data-toggle='modal' data-target='#myModal'>" . $model->username . "</span>",
 					'url'   => Url::to([
 						'/user/admin/profile',
 						'id' => $model->id,
@@ -240,7 +240,7 @@ class Model extends ActiveRecord {
 				];
 			} else {
 				$response [$i] = [
-					'text' => "<span style='color:$color;' data-toggle='modal' data-target='#myModal'>" . $model->username . "</span>",
+					'text' => "<span style='color:$color;font-weight: 800' data-toggle='modal' data-target='#myModal'>" . $model->username . "</span>",
 					'url'  => Url::to([
 						'/user/admin/profile',
 						'id' => $model->id,
@@ -311,7 +311,7 @@ class Model extends ActiveRecord {
 		} elseif($role == $this::ROLE_PRE) {
 			$color = '#dfba49';
 		} elseif($role == $this::ROLE_BIGA) {
-			$color = '#72b8f2';
+			$color = '#5d2d77';
 		} elseif($role == $this::ROLE_A) {
 			$color = '#428bca';
 		} else {

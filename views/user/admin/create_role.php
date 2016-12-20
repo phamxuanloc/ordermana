@@ -30,7 +30,7 @@ use yii\helpers\Url;
 
 	<?= Html::a('Tạo tài khoản đại lý bán buôn', Url::to([
 		'/user/admin/create-big',
-	]), ['class' => 'btn btn-info']) ?>
+	]), ['class' => 'btn btn-success']) ?>
 <?php } ?>
 <?php if(RoleChecker::isAuth(AdminController::className(), 'create-age', Yii::$app->user->identity->role_id)) { ?>
 	<?= Html::a('Tạo tài khoản đại lý bán lẻ', Url::to([

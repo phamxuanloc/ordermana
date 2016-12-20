@@ -15,7 +15,7 @@ use yii\helpers\Url;
 	<?= Html::a('Xuất kho cho đại lý bán buôn', Url::to([
 		'/order/order-item',
 		'role' => $order::ROLE_BIGA,
-	]), ['class' => 'btn btn-info']) ?>
+	]), ['class' => 'btn btn-success']) ?>
 <?php } ?>
 <?php if(Yii::$app->user->identity->role_id < Model::ROLE_A) { ?>
 
