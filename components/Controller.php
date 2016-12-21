@@ -23,7 +23,7 @@ class Controller extends \yii\web\Controller {
 	 * {@inheritDoc}
 	 */
 	public function beforeAction($action) {
-		if(Yii::$app->user->isGuest && Yii::$app->controller->action->id !== 'login') {
+		if(Yii::$app->user->isGuest && Yii::$app->controller->action->id !== 'login' && Yii::$app->controller->action->id !== 'check-point') {
 			$this->redirect(Url::to(['/user/security/login']));
 			return false;
 		} else {

@@ -79,6 +79,7 @@ class Customer extends \app\components\Model {
 					'phone',
 				],
 				'required',
+				'message' => '{attribute} không được để trống',
 			],
 			[
 				[
