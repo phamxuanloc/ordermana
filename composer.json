@@ -34,8 +34,8 @@
 		"kartik-v/yii2-editable": "@dev",
 		"kartik-v/yii2-export" : "*",
 		"navatech/yii2-setting": "1.0.*",
-		"kartik-v/yii2-widget-datetimepicker": "*"
-
+		"kartik-v/yii2-widget-datetimepicker": "*",
+		"scotthuangzl/yii2-google-chart": "dev-master"
 	},
 	"require-dev" : {
 		"yiisoft/yii2-debug" : "~2.0.0",

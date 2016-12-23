@@ -5,6 +5,8 @@ use app\models\Category;
 use app\models\Customer;
 use app\models\Product;
 use app\models\User;
+use DateInterval;
+use DateTime;
 use Yii;
 use yii\console\Application;
 use yii\db\ActiveRecord;
@@ -181,12 +183,12 @@ class Model extends ActiveRecord {
 			])->all();
 			if(count($children) > 0) {
 				$response[] = [
-					'text' => "<span style='color: $color;font-weight: bold;' data-toggle='modal' data-target='#myModal'>$cat->username</span>",
-					'url'  => Url::to([
+					'text'  => "<span style='color: $color;font-weight: bold;' data-toggle='modal' data-target='#myModal'>$cat->username</span>",
+					'url'   => Url::to([
 						'/user/admin/profile',
 						'id' => $cat->id,
 					]),
-										'nodes' => self::getChildrenUser($children),
+					'nodes' => self::getChildrenUser($children),
 				];
 			} else {
 				$response[] = [
@@ -353,6 +355,9 @@ class Model extends ActiveRecord {
 		return $response;
 	}
 
+	/**
+	 *Hàm trả về mảng khách hàng mà người dùng sở hữu.
+	 */
 	public function getOwnerCustomer() {
 		$customer = [];
 		if($this->user->role_id == self::ROLE_ADMIN) {
@@ -365,5 +370,20 @@ class Model extends ActiveRecord {
 			}
 		}
 		return $customer;
+	}
+
+	/**
+	 *Hàm trả về mảng các ngày trong tháng hiện tại
+	 */
+	public function getDay() {
+		$oStart = new DateTime(date('Y') . '-' . date('m') . '-1');
+		$oEnd   = clone $oStart;
+		$oEnd->add(new DateInterval("P1M"));
+		$number = array();
+		while($oStart->getTimestamp() < $oEnd->getTimestamp()) {
+			$number[] = $oStart->format('d');
+			$oStart->add(new DateInterval("P1D"));
+		}
+		return $number;
 	}
 }

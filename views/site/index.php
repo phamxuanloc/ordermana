@@ -1,7 +1,10 @@
 <?php
 /* @var $this yii\web\View */
+use scotthuangzl\googlechart\GoogleChart;
+
 $this->title = 'Mỹ phẩm Linh Nhâm';
 ?>
+
 <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -65,7 +68,7 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 					1349
 				</div>
 				<div class="desc">
-					Sản phẩm mới
+					Sản phẩm mới tháng <?=date('m')?>
 				</div>
 			</div>
 			<a class="more" href="javascript:;">
@@ -83,7 +86,7 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 					12,000,000
 				</div>
 				<div class="desc">
-					Tổng thu
+					Tổng thu tháng <?=date('m')?>
 				</div>
 			</div>
 			<a class="more" href="javascript:;">
@@ -101,7 +104,7 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 					549
 				</div>
 				<div class="desc">
-					Đơn hàng mới
+					Đơn hàng tháng <?=date('m')?>
 				</div>
 			</div>
 			<a class="more" href="javascript:;">
@@ -131,6 +134,36 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 <!-- END DASHBOARD STATS -->
 <div class="clearfix">
 </div>
+<?php echo GoogleChart::widget(array(
+	'visualization' => 'PieChart',
+	'data'          => array(
+		array(
+			'Số lượng',
+			'Khoảng năm sinh',
+		),
+		array(
+			'1990-1995',
+			1,
+		),
+		array(
+			'1995-2000',
+			2,
+		),
+		array(
+			'Còn lại',
+			3,
+		),
+	),
+	'options'       => array(
+		'title'  => 'Tiền nhập hàng đại diện',
+		'colors' => [
+			'red',
+			'green',
+			'blue',
+		],
+	),
+));
+?>
 <div class="row">
 	<div class="col-md-6 col-sm-6">
 		<!-- BEGIN PORTLET-->
