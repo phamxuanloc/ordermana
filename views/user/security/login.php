@@ -40,11 +40,11 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 	<!-- BEGIN LOGIN FORM -->
 	<?php $form = ActiveForm::begin([
 		'id'                     => 'login-form',
-		'enableAjaxValidation'   => true,
-		'enableClientValidation' => false,
-		'validateOnBlur'         => false,
-		'validateOnType'         => false,
-		'validateOnChange'       => false,
+//		'enableAjaxValidation'   => true,
+//		'enableClientValidation' => false,
+//		'validateOnBlur'         => false,
+//		'validateOnType'         => false,
+//		'validateOnChange'       => false,
 	]) ?>
 		<h3 class="form-title">Sign In</h3>
 	<div class="form-group">
