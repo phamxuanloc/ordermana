@@ -389,7 +389,7 @@ class Model extends ActiveRecord {
 	}
 
 	public function getPreArray() {
-		$array_pres = User::find()->select('user.id,user.username,sum(order.total_amount) AS total')->innerJoinWith('orders', 'user.id=order.parent_id')->where(['role_id'=>Model::ROLE_PRE])->asArray()->groupBy('user.id')->orderBy('total DESC')->all();
+		$array_pres = User::find()->select('user.id,user.username,sum(order.total_amount) AS total')->innerJoinWith('orders0', 'user.id=order.user_id')->where(['role_id'=>Model::ROLE_PRE])->asArray()->groupBy('user.id')->orderBy('total DESC')->all();
 		$pre        = [];
 		foreach($array_pres as $array_pre) {
 			$pre[] = [

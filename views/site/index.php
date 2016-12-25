@@ -136,11 +136,12 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 </div>
 <?php echo GoogleChart::widget(array(
 	'visualization' => 'PieChart',
-	'data'          =>
-		$data
-	,
+	'data'          => $data,
 	'options'       => array(
-		'title'  => 'Tiền nhập hàng đại diện',
+		'title' => 'Tiền nhập hàng đại diện',
+		'width' => '100%',
+		'height'=>500,
+		'titleTextStyle'=>['color'=>'red']
 	),
 ));
 ?>
