@@ -68,7 +68,7 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 					1349
 				</div>
 				<div class="desc">
-					Sản phẩm mới tháng <?=date('m')?>
+					Sản phẩm mới tháng <?= date('m') ?>
 				</div>
 			</div>
 			<a class="more" href="javascript:;">
@@ -86,7 +86,7 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 					12,000,000
 				</div>
 				<div class="desc">
-					Tổng thu tháng <?=date('m')?>
+					Tổng thu tháng <?= date('m') ?>
 				</div>
 			</div>
 			<a class="more" href="javascript:;">
@@ -104,7 +104,7 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 					549
 				</div>
 				<div class="desc">
-					Đơn hàng tháng <?=date('m')?>
+					Đơn hàng tháng <?= date('m') ?>
 				</div>
 			</div>
 			<a class="more" href="javascript:;">
@@ -136,31 +136,11 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 </div>
 <?php echo GoogleChart::widget(array(
 	'visualization' => 'PieChart',
-	'data'          => array(
-		array(
-			'Số lượng',
-			'Khoảng năm sinh',
-		),
-		array(
-			'1990-1995',
-			1,
-		),
-		array(
-			'1995-2000',
-			2,
-		),
-		array(
-			'Còn lại',
-			3,
-		),
-	),
+	'data'          =>
+		$data
+	,
 	'options'       => array(
 		'title'  => 'Tiền nhập hàng đại diện',
-		'colors' => [
-			'red',
-			'green',
-			'blue',
-		],
 	),
 ));
 ?>

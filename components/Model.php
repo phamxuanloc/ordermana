@@ -3,6 +3,7 @@ namespace app\components;
 
 use app\models\Category;
 use app\models\Customer;
+use app\models\Order;
 use app\models\Product;
 use app\models\User;
 use DateInterval;
@@ -385,5 +386,23 @@ class Model extends ActiveRecord {
 			$oStart->add(new DateInterval("P1D"));
 		}
 		return $number;
+	}
+
+	public function getPreArray() {
+		$array_pres = User::find()->select('user.id,user.username,sum(order.total_amount) AS total')->innerJoinWith('orders', 'user.id=order.parent_id')->asArray()->groupBy('user.id')->orderBy('total DESC')->all();
+		$pre        = [];
+		foreach($array_pres as $array_pre) {
+			$pre[] = [
+				$array_pre['username'],
+				(int)$array_pre['total'],
+			];
+		}
+		$pre = ArrayHelper::merge([
+			[
+				'Doanh số bán ra',
+				'VNĐ',
+			],
+		], $pre);
+		return $pre;
 	}
 }

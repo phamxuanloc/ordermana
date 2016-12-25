@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use app\components\Controller;
+use app\components\Model;
 use app\models\Alert;
 use app\models\ContactForm;
 use app\models\Customer;
@@ -58,6 +59,9 @@ class SiteController extends Controller {
 	 * @return string
 	 */
 	public function actionIndex() {
+		$ab        = new Model();
+		$data      = $ab->getPreArray();
+
 		$alert_all = Alert::find()->where(['role_id' => 0])->orderBy('id DESC')->one();
 		if($alert_all != null) {
 			Yii::$app->session->setFlash('danger', '<span style="font-weight: bolder; font-size: medium">Thông báo: </span>' . $alert_all->content);
@@ -66,8 +70,8 @@ class SiteController extends Controller {
 		if($alert_role != null) {
 			Yii::$app->session->setFlash('success', '<span style="font-weight: bolder; font-size: medium">Thông báo: </span>' . $alert_role->content);
 		}
-//		$total_order = 
-		return $this->render('index');
+		//		$total_order =
+		return $this->render('index', ['data' => $data]);
 	}
 
 	public function actionCheckPoint() {
