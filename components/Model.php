@@ -388,13 +388,16 @@ class Model extends ActiveRecord {
 		return $number;
 	}
 
+	/**
+	 *Trả về mảng tiền hàng đại diện nhập
+	 */
 	public function getPreArray() {
-		$array_pres = User::find()->select('user.id,user.username,sum(order.total_amount) AS total')->innerJoinWith('orders0', 'user.id=order.user_id')->where(['role_id'=>Model::ROLE_PRE])->asArray()->groupBy('user.id')->orderBy('total DESC')->all();
+		$array_pres = User::find()->select('user.id,user.username,sum(order.total_amount) AS total')->innerJoinWith('orders0', 'user.id=order.user_id')->where(['role_id' => Model::ROLE_PRE])->asArray()->groupBy('user.id')->orderBy('total DESC')->all();
 		$pre        = [];
 		foreach($array_pres as $array_pre) {
 			$pre[] = [
 				$array_pre['username'],
-				(int)$array_pre['total'],
+				(int) $array_pre['total'],
 			];
 		}
 		$pre = ArrayHelper::merge([
@@ -404,5 +407,43 @@ class Model extends ActiveRecord {
 			],
 		], $pre);
 		return $pre;
+	}
+
+	/**
+	 * Trả về số lượng sản phẩm mới trong tháng
+	 */
+	public function getProductQuantity() {
+		$oStart = new DateTime(date('Y') . '-' . date('m') . '-1');
+		$oEnd   = clone $oStart;
+		$oEnd->add(new DateInterval("P1M"));
+		$quantity = Product::find()->where([
+			'>=',
+			'created_date',
+			$oStart->format('Y-m-d'),
+		])->andWhere([
+			'<=',
+			'created_date',
+			$oEnd->format('Y-m-d'),
+		])->count();
+		return $quantity;
+	}
+
+	/**
+	 * Trả về tổng thu hàng tháng
+	 */
+	public function getProfit() {
+		$oStart = new DateTime(date('Y') . '-' . date('m') . '-1');
+		$oEnd   = clone $oStart;
+		$oEnd->add(new DateInterval("P1M"));
+		$profit = Order::find()->where(['parent_id' => $this->user->id])->where([
+			'>=',
+			'created_date',
+			$oStart->format('Y-m-d'),
+		])->andWhere([
+			'<=',
+			'created_date',
+			$oEnd->format('Y-m-d'),
+		])->sum('total_amount');
+		return $profit;
 	}
 }

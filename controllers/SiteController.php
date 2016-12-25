@@ -59,10 +59,11 @@ class SiteController extends Controller {
 	 * @return string
 	 */
 	public function actionIndex() {
-		$ab        = new Model();
-		$data      = $ab->getPreArray();
-
-		$alert_all = Alert::find()->where(['role_id' => 0])->orderBy('id DESC')->one();
+		$model            = new Model();
+		$data             = $model->getPreArray();
+		$product_quantity = $model->getProductQuantity();
+		$revenue          = $model->getProfit();
+		$alert_all        = Alert::find()->where(['role_id' => 0])->orderBy('id DESC')->one();
 		if($alert_all != null) {
 			Yii::$app->session->setFlash('danger', '<span style="font-weight: bolder; font-size: medium">Thông báo: </span>' . $alert_all->content);
 		}
@@ -71,7 +72,11 @@ class SiteController extends Controller {
 			Yii::$app->session->setFlash('success', '<span style="font-weight: bolder; font-size: medium">Thông báo: </span>' . $alert_role->content);
 		}
 		//		$total_order =
-		return $this->render('index', ['data' => $data]);
+		return $this->render('index', [
+			'data'             => $data,
+			'product_quantity' => $product_quantity,
+			'revenue'          => $revenue,
+		]);
 	}
 
 	public function actionCheckPoint() {

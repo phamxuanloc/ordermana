@@ -65,13 +65,13 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 			</div>
 			<div class="details">
 				<div class="number">
-					1349
+					<?= $product_quantity ?>
 				</div>
 				<div class="desc">
 					Sản phẩm mới tháng <?= date('m') ?>
 				</div>
 			</div>
-			<a class="more" href="javascript:;">
+			<a class="more" href="<?= \yii\helpers\Url::to(['/product']) ?>">
 				Xem thêm <i class="m-icon-swapright m-icon-white"></i>
 			</a>
 		</div>
@@ -83,7 +83,7 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 			</div>
 			<div class="details">
 				<div class="number">
-					12,000,000
+					<?= $revenue ?>
 				</div>
 				<div class="desc">
 					Tổng thu tháng <?= date('m') ?>
@@ -138,10 +138,10 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 	'visualization' => 'PieChart',
 	'data'          => $data,
 	'options'       => array(
-		'title' => 'Tiền nhập hàng đại diện',
-		'width' => '100%',
-		'height'=>500,
-		'titleTextStyle'=>['color'=>'red']
+		'title'          => 'Tiền nhập hàng đại diện',
+		'width'          => '100%',
+		'height'         => 500,
+		'titleTextStyle' => ['color' => 'red'],
 	),
 ));
 ?>
