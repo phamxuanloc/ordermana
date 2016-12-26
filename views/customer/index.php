@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
 		'export'       => false,
-		'pjax'         => true,
+//		'pjax'         => true,
 		'columns'      => [
 			[
 				'class'  => 'kartik\grid\SerialColumn',
