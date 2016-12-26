@@ -143,7 +143,7 @@ class CustomerController extends Controller {
 	 */
 	public function actionCreate() {
 		$model          = new Customer();
-		$children       = $model->getTotalChildren(Yii::$app->user->id);
+		$children       = $model->getTotal(Yii::$app->user->id);
 //		$total_children = ArrayHelper::merge([Yii::$app->user->id => Yii::$app->user->identity->username], ArrayHelper::map(User::find()->where([
 //			'IN',
 //			'id',
