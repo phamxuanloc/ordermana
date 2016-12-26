@@ -142,13 +142,22 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 		'title'          => 'Tiền nhập hàng đại diện',
 		'width'          => '100%',
 		'height'         => 500,
-		'titleTextStyle' => ['color' => 'red'],
+		'titleTextStyle' => [
+			'color'    => 'red',
+			'fontSize' => 25,
+		],
 	),
 ));
 echo GoogleChart::widget(array(
 	'visualization' => 'BarChart',
 	'data'          => $top_product,
-	'options'       => array('title' => 'Top sản phẩm bán chạy'),
+	'options'       => array(
+		'title'          => 'Top sản phẩm bán chạy',
+		'titleTextStyle' => [
+			'color'    => 'green',
+			'fontSize' => 25,
+		],
+	),
 ));
 ?>
 <div class="row">
