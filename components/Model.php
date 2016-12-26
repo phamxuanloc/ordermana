@@ -4,6 +4,7 @@ namespace app\components;
 use app\models\Category;
 use app\models\Customer;
 use app\models\Order;
+use app\models\OrderItem;
 use app\models\Product;
 use app\models\User;
 use DateInterval;
@@ -407,6 +408,25 @@ class Model extends ActiveRecord {
 			],
 		], $pre);
 		return $pre;
+	}
+
+	public function getTopProduct() {
+		//		$top_product = OrderItem::find()->select('product.name,SUM(order_item.quantity)')->innerJoinWith('product', 'order_item.product_id=product.id')->innerJoinWith('order', 'order_item.order_id=order.id')->where(['order.parent_id' => $this->user->id])->asArray()->groupBy('product.name')->all();
+		$top_products = OrderItem::find()->select('product.name,SUM(order_item.quantity) as total')->innerJoin('product', 'order_item.product_id=product.id')->innerJoin('order', 'order_item.order_id=order.id')->where(['order.parent_id' => $this->user->id])->asArray()->groupBy('product.name')->orderBy('total DESC')->limit(10)->all();
+		$top          = [];
+		foreach($top_products as $top_product) {
+			$top[] = [
+				$top_product['name'],
+				(int) $top_product['total'],
+			];
+		}
+		$top = ArrayHelper::merge([
+			[
+				'Top sản phẩm bán chạy',
+				'Số lượng',
+			],
+		], $top);
+		return $top;
 	}
 
 	/**

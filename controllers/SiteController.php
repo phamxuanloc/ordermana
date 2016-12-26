@@ -60,6 +60,7 @@ class SiteController extends Controller {
 	 */
 	public function actionIndex() {
 		$model            = new Model();
+		$top_product      = $model->getTopProduct();
 		$data             = $model->getPreArray();
 		$product_quantity = $model->getProductQuantity();
 		$revenue          = $model->getProfit();
@@ -80,6 +81,7 @@ class SiteController extends Controller {
 			'revenue'          => $revenue,
 			'order'            => $order,
 			'change_revenue'   => $change_revenue,
+			'top_product'      => $top_product,
 		]);
 	}
 

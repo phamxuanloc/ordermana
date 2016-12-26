@@ -134,6 +134,7 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 <!-- END DASHBOARD STATS -->
 <div class="clearfix">
 </div>
+
 <?php echo GoogleChart::widget(array(
 	'visualization' => 'PieChart',
 	'data'          => $data,
@@ -143,6 +144,11 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 		'height'         => 500,
 		'titleTextStyle' => ['color' => 'red'],
 	),
+));
+echo GoogleChart::widget(array(
+	'visualization' => 'BarChart',
+	'data'          => $top_product,
+	'options'       => array('title' => 'Top sản phẩm bán chạy'),
 ));
 ?>
 <div class="row">
