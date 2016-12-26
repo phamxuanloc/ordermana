@@ -143,13 +143,12 @@ class CustomerController extends Controller {
 	 */
 	public function actionCreate() {
 		$model          = new Customer();
-		$children       = $model->getTotal(Yii::$app->user->id);
+		$children       = $model->getTotalChildren(Yii::$app->user->id);
 		$total_children = ArrayHelper::merge([Yii::$app->user->id => Yii::$app->user->identity->username], ArrayHelper::map(User::find()->where([
 			'IN',
 			'id',
 			$children,
 		])->all(), 'id', 'username'));
-//		$total_children=['admin'];
 		if($model->load(Yii::$app->request->post()) && $model->save()) {
 			$model->updateAttributes(['user_id' => Yii::$app->user->id]);
 			return $this->redirect(['index']);
