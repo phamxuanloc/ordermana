@@ -96,9 +96,9 @@ class CustomerController extends Controller {
 						$customer->parent_id = Yii::$app->user->id;
 						$customer->user_id   = Yii::$app->user->id;
 						if(!$customer->save()) {
-							echo '<pre>';
-							print_r($customer->errors);
-							die;
+//							echo '<pre>';
+//							print_r($customer->errors);
+//							die;
 						};
 					}
 				}
