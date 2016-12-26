@@ -101,7 +101,7 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 			</div>
 			<div class="details">
 				<div class="number">
-					<?=$order?>
+					<?= $order ?>
 				</div>
 				<div class="desc">
 					Đơn hàng tháng <?= date('m') ?>
@@ -119,10 +119,10 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 			</div>
 			<div class="details">
 				<div class="number">
-					+89%
+					<?= $change_revenue ?>%
 				</div>
 				<div class="desc">
-					Biến động doanh số
+					Biến động doanh số(so với cùng kỳ tháng trước)
 				</div>
 			</div>
 			<a class="more" href="javascript:;">

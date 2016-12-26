@@ -474,4 +474,26 @@ class Model extends ActiveRecord {
 		}
 		return $order;
 	}
+
+	public function getChangeRevenue() {
+		$last    = date('m', strtotime('last month'));
+		$oStart  = new DateTime(date('Y') . '-' . $last . '-1');
+		$oEnd    = new DateTime(date('Y') . '-' . $last . '-' . date('d'));
+		$profit  = Order::find()->where(['parent_id' => $this->user->id])->where([
+			'>=',
+			'created_date',
+			$oStart->format('Y-m-d'),
+		])->andWhere([
+			'<=',
+			'created_date',
+			$oEnd->format('Y-m-d'),
+		])->sum('total_amount');
+		$current = $this->getProfit();
+		if($profit > 0) {
+			$distance = ($current - $profit) * 100 / $profit;
+		} else {
+			$distance = 100;
+		}
+		return $distance;
+	}
 }

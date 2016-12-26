@@ -64,6 +64,7 @@ class SiteController extends Controller {
 		$product_quantity = $model->getProductQuantity();
 		$revenue          = $model->getProfit();
 		$order            = $model->getTotalOrder();
+		$change_revenue   = $model->getChangeRevenue();
 		$alert_all        = Alert::find()->where(['role_id' => 0])->orderBy('id DESC')->one();
 		if($alert_all != null) {
 			Yii::$app->session->setFlash('danger', '<span style="font-weight: bolder; font-size: medium">Thông báo: </span>' . $alert_all->content);
@@ -78,6 +79,7 @@ class SiteController extends Controller {
 			'product_quantity' => $product_quantity,
 			'revenue'          => $revenue,
 			'order'            => $order,
+			'change_revenue'   => $change_revenue,
 		]);
 	}
 
