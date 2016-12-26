@@ -101,7 +101,7 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 			</div>
 			<div class="details">
 				<div class="number">
-					549
+					<?=$order?>
 				</div>
 				<div class="desc">
 					Đơn hàng tháng <?= date('m') ?>

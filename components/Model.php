@@ -446,4 +446,32 @@ class Model extends ActiveRecord {
 		])->sum('total_amount');
 		return $profit;
 	}
+
+	public function getTotalOrder() {
+		$oStart = new DateTime(date('Y') . '-' . date('m') . '-1');
+		$oEnd   = clone $oStart;
+		$oEnd->add(new DateInterval("P1M"));
+		if($this->user->role_id == self::ROLE_ADMIN) {
+			$order = Order::find()->where(['parent_id' => $this->user->id])->andWhere([
+				'>=',
+				'created_date',
+				$oStart->format('Y-m-d'),
+			])->andWhere([
+				'<=',
+				'created_date',
+				$oEnd->format('Y-m-d'),
+			])->count();
+		} else {
+			$order = Order::find()->where(['parent_id' => $this->user->id])->andWhere([
+				'>=',
+				'created_date',
+				$oStart->format('Y-m-d'),
+			])->andWhere([
+				'<=',
+				'created_date',
+				$oEnd->format('Y-m-d'),
+			])->count();
+		}
+		return $order;
+	}
 }
