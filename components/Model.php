@@ -4,6 +4,7 @@ namespace app\components;
 use app\models\Category;
 use app\models\Customer;
 use app\models\Order;
+use app\models\OrderCustomer;
 use app\models\OrderItem;
 use app\models\Product;
 use app\models\User;
@@ -472,7 +473,7 @@ class Model extends ActiveRecord {
 		$oEnd   = clone $oStart;
 		$oEnd->add(new DateInterval("P1M"));
 		if($this->user->role_id == self::ROLE_ADMIN) {
-			$order = Order::find()->where(['parent_id' => $this->user->id])->andWhere([
+			$order          = Order::find()->where(['parent_id' => $this->user->id])->andWhere([
 				'>=',
 				'created_date',
 				$oStart->format('Y-m-d'),
@@ -481,8 +482,18 @@ class Model extends ActiveRecord {
 				'created_date',
 				$oEnd->format('Y-m-d'),
 			])->count();
+			$customer_order = OrderCustomer::find()->where(['user_id' => $this->user->id])->andWhere([
+				'>=',
+				'created_date',
+				$oStart->format('Y-m-d'),
+			])->andWhere([
+				'<=',
+				'created_date',
+				$oEnd->format('Y-m-d'),
+			])->count();
+			$total          = $order + $customer_order;
 		} else {
-			$order = Order::find()->where(['parent_id' => $this->user->id])->andWhere([
+			$order          = Order::find()->where(['parent_id' => $this->user->id])->andWhere([
 				'>=',
 				'created_date',
 				$oStart->format('Y-m-d'),
@@ -491,8 +502,18 @@ class Model extends ActiveRecord {
 				'created_date',
 				$oEnd->format('Y-m-d'),
 			])->count();
+			$customer_order = OrderCustomer::find()->where(['user_id' => $this->user->id])->andWhere([
+				'>=',
+				'created_date',
+				$oStart->format('Y-m-d'),
+			])->andWhere([
+				'<=',
+				'created_date',
+				$oEnd->format('Y-m-d'),
+			])->count();
+			$total          = $order + $customer_order;
 		}
-		return $order;
+		return $total;
 	}
 
 	/**
@@ -518,5 +539,52 @@ class Model extends ActiveRecord {
 			$distance = 100;
 		}
 		return $distance;
+	}
+
+	public function getProfitChart($start = null, $end = null) {
+		//		if($start != null) {
+		//		} else {
+		$oStart = date('Y-m-d',strtotime('monday this week'));
+		$oEnd   = clone $oStart;
+		$oEnd->add(new DateInterval("P1M"));
+		$number = array();
+		while($oStart->getTimestamp() < $oEnd->getTimestamp()) {
+			if($this->user->role_id == self::ROLE_ADMIN) {
+				$value    = Order::find()->joinWith('users')->where(['user.role_id' => self::ROLE_ADMIN])->andWhere([
+					'between',
+					'created_date',
+					$oStart->format('Y-m-d') . ' 00:00:00',
+					$oStart->format('Y-m-d') . ' 23:59:59',
+				])->sum('total_amount');
+				$customer = OrderCustomer::find()->joinWith('users')->where(['user.role_id' => self::ROLE_ADMIN])->andWhere([
+					'between',
+					'created_date',
+					$oStart->format('Y-m-d') . ' 00:00:00',
+					$oStart->format('Y-m-d') . ' 23:59:59',
+				])->sum('total_amount');
+				$total    = $value + $customer;
+			} else {
+				$value    = Order::find()->where(['parent_id' => $this->user->id])->andWhere([
+					'between',
+					'created_date',
+					$oStart->format('Y-m-d') . ' 00:00:00',
+					$oStart->format('Y-m-d') . ' 23:59:59',
+				])->sum('total_amount');
+				$customer = OrderCustomer::find()->where(['user_id' => $this->user->id])->andWhere([
+					'between',
+					'created_date',
+					$oStart->format('Y-m-d') . ' 00:00:00',
+					$oStart->format('Y-m-d') . ' 23:59:59',
+				])->sum('total_amount');
+				$total    = $value + $customer;
+			}
+			$number[] = [
+				$oStart->format('d'),
+				$total != null ? (int) $total : 0,
+			];
+			$oStart->add(new DateInterval("P1D"));
+		}
+		return $number;
+		//		}
 	}
 }

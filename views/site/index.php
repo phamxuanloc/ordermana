@@ -159,6 +159,17 @@ echo GoogleChart::widget(array(
 		],
 	),
 ));
+echo GoogleChart::widget(array(
+	'visualization' => 'ColumnChart',
+	'data'          => $profit_month,
+	'options'       => array(
+		'title'          => 'Doanh thu tháng này',
+		'titleTextStyle' => [
+			'color'    => 'green',
+			'fontSize' => 25,
+		],
+	),
+));
 ?>
 <div class="row">
 	<div class="col-md-6 col-sm-6">

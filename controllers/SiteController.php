@@ -7,9 +7,12 @@ use app\models\Alert;
 use app\models\ContactForm;
 use app\models\Customer;
 use app\models\LoginForm;
+use app\models\Order;
+use app\models\Product;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 class SiteController extends Controller {
 
@@ -59,7 +62,13 @@ class SiteController extends Controller {
 	 * @return string
 	 */
 	public function actionIndex() {
-		$model            = new Model();
+		$model        = new Model();
+		$profit_month = ArrayHelper::merge([
+			[
+				'Doanh thu tháng này',
+				'VNĐ',
+			],
+		], $model->getProfitChart());
 		$top_product      = $model->getTopProduct();
 		$data             = $model->getPreArray();
 		$product_quantity = $model->getProductQuantity();
@@ -82,6 +91,7 @@ class SiteController extends Controller {
 			'order'            => $order,
 			'change_revenue'   => $change_revenue,
 			'top_product'      => $top_product,
+			'profit_month'     => $profit_month,
 		]);
 	}
 
