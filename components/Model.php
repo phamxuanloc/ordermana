@@ -544,9 +544,8 @@ class Model extends ActiveRecord {
 	public function getProfitChart($start = null, $end = null) {
 		//		if($start != null) {
 		//		} else {
-		$oStart = date('Y-m-d',strtotime('monday this week'));
-		$oEnd   = clone $oStart;
-		$oEnd->add(new DateInterval("P1M"));
+		$oStart = new DateTime(date('Y-m-d', strtotime('monday this week')));
+		$oEnd   = new DateTime(date('Y-m-d', strtotime('sunday this week')));
 		$number = array();
 		while($oStart->getTimestamp() < $oEnd->getTimestamp()) {
 			if($this->user->role_id == self::ROLE_ADMIN) {
@@ -554,7 +553,7 @@ class Model extends ActiveRecord {
 					'between',
 					'created_date',
 					$oStart->format('Y-m-d') . ' 00:00:00',
-					$oStart->format('Y-m-d') . ' 23:59:59',
+					$oStart->format('Y-m-d'). ' 23:59:59',
 				])->sum('total_amount');
 				$customer = OrderCustomer::find()->joinWith('users')->where(['user.role_id' => self::ROLE_ADMIN])->andWhere([
 					'between',

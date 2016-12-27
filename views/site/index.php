@@ -163,7 +163,7 @@ echo GoogleChart::widget(array(
 	'visualization' => 'ColumnChart',
 	'data'          => $profit_month,
 	'options'       => array(
-		'title'          => 'Doanh thu tháng này',
+		'title'          => 'Doanh thu tuần này',
 		'titleTextStyle' => [
 			'color'    => 'green',
 			'fontSize' => 25,

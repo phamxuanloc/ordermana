@@ -65,10 +65,11 @@ class SiteController extends Controller {
 		$model        = new Model();
 		$profit_month = ArrayHelper::merge([
 			[
-				'Doanh thu tháng này',
+				'Doanh thu tuần này',
 				'VNĐ',
 			],
 		], $model->getProfitChart());
+
 		$top_product      = $model->getTopProduct();
 		$data             = $model->getPreArray();
 		$product_quantity = $model->getProductQuantity();
