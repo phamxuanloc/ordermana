@@ -67,6 +67,7 @@ class SiteController extends Controller {
 			[
 				'Doanh thu tuần này',
 				'VNĐ',
+				['role'=>'style']
 			],
 		], $model->getProfitChart());
 
