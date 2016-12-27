@@ -495,6 +495,9 @@ class Model extends ActiveRecord {
 		return $order;
 	}
 
+	/**
+	 *trả về thay đổi doanh số so với cùng kỳ tháng trước
+	 */
 	public function getChangeRevenue() {
 		$last    = date('m', strtotime('last month'));
 		$oStart  = new DateTime(date('Y') . '-' . $last . '-1');
