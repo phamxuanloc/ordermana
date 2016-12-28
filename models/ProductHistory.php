@@ -23,6 +23,8 @@ use Yii;
  * @property string   $deliver
  * @property string   $color
  * @property integer  $weight
+ * @property integer  $quantity
+ * @property integer  $supplier_discount
  * @property string   $unit
  * @property double   $price_tax
  * @property double   $base_price
@@ -66,7 +68,7 @@ class ProductHistory extends \app\components\Model {
 			[
 				[
 					'base_price',
-					'new_value',
+					'quantity',
 				],
 				'required',
 			],
@@ -80,9 +82,11 @@ class ProductHistory extends \app\components\Model {
 					'category_id',
 					'old_value',
 					'new_value',
+					'quantity',
 					'product_id',
 					'weight',
 					'status',
+					'supplier_discount',
 				],
 				'integer',
 			],
@@ -93,13 +97,13 @@ class ProductHistory extends \app\components\Model {
 				],
 				'safe',
 			],
-			[
-				[
-					'price_tax',
-					'base_price',
-				],
-				'number',
-			],
+			//			[
+			//				[
+			//					'price_tax',
+			//					'base_price',
+			//				],
+			//				'number',
+			//			],
 			[
 				[
 					'name',
@@ -149,8 +153,9 @@ class ProductHistory extends \app\components\Model {
 			'category_id'       => 'Category ID',
 			'name'              => 'Tên sản phẩm',
 			'code'              => 'Mã sản phẩm',
-			'old_value'         => 'Old Value',
-			'new_value'         => 'Số lượng nhập',
+			'old_value'         => 'Số lượng trước nhập',
+			'new_value'         => 'Số lượng sau nhập',
+			'quantity'          => 'Số lượng nhập',
 			'base_price'        => 'Giá nhập',
 			'created_date'      => 'Created Date',
 			'product_id'        => 'Sản phẩm',

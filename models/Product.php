@@ -63,7 +63,6 @@ class Product extends Model {
 
 	public $product_img;
 
-
 	/**
 	 * @inheritdoc
 	 */
@@ -102,18 +101,18 @@ class Product extends Model {
 				],
 				'integer',
 			],
-			[
-				[
-					//					'base_price',
-					//					'distribute_sale',
-					//					'agent_sale',
-					//					'retail_sale',
-					'price_tax',
-					//					'representative_sale',
-					//					'big_agent_sale',
-				],
-				'number',
-			],
+			//			[
+			//				[
+			//					'base_price',
+			//					'distribute_sale',
+			//					'agent_sale',
+			//					'retail_sale',
+			//					'price_tax',
+			//					'representative_sale',
+			//					'big_agent_sale',
+			//				],
+			//				'number',
+			//			],
 			[
 				['description'],
 				'string',

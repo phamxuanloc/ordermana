@@ -82,14 +82,19 @@ class ProductController extends Controller {
 			$img          = $model->uploadPicture('image', 'product_img');
 			$product_bill = $model->uploadPicture('bill_image', 'product_bill');
 			if($model->save()) {
-				$history                 = new ProductHistory();
-				$history->category_id    = $model->category_id;
-				$history->code           = $model->code;
-				$history->name           = $model->name;
-				$history->old_value      = 0;
-				$history->new_value      = $model->in_stock;
-				$history->product_id     = $model->id;
-				$history->receipted_date = $model->receipted_date;
+				$history                    = new ProductHistory();
+				$history->category_id       = $model->category_id;
+				$history->code              = $model->code;
+				$history->name              = $model->name;
+				$history->old_value         = 0;
+				$history->new_value         = $model->in_stock;
+				$history->product_id        = $model->id;
+				$history->receipted_date    = $model->receipted_date;
+				$history->base_price        = $model->base_price;
+				$history->supplier_discount = $model->supplier_discount;
+				$history->price_tax         = $model->price_tax;
+				$history->bill_number       = $model->bill_number;
+				$history->order_number      = $model->order_number;
 				if(!$history->save()) {
 					echo '<pre>';
 					print_r($history->errors);
@@ -124,36 +129,35 @@ class ProductController extends Controller {
 	public function actionUpdate($id) {
 		$model    = $this->findModel($id);
 		$oldImage = $model->image;
-//		$oldBill  = $model->bill_image;
+		//		$oldBill  = $model->bill_image;
 		if($model->load(Yii::$app->request->post())) {
 			$model->save();
-			$img      = $model->uploadPicture('image', 'product_img');
-//			$bill_img = $model->uploadPicture('bill_image', 'bill_img');
+			$img = $model->uploadPicture('image', 'product_img');
+			//			$bill_img = $model->uploadPicture('bill_image', 'bill_img');
 			if($img == false) {
 				$model->image = $oldImage;
 			}
-//			if($bill_img == false) {
-//				$model->bill_image = $oldBill;
-//			}
+			//			if($bill_img == false) {
+			//				$model->bill_image = $oldBill;
+			//			}
 			if($model->save()) {
 				if($img !== false) {
 					$path = $model->getPictureFile('image');
 					$img->saveAs($path);
 				}
-//				if($bill_img !== false) {
-//					$path = $model->getPictureFile('bill_image');
-//					$bill_img->saveAs($path);
-//				}if($bill_img !== false) {
+				//				if($bill_img !== false) {
+				//					$path = $model->getPictureFile('bill_image');
+				//					$bill_img->saveAs($path);
+				//				}if($bill_img !== false) {
 				//					$path = $model->getPictureFile('bill_image');
 				//					$bill_img->saveAs($path);
 				//				}
 				return $this->redirect(['index']);
 			}
-		} else {
-			return $this->render('update', [
-				'model' => $model,
-			]);
 		}
+		return $this->render('update', [
+			'model' => $model,
+		]);
 	}
 
 	/**

@@ -6,6 +6,7 @@ class m161228_092343_alter_product_history extends Migration {
 
 	public function up() {
 		$this->alterColumn('product_history', 'old_value', Schema::TYPE_INTEGER . '(11) NULL DEFAULT "0"');
+		$this->addColumn('product_history', 'quantity', Schema::TYPE_INTEGER . '(11) NULL DEFAULT "1"');
 		$this->addColumn('product_history', 'supplier', Schema::TYPE_STRING . ' NULL');
 		$this->addColumn('product_history', 'bill_image', Schema::TYPE_STRING . ' NULL');
 		$this->addColumn('product_history', 'bill_number', Schema::TYPE_STRING . ' NULL');

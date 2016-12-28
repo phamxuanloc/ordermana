@@ -1,7 +1,7 @@
 <?php
 use kartik\widgets\FileInput;
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ProductHistory */
@@ -13,7 +13,12 @@ use yii\widgets\ActiveForm;
 	<div class="panel panel-info">
 		<div class="panel-heading">Thông tin nhập hàng</div>
 		<div class="panel-body">
-			<?php $form = ActiveForm::begin(); ?>
+			<?php $form = ActiveForm::begin([
+				'layout'  => 'horizontal',
+				'options' => [
+					'enctype' => 'multipart/form-data',
+				],
+			]); ?>
 			<div class="col-sm-6" style="margin-bottom: 15px">
 
 				<?= $form->field($model, 'product_bill')->widget(FileInput::className(), [
@@ -51,7 +56,7 @@ use yii\widgets\ActiveForm;
 			</div>
 			<div class="col-sm-6" style="margin-bottom: 15px">
 
-				<?= $form->field($model, 'new_value')->textInput() ?>
+				<?= $form->field($model, 'quantity')->textInput() ?>
 			</div>
 			<div class="col-sm-6" style="margin-bottom: 15px">
 

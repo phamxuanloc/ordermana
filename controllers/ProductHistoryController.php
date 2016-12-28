@@ -1,7 +1,7 @@
 <?php
-
 namespace app\controllers;
 
+use app\models\Product;
 use Yii;
 use app\models\ProductHistory;
 use app\models\search\ProductHistorySearch;
@@ -12,113 +12,147 @@ use yii\filters\VerbFilter;
 /**
  * ProductHistoryController implements the CRUD actions for ProductHistory model.
  */
-class ProductHistoryController extends Controller
-{
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
+class ProductHistoryController extends Controller {
 
-    /**
-     * Lists all ProductHistory models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new ProductHistorySearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
+		return [
+			'verbs' => [
+				'class'   => VerbFilter::className(),
+				'actions' => [
+					'delete' => ['POST'],
+				],
+			],
+		];
+	}
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+	/**
+	 * Lists all ProductHistory models.
+	 * @return mixed
+	 */
+	public function actionIndex() {
+		$searchModel  = new ProductHistorySearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		return $this->render('index', [
+			'searchModel'  => $searchModel,
+			'dataProvider' => $dataProvider,
+		]);
+	}
 
-    /**
-     * Displays a single ProductHistory model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+	/**
+	 * Displays a single ProductHistory model.
+	 *
+	 * @param integer $id
+	 *
+	 * @return mixed
+	 */
+	public function actionView($id) {
+		return $this->render('view', [
+			'model' => $this->findModel($id),
+		]);
+	}
 
-    /**
-     * Creates a new ProductHistory model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new ProductHistory();
+	/**
+	 * Creates a new ProductHistory model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * @return mixed
+	 */
+	public function actionCreate($id = null) {
+		$model = new ProductHistory();
+		if($model->load(Yii::$app->request->post())) {
+			if($model->supplier_discount == null) {
+				$model->supplier_discount = 0;
+			}
+			$model->save();
+			$product_bill = $model->uploadPicture('bill_image', 'product_bill');
+			if($model->save()) {
+				$model->updateAttributes(['old_value' => $model->product->in_stock]);
+				$model->updateAttributes(['new_value' => $model->product->in_stock + $model->quantity]);
+				if($model->status = $model::RECEIPTED) {
+					$model->product->updateAttributes(['in_stock' => $model->new_value]);
+				}
+				if($product_bill !== false) {
+					$path = $model->getPictureFile('bill_image');
+					$product_bill->saveAs($path);
+				}
+				return $this->redirect([
+					'index',
+				]);
+			} else {
+				echo '<pre>';
+				print_r($model->errors);
+				die;
+			}
+		} else {
+			return $this->render('create', [
+				'model' => $model,
+				'id'    => $id,
+			]);
+		}
+	}
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
+	/**
+	 * Updates an existing ProductHistory model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 *
+	 * @param integer $id
+	 *
+	 * @return mixed
+	 */
+	public function actionUpdate($id) {
+		$model   = $this->findModel($id);
+		$oldBill = $model->bill_image;
+		if($model->load(Yii::$app->request->post()) && $model->save()) {
+			$product_bill = $model->uploadPicture('bill_image', 'product_bill');
+			if($model->supplier_discount == null) {
+				$model->supplier_discount = 0;
+			}
+			if($model->save()) {
+				if($product_bill == false) {
+					$model->bill_image = $oldBill;
+				}
+				if($product_bill !== false) {
+					$path = $model->getPictureFile('bill_image');
+					$product_bill->saveAs($path);
+				}
+			}
+			return $this->redirect(['index']);
+		} else {
+			return $this->render('update', [
+				'model' => $model,
+			]);
+		}
+	}
 
-    /**
-     * Updates an existing ProductHistory model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+	/**
+	 * Deletes an existing ProductHistory model.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 *
+	 * @param integer $id
+	 *
+	 * @return mixed
+	 */
+	public function actionDelete($id) {
+		$this->findModel($id)->delete();
+		return $this->redirect(['index']);
+	}
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Deletes an existing ProductHistory model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the ProductHistory model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return ProductHistory the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = ProductHistory::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
+	/**
+	 * Finds the ProductHistory model based on its primary key value.
+	 * If the model is not found, a 404 HTTP exception will be thrown.
+	 *
+	 * @param integer $id
+	 *
+	 * @return ProductHistory the loaded model
+	 * @throws NotFoundHttpException if the model cannot be found
+	 */
+	protected function findModel($id) {
+		if(($model = ProductHistory::findOne($id)) !== null) {
+			return $model;
+		} else {
+			throw new NotFoundHttpException('The requested page does not exist.');
+		}
+	}
 }
