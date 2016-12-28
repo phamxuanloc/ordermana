@@ -62,15 +62,14 @@ class SiteController extends Controller {
 	 * @return string
 	 */
 	public function actionIndex() {
-		$model        = new Model();
-		$profit_month = ArrayHelper::merge([
+		$model            = new Model();
+		$profit_month     = ArrayHelper::merge([
 			[
 				'Doanh thu tuần này',
 				'VNĐ',
-				['role'=>'style']
+				['role' => 'style'],
 			],
 		], $model->getProfitChart());
-
 		$top_product      = $model->getTopProduct();
 		$data             = $model->getPreArray();
 		$product_quantity = $model->getProductQuantity();
@@ -167,5 +166,8 @@ class SiteController extends Controller {
 	 */
 	public function actionAbout() {
 		return $this->render('about');
+	}
+
+	public function actionReport() {
 	}
 }

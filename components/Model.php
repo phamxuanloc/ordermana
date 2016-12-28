@@ -581,7 +581,7 @@ class Model extends ActiveRecord {
 			$number[] = [
 				$oStart->format('d'),
 				$total != null ? (int) $total : 0,
-				'green'
+				'fill-color:green'
 			];
 			$oStart->add(new DateInterval("P1D"));
 		}
