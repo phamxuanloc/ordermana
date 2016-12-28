@@ -59,7 +59,7 @@ class ProductHistoryController extends Controller {
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
-	public function actionCreate($id = null) {
+	public function actionCreate($product_id = null) {
 		$model = new ProductHistory();
 		if($model->load(Yii::$app->request->post())) {
 			if($model->supplier_discount == null) {
@@ -87,8 +87,8 @@ class ProductHistoryController extends Controller {
 			}
 		} else {
 			return $this->render('create', [
-				'model' => $model,
-				'id'    => $id,
+				'model'      => $model,
+				'product_id' => $product_id,
 			]);
 		}
 	}
@@ -121,7 +121,8 @@ class ProductHistoryController extends Controller {
 			return $this->redirect(['index']);
 		} else {
 			return $this->render('update', [
-				'model' => $model,
+				'model'      => $model,
+				'product_id' => $id,
 			]);
 		}
 	}

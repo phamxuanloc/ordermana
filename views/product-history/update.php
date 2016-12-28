@@ -22,7 +22,8 @@ $this->params['breadcrumbs'][] = 'Cập nhật';
 	<h1><?= Html::encode($this->title) ?></h1>
 
 	<?= $this->render('_form', [
-		'model' => $model,
+		'model'      => $model,
+		'product_id' => $product_id,
 	]) ?>
 
 </div>

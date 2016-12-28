@@ -1,6 +1,8 @@
 <?php
+use app\models\Product;
 use kartik\widgets\FileInput;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -39,7 +41,10 @@ use yii\helpers\Html;
 				]); ?>
 			</div>
 			<div class="col-sm-6" style="margin-bottom: 15px">
-				<?= $form->field($model, 'product_id')->dropDownList(\yii\helpers\ArrayHelper::map(\app\models\Product::find()->all(), 'id', 'name')) ?>
+				<?= $form->field($model, 'product_id')->dropDownList(ArrayHelper::map(Product::find()->all(), 'id', 'name'), [
+					'value'    => $product_id,
+					'disabled' => !$model->isNewRecord ? true : false,
+				]) ?>
 			</div>
 			<div class="col-sm-6" style="margin-bottom: 15px">
 				<?= $form->field($model, 'base_price')->widget('\yii\widgets\MaskedInput', [
@@ -56,7 +61,9 @@ use yii\helpers\Html;
 			</div>
 			<div class="col-sm-6" style="margin-bottom: 15px">
 
-				<?= $form->field($model, 'quantity')->textInput() ?>
+				<?= $form->field($model, 'quantity')->textInput([
+					'disabled' => !$model->isNewRecord ? true : false,
+				]) ?>
 			</div>
 			<div class="col-sm-6" style="margin-bottom: 15px">
 
