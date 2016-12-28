@@ -124,41 +124,29 @@ class ProductController extends Controller {
 	public function actionUpdate($id) {
 		$model    = $this->findModel($id);
 		$oldImage = $model->image;
-		$oldBill  = $model->bill_image;
+//		$oldBill  = $model->bill_image;
 		if($model->load(Yii::$app->request->post())) {
-			if($model->getOldAttribute('in_stock') != $model->in_stock) {
-				$history                 = new ProductHistory();
-				$history->category_id    = $model->category_id;
-				$history->code           = $model->code;
-				$history->name           = $model->name;
-				$history->old_value      = $model->getOldAttribute('in_stock');
-				$history->new_value      = $model->in_stock;
-				$history->product_id     = $model->id;
-				$history->receipted_date = $model->receipted_date;
-				if(!$history->save()) {
-					echo '<pre>';
-					print_r($history->errors);
-					die;
-				};
-			}
 			$model->save();
 			$img      = $model->uploadPicture('image', 'product_img');
-			$bill_img = $model->uploadPicture('bill_image', 'bill_img');
+//			$bill_img = $model->uploadPicture('bill_image', 'bill_img');
 			if($img == false) {
 				$model->image = $oldImage;
 			}
-			if($bill_img == false) {
-				$model->bill_image = $oldBill;
-			}
+//			if($bill_img == false) {
+//				$model->bill_image = $oldBill;
+//			}
 			if($model->save()) {
 				if($img !== false) {
 					$path = $model->getPictureFile('image');
 					$img->saveAs($path);
 				}
-				if($bill_img !== false) {
-					$path = $model->getPictureFile('bill_image');
-					$bill_img->saveAs($path);
-				}
+//				if($bill_img !== false) {
+//					$path = $model->getPictureFile('bill_image');
+//					$bill_img->saveAs($path);
+//				}if($bill_img !== false) {
+				//					$path = $model->getPictureFile('bill_image');
+				//					$bill_img->saveAs($path);
+				//				}
 				return $this->redirect(['index']);
 			}
 		} else {

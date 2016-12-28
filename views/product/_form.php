@@ -30,23 +30,24 @@ use yii\helpers\Html;
 			<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
 			<?= $form->field($model, 'code')->textInput() ?>
-
-			<?= $form->field($model, 'product_bill')->widget(FileInput::className(), [
-				'options'       => ['accept' => 'image/*'],
-				'pluginOptions' => [
-					'allowedFileExtensions' => [
-						'jpg',
-						'gif',
-						'png',
+			<?php if($model->isNewRecord) { ?>
+				<?= $form->field($model, 'product_bill')->widget(FileInput::className(), [
+					'options'       => ['accept' => 'image/*'],
+					'pluginOptions' => [
+						'allowedFileExtensions' => [
+							'jpg',
+							'gif',
+							'png',
+						],
+						'showUpload'            => false,
+						'initialPreview'        => $model->getIsNewRecord() ? [
+							Html::img(Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif', ['class' => 'file-preview-image']),
+						] : [
+							Html::img($model->getPictureUrl('bill_image'), ['class' => 'file-preview-image']),
+						],
 					],
-					'showUpload'            => false,
-					'initialPreview'        => $model->getIsNewRecord() ? [
-						Html::img(Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif', ['class' => 'file-preview-image']),
-					] : [
-						Html::img($model->getPictureUrl('bill_image'), ['class' => 'file-preview-image']),
-					],
-				],
-			]); ?>
+				]); ?>
+			<?php } ?>
 			<?= $form->field($model, 'product_img')->widget(FileInput::className(), [
 				'options'       => ['accept' => 'image/*'],
 				'pluginOptions' => [
@@ -91,50 +92,53 @@ use yii\helpers\Html;
 		</div>
 		<div class="col-sm-6" style="margin-bottom: 15px">
 
-			<?= $form->field($model, 'in_stock')->textInput() ?>
-		</div>
-		<div class="col-sm-6" style="margin-bottom: 15px">
-
 			<?= $form->field($model, 'receipted_date')->widget(\kartik\widgets\DateTimePicker::className(), [
 				'pluginOptions' => [
 					'autoclose' => true,
 				],
 			]) ?>
 		</div>
-		<div class="col-sm-6" style="margin-bottom: 15px">
+		<?php if($model->isNewRecord) { ?>
 
-			<?= $form->field($model, 'color')->textInput(['maxlength' => true]) ?>
-		</div>
-		<div class="col-sm-6" style="margin-bottom: 15px">
+			<div class="col-sm-6" style="margin-bottom: 15px">
 
-			<?= $form->field($model, 'weight')->textInput() ?>
-		</div>
-		<div class="col-sm-6" style="margin-bottom: 15px">
+				<?= $form->field($model, 'in_stock')->textInput() ?>
+			</div>
+			<div class="col-sm-6" style="margin-bottom: 15px">
 
-			<?= $form->field($model, 'unit')->textInput(['maxlength' => true]) ?>
-		</div>
+				<?= $form->field($model, 'color')->textInput(['maxlength' => true]) ?>
+			</div>
+			<div class="col-sm-6" style="margin-bottom: 15px">
 
-		<div class="col-sm-6" style="margin-bottom: 15px">
+				<?= $form->field($model, 'weight')->textInput() ?>
+			</div>
+			<div class="col-sm-6" style="margin-bottom: 15px">
 
-			<?= $form->field($model, 'order_number')->textInput() ?>
-		</div>
-		<div class="col-sm-6" style="margin-bottom: 15px">
+				<?= $form->field($model, 'unit')->textInput(['maxlength' => true]) ?>
+			</div>
 
-			<?= $form->field($model, 'bill_number')->textInput(['maxlength' => true]) ?>
-		</div>
+			<div class="col-sm-6" style="margin-bottom: 15px">
 
-		<div class="col-sm-6" style="margin-bottom: 15px">
+				<?= $form->field($model, 'order_number')->textInput() ?>
+			</div>
+			<div class="col-sm-6" style="margin-bottom: 15px">
 
-			<?= $form->field($model, 'receiver')->textInput(['maxlength' => true]) ?>
-		</div>
-		<div class="col-sm-6" style="margin-bottom: 15px">
+				<?= $form->field($model, 'bill_number')->textInput(['maxlength' => true]) ?>
+			</div>
 
-			<?= $form->field($model, 'deliver')->textInput(['maxlength' => true]) ?>
-		</div>
-		<div class="col-sm-6" style="margin-bottom: 15px">
+			<div class="col-sm-6" style="margin-bottom: 15px">
 
-			<?= $form->field($model, 'supplier_discount')->textInput() ?>
-		</div>
+				<?= $form->field($model, 'receiver')->textInput(['maxlength' => true]) ?>
+			</div>
+			<div class="col-sm-6" style="margin-bottom: 15px">
+
+				<?= $form->field($model, 'deliver')->textInput(['maxlength' => true]) ?>
+			</div>
+			<div class="col-sm-6" style="margin-bottom: 15px">
+
+				<?= $form->field($model, 'supplier_discount')->textInput() ?>
+			</div>
+		<?php } ?>
 	</div>
 </div>
 <div class="panel panel-warning">

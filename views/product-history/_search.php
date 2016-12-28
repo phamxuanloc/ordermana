@@ -31,6 +31,30 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'receipted_date') ?>
 
+    <?php // echo $form->field($model, 'product_id') ?>
+
+    <?php // echo $form->field($model, 'supplier') ?>
+
+    <?php // echo $form->field($model, 'bill_image') ?>
+
+    <?php // echo $form->field($model, 'bill_number') ?>
+
+    <?php // echo $form->field($model, 'order_number') ?>
+
+    <?php // echo $form->field($model, 'receiver') ?>
+
+    <?php // echo $form->field($model, 'deliver') ?>
+
+    <?php // echo $form->field($model, 'color') ?>
+
+    <?php // echo $form->field($model, 'weight') ?>
+
+    <?php // echo $form->field($model, 'unit') ?>
+
+    <?php // echo $form->field($model, 'price_tax') ?>
+
+    <?php // echo $form->field($model, 'status') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>

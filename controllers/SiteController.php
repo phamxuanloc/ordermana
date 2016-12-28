@@ -9,6 +9,7 @@ use app\models\Customer;
 use app\models\LoginForm;
 use app\models\Order;
 use app\models\Product;
+use app\models\ReportForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -169,5 +170,22 @@ class SiteController extends Controller {
 	}
 
 	public function actionReport() {
+		$model        = new ReportForm();
+		$report       = new Model();
+		$profit_month = ArrayHelper::merge([
+			[
+				'Doanh thu tuần này',
+				'VNĐ',
+				['role' => 'style'],
+			],
+		], $report->getProfitChart());
+		$top_product  = $report->getTopProduct();
+		$data         = $report->getPreArray();
+		return $this->render('report', [
+			'model'        => $model,
+			'top_product'  => $top_product,
+			'profit_month' => $profit_month,
+			'data'         => $data,
+		]);
 	}
 }

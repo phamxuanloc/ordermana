@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\ProductHistory */
 
-$this->title = 'Create Product History';
+$this->title = 'Nhập thêm sản phẩm';
 $this->params['breadcrumbs'][] = ['label' => 'Product Histories', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

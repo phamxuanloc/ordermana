@@ -18,8 +18,9 @@ class ProductHistorySearch extends ProductHistory
     public function rules()
     {
         return [
-            [['id', 'category_id', 'code', 'old_value', 'new_value'], 'integer'],
-            [['name', 'created_date', 'receipted_date'], 'safe'],
+            [['id', 'category_id', 'old_value', 'new_value', 'product_id', 'weight', 'status'], 'integer'],
+            [['name', 'code', 'created_date', 'receipted_date', 'supplier', 'bill_image', 'bill_number', 'order_number', 'receiver', 'deliver', 'color', 'unit'], 'safe'],
+            [['price_tax'], 'number'],
         ];
     }
 
@@ -61,14 +62,26 @@ class ProductHistorySearch extends ProductHistory
         $query->andFilterWhere([
             'id' => $this->id,
             'category_id' => $this->category_id,
-            'code' => $this->code,
             'old_value' => $this->old_value,
             'new_value' => $this->new_value,
             'created_date' => $this->created_date,
             'receipted_date' => $this->receipted_date,
+            'product_id' => $this->product_id,
+            'weight' => $this->weight,
+            'price_tax' => $this->price_tax,
+            'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'code', $this->code])
+            ->andFilterWhere(['like', 'supplier', $this->supplier])
+            ->andFilterWhere(['like', 'bill_image', $this->bill_image])
+            ->andFilterWhere(['like', 'bill_number', $this->bill_number])
+            ->andFilterWhere(['like', 'order_number', $this->order_number])
+            ->andFilterWhere(['like', 'receiver', $this->receiver])
+            ->andFilterWhere(['like', 'deliver', $this->deliver])
+            ->andFilterWhere(['like', 'color', $this->color])
+            ->andFilterWhere(['like', 'unit', $this->unit]);
 
         return $dataProvider;
     }
