@@ -350,7 +350,7 @@ class ReportForm extends Form {
 				'<=',
 				'created_date',
 				$oEnd,
-			])->sum('total_amount');
+			])->andWhere(['status' => Order::RECEIPTED])->sum('total_amount');
 			$query_customer->where(['user_id' => $this->user->id])->where([
 				'>=',
 				'created_date',
@@ -359,7 +359,7 @@ class ReportForm extends Form {
 				'<=',
 				'created_date',
 				$oEnd,
-			]);
+			])->andWhere(['status' => Order::RECEIPTED]);
 		}
 		$profit          = $query_order->sum('total_amount');
 		$profit_customer = $query_customer->sum('total_amount');

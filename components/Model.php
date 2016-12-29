@@ -466,7 +466,7 @@ class Model extends ActiveRecord {
 			'<=',
 			'created_date',
 			$oEnd->format('Y-m-d'),
-		])->sum('total_amount');
+		])->andWhere(['status' => Order::RECEIPTED])->sum('total_amount');
 		$profit_customer = OrderCustomer::find()->where(['user_id' => $this->user->id])->where([
 			'>=',
 			'created_date',
@@ -475,7 +475,7 @@ class Model extends ActiveRecord {
 			'<=',
 			'created_date',
 			$oEnd->format('Y-m-d'),
-		])->sum('total_amount');
+		])->andWhere(['status' => OrderCustomer::RECEIPTED])->sum('total_amount');
 		return $total = $profit + $profit_customer;
 	}
 
