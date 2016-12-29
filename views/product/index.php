@@ -39,13 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
 //					return Yii::$app->formatter->asDate($data->created_date);
 //				},
 			],
-			[
-				'attribute' => 'receipted_date',
+//			[
+//				'attribute' => 'receipted_date',
 //				'value'     => function (Product $data) {
 //					return Yii::$app->formatter->asDate($data->receipted_date, 'H:m:s d-M-Y');
 //				},
-				'format'    => 'raw',
-			],
+//				'format'    => 'raw',
+//			],
 			[
 				'attribute' => 'category_id',
 				'value'     => function (Product $data) {
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'code',
 			//			'image',
 			'in_stock',
-			'base_price',
+//			'base_price',
 			// 'description',
 			// 'distribute_sale',
 			// 'agent_sale',
@@ -70,12 +70,12 @@ $this->params['breadcrumbs'][] = $this->title;
 			// 'color',
 			// 'weight',
 			// 'unit',
-			[
-				'attribute' => 'status',
-				'value'     => function (Product $data) {
-					return $data::STATUS[$data->status];
-				},
-			],
+//			[
+//				'attribute' => 'status',
+//				'value'     => function (Product $data) {
+//					return $data::STATUS[$data->status];
+//				},
+//			],
 			// 'price_tax',
 			// 'supplier_discount',
 			// 'updated_date',

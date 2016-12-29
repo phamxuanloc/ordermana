@@ -42,7 +42,7 @@ use yii\helpers\Html;
 		<?= $form->field($model, 'code') ?>
 	</div>
 	<div class="col-sm-6">
-		<?php echo $form->field($model, 'in_stock') ?>
+		<?php echo $form->field($model, 'in_stock')->label('Số hàng trong kho') ?>
 	</div>
 	<?php // echo $form->field($model, 'base_price') ?>
 

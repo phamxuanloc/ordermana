@@ -157,7 +157,7 @@ class ProductHistory extends \app\components\Model {
 			'new_value'         => 'Số lượng sau nhập',
 			'quantity'          => 'Số lượng nhập',
 			'base_price'        => 'Giá nhập',
-			'created_date'      => 'Created Date',
+			'created_date'      => 'Ngày tạo',
 			'product_id'        => 'Sản phẩm',
 			'supplier'          => 'Supplier',
 			'bill_image'        => 'Bill Image',

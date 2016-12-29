@@ -38,7 +38,7 @@ use yii\helpers\Url;
 					</a>
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Search...">
-							<span class="input-group-btn">
+						<span class="input-group-btn">
 							<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
 							</span>
 					</div>
@@ -55,6 +55,20 @@ use yii\helpers\Url;
 			</li>
 			<li>
 				<a href="javascript:;">
+					<i class="icon-docs"></i>
+					<span class="title">Báo cáo</span>
+					<span class="arrow "></span>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="<?= Url::to(['/site/report']) ?>">
+							<i class="icon-home"></i>
+							Báo cáo theo thời gian</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="javascript:;">
 					<i class="icon-basket"></i>
 					<span class="title">Quản lý kho</span>
 					<span class="arrow "></span>
@@ -64,19 +78,27 @@ use yii\helpers\Url;
 						<li>
 							<a href="<?= Url::to(['/product/receipt']) ?>">
 								<i class="icon-home"></i>
-								Nhập kho</a>
+								Nhập hàng mới vào kho</a>
 						</li>
 					<?php } ?>
-
+					<li>
+						<a href="<?= Url::to(['/product-history/create']) ?>">
+							<i class="icon-home"></i>
+							Thêm hàng vào kho</a>
+					</li>
 					<?php if(RoleChecker::isAuth(ProductController::className(), 'index')) { ?>
 
 						<li>
 							<a href="<?= Url::to(['/product/index']) ?>">
 								<i class="icon-home"></i>
-								Thống kê nhập kho</a>
+								Hàng trong kho</a>
 						</li>
 					<?php } ?>
-
+					<li>
+						<a href="<?= Url::to(['/product-history/index']) ?>">
+							<i class="icon-home"></i>
+							Lịch sử nhập kho</a>
+					</li>
 					<?php if(RoleChecker::isAuth(OrderController::className(), 'order-item')) { ?>
 						<li>
 							<a href="<?= Url::to(['/order/order-item']) ?>">
