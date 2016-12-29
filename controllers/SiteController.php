@@ -178,11 +178,11 @@ class SiteController extends Controller {
 				'VNĐ',
 			],
 		], $model->getProfitChart(Yii::$app->request->queryParams));
-//		echo '<pre>';
-//		print_r($profit_month);
-//		die;
-		$top_product  = $report->getTopProduct();
-		$data         = $report->getPreArray();
+		//		echo '<pre>';
+		//		print_r($profit_month);
+		//		die;
+		$top_product = $model->getTopProduct(Yii::$app->request->queryParams);
+		$data        = $model->getPreArray(Yii::$app->request->queryParams);
 		return $this->render('report', [
 			'model'        => $model,
 			'top_product'  => $top_product,

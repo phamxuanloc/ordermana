@@ -11,6 +11,7 @@ use app\components\Form;
 use app\components\Model;
 use DateInterval;
 use DateTime;
+use yii\helpers\ArrayHelper;
 
 class ReportForm extends Form {
 
@@ -100,5 +101,110 @@ class ReportForm extends Form {
 		}
 		return $number;
 		//		}
+	}
+
+	public function getTopProduct($params) {
+		//		$top_product = OrderItem::find()->select('product.name,SUM(order_item.quantity)')->innerJoinWith('product', 'order_item.product_id=product.id')->innerJoinWith('order', 'order_item.order_id=order.id')->where(['order.parent_id' => $this->user->id])->asArray()->groupBy('product.name')->all();
+		$query = OrderItem::find();
+		$this->load($params);
+		$query->select('product.name,SUM(order_item.quantity) as total');
+		$query->innerJoin('product', 'order_item.product_id=product.id');
+		$query->innerJoin('order', 'order_item.order_id=order.id');
+		$query->andFilterWhere(['order.parent_id' => $this->user->id]);
+		if($this->start_date != null) {
+			if($this->end_date == null) {
+				$this->end_date = date('Y-m-d');
+			}
+			$query->andFilterWhere([
+				'>=',
+				'order.created_date',
+				$this->start_date,
+			]);
+			$query->andFilterWhere([
+				'<=',
+				'order.created_date',
+				$this->end_date,
+			]);
+			//			$query->andFilterWhere([
+			//				'between',
+			//				'order.created_date',
+			//				$this->start_date,
+			//				$this->end_date,
+			//			]);
+			//			$query->andFilterWhere([
+			//				'between',
+			//				'order_item.created_date',
+			//				$this->start_date,
+			//				$this->end_date,
+			//			]);
+		}
+		$query->asArray()->groupBy('product.name');
+		$query->orderBy('total DESC');
+		$top_products = $query->limit(10)->all();
+		$top          = [];
+		if($top_products != null) {
+			foreach($top_products as $top_product) {
+				$top[] = [
+					$top_product['name'],
+					(int) $top_product['total'],
+				];
+			}
+		} else {
+			$top[] = [
+				'Không có',
+				0,
+			];
+		}
+		$top = ArrayHelper::merge([
+			[
+				'Top sản phẩm bán chạy',
+				'Số lượng',
+			],
+		], $top);
+		return $top;
+	}
+
+	/**
+	 *Trả về mảng tiền hàng đại diện nhập
+	 */
+	public function getPreArray($params) {
+		$this->load($params);
+		$query = User::find();
+		$query->select('user.id,user.username,sum(order.total_amount) AS total');
+		$query->innerJoinWith('orders0', 'user.id=order.user_id');
+		$query->andFilterWhere(['role_id' => Model::ROLE_PRE]);
+		if($this->start_date != null) {
+			if($this->end_date == null) {
+				$this->end_date = date('Y-m-d');
+			}
+			$query->andFilterWhere([
+				'between',
+				'order.created_date',
+				$this->start_date,
+				$this->end_date,
+			]);
+		}
+		$query->asArray();
+		$array_pres = $query->groupBy('user.id')->orderBy('total DESC')->all();
+		$pre        = [];
+		foreach($array_pres as $array_pre) {
+			$pre[] = [
+				$array_pre['username'],
+				(int) $array_pre['total'],
+			];
+		}
+		if($array_pres == null) {
+			$pre[] = [
+				'Không có dữ liệu',
+				1,
+			];
+		}
+		$pre = ArrayHelper::merge([
+			[
+				'Doanh số bán ra',
+				'VNĐ',
+			],
+		], $pre);
+		return $pre;
 	}
 }
