@@ -288,14 +288,43 @@ class ReportForm extends Form {
 				$this->end_date = date('Y-m-d');
 			}
 			$date_s = new DateTime($this->start_date);
-			$date_e = new DateTime($this->start_date);
+			$date_e = new DateTime($this->end_date);
 			$child->andFilterWhere([
-				'between',
+				'>=',
 				'created_at',
-				$date_s->getTimestamp(),
+				(int) $date_s->getTimestamp(),
+			])->andFilterWhere([
+				'<=',
+				'created_at',
 				$date_e->getTimestamp(),
 			]);
 		}
 		return $child->count();
+	}
+
+	public function getAllCustomer($params) {
+		$this->load($params);
+		$query = Customer::find();
+		if($this->user->role_id != Model::ROLE_ADMIN) {
+			$query->andFilterWhere([
+				'user_id' => $this->user->id,
+			])->orFilterWhere([
+				'parent_id' => $this->user->id,
+			])->orFilterWhere([
+				'last_user_id' => $this->user->id,
+			]);
+		}
+		if($this->start_date != null) {
+			if($this->end_date == null) {
+				$this->end_date = date('Y-m-d');
+			}
+			$query->andFilterWhere([
+				'between',
+				'created_date',
+				$this->start_date,
+				$this->end_date,
+			]);
+		}
+		return $query->count();
 	}
 }

@@ -6,13 +6,15 @@
  * Time: 12:01 PM
  */
 use scotthuangzl\googlechart\GoogleChart;
-use yii\bootstrap\ActiveForm;
+//use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 ?>
 <div class="report-form">
 	<?php
 	$form = ActiveForm::begin([
-		'layout' => 'inline',
+		//		'layout' => 'inline',
 		'action' => ['report'],
 		'method' => 'get',
 	]);
@@ -41,7 +43,9 @@ use yii\bootstrap\ActiveForm;
 	</div>
 	<div class="col-sm-12" style="margin-top: 15px">
 		<?php echo \yii\helpers\Html::submitButton('Báo cáo', ['class' => 'btn btn-warning']) ?>
+		<?= Html::a('Reset', ['site/report'], ['class' => 'btn btn-default']) ?>
 	</div>
+
 	<?php ActiveForm::end() ?>
 </div>
 <div class="clearfix"></div>
@@ -49,6 +53,7 @@ use yii\bootstrap\ActiveForm;
 	<div class="panel-heading">Báo cáo tổng hợp</div>
 	<div class="panel-body">
 		<div class="col-sm-4">Tổng số đơn hàng: <?= $order ?></div>
+		<div class="col-sm-4">Tổng số khách hàng hệ thống: <?= $customer ?></div>
 		<div class="col-sm-4">Tổng số tài khoản hệ thống: <?= $total_children ?></div>
 		<div class="col-sm-4">Tổng số đại diện: <?= $pre_count ?></div>
 		<div class="col-sm-4">Tổng số đại lý bán buôn: <?= $big_count ?></div>

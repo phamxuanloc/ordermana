@@ -191,6 +191,7 @@ class SiteController extends Controller {
 		$big_count      = $model->getTreeInfo($queryParams, Model::ROLE_BIGA);
 		$age_count      = $model->getTreeInfo($queryParams, Model::ROLE_A);
 		$dis_count      = $model->getTreeInfo($queryParams, Model::ROLE_D);
+		$customer       = $model->getAllCustomer($queryParams);
 		return $this->render('report', [
 			'model'          => $model,
 			'top_product'    => $top_product,
@@ -203,6 +204,7 @@ class SiteController extends Controller {
 			'big_count'      => $big_count,
 			'age_count'      => $age_count,
 			'dis_count'      => $dis_count,
+			'customer'       => $customer,
 		]);
 	}
 }
