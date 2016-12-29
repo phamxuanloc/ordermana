@@ -45,9 +45,15 @@ use yii\bootstrap\ActiveForm;
 	<?php ActiveForm::end() ?>
 </div>
 <div class="clearfix"></div>
-<div class="panel panel-info" style="margin-top: 20px">
+<div class="panel panel-danger" style="margin-top: 20px">
 	<div class="panel-heading">Báo cáo tổng hợp</div>
 	<div class="panel-body">
+		<div class="col-sm-4">Tổng số đơn hàng: <?= $order ?></div>
+		<div class="col-sm-4">Tổng số tài khoản hệ thống: <?= $total_children ?></div>
+		<div class="col-sm-4">Tổng số đại diện: <?= $pre_count ?></div>
+		<div class="col-sm-4">Tổng số đại lý bán buôn: <?= $big_count ?></div>
+		<div class="col-sm-4">Tổng số đại lý bán lẻ: <?= $age_count ?></div>
+		<div class="col-sm-4">Tổng số điểm phân phối: <?= $dis_count ?></div>
 	</div>
 </div>
 <div class="panel panel-info" style="margin-top: 20px">

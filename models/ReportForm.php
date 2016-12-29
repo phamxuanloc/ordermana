@@ -11,6 +11,7 @@ use app\components\Form;
 use app\components\Model;
 use DateInterval;
 use DateTime;
+use Yii;
 use yii\helpers\ArrayHelper;
 
 class ReportForm extends Form {
@@ -206,5 +207,95 @@ class ReportForm extends Form {
 			],
 		], $pre);
 		return $pre;
+	}
+
+	/**
+	 *Trả về tổng số đơn hàng theo thời gian
+	 *
+	 * @param $params
+	 *
+	 * @return int|string
+	 */
+	public function getTotalOrder($params) {
+		$this->load($params);
+		if($this->start_date != null) {
+			$oStart = new DateTime($this->start_date);
+			$oEnd   = new DateTime($this->end_date);
+		} else {
+			$oStart = new DateTime(date('Y') . '-' . date('m') . '-1');
+			$oEnd   = clone $oStart;
+			$oEnd->add(new DateInterval("P1M"));
+		}
+		if($this->user->role_id == Model::ROLE_ADMIN) {
+			$order          = Order::find()->andFilterWhere(['parent_id' => $this->user->id])->andFilterWhere([
+				'>=',
+				'created_date',
+				$oStart->format('Y-m-d'),
+			])->andFilterWhere([
+				'<=',
+				'created_date',
+				$oEnd->format('Y-m-d'),
+			])->count();
+			$customer_order = OrderCustomer::find()->andFilterWhere(['user_id' => $this->user->id])->andFilterWhere([
+				'>=',
+				'created_date',
+				$oStart->format('Y-m-d'),
+			])->andFilterWhere([
+				'<=',
+				'created_date',
+				$oEnd->format('Y-m-d'),
+			])->count();
+			$total          = $order + $customer_order;
+		} else {
+			$order          = Order::find()->where(['parent_id' => $this->user->id])->andFilterWhere([
+				'>=',
+				'created_date',
+				$oStart->format('Y-m-d'),
+			])->andFilterWhere([
+				'<=',
+				'created_date',
+				$oEnd->format('Y-m-d'),
+			])->count();
+			$customer_order = OrderCustomer::find()->andFilterWhere(['user_id' => $this->user->id])->andFilterWhere([
+				'>=',
+				'created_date',
+				$oStart->format('Y-m-d'),
+			])->andWhere([
+				'<=',
+				'created_date',
+				$oEnd->format('Y-m-d'),
+			])->count();
+			$total          = $order + $customer_order;
+		}
+		return $total;
+	}
+
+	public function getTreeInfo($params, $role = null) {
+		$model = new  Model();
+		$this->load($params);
+		$children = $model->getTotalChildren(Yii::$app->user->id);
+		$child    = \app\models\User::find();
+		$child->andFilterWhere([
+			'IN',
+			'id',
+			$children,
+		]);
+		if($role != null) {
+			$child->andFilterWhere(['role_id' => $role]);
+		}
+		if($this->start_date != null) {
+			if($this->end_date == null) {
+				$this->end_date = date('Y-m-d');
+			}
+			$date_s = new DateTime($this->start_date);
+			$date_e = new DateTime($this->start_date);
+			$child->andFilterWhere([
+				'between',
+				'created_at',
+				$date_s->getTimestamp(),
+				$date_e->getTimestamp(),
+			]);
+		}
+		return $child->count();
 	}
 }

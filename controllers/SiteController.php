@@ -10,6 +10,7 @@ use app\models\LoginForm;
 use app\models\Order;
 use app\models\Product;
 use app\models\ReportForm;
+use DateTime;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -171,23 +172,37 @@ class SiteController extends Controller {
 
 	public function actionReport() {
 		$model        = new ReportForm();
-		$report       = new Model();
+		$queryParams  = Yii::$app->request->queryParams;
 		$profit_month = ArrayHelper::merge([
 			[
 				'Doanh thu',
 				'VNĐ',
 			],
-		], $model->getProfitChart(Yii::$app->request->queryParams));
+		], $model->getProfitChart($queryParams));
 		//		echo '<pre>';
 		//		print_r($profit_month);
 		//		die;
-		$top_product = $model->getTopProduct(Yii::$app->request->queryParams);
-		$data        = $model->getPreArray(Yii::$app->request->queryParams);
+		$top_product    = $model->getTopProduct($queryParams);
+		$data           = $model->getPreArray($queryParams);
+		$order          = $model->getTotalOrder($queryParams);
+		$total_children = $model->getTreeInfo($queryParams);
+		$admin_count    = $model->getTreeInfo($queryParams, Model::ROLE_ADMIN);
+		$pre_count      = $model->getTreeInfo($queryParams, Model::ROLE_PRE);
+		$big_count      = $model->getTreeInfo($queryParams, Model::ROLE_BIGA);
+		$age_count      = $model->getTreeInfo($queryParams, Model::ROLE_A);
+		$dis_count      = $model->getTreeInfo($queryParams, Model::ROLE_D);
 		return $this->render('report', [
-			'model'        => $model,
-			'top_product'  => $top_product,
-			'profit_month' => $profit_month,
-			'data'         => $data,
+			'model'          => $model,
+			'top_product'    => $top_product,
+			'profit_month'   => $profit_month,
+			'data'           => $data,
+			'order'          => $order,
+			'total_children' => $total_children,
+			'admin_count'    => $admin_count,
+			'pre_count'      => $pre_count,
+			'big_count'      => $big_count,
+			'age_count'      => $age_count,
+			'dis_count'      => $dis_count,
 		]);
 	}
 }
