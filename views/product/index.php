@@ -19,13 +19,15 @@ $this->params['breadcrumbs'][] = $this->title;
 		</div>
 	</div>
 	<p>
-		<?= Html::a('Nhập sản phẩm vào kho', ['receipt'], ['class' => 'btn btn-success']) ?>
+		<?= Html::a('Nhập sản phẩm mới vào kho', ['receipt'], ['class' => 'btn btn-success']) ?>
+	</p>
+	<p>
+		<?= Html::a('Thêm sản phẩm đã có vào kho', ['product-history/create'], ['class' => 'btn btn-info']) ?>
 	</p>
 	<div class="panel panel-default">
 		<div class="panel-heading">Thống kê</div>
 		<div class="panel-body">
 			<p>Tổng số hàng còn trong kho: <?= $product_num ?> Sản phẩm</p>
-			<p>Tổng số tiền nhập giá gốc: <?= $product_sum ?> VNĐ</p>
 		</div>
 	</div>
 	<?= GridView::widget([
