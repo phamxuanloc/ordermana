@@ -40,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		'email:email',
 		[
 			'attribute' => 'created_at',
+			'filter'    => false,
 			'value'     => function ($model) {
 				if(extension_loaded('intl')) {
 					return Yii::t('user', '{0, date, MMMM dd, YYYY HH:mm}', [$model->created_at]);
@@ -55,10 +56,11 @@ $this->params['breadcrumbs'][] = $this->title;
 			},
 		],
 		[
-			'attribute' => 'role',
+			'attribute' => 'role_id',
 			'value'     => function (\app\models\User $data) {
 				return $data->role->name;
 			},
+			'filter'    => \app\components\Model::ROLE,
 			'header'    => 'Loại tài khoản',
 		],
 		[
