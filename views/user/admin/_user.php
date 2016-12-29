@@ -42,3 +42,6 @@ use yii\helpers\ArrayHelper;
 	])->label('Người quản lý') ?>
 <?php } ?>
 <?= $form->field($user, 'password')->passwordInput() ?>
+<?php if(!$user->isNewRecord) { ?>
+	<?= $form->field($user, 'role_id')->dropDownList(Model::ROLE, ['disabled' => Yii::$app->user->identity->role_id != Model::ROLE_ADMIN ? true : false]) ?>
+<?php } ?>

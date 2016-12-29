@@ -217,7 +217,7 @@ class User extends BaseUser {
 			'created_at'        => 'Created At',
 			'updated_at'        => 'Updated At',
 			'flags'             => 'Flags',
-			'role_id'           => 'Role ID',
+			'role_id'           => 'Loại tài khoản',
 			'parent_id'         => 'Tuyến trên',
 			'city'              => 'Thành phố',
 			'id_number'         => 'Số cmt',
