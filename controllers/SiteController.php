@@ -174,11 +174,13 @@ class SiteController extends Controller {
 		$report       = new Model();
 		$profit_month = ArrayHelper::merge([
 			[
-				'Doanh thu tuần này',
+				'Doanh thu',
 				'VNĐ',
-				['role' => 'style'],
 			],
-		], $report->getProfitChart());
+		], $model->getProfitChart(Yii::$app->request->queryParams));
+//		echo '<pre>';
+//		print_r($profit_month);
+//		die;
 		$top_product  = $report->getTopProduct();
 		$data         = $report->getPreArray();
 		return $this->render('report', [

@@ -13,6 +13,8 @@ use yii\bootstrap\ActiveForm;
 	<?php
 	$form = ActiveForm::begin([
 		'layout' => 'inline',
+		'action' => ['report'],
+		'method' => 'get',
 	]);
 	?>
 	<div class="col-sm-4">

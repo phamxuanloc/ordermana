@@ -64,7 +64,8 @@ class Model extends ActiveRecord {
 		$img = UploadedFile::getInstance($this, $attribute);
 		// if no image was uploaded abort the upload
 		if(empty($img)) {
-			echo 'abc';die;
+			echo 'abc';
+			die;
 			return false;
 		}
 		// generate a unique file name
@@ -543,12 +544,20 @@ class Model extends ActiveRecord {
 	}
 
 	public function getProfitChart($start = null, $end = null) {
-		//		if($start != null) {
-		//		} else {
-		$oStart = new DateTime(date('Y-m-d', strtotime('monday this week')));
-		$oEnd   = new DateTime(date('Y-m-d', strtotime('sunday this week')));
 		$number = array();
-		while($oStart->getTimestamp() < $oEnd->getTimestamp()) {
+		if($start != null) {
+			if($end != null) {
+				$oStart = new DateTime($start);
+				$oEnd   = new DateTime($end);
+			} else {
+				$oStart = new DateTime($start);
+				$oEnd   = new DateTime(date('Y-m-d'));
+			}
+		} else {
+			$oStart = new DateTime(date('Y-m-d', strtotime('monday this week')));
+			$oEnd   = new DateTime(date('Y-m-d', strtotime('sunday this week')));
+		}
+		while($oStart->getTimestamp() <= $oEnd->getTimestamp()) {
 			if($this->user->role_id == self::ROLE_ADMIN) {
 				$value    = Order::find()->joinWith('parent')->where(['user.role_id' => self::ROLE_ADMIN])->andWhere([
 					'between',
