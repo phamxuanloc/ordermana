@@ -192,6 +192,7 @@ class SiteController extends Controller {
 		$age_count      = $model->getTreeInfo($queryParams, Model::ROLE_A);
 		$dis_count      = $model->getTreeInfo($queryParams, Model::ROLE_D);
 		$customer       = $model->getAllCustomer($queryParams);
+		$revenue        = $model->getProfit($queryParams);
 		return $this->render('report', [
 			'model'          => $model,
 			'top_product'    => $top_product,
@@ -205,6 +206,7 @@ class SiteController extends Controller {
 			'age_count'      => $age_count,
 			'dis_count'      => $dis_count,
 			'customer'       => $customer,
+			'revenue'        => $revenue,
 		]);
 	}
 }

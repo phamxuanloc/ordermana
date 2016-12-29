@@ -327,4 +327,42 @@ class ReportForm extends Form {
 		}
 		return $query->count();
 	}
+
+	/**
+	 * Trả về tổng thu hàng tháng
+	 */
+	public function getProfit($params) {
+		$this->load($params);
+		$query_order    = Order::find();
+		$query_customer = OrderCustomer::find();
+		if($this->start_date != null) {
+			$oStart = $this->start_date;
+			if($this->end_date != null) {
+				$oEnd = $this->end_date;
+			} else {
+				$oEnd = date('Y-m-d');
+			}
+			$query_order->where(['parent_id' => $this->user->id])->where([
+				'>=',
+				'created_date',
+				$oStart,
+			])->andWhere([
+				'<=',
+				'created_date',
+				$oEnd,
+			])->sum('total_amount');
+			$query_customer->where(['user_id' => $this->user->id])->where([
+				'>=',
+				'created_date',
+				$oStart,
+			])->andWhere([
+				'<=',
+				'created_date',
+				$oEnd,
+			]);
+		}
+		$profit          = $query_order->sum('total_amount');
+		$profit_customer = $query_customer->sum('total_amount');
+		return $total = $profit + $profit_customer;
+	}
 }

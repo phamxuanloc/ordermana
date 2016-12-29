@@ -458,7 +458,7 @@ class Model extends ActiveRecord {
 		$oStart = new DateTime(date('Y') . '-' . date('m') . '-1');
 		$oEnd   = clone $oStart;
 		$oEnd->add(new DateInterval("P1M"));
-		$profit = Order::find()->where(['parent_id' => $this->user->id])->where([
+		$profit          = Order::find()->where(['parent_id' => $this->user->id])->where([
 			'>=',
 			'created_date',
 			$oStart->format('Y-m-d'),
@@ -467,7 +467,16 @@ class Model extends ActiveRecord {
 			'created_date',
 			$oEnd->format('Y-m-d'),
 		])->sum('total_amount');
-		return $profit;
+		$profit_customer = OrderCustomer::find()->where(['user_id' => $this->user->id])->where([
+			'>=',
+			'created_date',
+			$oStart->format('Y-m-d'),
+		])->andWhere([
+			'<=',
+			'created_date',
+			$oEnd->format('Y-m-d'),
+		])->sum('total_amount');
+		return $total = $profit + $profit_customer;
 	}
 
 	public function getTotalOrder() {
