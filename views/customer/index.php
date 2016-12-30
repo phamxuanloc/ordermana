@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		'columns'      => [
 			[
 			'class'=>'kartik\grid\SerialColumn',
-//							'header' => 'STT',
+             'header' => 'STT',
 			],
 			'created_date',
 			[
