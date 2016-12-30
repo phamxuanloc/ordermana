@@ -58,17 +58,17 @@ $this->params['breadcrumbs'][] = $this->title;
 			//				'header' => 'STT',
 //			],
 			'created_date',
-			[
-				'class'           => 'kartik\grid\EditableColumn',
-				'attribute'       => 'name',
-				'editableOptions' => [
-					'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-					'asPopover' => false
+//			[
+//				'class'           => 'kartik\grid\EditableColumn',
+//				'attribute'       => 'name',
+//				'editableOptions' => [
+//					'inputType' => \kartik\editable\Editable::INPUT_TEXT,
+//					'asPopover' => false
 					//					'options'=>[
 					//						'pluginOptions'=>['min'=>0, 'max'=>5000]
 					//					]
-				],
-			],
+//				],
+//			],
 			'address',
 			[
 				'attribute' => 'birthday',
