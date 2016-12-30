@@ -14,6 +14,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 use yii\helpers\json;
+
 /**
  * CustomerController implements the CRUD actions for Customer model.
  */
@@ -96,9 +97,9 @@ class CustomerController extends Controller {
 						$customer->parent_id = Yii::$app->user->id;
 						$customer->user_id   = Yii::$app->user->id;
 						if(!$customer->save()) {
-//							echo '<pre>';
-//							print_r($customer->errors);
-//							die;
+							//							echo '<pre>';
+							//							print_r($customer->errors);
+							//							die;
 						};
 					}
 				}
@@ -149,15 +150,20 @@ class CustomerController extends Controller {
 			'id',
 			$children,
 		])->all(), 'id', 'username'));
-		if($model->load(Yii::$app->request->post()) && $model->save()) {
-			$model->updateAttributes(['user_id' => Yii::$app->user->id]);
-			return $this->redirect(['index']);
-		} else {
-			return $this->render('create', [
-				'model'          => $model,
-				'total_children' => $total_children,
-			]);
+		if($model->load(Yii::$app->request->post())) {
+			if($model->save()) {
+				$model->updateAttributes(['user_id' => Yii::$app->user->id]);
+				return $this->redirect(['index']);
+			} else {
+				echo '<pre>';
+				print_r($model->errors);
+				die;
+			}
 		}
+		return $this->render('create', [
+			'model'          => $model,
+			'total_children' => $total_children,
+		]);
 	}
 
 	public function actionMove() {
