@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?php ActiveForm::end(); ?>
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
-		'export'       => false,
+//		'export'       => false,
 		//		'pjax'         => true,
 		'columns'      => [
 //			[
