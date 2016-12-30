@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?php ActiveForm::end(); ?>
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
-//		'export'       => false,
+		'export'       => false,
 		//		'pjax'         => true,
 		'columns'      => [
 //			[
@@ -79,14 +79,14 @@ $this->params['breadcrumbs'][] = $this->title;
 			'email:email',
 			'phone',
 			'id_number',
-			[
-				'class'           => 'kartik\grid\EditableColumn',
-				'attribute'       => 'city_id',
-				'editableOptions' => [
-					'inputType' => Editable::INPUT_DROPDOWN_LIST,
-					'data'      => ArrayHelper::map(\app\models\City::find()->andWhere([
-						'status' => 1,
-					])->all(), 'name', 'name'),
+//			[
+//				'class'           => 'kartik\grid\EditableColumn',
+//				'attribute'       => 'city_id',
+//				'editableOptions' => [
+//					'inputType' => Editable::INPUT_DROPDOWN_LIST,
+//					'data'      => ArrayHelper::map(\app\models\City::find()->andWhere([
+//						'status' => 1,
+//					])->all(), 'name', 'name'),
 					//					'options'     => [
 					//												'type'=>\kartik\datecontrol\DateControl::FORMAT_DATE,
 					//												'displayFormat'=>'dd.MM.yyyy',
@@ -98,8 +98,8 @@ $this->params['breadcrumbs'][] = $this->title;
 					//							],
 					//						],
 					//					],
-				],
-			],
+//				],
+//			],
 			[
 				'attribute' => 'user_id',
 				'value'     => function (Customer $data) {
