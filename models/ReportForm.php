@@ -275,7 +275,7 @@ class ReportForm extends Form {
 		$this->load($params);
 		$children = $model->getTotalChildren(Yii::$app->user->id);
 		$child    = \app\models\User::find();
-		$child->andFilterWhere([
+		$child->where([
 			'IN',
 			'id',
 			$children,

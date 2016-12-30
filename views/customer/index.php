@@ -4,9 +4,10 @@ use app\controllers\CustomerItemController;
 use app\models\Customer;
 use kartik\editable\Editable;
 use kartik\file\FileInput;
-use kartik\grid\GridView;
+//use kartik\grid\GridView;
 use navatech\role\helpers\RoleChecker;
 use yii\bootstrap\ActiveForm;
+use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -49,13 +50,13 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?php ActiveForm::end(); ?>
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
-		'export'       => false,
+//		'export'       => false,
 		//		'pjax'         => true,
 		'columns'      => [
-			[
-				'class'  => 'kartik\grid\SerialColumn',
-				'header' => 'STT',
-			],
+//			[
+//				'class'  => 'kartik\grid\SerialColumn',
+//				'header' => 'STT',
+//			],
 			'created_date',
 //			[
 //				'class'           => 'kartik\grid\EditableColumn',
@@ -133,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'call_by',
 			'call_at',
 			[
-				'class'          => 'kartik\grid\ActionColumn',
+				'class'          => 'yii\grid\ActionColumn',
 				'header'         => 'Hành động',
 				'visibleButtons' => [
 					'view'   => RoleChecker::isAuth(CustomerItemController::className(), 'detail'),

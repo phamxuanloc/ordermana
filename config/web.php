@@ -2,16 +2,16 @@
 $params  = require(__DIR__ . '/params.php');
 $baseUrl = str_replace('/web', '', (new \yii\web\Request)->getBaseUrl());
 $config  = [
-	'id'         => 'basic',
-	'basePath'   => dirname(__DIR__),
-	'bootstrap'  => ['log'],
-	'on beforeRequest' => function() {
+	'id'               => 'basic',
+	'basePath'         => dirname(__DIR__),
+	'bootstrap'        => ['log'],
+	'on beforeRequest' => function () {
 		$user = Yii::$app->user->identity;
-		if ($user) {
+		if($user) {
 			Yii::$app->setTimeZone('Asia/Ho_Chi_Minh');
 		}
 	},
-	'components' => [
+	'components'       => [
 		'request'      => [
 			'baseUrl'             => $baseUrl,
 			// !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -56,11 +56,11 @@ $config  = [
 				],
 			],
 		],
-		'setting' => [
+		'setting'      => [
 			'class' => 'navatech\setting\Setting',
 		],
 	],
-	'modules'    => [
+	'modules'          => [
 		'user'     => [
 			'class'         => 'dektrium\user\Module',
 			'modelMap'      => [
@@ -78,8 +78,8 @@ $config  = [
 			'class'               => 'navatech\setting\Module',
 			'controllerNamespace' => 'navatech\setting\controllers',
 		],
-		'roxymce' => [
-			'class' => 'navatech\roxymce\Module',
+		'roxymce'  => [
+			'class'     => 'navatech\roxymce\Module',
 			'uploadUrl' => 'uploads/images',
 		],
 		'role'     => [
@@ -93,14 +93,14 @@ $config  = [
 			'class' => '\kartik\grid\Module',
 		],
 	],
-	'params'     => $params,
+	'params'           => $params,
 ];
 if(YII_ENV_DEV) {
 	// configuration adjustments for 'dev' environment
-//	$config['bootstrap'][]      = 'debug';
-//	$config['modules']['debug'] = [
-//		'class' => 'yii\debug\Module',
-//	];
+	$config['bootstrap'][]      = 'debug';
+	$config['modules']['debug'] = [
+		'class' => 'yii\debug\Module',
+	];
 	$config['bootstrap'][]      = 'gii';
 	$config['modules']['gii']   = [
 		'class' => 'yii\gii\Module',

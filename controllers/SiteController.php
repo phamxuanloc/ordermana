@@ -186,12 +186,19 @@ class SiteController extends Controller {
 		$data           = $model->getPreArray($queryParams);
 		$order          = $model->getTotalOrder($queryParams);
 		$total_children = $model->getTreeInfo($queryParams);
-		$admin_count    = $model->getTreeInfo($queryParams, Model::ROLE_ADMIN);
-		$pre_count      = $model->getTreeInfo($queryParams, Model::ROLE_PRE);
-		$big_count      = $model->getTreeInfo($queryParams, Model::ROLE_BIGA);
-		$age_count      = $model->getTreeInfo($queryParams, Model::ROLE_A);
-		$dis_count      = $model->getTreeInfo($queryParams, Model::ROLE_D);
-		$customer       = $model->getAllCustomer($queryParams);
+		$total_children = 0;
+//		$admin_count    = $model->getTreeInfo($queryParams, Model::ROLE_ADMIN);
+//		$pre_count      = $model->getTreeInfo($queryParams, Model::ROLE_PRE);
+//		$big_count      = $model->getTreeInfo($queryParams, Model::ROLE_BIGA);
+//		$age_count      = $model->getTreeInfo($queryParams, Model::ROLE_A);
+//		$dis_count      = $model->getTreeInfo($queryParams, Model::ROLE_D);
+		$admin_count    = 0;
+		$pre_count      =0;
+		$big_count      = 0;
+		$age_count      = 0;
+		$dis_count      = 0;
+//		$customer       = $model->getAllCustomer($queryParams);
+		$customer       = 0;
 		$revenue        = $model->getProfit($queryParams);
 		return $this->render('report', [
 			'model'          => $model,
