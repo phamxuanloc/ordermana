@@ -53,10 +53,10 @@ $this->params['breadcrumbs'][] = $this->title;
 //		'export'       => false,
 		//		'pjax'         => true,
 		'columns'      => [
-//			[
+			[
 			'class'=>'kartik\grid\SerialColumn',
 			//				'header' => 'STT',
-//			],
+			],
 			'created_date',
 //			[
 //				'class'           => 'kartik\grid\EditableColumn',
