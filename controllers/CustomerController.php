@@ -154,10 +154,6 @@ class CustomerController extends Controller {
 			if($model->save()) {
 				$model->updateAttributes(['user_id' => Yii::$app->user->id]);
 				return $this->redirect(['index']);
-			} else {
-				echo '<pre>';
-				print_r($model->errors);
-				die;
 			}
 		}
 		return $this->render('create', [
