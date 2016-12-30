@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute'       => 'name',
 				'editableOptions' => [
 					'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-//					'asPopover' => false
+					'asPopover' => false
 //										'options'=>[
 //											'pluginOptions'=>['min'=>0, 'max'=>5000]
 //										]
@@ -87,6 +87,8 @@ $this->params['breadcrumbs'][] = $this->title;
 					'data'      => ArrayHelper::map(\app\models\City::find()->andWhere([
 						'status' => 1,
 					])->all(), 'name', 'name'),
+					'asPopover' => false
+
 					//					'options'     => [
 					//												'type'=>\kartik\datecontrol\DateControl::FORMAT_DATE,
 					//												'displayFormat'=>'dd.MM.yyyy',
