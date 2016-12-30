@@ -2,10 +2,12 @@
 use app\controllers\CustomerController;
 use app\controllers\CustomerItemController;
 use app\models\Customer;
+use kartik\editable\Editable;
 use kartik\file\FileInput;
 use kartik\grid\GridView;
 use navatech\role\helpers\RoleChecker;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -15,6 +17,7 @@ use yii\helpers\Url;
 $this->title                   = 'Danh sách khách hàng';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="customer-index">
 
 	<h1><?= Html::encode($this->title) ?></h1>
@@ -47,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
 		'export'       => false,
-//		'pjax'         => true,
+		//		'pjax'         => true,
 		'columns'      => [
 			[
 				'class'  => 'kartik\grid\SerialColumn',
@@ -59,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute'       => 'name',
 				'editableOptions' => [
 					'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-					//					'asPopover'=>false
+					'asPopover' => false
 					//					'options'=>[
 					//						'pluginOptions'=>['min'=>0, 'max'=>5000]
 					//					]
@@ -76,7 +79,27 @@ $this->params['breadcrumbs'][] = $this->title;
 			'phone',
 			'id_number',
 			[
-				'attribute' => 'city_id',
+				'class'           => 'kartik\grid\EditableColumn',
+				'attribute'       => 'city_id',
+				'editableOptions' => [
+					'inputType' => Editable::INPUT_DROPDOWN_LIST,
+					'data'      => ArrayHelper::map(\app\models\City::find()->andWhere([
+						'status' => 1,
+					])->all(), 'name', 'name'),
+					'asPopover' => false
+
+					//					'options'     => [
+					//						'type'=>\kartik\datecontrol\DateControl::FORMAT_DATE,
+					//						'displayFormat'=>'dd.MM.yyyy',
+					//						'saveFormat'=>'php:Y-m-d',
+					//
+					//						'options'   => [
+					//							'pluginOptions' => [
+					//								'autoclose' => true,
+					//							],
+					//						],
+					//					],
+				],
 			],
 			[
 				'attribute' => 'user_id',
