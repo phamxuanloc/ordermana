@@ -53,10 +53,10 @@ $this->params['breadcrumbs'][] = $this->title;
 //		'export'       => false,
 		//		'pjax'         => true,
 		'columns'      => [
-			[
-			'class'=>'kartik\grid\SerialColumn',
-							'header' => 'STT',
-			],
+//			[
+//			'class'=>'kartik\grid\SerialColumn',
+			//				'header' => 'STT',
+//			],
 			'created_date',
 			[
 				'class'           => 'kartik\grid\EditableColumn',
@@ -134,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'call_by',
 			'call_at',
 			[
-				'class'          => 'kartik\grid\ActionColumn',
+				'class'          => 'yii\grid\ActionColumn',
 				'header'         => 'Hành động',
 				'visibleButtons' => [
 					'view'   => RoleChecker::isAuth(CustomerItemController::className(), 'detail'),
