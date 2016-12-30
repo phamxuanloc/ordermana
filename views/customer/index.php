@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		//		'pjax'         => true,
 		'columns'      => [
 			[
-			'class'=>'yii\grid\SerialColumn',
+			'class'=>'kartik\grid\SerialColumn',
 //							'header' => 'STT',
 			],
 			'created_date',
