@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //			],
 			'created_date',
 			[
-//				'class'           => 'kartik\grid\EditableColumn',
+				'class'           => 'kartik\grid\EditableColumn',
 				'attribute'       => 'name',
 //				'editableOptions' => [
 //					'inputType' => \kartik\editable\Editable::INPUT_TEXT,
