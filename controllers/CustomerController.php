@@ -107,7 +107,7 @@ class CustomerController extends Controller {
 //		}
 		if(isset($_POST['hasEditable'])) {
 			// use Yii's response format to encode output as JSON
-			\Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+//			\Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 			$model                       = $this->findModel($_POST['editableKey']);
 			// read your posted model attributes
 			// read or convert your posted information
@@ -119,7 +119,7 @@ class CustomerController extends Controller {
 			}
 			// return JSON encoded output in the below format
 			// alternatively you can return a validation error
-			 return ['output'=>'', 'message'=>'Validation error'];
+			 return true;
 		}
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 		return $this->render('index', [
