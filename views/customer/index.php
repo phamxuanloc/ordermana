@@ -22,7 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="customer-index">
 
 	<h1><?= Html::encode($this->title) ?></h1>
-	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 	<?= $this->render('/_alert', [
 		'module' => Yii::$app->getModule('user'),
 	]) ?>
@@ -48,14 +47,21 @@ $this->params['breadcrumbs'][] = $this->title;
 		//		'style'    => 'float: right;clear: right',
 	]) ?>
 	<?php ActiveForm::end(); ?>
+	<div class="clearfix"></div>
+	<div class="panel panel-danger" style="margin-top: 20px">
+		<div class="panel-heading">Tìm kiếm</div>
+		<div class="panel-body">
+			<?php echo $this->render('_search', ['model' => $searchModel]); ?>
+		</div>
+	</div>
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
-//		'export'       => false,
+		//		'export'       => false,
 		//		'pjax'         => true,
 		'columns'      => [
 			[
-			'class'=>'kartik\grid\SerialColumn',
-//             'header' => 'STT',
+				'class' => 'kartik\grid\SerialColumn',
+				//             'header' => 'STT',
 			],
 			'created_date',
 			[
@@ -63,10 +69,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute'       => 'name',
 				'editableOptions' => [
 					'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-//					'asPopover' => false
-//										'options'=>[
-//											'pluginOptions'=>['min'=>0, 'max'=>5000]
-//										]
+					//					'asPopover' => false
+					//										'options'=>[
+					//											'pluginOptions'=>['min'=>0, 'max'=>5000]
+					//										]
 				],
 			],
 			'address',
@@ -87,8 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					'data'      => ArrayHelper::map(\app\models\City::find()->andWhere([
 						'status' => 1,
 					])->all(), 'name', 'name'),
-//					'asPopover' => false
-
+					//					'asPopover' => false
 					//					'options'     => [
 					//												'type'=>\kartik\datecontrol\DateControl::FORMAT_DATE,
 					//												'displayFormat'=>'dd.MM.yyyy',

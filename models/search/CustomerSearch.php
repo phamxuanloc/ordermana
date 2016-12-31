@@ -20,7 +20,6 @@ class CustomerSearch extends Customer {
 				[
 					'id',
 					'phone',
-					'city_id',
 					'user_id',
 					'point',
 					'parent_id',
@@ -40,6 +39,8 @@ class CustomerSearch extends Customer {
 					'is_call',
 					'call_by',
 					'call_at',
+					'phone',
+					'city_id',
 				],
 				'safe',
 			],
@@ -88,8 +89,6 @@ class CustomerSearch extends Customer {
 		// grid filtering conditions
 		$query->andFilterWhere([
 			'id'        => $this->id,
-			'phone'     => $this->phone,
-			'city_id'   => $this->city_id,
 			'user_id'   => $this->user_id,
 			'point'     => $this->point,
 			'parent_id' => $this->parent_id,
@@ -102,12 +101,12 @@ class CustomerSearch extends Customer {
 			$this->name,
 		])->andFilterWhere([
 			'like',
-			'address',
-			$this->address,
+			'phone',
+			$this->phone,
 		])->andFilterWhere([
 			'like',
-			'email',
-			$this->email,
+			'city_id',
+			$this->city_id,
 		])->andFilterWhere([
 			'like',
 			'company_name',

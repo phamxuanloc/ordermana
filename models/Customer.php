@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
  * @property string          $email
  * @property string          $company_name
  * @property integer         $phone
- * @property integer         $city_id
+ * @property string         $city_id
  * @property integer         $user_id
  * @property integer         $point
  * @property integer         $parent_id
