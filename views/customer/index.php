@@ -83,7 +83,17 @@ $this->params['breadcrumbs'][] = $this->title;
 				},
 			],
 			'email:email',
-			'phone',
+			[
+				'class'           => 'kartik\grid\EditableColumn',
+				'attribute'       => 'phone',
+				'editableOptions' => [
+					'inputType' => \kartik\editable\Editable::INPUT_TEXT,
+					//					'asPopover' => false
+					//										'options'=>[
+					//											'pluginOptions'=>['min'=>0, 'max'=>5000]
+					//										]
+				],
+			],
 			'id_number',
 			[
 				'class'           => 'kartik\grid\EditableColumn',
@@ -160,3 +170,9 @@ $this->params['breadcrumbs'][] = $this->title;
 		],
 	]); ?>
 </div>
+<script>
+	//	var outer=document.getElementsByClassName('page-content ').offsetWidth;
+	//	var inner=document.getElementById('grid-view').offsetWidth;
+	console.log($(window).width());
+	window.scrollTo(100, 0);
+</script>

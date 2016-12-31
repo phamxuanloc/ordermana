@@ -120,6 +120,9 @@ class CustomerController extends Controller {
 			if(isset($_POST['Customer'][$_POST['editableIndex']]['city_id'])) {
 				$model->updateAttributes(['city_id' => $_POST['Customer'][$_POST['editableIndex']]['city_id']]);
 			}
+			if(isset($_POST['Customer'][$_POST['editableIndex']]['phone'])) {
+				$model->updateAttributes(['phone' => $_POST['Customer'][$_POST['editableIndex']]['phone']]);
+			}
 			// return JSON encoded output in the below format
 			// alternatively you can return a validation error
 			return true;
