@@ -16,19 +16,25 @@ use yii\helpers\Html;
 		'layout' => 'inline',
 	]); ?>
 
-	<div class="col-sm-4">
+	<div class="col-sm-3">
 		<?= $form->field($model, 'name')->textInput(['placeholder' => 'Tên']) ?>
 	</div>
-	<div class="col-sm-4">
+	<div class="col-sm-3">
 
 		<?php echo $form->field($model, 'phone')->textInput(['placeholder' => 'Số điện thoại']) ?>
 	</div>
-	<div class="col-sm-4">
+	<div class="col-sm-3">
 		<?php echo $form->field($model, 'city_id')->dropDownList(ArrayHelper::map(\app\models\City::find()->all(), 'name', 'name'), ['prompt' => 'Thành phố']) ?>
 	</div>
+	<div class="col-sm-3">
 
-	<?php // echo $form->field($model, 'user_id') ?>
-
+		<?php echo $form->field($model, 'created_date')->widget(\kartik\widgets\DatePicker::className(), [
+			'pluginOptions' => [
+				'format' => 'yyyy-mm-dd',
+			],
+			'options'       => ['placeholder' => 'Ngày tạo',],
+		]) ?>
+	</div>
 	<?php // echo $form->field($model, 'point') ?>
 
 	<?php // echo $form->field($model, 'parent_id') ?>

@@ -41,6 +41,7 @@ class CustomerSearch extends Customer {
 					'call_at',
 					'phone',
 					'city_id',
+					'created_date',
 				],
 				'safe',
 			],
@@ -108,9 +109,10 @@ class CustomerSearch extends Customer {
 			'city_id',
 			$this->city_id,
 		])->andFilterWhere([
-			'like',
-			'company_name',
-			$this->company_name,
+			'between',
+			'created_date',
+			$this->created_date . ' 00:00:00',
+			$this->created_date . ' 23:59:59',
 		])->andFilterWhere([
 			'like',
 			'link_fb',

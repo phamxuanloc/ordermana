@@ -173,6 +173,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <script>
 	//	var outer=document.getElementsByClassName('page-content ').offsetWidth;
 	//	var inner=document.getElementById('grid-view').offsetWidth;
-	console.log($(window).width());
-	window.scrollTo(100, 0);
+//	console.log($(window).width());
+	window.scrollTo(200, 10);
 </script>
