@@ -74,14 +74,14 @@ class Customer extends \app\components\Model {
 	 */
 	public function rules() {
 		return [
-			[
-				[
-					'name',
-					'phone',
-				],
-				'required',
-				'message' => '{attribute} không được để trống',
-			],
+//			[
+//				[
+//					'name',
+//					'phone',
+//				],
+//				'required',
+//				'message' => '{attribute} không được để trống',
+//			],
 			[
 				[
 					'user_id',

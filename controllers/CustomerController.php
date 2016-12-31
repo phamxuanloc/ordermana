@@ -70,45 +70,48 @@ class CustomerController extends Controller {
 			Yii::$app->session->setFlash('success', 'Upload thành công');
 			for($row = 8; $row <= $highestRow; $row ++) {
 				$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, null, false, false);
-				if($rowData[0][2] != null && $rowData[0][3] != null) {
-					if($customer = Customer::findOne(['phone' => '' . $rowData[0][3]])) {
-						$customer->updateAttributes([
-							'name'     => $rowData[0][2],
-							'birthday' => date('Y-m-d', \PHPExcel_Shared_Date::ExcelToPHP($rowData[0][4])),
-							'email'    => $rowData[0][5],
-							'link_fb'  => $rowData[0][6],
-							'source'   => $rowData[0][7],
-							'city_id'  => $rowData[0][9],
-							'product'  => $rowData[0][10],
-							'note'     => $rowData[0][13],
-						]);
-					} else {
-						$customer            = new Customer();
-						$customer->name      = $rowData[0][2];
-						$customer->phone     = '' . $rowData[0][3];
-						$customer->birthday  = date('Y-m-d', \PHPExcel_Shared_Date::ExcelToPHP($rowData[0][4]));
-						$customer->email     = $rowData[0][5];
-						$customer->link_fb   = $rowData[0][6];
-						$customer->source    = $rowData[0][7];
-						$customer->id_number = '' . $rowData[0][8];
-						$customer->city_id   = $rowData[0][9];
-						$customer->product   = $rowData[0][10];
-						$customer->note      = $rowData[0][13];
-						$customer->parent_id = Yii::$app->user->id;
-						$customer->user_id   = Yii::$app->user->id;
-						if(!$customer->save()) {
-//							echo '<pre>';
-//							print_r($customer->errors);
-//							die;
-						};
-					}
+				if($rowData[0][3] != null) {
+					$customer_update = Customer::findOne(['phone' => '' . $rowData[0][3]]);
+				} else {
+					$customer_update = false;
+				}
+				if($customer_update) {
+					$customer_update->updateAttributes([
+						'name'     => $rowData[0][2],
+						'birthday' => date('Y-m-d', \PHPExcel_Shared_Date::ExcelToPHP($rowData[0][4])),
+						'email'    => $rowData[0][5],
+						'link_fb'  => $rowData[0][6],
+						'source'   => $rowData[0][7],
+						'city_id'  => $rowData[0][9],
+						'product'  => $rowData[0][10],
+						'note'     => $rowData[0][13],
+					]);
+				} else {
+					$customer            = new Customer();
+					$customer->name      = $rowData[0][2];
+					$customer->phone     = '' . $rowData[0][3];
+					$customer->birthday  = date('Y-m-d', \PHPExcel_Shared_Date::ExcelToPHP($rowData[0][4]));
+					$customer->email     = $rowData[0][5];
+					$customer->link_fb   = $rowData[0][6];
+					$customer->source    = $rowData[0][7];
+					$customer->id_number = '' . $rowData[0][8];
+					$customer->city_id   = $rowData[0][9];
+					$customer->product   = $rowData[0][10];
+					$customer->note      = $rowData[0][13];
+					$customer->parent_id = Yii::$app->user->id;
+					$customer->user_id   = Yii::$app->user->id;
+					if(!$customer->save()) {
+													echo '<pre>';
+													print_r($customer->errors);
+													die;
+					};
 				}
 			}
 		}
 		if(isset($_POST['hasEditable'])) {
 			// use Yii's response format to encode output as JSON
-//			\Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-			$model                       = $this->findModel($_POST['editableKey']);
+			//			\Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+			$model = $this->findModel($_POST['editableKey']);
 			// read your posted model attributes
 			// read or convert your posted information
 			if(isset($_POST['Customer'][$_POST['editableIndex']]['name'])) {
@@ -119,7 +122,7 @@ class CustomerController extends Controller {
 			}
 			// return JSON encoded output in the below format
 			// alternatively you can return a validation error
-			 return true;
+			return true;
 		}
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 		return $this->render('index', [
