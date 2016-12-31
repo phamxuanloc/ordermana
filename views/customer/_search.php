@@ -1,4 +1,5 @@
 <?php
+use kartik\widgets\DatePicker;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -28,7 +29,7 @@ use yii\helpers\Html;
 	</div>
 	<div class="col-sm-3">
 
-		<?php echo $form->field($model, 'created_date')->widget(\kartik\widgets\DatePicker::className(), [
+		<?php echo $form->field($model, 'created_date')->widget(DatePicker::className(), [
 			'pluginOptions' => [
 				'format' => 'yyyy-mm-dd',
 			],

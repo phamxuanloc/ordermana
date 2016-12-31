@@ -109,11 +109,6 @@ class CustomerSearch extends Customer {
 			'city_id',
 			$this->city_id,
 		])->andFilterWhere([
-			'between',
-			'created_date',
-			$this->created_date . ' 00:00:00',
-			$this->created_date . ' 23:59:59',
-		])->andFilterWhere([
 			'like',
 			'link_fb',
 			$this->link_fb,
@@ -134,6 +129,14 @@ class CustomerSearch extends Customer {
 			'call_by',
 			$this->call_by,
 		]);
+		if($this->created_date != null) {
+			$query->andFilterWhere([
+				'between',
+				'created_date',
+				$this->created_date . ' 00:00:00',
+				$this->created_date . ' 23:59:59',
+			]);
+		}
 		return $dataProvider;
 	}
 }
