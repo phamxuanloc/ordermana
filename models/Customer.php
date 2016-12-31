@@ -84,7 +84,6 @@ class Customer extends \app\components\Model {
 			],
 			[
 				[
-					'phone',
 					'user_id',
 					'point',
 					'parent_id',
@@ -124,6 +123,7 @@ class Customer extends \app\components\Model {
 					'source',
 					'id_number',
 					'city_id',
+					'phone',
 				],
 				'string',
 				'max' => 255,
