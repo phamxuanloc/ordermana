@@ -83,7 +83,7 @@ class CustomerController extends Controller {
 						'link_fb'  => $rowData[0][6],
 						'source'   => $rowData[0][7],
 						'city_id'  => $rowData[0][9],
-						'product'  => $rowData[0][10],
+						'product'  => '' .$rowData[0][10],
 						'note'     => $rowData[0][13],
 					]);
 				} else {
@@ -96,14 +96,14 @@ class CustomerController extends Controller {
 					$customer->source    = $rowData[0][7];
 					$customer->id_number = '' . $rowData[0][8];
 					$customer->city_id   = $rowData[0][9];
-					$customer->product   = $rowData[0][10];
+					$customer->product   = '' . $rowData[0][10];
 					$customer->note      = $rowData[0][13];
 					$customer->parent_id = Yii::$app->user->id;
 					$customer->user_id   = Yii::$app->user->id;
 					if(!$customer->save()) {
-													echo '<pre>';
-													print_r($customer->errors);
-													die;
+						//													echo '<pre>';
+						//													print_r($customer->errors);
+						//													die;
 					};
 				}
 			}
