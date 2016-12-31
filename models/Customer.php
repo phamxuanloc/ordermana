@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
  * @property string          $email
  * @property string          $company_name
  * @property integer         $phone
- * @property string         $city_id
+ * @property string          $city_id
  * @property integer         $user_id
  * @property integer         $point
  * @property integer         $parent_id
@@ -34,6 +34,7 @@ use yii\helpers\ArrayHelper;
  * @property City            $city
  * @property User            $user
  * @property OrderCustomer[] $orderCustomers
+ * @property CustomerItem[]  $items
  */
 class Customer extends \app\components\Model {
 
@@ -74,14 +75,14 @@ class Customer extends \app\components\Model {
 	 */
 	public function rules() {
 		return [
-//			[
-//				[
-//					'name',
-//					'phone',
-//				],
-//				'required',
-//				'message' => '{attribute} không được để trống',
-//			],
+			//			[
+			//				[
+			//					'name',
+			//					'phone',
+			//				],
+			//				'required',
+			//				'message' => '{attribute} không được để trống',
+			//			],
 			[
 				[
 					'user_id',
@@ -212,6 +213,10 @@ class Customer extends \app\components\Model {
 	 */
 	public function getOrderCustomers() {
 		return $this->hasMany(OrderCustomer::className(), ['customer_id' => 'id']);
+	}
+
+	public function getItems() {
+		return $this->hasMany(CustomerItem::className(), ['customer_id' => 'id']);
 	}
 
 	public function getProductCount() {

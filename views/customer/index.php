@@ -54,6 +54,14 @@ $this->params['breadcrumbs'][] = $this->title;
 			<?php echo $this->render('_search', ['model' => $searchModel]); ?>
 		</div>
 	</div>
+	<div class="clearfix"></div>
+	<div class="panel panel-info" style="margin-top: 20px">
+		<div class="panel-heading">Tổng quan</div>
+		<div class="panel-body">
+			<p style="font-size: 20px">Số lượng khách hàng: <?= $quantity ?></p>
+			<p style="font-size: 20px">Số lượng hàng đã mua: <?= $quantity_item ?></p>
+		</div>
+	</div>
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
 		//		'export'       => false,
@@ -173,6 +181,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <script>
 	//	var outer=document.getElementsByClassName('page-content ').offsetWidth;
 	//	var inner=document.getElementById('grid-view').offsetWidth;
-//	console.log($(window).width());
+	//	console.log($(window).width());
 	window.scrollTo(200, 10);
 </script>

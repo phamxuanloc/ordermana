@@ -139,4 +139,88 @@ class CustomerSearch extends Customer {
 		}
 		return $dataProvider;
 	}
+
+	public function searchData($params, $attribute = null) {
+		$query = Customer::find();
+		if(Yii::$app->user->identity->role_id != $this::ROLE_ADMIN) {
+			$children = $this::getTotalChildren(Yii::$app->user->id);
+			$query->where([
+				'IN',
+				'parent_id',
+				$children,
+			])->orWhere(['parent_id' => Yii::$app->user->id])->orWhere([
+				'IN',
+				'last_parent_id',
+				$children,
+			]);
+		}
+		// add conditions that should always apply here
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+		]);
+		$this->load($params);
+		if(!$this->validate()) {
+			// uncomment the following line if you do not want to return any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
+		// grid filtering conditions
+		$query->andFilterWhere([
+			'id'        => $this->id,
+			'user_id'   => $this->user_id,
+			'point'     => $this->point,
+			'parent_id' => $this->parent_id,
+			'is_move'   => $this->is_move,
+			'call_at'   => $this->call_at,
+		]);
+		$query->andFilterWhere([
+			'like',
+			'name',
+			$this->name,
+		])->andFilterWhere([
+			'like',
+			'phone',
+			$this->phone,
+		])->andFilterWhere([
+			'like',
+			'city_id',
+			$this->city_id,
+		])->andFilterWhere([
+			'like',
+			'link_fb',
+			$this->link_fb,
+		])->andFilterWhere([
+			'like',
+			'sale',
+			$this->sale,
+		])->andFilterWhere([
+			'like',
+			'note',
+			$this->note,
+		])->andFilterWhere([
+			'like',
+			'is_call',
+			$this->is_call,
+		])->andFilterWhere([
+			'like',
+			'call_by',
+			$this->call_by,
+		]);
+		if($this->created_date != null) {
+			$query->andFilterWhere([
+				'between',
+				'created_date',
+				$this->created_date . ' 00:00:00',
+				$this->created_date . ' 23:59:59',
+			]);
+		}
+		if($attribute == 'quantity') {
+			return $query->count();
+		} elseif($attribute == 'item') {
+			$query->joinWith('items');
+			return $query->sum('customer_item.quantity') != null ? $query->sum('customer_item.quantity') : 0;
+		} else {
+			return $dataProvider;
+		}
+	}
 }

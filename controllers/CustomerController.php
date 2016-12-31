@@ -52,8 +52,10 @@ class CustomerController extends Controller {
 	 * @return mixed
 	 */
 	public function actionIndex() {
-		$searchModel = new CustomerSearch();
-		$file        = new UploadExcel();
+		$searchModel   = new CustomerSearch();
+		$quantity_item = $searchModel->searchData(Yii::$app->request->queryParams, 'item');
+		$quantity      = $searchModel->searchData(Yii::$app->request->queryParams, 'quantity');
+		$file          = new UploadExcel();
 		if(isset($_POST['UploadExcel']['excel'])) {
 			$file->excel = UploadedFile::getInstance($file, 'excel');
 			$input       = $file->uploadExcel();
@@ -83,7 +85,7 @@ class CustomerController extends Controller {
 						'link_fb'  => $rowData[0][6],
 						'source'   => $rowData[0][7],
 						'city_id'  => $rowData[0][9],
-						'product'  => '' .$rowData[0][10],
+						'product'  => '' . $rowData[0][10],
 						'note'     => $rowData[0][13],
 					]);
 				} else {
@@ -129,9 +131,11 @@ class CustomerController extends Controller {
 		}
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 		return $this->render('index', [
-			'searchModel'  => $searchModel,
-			'dataProvider' => $dataProvider,
-			'file'         => $file,
+			'searchModel'   => $searchModel,
+			'dataProvider'  => $dataProvider,
+			'file'          => $file,
+			'quantity_item' => $quantity_item,
+			'quantity'      => $quantity,
 		]);
 	}
 
