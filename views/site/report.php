@@ -101,6 +101,33 @@ use yii\widgets\ActiveForm;
 				],
 			),
 		));
+		echo GoogleChart::widget(array(
+			'visualization' => 'PieChart',
+			'data'          => $stock,
+			'options'       => array(
+				'title'          => 'Hàng trong kho',
+				'width'          => '100%',
+				'height'         => 500,
+				'titleTextStyle' => [
+					'color'    => 'red',
+					'fontSize' => 25,
+				],
+			),
+		));
+		echo GoogleChart::widget(array(
+			'visualization' => 'PieChart',
+			'data'          => $top_customer,
+			'options'       => array(
+				'title'          => 'Top khách hàng',
+				'width'          => '100%',
+				'height'         => 500,
+				'titleTextStyle' => [
+					'color'    => 'red',
+					'fontSize' => 25,
+				],
+			),
+		));
 		?>
+
 	</div>
 </div>

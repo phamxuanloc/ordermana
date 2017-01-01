@@ -367,4 +367,154 @@ class ReportForm extends Form {
 		$profit_customer = $query_customer->sum('total_amount');
 		return $total = $profit + $profit_customer;
 	}
+
+	/**
+	 * lấy ra số sp trong kho
+	 */
+	public function getStock($params) {
+		$this->load($params);
+		if($this->user->role_id != Model::ROLE_ADMIN) {
+			$query = UserStock::find();
+			if($this->start_date != null) {
+				if($this->end_date == null) {
+					$this->end_date = date('Y-m-d');
+				}
+				$query->andFilterWhere([
+					'between',
+					'created_date',
+					$this->start_date,
+					$this->end_date,
+				]);
+			}
+			$products      = $query->all();
+			$product_array = [];
+			if($products != null) {
+				foreach($products as $product) {
+					$product_array[] = [
+						$product->name,
+						$product->in_stock,
+					];
+				}
+			} else {
+				$product_array = [
+					[
+						'Không có sản phẩm nào',
+						1,
+					],
+				];
+			}
+		} else {
+			$query = Product::find();
+			$query->andFilterWhere(['status' => Product::RECEIPTED]);
+			if($this->start_date != null) {
+				if($this->end_date == null) {
+					$this->end_date = date('Y-m-d');
+				}
+				$query->andFilterWhere([
+					'between',
+					'created_date',
+					$this->start_date,
+					$this->end_date,
+				]);
+			}
+			$products      = $query->all();
+			$product_array = [];
+			if($products != null) {
+				foreach($products as $product) {
+					$product_array[] = [
+						$product->name,
+						$product->in_stock,
+					];
+				}
+			} else {
+				$product_array = [
+					[
+						'Không có sản phẩm nào',
+						1,
+					],
+				];
+			}
+		}
+		return ArrayHelper::merge([
+			[
+				'Sản phẩm trong kho',
+				'Sản phẩm',
+			],
+		], $product_array);
+	}
+
+	/**
+	 *Thống kê top khách hàng
+	 */
+	public function getTopCustomer($params) {
+		$this->load($params);
+		$query = Customer::find();
+		$query->innerJoin('customer_item', 'customer.id=customer_item.customer_id');
+		if($this->user->role_id == Model::ROLE_ADMIN) {
+			if($this->start_date != null) {
+				if($this->end_date == null) {
+					$this->end_date = date('Y-m-d');
+				}
+				$query->andFilterWhere([
+					'between',
+					'customer_item.created_date',
+					$this->start_date,
+					$this->end_date,
+				]);
+			}
+		} else {
+			$model    = new Model();
+			$children = $model->getTotalChildren($this->user->id);
+			$query->andFilterWhere([
+				'IN',
+				'user_id',
+				$children,
+			]);
+			$query->andFilterWhere([
+				'IN',
+				'parent_id',
+				$children,
+			]);
+			$query->andFilterWhere([
+				'IN',
+				'last_parent_id',
+				$children,
+			]);
+			$query->orFilterWhere(['user_id' => $this->user->id]);
+			if($this->start_date != null) {
+				if($this->end_date == null) {
+					$this->end_date = date('Y-m-d');
+				}
+				$query->andFilterWhere([
+					'between',
+					'customer_item.created_date',
+					$this->start_date,
+					$this->end_date,
+				]);
+			}
+		}
+		$customers      = $query->select('customer.name,SUM(customer_item.total_price) AS total')->asArray()->groupBy('customer.name')->orderBy('total DESC')->limit(10)->all();
+		$customer_array = [];
+		if($customers != null) {
+			foreach($customers as $customer) {
+				$customer_array[] = [
+					$customer['name'],
+					$customer['total'],
+				];
+			}
+		} else {
+			$customer_array = [
+				[
+					'Không có khách hàng nào',
+					1,
+				],
+			];
+		}
+		return ArrayHelper::merge([
+			[
+				'Top khách mua hàng',
+				'VNĐ',
+			],
+		], $customer_array);
+	}
 }

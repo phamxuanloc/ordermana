@@ -173,12 +173,14 @@ class SiteController extends Controller {
 	public function actionReport() {
 		$model        = new ReportForm();
 		$queryParams  = Yii::$app->request->queryParams;
+		$stock        = $model->getStock($queryParams);
 		$profit_month = ArrayHelper::merge([
 			[
 				'Doanh thu',
 				'VNĐ',
 			],
 		], $model->getProfitChart($queryParams));
+		$top_customer = $model->getTopCustomer($queryParams);
 		//		echo '<pre>';
 		//		print_r($profit_month);
 		//		die;
@@ -207,6 +209,8 @@ class SiteController extends Controller {
 			'dis_count'      => $dis_count,
 			'customer'       => $customer,
 			'revenue'        => $revenue,
+			'stock'          => $stock,
+			'top_customer'   => $top_customer,
 		]);
 	}
 }
