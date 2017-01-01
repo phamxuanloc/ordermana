@@ -109,7 +109,7 @@ use yii\widgets\ActiveForm;
 				'width'          => '100%',
 				'height'         => 500,
 				'titleTextStyle' => [
-					'color'    => 'pink',
+					'color'    => 'violet',
 					'fontSize' => 25,
 				],
 			),
