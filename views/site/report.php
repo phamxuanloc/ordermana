@@ -109,7 +109,7 @@ use yii\widgets\ActiveForm;
 				'width'          => '100%',
 				'height'         => 500,
 				'titleTextStyle' => [
-					'color'    => 'red',
+					'color'    => 'pink',
 					'fontSize' => 25,
 				],
 			),
@@ -122,7 +122,7 @@ use yii\widgets\ActiveForm;
 				'width'          => '100%',
 				'height'         => 500,
 				'titleTextStyle' => [
-					'color'    => 'red',
+					'color'    => 'orange',
 					'fontSize' => 25,
 				],
 			),
