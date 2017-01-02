@@ -303,7 +303,7 @@ class AdminController extends BaseAdminController {
 					]);
 				} else {
 					return $this->redirect([
-						'care',
+						'index',
 					]);
 				}
 			} else {
@@ -339,7 +339,7 @@ class AdminController extends BaseAdminController {
 					]);
 				} else {
 					return $this->redirect([
-						'index',
+						'care',
 					]);
 				}
 			} else {
