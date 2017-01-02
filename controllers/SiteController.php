@@ -11,6 +11,7 @@ use app\models\Order;
 use app\models\Product;
 use app\models\ReportForm;
 use DateTime;
+use navatech\role\filters\RoleFilter;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -38,6 +39,17 @@ class SiteController extends Controller {
 				'class'   => VerbFilter::className(),
 				'actions' => [
 					'logout' => ['post'],
+				],
+			],
+			'role'   => [
+				'class'   => RoleFilter::className(),
+				'name'    => 'Trang Admin',
+				//NOT REQUIRED, only if you want to translate
+				'actions' => [
+					//without translate
+					'index'  => 'Trang chủ ',
+					'report' => 'Báo cáo ',
+					//with translated, which will display on role _form
 				],
 			],
 		];

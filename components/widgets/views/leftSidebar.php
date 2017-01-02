@@ -53,20 +53,22 @@ use yii\helpers\Url;
 					<span class="arrow open"></span>
 				</a>
 			</li>
-			<li>
-				<a href="javascript:;">
-					<i class="icon-docs"></i>
-					<span class="title">Báo cáo</span>
-					<span class="arrow "></span>
-				</a>
-				<ul class="sub-menu">
-					<li>
-						<a href="<?= Url::to(['/site/report']) ?>">
-							<i class="icon-home"></i>
-							Báo cáo theo thời gian</a>
-					</li>
-				</ul>
-			</li>
+			<?php if(RoleChecker::isAuth(\app\controllers\SiteController::className(), 'report')) { ?>
+				<li>
+					<a href="javascript:;">
+						<i class="icon-docs"></i>
+						<span class="title">Báo cáo</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="<?= Url::to(['/site/report']) ?>">
+								<i class="icon-home"></i>
+								Báo cáo theo thời gian</a>
+						</li>
+					</ul>
+				</li>
+			<?php } ?>
 			<li>
 				<a href="javascript:;">
 					<i class="icon-basket"></i>
@@ -199,28 +201,29 @@ use yii\helpers\Url;
 					<?php } ?>
 				</ul>
 			</li>
-
-			<li>
-				<a href="javascript:;">
-					<i class="icon-puzzle"></i>
-					<span class="title">Quản lý khách hàng lẻ</span>
-					<span class="arrow "></span>
-				</a>
-				<ul class="sub-menu">
-					<li>
-						<a href="<?= Url::to(['/customer']) ?>">
-							Danh sách khách hàng lẻ</a>
-					</li>
-					<li>
-						<a href="<?= Url::to(['/customer/create']) ?>">
-							Thêm khách hàng lẻ</a>
-					</li>
-					<li>
-						<a href="<?= Url::to(['/customer/move']) ?>">
-							Chuyển khách hàng lẻ</a>
-					</li>
-				</ul>
-			</li>
+			<?php if(RoleChecker::isAuth(\app\controllers\CustomerController::className(), 'index')) { ?>
+				<li>
+					<a href="javascript:;">
+						<i class="icon-puzzle"></i>
+						<span class="title">Quản lý khách hàng lẻ</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="<?= Url::to(['/customer']) ?>">
+								Danh sách khách hàng lẻ</a>
+						</li>
+						<li>
+							<a href="<?= Url::to(['/customer/create']) ?>">
+								Thêm khách hàng lẻ</a>
+						</li>
+						<li>
+							<a href="<?= Url::to(['/customer/move']) ?>">
+								Chuyển khách hàng lẻ</a>
+						</li>
+					</ul>
+				</li>
+			<?php } ?>
 			<?php if(RoleChecker::isAuth(\app\controllers\CategoryController::className(), 'create')) { ?>
 
 				<li>
