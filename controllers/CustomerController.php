@@ -214,10 +214,17 @@ class CustomerController extends Controller {
 	 */
 	public function actionUpdate($id) {
 		$model = $this->findModel($id);
-		if($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect([
-				'index',
-			]);
+		if($model->load(Yii::$app->request->post())) {
+			if($model->getOldAttribute('is_call') == 0 && $model->is_call == 1) {
+				if($this->user->role_id == $model::ROLE_CARE) {
+					$model->call_by = $this->user->username;
+				}
+			}
+			if($model->save()) {
+				return $this->redirect([
+					'index',
+				]);
+			}
 		} else {
 			return $this->render('update', [
 				'model' => $model,

@@ -28,6 +28,7 @@ class Model extends ActiveRecord {
 		'Đại lí bán buôn',
 		'Đại lí bán lẻ',
 		'Điểm phân phối',
+		'Chăm sóc khách hàng',
 	];
 
 	const ROLE_ADMIN = 1;
@@ -39,6 +40,8 @@ class Model extends ActiveRecord {
 	const ROLE_A     = 4;
 
 	const ROLE_D     = 5;
+
+	const ROLE_CARE  = 6;
 
 	public $start_date;
 

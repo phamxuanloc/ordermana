@@ -48,9 +48,9 @@ use yii\helpers\Html;
 	<?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
 
 	<?= $form->field($model, 'is_call')->dropDownList($model::IS_CALL) ?>
-
-	<?= $form->field($model, 'call_by')->textInput(['maxlength' => true]) ?>
-
+	<?php if(Yii::$app->user->identity->role_id != $model::ROLE_CARE) { ?>
+		<?= $form->field($model, 'call_by')->textInput(['maxlength' => true]) ?>
+	<?php } ?>
 	<?= $form->field($model, 'call_at')->widget(DatePicker::className(), [
 		'pluginOptions' => [
 			'autoclose' => true,
