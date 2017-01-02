@@ -43,7 +43,7 @@ class SiteController extends Controller {
 			],
 			'role'   => [
 				'class'   => RoleFilter::className(),
-				'name'    => 'Trang Admin',
+				'name'    => 'Trang chủ',
 				//NOT REQUIRED, only if you want to translate
 				'actions' => [
 					//without translate
