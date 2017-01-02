@@ -275,14 +275,14 @@ class ReportForm extends Form {
 		$this->load($params);
 		$children = $model->getTotalChildren(Yii::$app->user->id);
 		$child    = \app\models\User::find();
-		if($role != null) {
-			$child->andFilterWhere(['role_id' => $role]);
-		}
-		$child->where([
+		$child->andFilterWhere([
 			'IN',
 			'id',
 			$children,
 		]);
+		if($role != null) {
+			$child->andFilterWhere(['role_id' => $role]);
+		}
 		if($this->start_date != null) {
 			if($this->end_date == null) {
 				$this->end_date = date('Y-m-d');
