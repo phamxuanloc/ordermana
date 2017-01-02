@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use app\models\Product;
+use navatech\role\filters\RoleFilter;
 use Yii;
 use app\models\ProductHistory;
 use app\models\search\ProductHistorySearch;
@@ -23,6 +24,18 @@ class ProductHistoryController extends Controller {
 				'class'   => VerbFilter::className(),
 				'actions' => [
 					'delete' => ['POST'],
+				],
+			],
+			'role'  => [
+				'class'   => RoleFilter::className(),
+				'name'    => 'Trang lịch sử nhập kho',
+				//NOT REQUIRED, only if you want to translate
+				'actions' => [
+					'create' => 'Nhập thêm sản phẩm',
+					//without translate
+					'index'  => 'Danh sách ',
+					'update' => 'Cập nhật thông tin nhập kho ',
+					//with translated, which will display on role _form
 				],
 			],
 		];
