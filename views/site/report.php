@@ -53,7 +53,7 @@ use yii\widgets\ActiveForm;
 	<div class="panel-heading">Báo cáo tổng hợp</div>
 	<div class="panel-body">
 		<div class="col-sm-4">Tổng số đơn hàng: <?= $order ?> đơn</div>
-		<div class="col-sm-4">Tổng số doanh thu: <?= $revenue ?> VNĐ</div>
+		<div class="col-sm-4">Tổng số doanh thu: <?= number_format($revenue) ?> VNĐ</div>
 		<div class="col-sm-4">Tổng số khách hàng hệ thống: <?= $customer ?></div>
 		<div class="col-sm-4">Tổng số tài khoản hệ thống: <?= $total_children ?></div>
 		<div class="col-sm-4">Tổng số đại diện: <?= $pre_count ?></div>

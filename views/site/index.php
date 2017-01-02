@@ -83,7 +83,7 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 			</div>
 			<div class="details">
 				<div class="number">
-					<?= $revenue ?>
+					<?= number_format($revenue) ?>
 				</div>
 				<div class="desc">
 					Tổng thu tháng <?= date('m') ?>
