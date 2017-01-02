@@ -65,7 +65,7 @@ class CustomerSearch extends Customer {
 	 */
 	public function search($params) {
 		$query = Customer::find();
-		if(Yii::$app->user->identity->role_id != $this::ROLE_ADMIN || Yii::$app->user->identity->role_id != $this::ROLE_CARE) {
+		if(Yii::$app->user->identity->role_id != $this::ROLE_ADMIN && Yii::$app->user->identity->role_id != $this::ROLE_CARE) {
 			$children = $this::getTotalChildren(Yii::$app->user->id);
 			$query->where([
 				'IN',
@@ -142,7 +142,7 @@ class CustomerSearch extends Customer {
 
 	public function searchData($params, $attribute = null) {
 		$query = Customer::find();
-		if(Yii::$app->user->identity->role_id != $this::ROLE_ADMIN) {
+		if(Yii::$app->user->identity->role_id != $this::ROLE_ADMIN && Yii::$app->user->identity->role_id != $this::ROLE_CARE) {
 			$children = $this::getTotalChildren(Yii::$app->user->id);
 			$query->where([
 				'IN',
