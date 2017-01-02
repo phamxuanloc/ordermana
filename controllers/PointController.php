@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use navatech\role\filters\RoleFilter;
 use Yii;
 use app\models\Point;
 use app\models\search\PointSearch;
@@ -25,6 +26,20 @@ class PointController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+            ],
+            'role'  => [
+	            'class'   => RoleFilter::className(),
+	            'name'    => 'Trang quản lý điểm',
+	            //NOT REQUIRED, only if you want to translate
+	            'actions' => [
+		            'create' => 'Tạo mốc điểm',
+		            //without translate
+		            'index'  => 'Danh sách',
+		            //					'view'       => 'Chi tiết đơn hàng',
+		            'delete' => 'Xóa mốc điểm',
+		            'update' => 'Cập nhật mốc điểm'
+		            //with translated, which will display on role _form
+	            ],
             ],
         ];
     }
