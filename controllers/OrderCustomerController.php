@@ -164,7 +164,7 @@ class OrderCustomerController extends Controller {
 					} else {
 						$order->updateAttributes(['total_amount' => $count]);
 					}
-					$order->customer->updateAttributes(['point' => round($order->total_amount / 10000) * Yii::$app->setting->get('point_change')]);
+					$order->customer->updateAttributes(['point' => round($order->total_amount / 100000) * Yii::$app->setting->get('point_change')]);
 				}
 				return $this->redirect(Url::to([
 					'/order-customer/view',
