@@ -190,6 +190,12 @@ use yii\helpers\Url;
 								Danh sách tài khoản</a>
 						</li>
 					<?php } ?>
+					<?php if(RoleChecker::isAuth(AdminController::className(), 'care')) { ?>
+						<li>
+							<a href="<?= Url::to(['/user/admin/care']) ?>">
+								Danh sách tài khoản cskh</a>
+						</li>
+					<?php } ?>
 
 					<?php if(RoleChecker::isAuth(AdminController::className(), 'create')) { ?>
 

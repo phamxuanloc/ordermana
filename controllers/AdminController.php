@@ -15,6 +15,7 @@ use app\models\Customer;
 use app\models\OrderCustomer;
 use app\models\Product;
 use app\models\ProductHistory;
+use app\models\search\UserSearch;
 use app\models\User;
 use DateInterval;
 use DateTime;
@@ -41,14 +42,16 @@ class AdminController extends BaseAdminController {
 				//NOT REQUIRED, only if you want to translate
 				'actions' => [
 					//without translate
-					'index'         => 'Danh sách ',
-					'update'        => 'Cập nhật ',
-					'create'        => 'Thêm mới người dùng',
-					'create-admin'  => 'Tạo admin',
-					'create-pre'    => 'Tạo đại diện',
-					'create-big'    => 'Tạo đại lý bán buôn',
-					'create-age'    => 'Tạo đại lý bán lẻ',
-					'create-dis'    => 'Tạo điểm phân phối',
+					'index'        => 'Danh sách ',
+					'update'       => 'Cập nhật ',
+					'create'       => 'Thêm mới người dùng',
+					'create-admin' => 'Tạo admin',
+					'create-pre'   => 'Tạo đại diện',
+					'create-big'   => 'Tạo đại lý bán buôn',
+					'create-age'   => 'Tạo đại lý bán lẻ',
+					'create-dis'   => 'Tạo điểm phân phối',
+					'create-care'  => 'Tạo tài khoản cs khách hàng',
+					'care'         => 'Ds tài khoản cs khách hàng',
 					'tree'          => 'Xem cây hệ thống',
 					'delete'        => 'Xóa người dùng',
 					'block'         => 'Khóa người dùng',
@@ -300,6 +303,42 @@ class AdminController extends BaseAdminController {
 					]);
 				} else {
 					return $this->redirect([
+						'care',
+					]);
+				}
+			} else {
+				echo '<pre>';
+				print_r($user->errors);
+				die;
+			}
+		}
+		return $this->render('create', [
+			'user' => $user,
+			'role' => $role,
+		]);
+	}
+
+	public function actionCreateCare() {
+		$user  = \Yii::createObject([
+			'class'    => User::className(),
+			'scenario' => 'create',
+		]);
+		$role  = Model::ROLE_CARE;
+		$event = $this->getUserEvent($user);
+		$this->performAjaxValidation($user);
+		$this->trigger(self::EVENT_BEFORE_CREATE, $event);
+		if($user->load(\Yii::$app->request->post())) {
+			$user->role_id      = $role;
+			$user->confirmed_at = 1456114858;
+			if($user->create()) {
+				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
+				$this->trigger(self::EVENT_AFTER_CREATE, $event);
+				if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
+					return $this->redirect([
+						'tree',
+					]);
+				} else {
+					return $this->redirect([
 						'index',
 					]);
 				}
@@ -313,6 +352,12 @@ class AdminController extends BaseAdminController {
 			'user' => $user,
 			'role' => $role,
 		]);
+	}
+
+	public function actionCare() {
+		$searchModel  = \Yii::createObject(UserSearch::className());
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams, true);
+		return $this->render('care', ['dataProvider' => $dataProvider]);
 	}
 
 	public function actionTree() {

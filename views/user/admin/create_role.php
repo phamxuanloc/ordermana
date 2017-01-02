@@ -42,3 +42,8 @@ use yii\helpers\Url;
 		'/user/admin/create-dis',
 	]), ['class' => 'btn btn-default']) ?>
 <?php } ?>
+<?php if(RoleChecker::isAuth(AdminController::className(), 'create-care', Yii::$app->user->identity->role_id)) { ?>
+	<?= Html::a('Tạo tài khoản chăm sóc KH', Url::to([
+		'/user/admin/create-care',
+	]), ['class' => 'btn green']) ?>
+<?php } ?>
