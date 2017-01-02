@@ -6,15 +6,15 @@
  * Time: 12:01 PM
  */
 use scotthuangzl\googlechart\GoogleChart;
-//use yii\bootstrap\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+//use yii\widgets\ActiveForm;
 
 ?>
 <div class="report-form">
 	<?php
 	$form = ActiveForm::begin([
-		//		'layout' => 'inline',
+				'layout' => 'inline',
 		'action' => ['report'],
 		'method' => 'get',
 	]);
