@@ -11,7 +11,13 @@ namespace app\controllers;
 
 use app\components\Model;
 use app\models\ChangeForm;
+use app\models\Customer;
+use app\models\OrderCustomer;
+use app\models\Product;
+use app\models\ProductHistory;
 use app\models\User;
+use DateInterval;
+use DateTime;
 use dektrium\user\controllers\AdminController as BaseAdminController;
 use navatech\role\filters\RoleFilter;
 use Yii;
@@ -354,24 +360,77 @@ class AdminController extends BaseAdminController {
 
 	public function actionProfile($id) {
 		if(isset($_POST['a'])) {
-			$account        = User::findOne($id);
-			$quantity_stock = 0;
-			$total_amount   = 0;
-			foreach($account->userStocks as $stock) {
-				$quantity_stock += $stock->in_stock;
-			};
-			foreach($account->orders as $order) {
-				$total_amount += $order->total_amount;
+			$oStart = new DateTime(date('Y') . '-' . date('m') . '-1');
+			$oEnd   = clone $oStart;
+			$oEnd->add(new DateInterval("P1M"));
+			$account         = User::findOne($id);
+			$model           = new Model();
+			$children        = $model->getTotalChildren($id);
+			$quantity_stock  = 0;
+			$total_amount    = 0;
+			$current_stock   = 0;
+			$customer_issue  = 0;
+			$issue           = 0;
+			$customer_system = 0;
+			if($account->role_id != Model::ROLE_ADMIN) {
+				foreach($account->userStocks as $stock) {
+					$quantity_stock += $stock->in_stock;
+				};
+				foreach($account->orders0 as $receipted) {
+					if($receipted->created_date >= $oStart->format('Y-m-d') && $receipted->created_date <= $oEnd->format('Y-m-d')) {
+						foreach($receipted->orderItems as $item) {
+							$current_stock += $item->quantity;
+						}
+					}
+				}
+			} else {
+				foreach(Product::find()->all() as $stock) {
+					$quantity_stock += $stock->in_stock;
+				};
+				$pro_history = ProductHistory::find()->where([
+					'between',
+					'created_date',
+					$oStart->format('Y-m-d'),
+					$oEnd->format('Y-m-d'),
+				])->all();
+				foreach($pro_history as $stock) {
+					$current_stock += $stock->quantity;
+				}
 			}
-			$value = [
-				'phone'    => $account->phone,
-				'city'     => $account->cities->name,
-				'email'    => $account->email,
-				'id'       => $account->id_number,
-				'username' => $account->username,
-				'created'  => date('d-m-Y', $account->created_at),
-				'quantity' => $quantity_stock,
-				'amount'   => $total_amount,
+			foreach($account->orders as $order) {
+				if($order->status == $order::RECEIPTED) {
+					if($order->created_date >= $oStart->format('Y-m-d') && $order->created_date <= $oEnd->format('Y-m-d')) {
+						$total_amount += $order->total_amount;
+					}
+				}
+			}
+			$issue = $model->getProfit();
+			foreach($account->orderCustomers as $order) {
+				if($order->status == $order::RECEIPTED) {
+					if($order->created_date >= $oStart->format('Y-m-d') && $order->created_date <= $oEnd->format('Y-m-d')) {
+						$customer_issue += $order->total_amount;
+					}
+				}
+			}
+			$query = OrderCustomer::find();
+			$query->andFilterWhere([
+				'IN',
+				'user_id',
+				$children,
+			]);
+			if($query->sum('total_amount') != null) {
+				$customer_system = $query->sum('total_amount');
+			}
+			$change_revenue = $model->getChangeRevenue();
+			$value          = [
+				'username'        => $account->username,
+				'quantity'        => $quantity_stock,
+				'amount'          => $total_amount,
+				'current_stock'   => $current_stock,
+				'issue'           => $issue,
+				'customer_issue'  => $customer_issue,
+				'customer_system' => $customer_system,
+				'change_revenue'  => $change_revenue,
 			];
 			return json_encode($value);
 		}

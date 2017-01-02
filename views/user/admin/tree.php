@@ -45,14 +45,14 @@ $data = $model->getUserTree();
 //];
 $onSelect      = new JsExpression(<<<JS
 function (undefined,item) {
- var data_phone = $('.modal-body').find('#phone p');
- var data_email = $('.modal-body').find('#email p');
- var data_city = $('.modal-body').find('#city p');
- var data_id = $('.modal-body').find('#id-num p');
  var data_username = $('.modal-body').find('#username p');
- var data_created = $('.modal-body').find('#created p');
  var data_quantity = $('.modal-body').find('#quantity p');
  var data_amount = $('.modal-body').find('#amount p');
+ var data_cstock=$('.modal-body').find('#current_stock p');
+ var data_issue=$('.modal-body').find('#issue p');
+ var data_cissue=$('.modal-body').find('#customer_issue p');
+ var data_csystem=$('.modal-body').find('#customer_system p');
+ var data_crevenue=$('.modal-body').find('#change_revenue p');
        $.ajax({
 			url    : item.url,
 			type   : "post",
@@ -61,14 +61,14 @@ function (undefined,item) {
 			},
 				dataType: "json",
 			success: function(data) {
-			data_phone.html(data.phone);
-			data_email.html(data.email);
-			data_city.html(data.city);
-			data_id.html(data.id);
-			data_created.html(data.created);
 			data_username.html(data.username);
 			data_quantity.html(data.quantity);
 			data_amount.html(data.amount);
+			data_cstock.html(data.current_stock);
+			data_issue.html(data.issue);
+			data_cissue.html(data.customer_issue);
+			data_csystem.html(data.customer_system);
+			data_crevenue.html(data.change_revenue);
 			}
 			
 		});
@@ -117,21 +117,26 @@ $groupsContent = TreeView::widget([
 				<div class="modal-body">
 					<div class="col-sm-6" id="username" style="color: #7a43b6; font-weight: bold">Têm đămg nhập:
 						<p style="display: inline-block; color: #3fbf79"></p></div>
-					<div class="col-sm-6" id="created" style="color: #7a43b6; font-weight: bold">Ngày tạo:
-						<p style="display: inline-block;color: #3fbf79""></p></div>
-					<div class="col-sm-6" id="phone" style="color: #7a43b6; font-weight: bold">Số điện thoại:
-						<p style="display: inline-block;color: #3fbf79""></p></div>
-					<div class="col-sm-6" id="id-num" style="color: #7a43b6; font-weight: bold">Số chứng minh thư:
-						<p style="display: inline-block;color: #3fbf79""></p></div>
-					<div class="col-sm-6" id="city" style="color: #7a43b6; font-weight: bold">Thành phố:
-						<p style="display: inline-block;color: #3fbf79""></p></div>
-					<div class="col-sm-6" id="email" style="color: #7a43b6; font-weight: bold">Email:
-						<p style="display: inline-block ;color: #3fbf79"></p></div>
-					<div class="col-sm-6" id="quantity" style="color: #7a43b6; font-weight: bold">Số sản phẩm đã nhập:
-						<p style="display: inline-block ;color: #3fbf79"></p></div>
-					<div class="col-sm-6" id="amount" style="color: #7a43b6; font-weight: bold">Tổng số tiền đã nhập hàng:
+					<div class="col-sm-6" id="current_stock" style="color: #7a43b6; font-weight: bold">Tổng số hàng đã nhập tháng này:
+						<p style="display: inline-block ;color: #3fbf79"></p>
+					</div>
+					<div class="col-sm-6" id="amount" style="color: #7a43b6; font-weight: bold">Tổng số tiền đã nhập hàng tháng này:
 						<p style="display: inline-block ;color: #3fbf79"></p> VNĐ
 					</div>
+					<div class="col-sm-6" id="issue" style="color: #7a43b6; font-weight: bold">Tổng tiền xuất hàng tháng này:
+						<p style="display: inline-block;color: #3fbf79"></p> VNĐ
+					</div>
+					<div class="col-sm-6" id="customer_issue" style="color: #7a43b6; font-weight: bold">Tổng tiền bán lẻ tháng này:
+						<p style="display: inline-block;color: #3fbf79""></p></div>
+					<div class="col-sm-6" id="customer_system" style="color: #7a43b6; font-weight: bold">Bán lẻ trong hệ thống tháng này:
+						<p style="display: inline-block;color: #3fbf79""></p> VNĐ
+					</div>
+					<div class="col-sm-6" id="change_revenue" style="color: #7a43b6; font-weight: bold">Thay đổi so với cùng kỳ tháng trước:
+						<p style="display: inline-block;color: #3fbf79""></p> %
+					</div>
+					<div class="col-sm-6" id="quantity" style="color: #7a43b6; font-weight: bold">Số sản phẩm còn trong kho:
+						<p style="display: inline-block ;color: #3fbf79"></p></div>
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
