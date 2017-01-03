@@ -49,6 +49,8 @@ class User extends BaseUser {
 		return 'user';
 	}
 
+	public $re_pass;
+
 	public function scenarios() {
 		$scenarios = parent::scenarios();
 		return ArrayHelper::merge($scenarios, [
@@ -73,6 +75,7 @@ class User extends BaseUser {
 				'address',
 				'id_number',
 				'birthday',
+				're_pass',
 			],
 			'admin_create' => [
 				'username',
@@ -86,6 +89,7 @@ class User extends BaseUser {
 				'address',
 				'id_number',
 				'birthday',
+				're_pass',
 			],
 			'update'       => [
 				'username',
@@ -118,7 +122,8 @@ class User extends BaseUser {
 					'username',
 					'phone',
 					'id_number',
-					'birthday'
+					'birthday',
+					're_pass'
 					//					'email',
 				],
 				'required',
@@ -135,6 +140,12 @@ class User extends BaseUser {
 				'required',
 				'on'      => 'create',
 				'message' => 'Không được để trống {attribute}',
+			],
+			[
+				're_pass',
+				'compare',
+				'compareAttribute' => 'password',
+				'message'          => 'Mật khẩu xác nhận không đúng',
 			],
 			[
 				[
@@ -223,6 +234,7 @@ class User extends BaseUser {
 			'id_number'         => 'Số cmt',
 			'address'           => 'Địa chỉ hiện tại',
 			'birthday'          => 'Sinh nhật',
+			're_pass'           => 'Xác nhận mật khẩu',
 		];
 	}
 

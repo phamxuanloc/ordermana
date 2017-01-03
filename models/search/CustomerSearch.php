@@ -2,6 +2,7 @@
 namespace app\models\search;
 
 use app\models\Customer;
+use phpDocumentor\Reflection\Types\Null_;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -10,6 +11,12 @@ use yii\data\ActiveDataProvider;
  * CustomerSearch represents the model behind the search form about `app\models\Customer`.
  */
 class CustomerSearch extends Customer {
+
+	public $start_date;
+
+	public $end_date;
+
+	public $is_phone_num;
 
 	/**
 	 * @inheritdoc
@@ -42,6 +49,9 @@ class CustomerSearch extends Customer {
 					'phone',
 					'city_id',
 					'created_date',
+					'start_date',
+					'end_date',
+					'is_phone_num',
 				],
 				'safe',
 			],
@@ -129,12 +139,27 @@ class CustomerSearch extends Customer {
 			'call_by',
 			$this->call_by,
 		]);
-		if($this->created_date != null) {
+		if($this->is_phone_num != null) {
+			if($this->is_phone_num == 0) {
+				$query->andWhere(['phone' => '']);
+			} else {
+				$query->andWhere([
+					'NOT',
+					['phone' => ''],
+				]);
+			}
+		}
+		if($this->start_date != null) {
+			if($this->end_date == null) {
+				$this->end_date = date('Y-m-d H:i:s');
+			} else {
+				$this->end_date = $this->end_date . ' 23:59:59';
+			}
 			$query->andFilterWhere([
 				'between',
 				'created_date',
-				$this->created_date . ' 00:00:00',
-				$this->created_date . ' 23:59:59',
+				$this->start_date . ' 00:00:00',
+				$this->end_date,
 			]);
 		}
 		return $dataProvider;
@@ -206,13 +231,28 @@ class CustomerSearch extends Customer {
 			'call_by',
 			$this->call_by,
 		]);
-		if($this->created_date != null) {
+		if($this->start_date != null) {
+			if($this->end_date == null) {
+				$this->end_date = date('Y-m-d H:i:s');
+			} else {
+				$this->end_date = $this->end_date . ' 23:59:59';
+			}
 			$query->andFilterWhere([
 				'between',
 				'created_date',
-				$this->created_date . ' 00:00:00',
-				$this->created_date . ' 23:59:59',
+				$this->start_date . ' 00:00:00',
+				$this->end_date,
 			]);
+		}
+		if($this->is_phone_num != null) {
+			if($this->is_phone_num == 0) {
+				$query->andWhere(['phone' => '']);
+			} else {
+				$query->andWhere([
+					'NOT',
+					['phone' => ''],
+				]);
+			}
 		}
 		if($attribute == 'quantity') {
 			return $query->count();

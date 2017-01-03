@@ -1,4 +1,5 @@
 <?php
+use app\models\User;
 use kartik\widgets\DatePicker;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -17,24 +18,45 @@ use yii\helpers\Html;
 		'layout' => 'inline',
 	]); ?>
 
-	<div class="col-sm-3">
+	<div class="col-sm-4">
 		<?= $form->field($model, 'name')->textInput(['placeholder' => 'Tên']) ?>
 	</div>
-	<div class="col-sm-3">
+	<div class="col-sm-4">
 
 		<?php echo $form->field($model, 'phone')->textInput(['placeholder' => 'Số điện thoại']) ?>
 	</div>
-	<div class="col-sm-3">
+	<div class="col-sm-4">
 		<?php echo $form->field($model, 'city_id')->dropDownList(ArrayHelper::map(\app\models\City::find()->all(), 'name', 'name'), ['prompt' => 'Thành phố']) ?>
 	</div>
-	<div class="col-sm-3">
-
-		<?php echo $form->field($model, 'created_date')->widget(DatePicker::className(), [
+	<div class="col-sm-4" style="margin-top: 15px">
+		<?php echo $form->field($model, 'start_date')->widget(DatePicker::className(), [
 			'pluginOptions' => [
 				'format' => 'yyyy-mm-dd',
 			],
-			'options'       => ['placeholder' => 'Ngày tạo',],
+			'options'       => ['placeholder' => 'Từ ngày',],
 		]) ?>
+	</div>
+	<div class="col-sm-4" style="margin-top: 15px">
+
+		<?php echo $form->field($model, 'end_date')->widget(DatePicker::className(), [
+			'pluginOptions' => [
+				'format' => 'yyyy-mm-dd',
+			],
+			'options'       => ['placeholder' => 'Đến ngày',],
+		]) ?>
+	</div>
+	<div class="col-sm-4" style="margin-top: 15px">
+		<?php echo $form->field($model, 'user_id')->dropDownList(ArrayHelper::merge([Yii::$app->user->id => Yii::$app->user->identity->username], ArrayHelper::map(User::find()->where([
+			'IN',
+			'id',
+			$model->getTotalChildren(Yii::$app->user->id),
+		])->all(), 'id', 'username')), ['prompt' => 'Người tạo']) ?>
+	</div>
+	<div class="col-sm-4" style="margin-top: 15px">
+		<?php echo $form->field($model, 'is_phone_num')->dropDownList([
+			'Không có sđt',
+			'Có sđt',
+		], ['prompt' => 'Trạng thái sđt']) ?>
 	</div>
 	<?php // echo $form->field($model, 'point') ?>
 
@@ -54,7 +76,7 @@ use yii\helpers\Html;
 
 	<?php // echo $form->field($model, 'call_at') ?>
 
-	<div class="col-sm-12" style="margin-top: 10px">
+	<div class="col-sm-4" style="margin-top: 10px">
 		<?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
 		<?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
 	</div>
