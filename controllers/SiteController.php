@@ -41,18 +41,17 @@ class SiteController extends Controller {
 					'logout' => ['post'],
 				],
 			],
-//			'role'   => [
-//				'class'   => RoleFilter::className(),
-//				'name'    => 'Trang chủ',
-//				//NOT REQUIRED, only if you want to translate
-//				'actions' => [
-//					//without translate
-//					'index'       => 'Trang chủ ',
-//					'report'      => 'Báo cáo ',
-//					'check-point' => 'Tra điểm'
-//					//with translated, which will display on role _form
-//				],
-//			],
+			'role'   => [
+				'class'   => RoleFilter::className(),
+				'name'    => 'Trang chủ',
+				//NOT REQUIRED, only if you want to translate
+				'actions' => [
+					//without translate
+					'index'       => 'Trang chủ ',
+					'report'      => 'Báo cáo ',
+					//with translated, which will display on role _form
+				],
+			],
 		];
 	}
 
@@ -110,25 +109,7 @@ class SiteController extends Controller {
 			'profit_month'     => $profit_month,
 		]);
 	}
-
-	public function actionCheckPoint() {
-		if(!Yii::$app->user->isGuest) {
-			return $this->goHome();
-		}
-		$model = new Customer();
-		if($model->load(Yii::$app->request->post())) {
-			$customer = $model->findOne(['phone' => $model->phone]);
-			if($customer != null) {
-				Yii::$app->session->setFlash('check', 'Số điểm hiện tại của quý khách là ' . $customer->point);
-			} else {
-				Yii::$app->session->setFlash('check', 'Số điện thoại không đúng, vui lòng nhập lại');
-			}
-			return $this->refresh();
-		}
-		return $this->render('check-point', [
-			'model' => $model,
-		]);
-	}
+	
 
 	/**
 	 * Login action.
