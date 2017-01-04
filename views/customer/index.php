@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?= $this->render('/_alert', [
 		'module' => Yii::$app->getModule('user'),
 	]) ?>
-	<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN) { ?>
+	<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN || Yii::$app->user->identity->role_id == Model::ROLE_CARE) { ?>
 		<?php $form = ActiveForm::begin([
 			'layout'  => 'horizontal',
 			'options' => [
