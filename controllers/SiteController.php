@@ -47,8 +47,9 @@ class SiteController extends Controller {
 				//NOT REQUIRED, only if you want to translate
 				'actions' => [
 					//without translate
-					'index'  => 'Trang chủ ',
-					'report' => 'Báo cáo ',
+					'index'       => 'Trang chủ ',
+					'report'      => 'Báo cáo ',
+					'check-point' => 'Tra điểm'
 					//with translated, which will display on role _form
 				],
 			],
