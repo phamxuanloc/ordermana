@@ -1,6 +1,7 @@
 <?php
 use app\models\User;
 use kartik\widgets\DatePicker;
+use kartik\widgets\Select2;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -46,11 +47,15 @@ use yii\helpers\Html;
 		]) ?>
 	</div>
 	<div class="col-sm-4" style="margin-top: 15px">
-		<?php echo $form->field($model, 'user_id')->dropDownList(ArrayHelper::merge([Yii::$app->user->id => Yii::$app->user->identity->username], ArrayHelper::map(User::find()->where([
-			'IN',
-			'id',
-			$model->getTotalChildren(Yii::$app->user->id),
-		])->all(), 'id', 'username')), ['prompt' => 'Người tạo']) ?>
+		<?php echo $form->field($model, 'user_id')->widget(Select2::className(), [
+			'data' => ArrayHelper::merge([Yii::$app->user->id => Yii::$app->user->identity->username], ArrayHelper::map(User::find()->where([
+				'IN',
+				'id',
+				$model->getTotalChildren(Yii::$app->user->id),
+			])->all(), 'id', 'username')),
+			'options' => ['placeholder' => 'Người tạo khách hàng']
+			//			,
+		]) ?>
 	</div>
 	<div class="col-sm-4" style="margin-top: 15px">
 		<?php echo $form->field($model, 'is_phone_num')->dropDownList([
