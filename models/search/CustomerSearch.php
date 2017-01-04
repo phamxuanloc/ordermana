@@ -52,6 +52,7 @@ class CustomerSearch extends Customer {
 					'start_date',
 					'end_date',
 					'is_phone_num',
+					'source',
 				],
 				'safe',
 			],
@@ -120,8 +121,8 @@ class CustomerSearch extends Customer {
 			$this->city_id,
 		])->andFilterWhere([
 			'like',
-			'link_fb',
-			$this->link_fb,
+			'source',
+			$this->source,
 		])->andFilterWhere([
 			'like',
 			'sale',
@@ -216,8 +217,8 @@ class CustomerSearch extends Customer {
 			$this->link_fb,
 		])->andFilterWhere([
 			'like',
-			'sale',
-			$this->sale,
+			'source',
+			$this->source,
 		])->andFilterWhere([
 			'like',
 			'note',

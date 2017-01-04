@@ -58,6 +58,9 @@ use yii\helpers\Html;
 			'Có sđt',
 		], ['prompt' => 'Trạng thái sđt']) ?>
 	</div>
+	<div class="col-sm-4" style="margin-top: 15px">
+		<?php echo $form->field($model, 'source')->textInput(['placeholder' => 'Nguồn khách']) ?>
+	</div>
 	<?php // echo $form->field($model, 'point') ?>
 
 	<?php // echo $form->field($model, 'parent_id') ?>
