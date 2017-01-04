@@ -41,18 +41,18 @@ class SiteController extends Controller {
 					'logout' => ['post'],
 				],
 			],
-			'role'   => [
-				'class'   => RoleFilter::className(),
-				'name'    => 'Trang chủ',
-				//NOT REQUIRED, only if you want to translate
-				'actions' => [
-					//without translate
-					'index'       => 'Trang chủ ',
-					'report'      => 'Báo cáo ',
-					'check-point' => 'Tra điểm'
-					//with translated, which will display on role _form
-				],
-			],
+//			'role'   => [
+//				'class'   => RoleFilter::className(),
+//				'name'    => 'Trang chủ',
+//				//NOT REQUIRED, only if you want to translate
+//				'actions' => [
+//					//without translate
+//					'index'       => 'Trang chủ ',
+//					'report'      => 'Báo cáo ',
+//					'check-point' => 'Tra điểm'
+//					//with translated, which will display on role _form
+//				],
+//			],
 		];
 	}
 
