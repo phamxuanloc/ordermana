@@ -302,11 +302,7 @@ class Model extends ActiveRecord {
 	 *Trả về tất cả user có role khác cskh
 	 */
 	public function getTotalUser() {
-		$total_user = User::find()->where([
-			'!=',
-			'role_id',
-			$this::ROLE_CARE,
-		])->all();
+		$total_user = User::find()->all();
 		return ArrayHelper::map($total_user, 'id', 'username');
 	}
 
