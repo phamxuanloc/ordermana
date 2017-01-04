@@ -145,6 +145,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
 			'call_by',
 			'call_at',
+			'update_user',
 			[
 				'class'          => 'yii\grid\ActionColumn',
 				'header'         => 'Hành động',

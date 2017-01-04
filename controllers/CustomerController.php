@@ -118,12 +118,15 @@ class CustomerController extends Controller {
 			// read or convert your posted information
 			if(isset($_POST['Customer'][$_POST['editableIndex']]['name'])) {
 				$model->updateAttributes(['name' => $_POST['Customer'][$_POST['editableIndex']]['name']]);
+				$model->updateAttributes(['update_user' => $model->user->username]);
 			}
 			if(isset($_POST['Customer'][$_POST['editableIndex']]['city_id'])) {
 				$model->updateAttributes(['city_id' => $_POST['Customer'][$_POST['editableIndex']]['city_id']]);
+				$model->updateAttributes(['update_user' => $model->user->username]);
 			}
 			if(isset($_POST['Customer'][$_POST['editableIndex']]['phone'])) {
 				$model->updateAttributes(['phone' => $_POST['Customer'][$_POST['editableIndex']]['phone']]);
+				$model->updateAttributes(['update_user' => $model->user->username]);
 			}
 			// return JSON encoded output in the below format
 			// alternatively you can return a validation error
@@ -191,10 +194,12 @@ class CustomerController extends Controller {
 			} elseif($customer->is_move == 1) {
 				$customer->updateAttributes(['last_parent_id' => $customer->parent_id]);
 				$customer->updateAttributes(['parent_id' => $model->parent_id]);
+				$customer->updateAttributes(['update_user' => $model->user->username]);
 				return $this->redirect(['index']);
 			} else {
 				$customer->updateAttributes(['parent_id' => $model->parent_id]);
 				$customer->updateAttributes(['is_move' => 1]);
+				$customer->updateAttributes(['update_user' => $model->user->username]);
 				return $this->redirect(['index']);
 			}
 		}
@@ -221,6 +226,7 @@ class CustomerController extends Controller {
 				}
 			}
 			if($model->save()) {
+				$model->updateAttributes(['update_user' => $model->user->username]);
 				return $this->redirect([
 					'index',
 				]);

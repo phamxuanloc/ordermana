@@ -26,6 +26,7 @@ use yii\helpers\ArrayHelper;
  * @property string          $call_by
  * @property string          $call_at
  * @property string          $source
+ * @property string          $update_user
  * @property string          $id_number
  * @property string          $product
  *
@@ -75,14 +76,14 @@ class Customer extends \app\components\Model {
 	 */
 	public function rules() {
 		return [
-						[
-							[
-								'name',
-//								'phone',
-							],
-							'required',
-							'message' => '{attribute} không được để trống',
-						],
+			[
+				[
+					'name',
+					//								'phone',
+				],
+				'required',
+				'message' => '{attribute} không được để trống',
+			],
 			[
 				[
 					'user_id',
@@ -99,6 +100,7 @@ class Customer extends \app\components\Model {
 				[
 					'note',
 					'product',
+					'update_user',
 				],
 				'string',
 			],
@@ -108,6 +110,7 @@ class Customer extends \app\components\Model {
 					'created_date',
 					'birthday',
 					'name',
+					'update_user',
 				],
 				'safe',
 			],
@@ -184,6 +187,7 @@ class Customer extends \app\components\Model {
 			'created_date'   => 'Ngày tạo',
 			'birthday'       => 'Ngày sinh',
 			'count'          => 'Số sản phẩm đã mua',
+			'update_user'    => 'Người cập nhật cuối',
 		];
 	}
 
