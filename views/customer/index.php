@@ -1,4 +1,5 @@
 <?php
+use app\components\Model;
 use app\controllers\CustomerController;
 use app\controllers\CustomerItemController;
 use app\models\Customer;
@@ -25,28 +26,30 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?= $this->render('/_alert', [
 		'module' => Yii::$app->getModule('user'),
 	]) ?>
-	<?php $form = ActiveForm::begin([
-		'layout'  => 'horizontal',
-		'options' => [
-			'enctype' => 'multipart/form-data',
-		],
-	]); ?>
-	<?= $form->field($file, 'excel', [
-	])->widget(FileInput::className(), [
-		'pluginOptions' => [
-			'allowedFileExtensions' => [
-				'xlsx',
+	<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN) { ?>
+		<?php $form = ActiveForm::begin([
+			'layout'  => 'horizontal',
+			'options' => [
+				'enctype' => 'multipart/form-data',
 			],
-			'showUpload'            => false,
-		],
-	]) ?>
-	<!--	<button style="float: right;clear: right">--><?php //echo  ?><!--</button>-->
-	<?= Html::submitButton('Import Excel', [
-		'class'    => 'btn green uppercase col-sm-offset-3',
-		'tabindex' => '3',
-		//		'style'    => 'float: right;clear: right',
-	]) ?>
-	<?php ActiveForm::end(); ?>
+		]); ?>
+		<?= $form->field($file, 'excel', [
+		])->widget(FileInput::className(), [
+			'pluginOptions' => [
+				'allowedFileExtensions' => [
+					'xlsx',
+				],
+				'showUpload'            => false,
+			],
+		]) ?>
+		<!--	<button style="float: right;clear: right">--><?php //echo  ?><!--</button>-->
+		<?= Html::submitButton('Import Excel', [
+			'class'    => 'btn green uppercase col-sm-offset-3',
+			'tabindex' => '3',
+			//		'style'    => 'float: right;clear: right',
+		]) ?>
+		<?php ActiveForm::end(); ?>
+	<?php } ?>
 	<div class="clearfix"></div>
 	<div class="panel panel-danger" style="margin-top: 20px">
 		<div class="panel-heading">Tìm kiếm</div>
@@ -65,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
 		//		'export'       => false,
-				'pjax'         => true,
+		'pjax'         => true,
 		'columns'      => [
 			[
 				'class' => 'kartik\grid\SerialColumn',
@@ -96,7 +99,6 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute'       => 'phone',
 				'editableOptions' => [
 					'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-
 				],
 			],
 			'id_number',
@@ -108,7 +110,6 @@ $this->params['breadcrumbs'][] = $this->title;
 					'data'      => ArrayHelper::map(\app\models\City::find()->andWhere([
 						'status' => 1,
 					])->all(), 'name', 'name'),
-
 				],
 			],
 			[
