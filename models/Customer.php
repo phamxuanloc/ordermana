@@ -32,7 +32,7 @@ use yii\helpers\ArrayHelper;
  * @property User            $parent
  * @property User            $lastParent
  * @property City            $city
- * @property User            $user
+ * @property User            $users
  * @property OrderCustomer[] $orderCustomers
  * @property CustomerItem[]  $items
  */
@@ -204,7 +204,7 @@ class Customer extends \app\components\Model {
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
-	public function getUser() {
+	public function getUsers() {
 		return $this->hasOne(User::className(), ['id' => 'user_id']);
 	}
 

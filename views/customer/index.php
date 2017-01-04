@@ -114,7 +114,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'attribute' => 'user_id',
 				'value'     => function (Customer $data) {
-					return $data->user->username;
+					return $data->users->username;
 				},
 			],
 			// 'point',
