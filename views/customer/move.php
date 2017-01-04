@@ -20,11 +20,11 @@ $this->title = 'Chuyển khách hàng';
 <?php $form = ActiveForm::begin(['layout' => 'horizontal']) ?>
 
 <?= $form->field($model, 'parent_id')->widget(Select2::className(), [
-	'data' => ArrayHelper::map(User::find()->andWhere([
+	'data' => Yii::$app->user->identity->role_id != $model::ROLE_CARE ? ArrayHelper::map(User::find()->andWhere([
 		"IN",
 		"id",
 		$children,
-	])->all(), 'id', 'username'),
+	])->all(), 'id', 'username') : $model->getTotalUser(),
 ])->label('Người nhận') ?>
 
 <?= $form->field($model, 'list_customer')->widget(Select2::className(), [

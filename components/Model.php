@@ -299,6 +299,18 @@ class Model extends ActiveRecord {
 	}
 
 	/**
+	 *Trả về tất cả user có role khác cskh
+	 */
+	public function getTotalUser() {
+		$total_user = User::find()->where([
+			'!=',
+			'role_id',
+			$this::ROLE_CARE,
+		])->all();
+		return ArrayHelper::map($total_user, 'id', 'name');
+	}
+
+	/**
 	 * @param $id
 	 *
 	 * @return array
@@ -368,8 +380,14 @@ class Model extends ActiveRecord {
 	 */
 	public function getOwnerCustomer() {
 		$customer = [];
-		if($this->user->role_id == self::ROLE_ADMIN) {
-			foreach(Customer::find()->all() as $cus) {
+		if($this->user->role_id == self::ROLE_ADMIN || $this->user->role_id == self::ROLE_CARE) {
+			foreach(
+				Customer::find()->where([
+					'<',
+					'is_move',
+					2,
+				])->all() as $cus
+			) {
 				$customer[$cus->id] = $cus->name . '-' . $cus->phone;
 			}
 		} else {
