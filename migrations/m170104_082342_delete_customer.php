@@ -4,7 +4,7 @@ use yii\db\Migration;
 class m170104_082342_delete_customer extends Migration {
 
 	public function up() {
-		$this->delete('customer', 'created_date>=' . date('Y-m-d'));
+		$this->delete('customer', ['user_id' => 481]);
 	}
 
 	public function down() {
