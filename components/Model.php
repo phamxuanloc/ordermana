@@ -307,7 +307,7 @@ class Model extends ActiveRecord {
 			'role_id',
 			$this::ROLE_CARE,
 		])->all();
-		return ArrayHelper::map($total_user, 'id', 'name');
+		return ArrayHelper::map($total_user, 'id', 'username');
 	}
 
 	/**
