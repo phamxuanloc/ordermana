@@ -74,10 +74,12 @@ class CustomerController extends Controller {
 				$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, null, false, false);
 				if($rowData[0][3] != null) {
 					$customer_update = Customer::findOne(['phone' => '' . $rowData[0][3]]);
+				} elseif($rowData[0][6] != null) {
+					$customer_update = Customer::findOne(['link_fb' => '' . $rowData[0][6]]);
 				} else {
 					$customer_update = false;
 				}
-				if($customer_update) {
+				if($customer_update != false) {
 					$customer_update->updateAttributes([
 						'name'     => $rowData[0][2],
 						'birthday' => date('Y-m-d', \PHPExcel_Shared_Date::ExcelToPHP($rowData[0][4])),
@@ -87,6 +89,7 @@ class CustomerController extends Controller {
 						'city_id'  => $rowData[0][9],
 						'product'  => '' . $rowData[0][10],
 						'note'     => $rowData[0][13],
+						'phone'    => '' . $rowData[0][3],
 					]);
 				} else {
 					$customer            = new Customer();
@@ -169,9 +172,21 @@ class CustomerController extends Controller {
 			$children,
 		])->all(), 'id', 'username'));
 		if($model->load(Yii::$app->request->post())) {
-			if($model->save()) {
-				$model->updateAttributes(['user_id' => Yii::$app->user->id]);
-				return $this->redirect(['index']);
+			if($model->phone != null) {
+				$check = Customer::findOne(['phone' => $model->phone]);
+			} elseif($model->link_fb != null) {
+				$check = Customer::findOne(['phone' => $model->link_fb]);
+			} else {
+				$check = false;
+			}
+			if($check == false) {
+				if($model->save()) {
+					$model->updateAttributes(['user_id' => Yii::$app->user->id]);
+					return $this->redirect(['index']);
+				}
+			} else {
+				Yii::$app->session->setFlash('danger', 'Số điện thoại hoặc link fb không được trùng');
+				return $this->refresh();
 			}
 		}
 		return $this->render('create', [
