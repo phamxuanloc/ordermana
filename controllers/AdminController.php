@@ -362,29 +362,13 @@ class AdminController extends BaseAdminController {
 
 	public function actionTree() {
 		$model    = new  Model();
-		$children = $model->getTotalChildren(Yii::$app->user->id);
+//		$children = $model->getTotalChildren(Yii::$app->user->id);
 		if(Yii::$app->user->identity->role_id != $model::ROLE_ADMIN) {
 			$adm_num = 0;
-			$pre_num = User::find()->where([
-				'IN',
-				'id',
-				$children,
-			])->andWhere(['role_id' => $model::ROLE_PRE])->count();
-			$big_num = User::find()->where([
-				'IN',
-				'id',
-				$children,
-			])->andWhere(['role_id' => $model::ROLE_BIGA])->count();
-			$age_num = User::find()->where([
-				'IN',
-				'id',
-				$children,
-			])->andWhere(['role_id' => $model::ROLE_A])->count();
-			$dis_num = User::find()->where([
-				'IN',
-				'id',
-				$children,
-			])->andWhere(['role_id' => $model::ROLE_D])->count();
+			$pre_num = count($model->getTotalChildren(Yii::$app->user->id,$model::ROLE_PRE));
+			$big_num = count($model->getTotalChildren(Yii::$app->user->id,$model::ROLE_BIGA));
+			$age_num = count($model->getTotalChildren(Yii::$app->user->id,$model::ROLE_A));
+			$dis_num = count($model->getTotalChildren(Yii::$app->user->id,$model::ROLE_D));
 		} else {
 			$adm_num = User::find()->where(['role_id' => $model::ROLE_ADMIN])->count();
 			$pre_num = User::find()->where(['role_id' => $model::ROLE_PRE])->count();

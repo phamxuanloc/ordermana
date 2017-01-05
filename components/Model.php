@@ -287,8 +287,12 @@ class Model extends ActiveRecord {
 	 *
 	 * @return array
 	 */
-	public function getTotalChildren($parent_id, $array_children = []) {
-		$tree = $this->getTotal($parent_id);
+	public function getTotalChildren($parent_id, $array_children = [], $role = null) {
+		if($role != null) {
+			$tree = $this->getTotal($parent_id, $role);
+		} else {
+			$tree = $this->getTotal($parent_id);
+		}
 		if(count($tree) > 0 && is_array($tree)) {
 			$array_children = ArrayHelper::merge($array_children, $tree);
 		}
@@ -299,28 +303,35 @@ class Model extends ActiveRecord {
 	}
 
 	/**
+	 * @param $id
+	 *
+	 * @return array
+	 */
+	public function getTotal($id, $role = null) {
+		/**@var self[] $lv1s */
+		$array_children = [];
+		if($role != null) {
+			$lv1s = User::find()->where([
+				'parent_id' => $id,
+				'role_id'   => $role,
+			])->all();
+		} else {
+			$lv1s = User::find()->where([
+				'parent_id' => $id,
+			])->all();
+		}
+		foreach($lv1s as $lv1) {
+			$array_children[] = $lv1->id;
+		}
+		return $array_children;
+	}
+
+	/**
 	 *Trả về tất cả user có role khác cskh
 	 */
 	public function getTotalUser() {
 		$total_user = User::find()->all();
 		return ArrayHelper::map($total_user, 'id', 'username');
-	}
-
-	/**
-	 * @param $id
-	 *
-	 * @return array
-	 */
-	public function getTotal($id) {
-		/**@var self[] $lv1s */
-		$array_children = [];
-		$lv1s           = User::find()->where([
-			'parent_id' => $id,
-		])->all();
-		foreach($lv1s as $lv1) {
-			$array_children[] = $lv1->id;
-		}
-		return $array_children;
 	}
 
 	public function getColor($role) {
