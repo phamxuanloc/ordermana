@@ -365,10 +365,10 @@ class AdminController extends BaseAdminController {
 //		$children = $model->getTotalChildren(Yii::$app->user->id);
 		if(Yii::$app->user->identity->role_id != $model::ROLE_ADMIN) {
 			$adm_num = 0;
-			$pre_num = count($model->getTotalChildren(Yii::$app->user->id,$model::ROLE_PRE));
-			$big_num = count($model->getTotalChildren(Yii::$app->user->id,$model::ROLE_BIGA));
-			$age_num = count($model->getTotalChildren(Yii::$app->user->id,$model::ROLE_A));
-			$dis_num = count($model->getTotalChildren(Yii::$app->user->id,$model::ROLE_D));
+			$pre_num = count($model->getTotalChildren(Yii::$app->user->id,[],$model::ROLE_PRE));
+			$big_num = count($model->getTotalChildren(Yii::$app->user->id,[],$model::ROLE_BIGA));
+			$age_num = count($model->getTotalChildren(Yii::$app->user->id,[],$model::ROLE_A));
+			$dis_num = count($model->getTotalChildren(Yii::$app->user->id,[],$model::ROLE_D));
 		} else {
 			$adm_num = User::find()->where(['role_id' => $model::ROLE_ADMIN])->count();
 			$pre_num = User::find()->where(['role_id' => $model::ROLE_PRE])->count();
