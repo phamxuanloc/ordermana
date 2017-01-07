@@ -468,6 +468,9 @@ class Model extends ActiveRecord
                 (int)$array_pre['total'],
             ];
         }
+        if (count($pre) == 0) {
+            $pre[] = ['Không có dữ liệu', 1];
+        }
         $pre = ArrayHelper::merge([
             [
                 'Doanh số bán ra',
@@ -487,6 +490,9 @@ class Model extends ActiveRecord
                 $top_product['name'],
                 (int)$top_product['total'],
             ];
+        }
+        if (count($top) == 0) {
+            $top[] = ['Không có dữ liệu', 1];
         }
         $top = ArrayHelper::merge([
             [
