@@ -25,6 +25,7 @@ use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\web\NotFoundHttpException;
 
 class AdminController extends BaseAdminController {
 
@@ -42,16 +43,16 @@ class AdminController extends BaseAdminController {
 				//NOT REQUIRED, only if you want to translate
 				'actions' => [
 					//without translate
-					'index'        => 'Danh sách ',
-					'update'       => 'Cập nhật ',
-					'create'       => 'Thêm mới người dùng',
-					'create-admin' => 'Tạo admin',
-					'create-pre'   => 'Tạo đại diện',
-					'create-big'   => 'Tạo đại lý bán buôn',
-					'create-age'   => 'Tạo đại lý bán lẻ',
-					'create-dis'   => 'Tạo điểm phân phối',
-					'create-care'  => 'Tạo tài khoản cs khách hàng',
-					'care'         => 'Ds tài khoản cs khách hàng',
+					'index'         => 'Danh sách ',
+					'update'        => 'Cập nhật ',
+					'create'        => 'Thêm mới người dùng',
+					'create-admin'  => 'Tạo admin',
+					'create-pre'    => 'Tạo đại diện',
+					'create-big'    => 'Tạo đại lý bán buôn',
+					'create-age'    => 'Tạo đại lý bán lẻ',
+					'create-dis'    => 'Tạo điểm phân phối',
+					'create-care'   => 'Tạo tài khoản cs khách hàng',
+					'care'          => 'Ds tài khoản cs khách hàng',
 					'tree'          => 'Xem cây hệ thống',
 					'delete'        => 'Xóa người dùng',
 					'block'         => 'Khóa người dùng',
@@ -107,7 +108,18 @@ class AdminController extends BaseAdminController {
 		$event = $this->getUserEvent($user);
 		$this->performAjaxValidation($user);
 		$this->trigger(self::EVENT_BEFORE_UPDATE, $event);
+		$oldImage = $user->avatar;
 		if($user->load(\Yii::$app->request->post()) && $user->save()) {
+			$img = $user->uploadPicture('avatar', 'image');
+			if($img == false) {
+				$model->avatar = $oldImage;
+			}
+			if($user->save()) {
+				if($img !== false) {
+					$path = $user->getPictureFile('avatar');
+					$img->saveAs($path);
+				}
+			}
 			\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'Account details have been updated'));
 			$this->trigger(self::EVENT_AFTER_UPDATE, $event);
 			return $this->redirect(['index']);
@@ -151,6 +163,13 @@ class AdminController extends BaseAdminController {
 			$user->role_id      = Model::ROLE_ADMIN;
 			$user->confirmed_at = 1456114858;
 			if($user->create()) {
+				$img = $user->uploadPicture('avatar', 'image');
+				if($user->save()) {
+					if($img !== false) {
+						$path = $user->getPictureFile('avatar');
+						$img->saveAs($path);
+					}
+				}
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
 				$this->trigger(self::EVENT_AFTER_CREATE, $event);
 				if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
@@ -187,6 +206,13 @@ class AdminController extends BaseAdminController {
 			$user->role_id      = $role;
 			$user->confirmed_at = 1456114858;
 			if($user->create()) {
+				$img = $user->uploadPicture('avatar', 'image');
+				if($user->save()) {
+					if($img !== false) {
+						$path = $user->getPictureFile('avatar');
+						$img->saveAs($path);
+					}
+				}
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
 				$this->trigger(self::EVENT_AFTER_CREATE, $event);
 				if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
@@ -222,6 +248,13 @@ class AdminController extends BaseAdminController {
 		if($user->load(\Yii::$app->request->post())) {
 			$user->role_id      = $role;
 			$user->confirmed_at = 1456114858;
+			$img                = $user->uploadPicture('avatar', 'image');
+			if($user->save()) {
+				if($img !== false) {
+					$path = $user->getPictureFile('avatar');
+					$img->saveAs($path);
+				}
+			}
 			if($user->create()) {
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
 				$this->trigger(self::EVENT_AFTER_CREATE, $event);
@@ -259,6 +292,13 @@ class AdminController extends BaseAdminController {
 			$user->role_id      = $role;
 			$user->confirmed_at = 1456114858;
 			if($user->create()) {
+				$img = $user->uploadPicture('avatar', 'image');
+				if($user->save()) {
+					if($img !== false) {
+						$path = $user->getPictureFile('avatar');
+						$img->saveAs($path);
+					}
+				}
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
 				$this->trigger(self::EVENT_AFTER_CREATE, $event);
 				if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
@@ -295,6 +335,13 @@ class AdminController extends BaseAdminController {
 			$user->role_id      = $role;
 			$user->confirmed_at = 1456114858;
 			if($user->create()) {
+				$img = $user->uploadPicture('avatar', 'image');
+				if($user->save()) {
+					if($img !== false) {
+						$path = $user->getPictureFile('avatar');
+						$img->saveAs($path);
+					}
+				}
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
 				$this->trigger(self::EVENT_AFTER_CREATE, $event);
 				if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
@@ -331,6 +378,13 @@ class AdminController extends BaseAdminController {
 			$user->role_id      = $role;
 			$user->confirmed_at = 1456114858;
 			if($user->create()) {
+				$img = $user->uploadPicture('avatar', 'image');
+				if($user->save()) {
+					if($img !== false) {
+						$path = $user->getPictureFile('avatar');
+						$img->saveAs($path);
+					}
+				}
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
 				$this->trigger(self::EVENT_AFTER_CREATE, $event);
 				if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
@@ -361,14 +415,14 @@ class AdminController extends BaseAdminController {
 	}
 
 	public function actionTree() {
-		$model    = new  Model();
-//		$children = $model->getTotalChildren(Yii::$app->user->id);
+		$model = new  Model();
+		//		$children = $model->getTotalChildren(Yii::$app->user->id);
 		if(Yii::$app->user->identity->role_id != $model::ROLE_ADMIN) {
 			$adm_num = 0;
-			$pre_num = count($model->getTotalChildren(Yii::$app->user->id,[],$model::ROLE_PRE));
-			$big_num = count($model->getTotalChildren(Yii::$app->user->id,[],$model::ROLE_BIGA));
-			$age_num = count($model->getTotalChildren(Yii::$app->user->id,[],$model::ROLE_A));
-			$dis_num = count($model->getTotalChildren(Yii::$app->user->id,[],$model::ROLE_D));
+			$pre_num = count($model->getTotalChildren(Yii::$app->user->id, [], $model::ROLE_PRE));
+			$big_num = count($model->getTotalChildren(Yii::$app->user->id, [], $model::ROLE_BIGA));
+			$age_num = count($model->getTotalChildren(Yii::$app->user->id, [], $model::ROLE_A));
+			$dis_num = count($model->getTotalChildren(Yii::$app->user->id, [], $model::ROLE_D));
 		} else {
 			$adm_num = User::find()->where(['role_id' => $model::ROLE_ADMIN])->count();
 			$pre_num = User::find()->where(['role_id' => $model::ROLE_PRE])->count();
@@ -477,5 +531,13 @@ class AdminController extends BaseAdminController {
 			}
 		}
 		return $this->render('change-parent', ['model' => $model]);
+	}
+
+	protected function findModel($id) {
+		if(($model = User::findOne($id)) !== null) {
+			return $model;
+		} else {
+			throw new NotFoundHttpException('The requested page does not exist.');
+		}
 	}
 }

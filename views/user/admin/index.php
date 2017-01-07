@@ -35,6 +35,16 @@ $this->params['breadcrumbs'][] = $this->title;
 			'class'  => 'yii\grid\SerialColumn',
 			'header' => 'STT',
 		],
+		[
+			'attribute' => 'avatar',
+			'filter'    => false,
+			'format'    => 'html',
+			'value'     => function (\app\models\User $data) {
+				return Html::img($data->getPictureUrl('avatar'), ['width'  => '100px',
+				                                                  'height' => '70px',
+				]);
+			},
+		],
 		'username',
 		'email:email',
 		[

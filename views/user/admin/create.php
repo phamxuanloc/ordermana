@@ -14,8 +14,8 @@ use yii\bootstrap\Nav;
 use yii\helpers\Html;
 
 /**
- * @var yii\web\View                $this
- * @var dektrium\user\models\User   $user
+ * @var yii\web\View $this
+ * @var dektrium\user\models\User $user
  */
 
 $this->title = Yii::t('user', 'Create a user account');
@@ -54,8 +54,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <?php $form = ActiveForm::begin([
                     'layout' => 'horizontal',
-                    'enableAjaxValidation'   => true,
+                    'enableAjaxValidation' => true,
                     'enableClientValidation' => false,
+                    'options' => [
+                        'enctype' => 'multipart/form-data',
+                    ],
                     'fieldConfig' => [
                         'horizontalCssClasses' => [
                             'wrapper' => 'col-sm-9',
@@ -63,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]); ?>
 
-                <?= $this->render('_user', ['form' => $form, 'user' => $user,'role'=>$role]) ?>
+                <?= $this->render('_user', ['form' => $form, 'user' => $user, 'role' => $role]) ?>
 
                 <div class="form-group">
                     <div class="col-lg-offset-3 col-lg-9">

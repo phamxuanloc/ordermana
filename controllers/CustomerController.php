@@ -181,6 +181,13 @@ class CustomerController extends Controller {
 			}
 			if($check == false) {
 				if($model->save()) {
+					$img = $model->uploadPicture('avatar', 'image');
+					if($model->save()) {
+						if($img !== false) {
+							$path = $model->getPictureFile('avatar');
+							$img->saveAs($path);
+						}
+					}
 					$model->updateAttributes(['user_id' => Yii::$app->user->id]);
 					return $this->redirect(['index']);
 				}
@@ -233,7 +240,8 @@ class CustomerController extends Controller {
 	 * @return mixed
 	 */
 	public function actionUpdate($id) {
-		$model = $this->findModel($id);
+		$model    = $this->findModel($id);
+		$oldImage = $model->avatar;
 		if($model->load(Yii::$app->request->post())) {
 			if($model->getOldAttribute('is_call') == 0 && $model->is_call == 1) {
 				if($this->user->role_id == $model::ROLE_CARE) {
@@ -241,6 +249,16 @@ class CustomerController extends Controller {
 				}
 			}
 			if($model->save()) {
+				$img = $model->uploadPicture('avatar', 'image');
+				if($img == false) {
+					$model->avatar = $oldImage;
+				}
+				if($model->save()) {
+					if($img !== false) {
+						$path = $model->getPictureFile('avatar');
+						$img->saveAs($path);
+					}
+				}
 				$model->updateAttributes(['update_user' => $model->user->username]);
 				return $this->redirect([
 					'index',

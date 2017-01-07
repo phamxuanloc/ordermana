@@ -6,6 +6,7 @@ use navatech\role\models\Role;
 use navatech\role\models\User as BaseUser;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "user".
@@ -42,6 +43,8 @@ use yii\helpers\ArrayHelper;
  */
 class User extends BaseUser {
 
+	public $image;
+
 	/**
 	 * @inheritdoc
 	 */
@@ -76,6 +79,8 @@ class User extends BaseUser {
 				'id_number',
 				'birthday',
 				're_pass',
+				'image',
+				'avatar',
 			],
 			'admin_create' => [
 				'username',
@@ -90,6 +95,8 @@ class User extends BaseUser {
 				'id_number',
 				'birthday',
 				're_pass',
+				'image',
+				'avatar',
 			],
 			'update'       => [
 				'username',
@@ -103,6 +110,8 @@ class User extends BaseUser {
 				'address',
 				'id_number',
 				'birthday',
+				'image',
+				'avatar',
 			],
 			'settings'     => [
 				'username',
@@ -161,6 +170,11 @@ class User extends BaseUser {
 				'integer',
 			],
 			[
+				['image'],
+				'file',
+				'extensions' => 'jpg, gif, png',
+			],
+			[
 				[
 					'username',
 					'email',
@@ -168,6 +182,8 @@ class User extends BaseUser {
 					'phone',
 					'facebook_link',
 					'id_number',
+					'image',
+					'avatar',
 				],
 				'string',
 				'max' => 255,
@@ -235,6 +251,8 @@ class User extends BaseUser {
 			'address'           => 'Địa chỉ hiện tại',
 			'birthday'          => 'Sinh nhật',
 			're_pass'           => 'Xác nhận mật khẩu',
+			'image'             => 'Ảnh đại diện',
+			'avatar'            => 'Ảnh đại diện',
 		];
 	}
 
@@ -316,10 +334,46 @@ class User extends BaseUser {
 	//	}
 	//
 	//	public function getUserByLv() {
-	//	
+	//
 	//	}
 	public static function getUsername($user_id) {
 		$user = User::findOne(['id' => $user_id]);
 		return $user->username;
+	}
+
+	public function uploadPicture($picture = '', $attribute) {
+		// get the uploaded file instance. for multiple file uploads
+		// the following data will return an array (you may need to use
+		// getInstances method)
+		$img = UploadedFile::getInstance($this, $attribute);
+		// if no image was uploaded abort the upload
+		if(empty($img)) {
+			return false;
+		}
+		// generate a unique file name
+		$dir = Yii::getAlias('@app/web') . '/uploads/' . $this->tableName() . '/';
+		if(!is_dir($dir)) {
+			@mkdir($dir, 0777, true);
+		}
+		$ext            = $img->getExtension();
+		$this->$picture = $this->getPrimaryKey() . '_' . "$picture" . ".{$ext}";
+		// the uploaded image instance
+		return $img;
+	}
+
+	public function getPictureUrl($picture = '') {
+		Yii::$app->params['uploadUrl'] = Yii::$app->urlManager->baseUrl . '/uploads/' . $this->tableName() . '/';
+		$image                         = !empty($this->$picture) ? $this->$picture : Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif';
+		clearstatcache();
+		if(is_file(Yii::getAlias("@app/web") . '/uploads/' . $this->tableName() . '/' . $image)) {
+			return Yii::$app->params['uploadUrl'] . $image;
+		} else {
+			return $image;
+		}
+	}
+
+	public function getPictureFile($picture = '') {
+		$dir = Yii::getAlias('@app/web') . '/uploads/' . $this->tableName() . '/';
+		return isset($this->$picture) ? $dir . $this->$picture : null;
 	}
 }

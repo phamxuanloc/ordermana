@@ -74,6 +74,17 @@ $this->params['breadcrumbs'][] = $this->title;
 				'class' => 'kartik\grid\SerialColumn',
 				//             'header' => 'STT',
 			],
+			[
+				'attribute' => 'avatar',
+				'filter'    => false,
+				'format'    => 'html',
+				'value'     => function (\app\models\Customer $data) {
+					return Html::img($data->getPictureUrl('avatar'), [
+						'width'  => '100px',
+						'height' => '70px',
+					]);
+				},
+			],
 			'created_date',
 			[
 				'class'           => 'kartik\grid\EditableColumn',

@@ -96,9 +96,9 @@ class ProductController extends Controller {
 				$history->bill_number       = $model->bill_number;
 				$history->order_number      = $model->order_number;
 				if(!$history->save()) {
-					echo '<pre>';
-					print_r($history->errors);
-					die;
+//					echo '<pre>';
+//					print_r($history->errors);
+//					die;
 				};
 				if($img !== false) {
 					$path = $model->getPictureFile('image');

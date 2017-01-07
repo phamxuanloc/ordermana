@@ -70,8 +70,6 @@ class Model extends ActiveRecord
         $img = UploadedFile::getInstance($this, $attribute);
         // if no image was uploaded abort the upload
         if (empty($img)) {
-            echo 'abc';
-            die;
             return false;
         }
         // generate a unique file name

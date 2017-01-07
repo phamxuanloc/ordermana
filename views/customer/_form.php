@@ -2,6 +2,7 @@
 use app\models\User;
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
+use kartik\widgets\FileInput;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -15,11 +16,29 @@ use yii\helpers\Html;
 <div class="customer-form">
 
 	<?php $form = ActiveForm::begin([
-		'layout' => 'horizontal',
+		'layout'  => 'horizontal',
+		'options' => [
+			'enctype' => 'multipart/form-data',
+		],
 	]); ?>
 
 	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
+	<?= $form->field($model, 'image')->widget(FileInput::className(), [
+		'options'       => ['accept' => 'image/*'],
+		'pluginOptions' => [
+			'allowedFileExtensions' => [
+				'jpg',
+				'gif',
+				'png',
+			],
+			'showUpload'            => false,
+			'initialPreview'        => $model->getIsNewRecord() ? [
+				Html::img(Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif', ['class' => 'file-preview-image']),
+			] : [
+				Html::img($model->getPictureUrl('avatar'), ['class' => 'file-preview-image']),
+			],
+		],
+	]); ?>
 	<?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
 	<?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>

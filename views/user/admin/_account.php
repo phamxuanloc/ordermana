@@ -22,6 +22,9 @@ use yii\helpers\Html;
 	'layout'                 => 'horizontal',
 	'enableAjaxValidation'   => true,
 	'enableClientValidation' => false,
+	'options' => [
+		'enctype' => 'multipart/form-data',
+	],
 	'fieldConfig'            => [
 		'horizontalCssClasses' => [
 			'wrapper' => 'col-sm-9',
