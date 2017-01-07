@@ -13,7 +13,6 @@ use app\components\Widget;
 class TopBar extends Widget {
 
 	public function run() {
-
 		$name  = explode('\\', self::className());
 		$model = new Model();
 		return $this->render(lcfirst(end($name)), ['model' => $model]);
