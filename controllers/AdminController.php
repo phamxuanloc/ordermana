@@ -411,9 +411,6 @@ class AdminController extends BaseAdminController {
 	public function actionCare() {
 		$searchModel  = \Yii::createObject(UserSearch::className());
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams, true);
-		echo '<pre>';
-		print_r($dataProvider);
-		die;
 		return $this->render('care', ['dataProvider' => $dataProvider]);
 	}
 
