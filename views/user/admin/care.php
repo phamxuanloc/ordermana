@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?= $this->render('/admin/_menu') ?>
 
-<?php Pjax::begin() ?>
+<?php //Pjax::begin() ?>
 
 <?= GridView::widget([
 	'dataProvider' => $dataProvider,
@@ -115,4 +115,4 @@ $this->params['breadcrumbs'][] = $this->title;
 	],
 ]); ?>
 
-<?php Pjax::end() ?>
+<?php //Pjax::end() ?>
