@@ -33,35 +33,35 @@ $this->params['breadcrumbs'][] = $this->title;
 	'columns'      => [
 		[
 			'class'  => 'yii\grid\SerialColumn',
-//			'header' => 'STT',
+			'header' => 'STT',
 		],
-//		'username',
-//		'email:email',
-//		[
-//			'attribute' => 'created_at',
-//			'filter'    => false,
-//			'value'     => function ($model) {
-//				if(extension_loaded('intl')) {
-//					return Yii::t('user', '{0, date, MMMM dd, YYYY HH:mm}', [$model->created_at]);
-//				} else {
-//					return date('Y-m-d G:i:s', $model->created_at);
-//				}
-//			},
-//		],
-//		[
-//			'attribute' => 'city',
-//			'value'     => function (\app\models\User $data) {
-//				return $data->cities->name;
-//			},
-//		],
-//		[
-//			'attribute' => 'role_id',
-//			'value'     => function (\app\models\User $data) {
-//				return $data->role->name;
-//			},
-//			'filter'    => \app\components\Model::ROLE,
-//			'header'    => 'Loại tài khoản',
-//		],
+		'username',
+		'email:email',
+		[
+			'attribute' => 'created_at',
+			'filter'    => false,
+			'value'     => function ($model) {
+				if(extension_loaded('intl')) {
+					return Yii::t('user', '{0, date, MMMM dd, YYYY HH:mm}', [$model->created_at]);
+				} else {
+					return date('Y-m-d G:i:s', $model->created_at);
+				}
+			},
+		],
+		[
+			'attribute' => 'city',
+			'value'     => function (\app\models\User $data) {
+				return $data->cities->name;
+			},
+		],
+		[
+			'attribute' => 'role_id',
+			'value'     => function (\app\models\User $data) {
+				return $data->role->name;
+			},
+			'filter'    => \app\components\Model::ROLE,
+			'header'    => 'Loại tài khoản',
+		],
 		[
 			'header'  => Yii::t('user', 'Confirmation'),
 			'value'   => function ($model) {
