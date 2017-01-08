@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	'columns'      => [
 		[
 			'class'  => 'yii\grid\SerialColumn',
-			'header' => 'STT',
+//			'header' => 'STT',
 		],
 		'username',
 		'email:email',
@@ -48,12 +48,12 @@ $this->params['breadcrumbs'][] = $this->title;
 //				}
 //			},
 //		],
-//		[
-//			'attribute' => 'city',
-//			'value'     => function (\app\models\User $data) {
-//				return $data->cities->name;
-//			},
-//		],
+		[
+			'attribute' => 'city',
+			'value'     => function (\app\models\User $data) {
+				return $data->cities->name;
+			},
+		],
 //		[
 //			'attribute' => 'role_id',
 //			'value'     => function (\app\models\User $data) {
