@@ -19,11 +19,7 @@ use yii\widgets\ActiveForm;
 
 <?php $form = ActiveForm::begin() ?>
 <?= $form->field($order, 'downline')->widget(Select2::className(), [
-	'data' => Yii::$app->user->identity->role_id == $order::ROLE_ADMIN ? ArrayHelper::map(User::find()->andWhere([
-		"IN",
-		"id",
-		$children,
-	])->andWhere(['role_id' => $_GET['role']])->all(), 'id', 'username') : $order::getUserList($_GET['role'] + 1),
+	'data' => Yii::$app->user->identity->role_id == $order::ROLE_ADMIN ? $children : $order::getUserList($_GET['role'] + 1),
 ])->label('Xuất cho tài khoản') ?>
 <div class="item-header">
 	<div class="col-sm-1 id grid-display"><p style="text-transform: uppercase">STT</p></div>
@@ -207,8 +203,8 @@ use yii\widgets\ActiveForm;
 			var context            = selector.closest(".item-detail");
 			var origin_price_value = context.find(".product-select select option:selected").data("price");
 			if(origin_price_value != '' && origin_price_value != undefined) {
-				var quantity = selector.val();
-				var discount = context.find(".discount .form-control").val();
+				var quantity        = selector.val();
+				var discount        = context.find(".discount .form-control").val();
 				var sub_total       = context.find("input[name='OrderItem[total_price]']");
 				var sub_total_value = (origin_price_value - discount) * quantity;
 				sub_total.val(numberFormat(sub_total_value));

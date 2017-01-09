@@ -206,7 +206,7 @@ class CustomerController extends Controller {
 
 	public function actionMove() {
 		$model    = new Customer();
-		$children = $model->getTotalChildren(Yii::$app->user->id);
+		$children = $model->getTotalChildren(Yii::$app->user->id, [], null, 'username');
 		if($model->load(Yii::$app->request->post())) {
 			$customer = Customer::findOne($model->list_customer);
 			if($customer->is_move >= 2) {
