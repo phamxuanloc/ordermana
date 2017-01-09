@@ -273,16 +273,17 @@ class ReportForm extends Form {
 	public function getTreeInfo($params, $role = null) {
 		$model = new  Model();
 		$this->load($params);
-		$children = $model->getTotalChildren(Yii::$app->user->id);
-		$child    = \app\models\User::find();
+		if($this->user->role_id != $model::ROLE_ADMIN) {
+			$children = $model->getTotalChildren(Yii::$app->user->id);
+		} else {
+			$children = ArrayHelper::map(User::find()->andFilterWhere(['role_id' => $role])->all(), 'id', 'id');
+		}
+		$child = \app\models\User::find();
 		$child->andFilterWhere([
 			'IN',
 			'id',
 			$children,
 		]);
-		if($role != null) {
-			$child->andFilterWhere(['role_id' => $role]);
-		}
 		if($this->start_date != null) {
 			if($this->end_date == null) {
 				$this->end_date = date('Y-m-d');
