@@ -48,7 +48,7 @@ use yii\helpers\Html;
 	</div>
 	<div class="col-sm-4" style="margin-top: 15px">
 		<?php echo $form->field($model, 'user_id')->widget(Select2::className(), [
-			'data'    => Yii::$app->user->identity->role_id != $model::ROLE_CARE ? ArrayHelper::merge([Yii::$app->user->id => Yii::$app->user->identity->username], ArrayHelper::map(User::find()->where([
+			'data'    => (Yii::$app->user->identity->role_id != $model::ROLE_CARE && Yii::$app->user->identity->role_id != $model::ROLE_ADMIN) ? ArrayHelper::merge([Yii::$app->user->id => Yii::$app->user->identity->username], ArrayHelper::map(User::find()->where([
 				'IN',
 				'id',
 				$model->getTotalChildren(Yii::$app->user->id),

@@ -19,7 +19,11 @@ use yii\widgets\ActiveForm;
 
 <?php $form = ActiveForm::begin() ?>
 <?= $form->field($order, 'downline')->widget(Select2::className(), [
-	'data' => Yii::$app->user->identity->role_id == $order::ROLE_ADMIN ? $children : $order::getUserList($_GET['role'] + 1),
+	'data' => Yii::$app->user->identity->role_id != $order::ROLE_ADMIN ? ArrayHelper::map(User::find()->andWhere([
+		"IN",
+		"id",
+		$children,
+	])->andWhere(['role_id' => $role])->all(), 'id', 'username') : $order->getTotalUser($role),
 ])->label('Xuất cho tài khoản') ?>
 <div class="item-header">
 	<div class="col-sm-1 id grid-display"><p style="text-transform: uppercase">STT</p></div>

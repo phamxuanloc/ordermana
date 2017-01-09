@@ -112,7 +112,7 @@ class AdminController extends BaseAdminController {
 		if($user->load(\Yii::$app->request->post()) && $user->save()) {
 			$img = $user->uploadPicture('avatar', 'image');
 			if($img == false) {
-				$model->avatar = $oldImage;
+				$user->avatar = $oldImage;
 			}
 			if($user->save()) {
 				if($img !== false) {

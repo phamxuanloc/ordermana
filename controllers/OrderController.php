@@ -222,7 +222,11 @@ class OrderController extends Controller {
 	public function actionOrderItem($role = null) {
 		$orderItem = new OrderItem();
 		$order     = new Order();
-		$children  = $order->getTotalChildren($this->user->id, [], $role, 'username');
+		if($this->user->role_id != $order::ROLE_ADMIN) {
+			$children = $order->getTotalChildren($this->user->id);
+		} else {
+			$children = [];
+		}
 		if($role == null) {
 			return $this->render('issue', [
 				'orderItem' => $orderItem,
@@ -309,6 +313,7 @@ class OrderController extends Controller {
 			'orderItem' => $orderItem,
 			'order'     => $order,
 			'children'  => $children,
+			'role'      => $role,
 		]);
 	}
 

@@ -285,29 +285,13 @@ class Model extends ActiveRecord {
 	 *
 	 * @return array
 	 */
-	public function getTotalChildren($parent_id, $array_children = [], $role = null, $attribute = null) {
-		if($role != null) {
-			$tree = $this->getTotal($parent_id, $role, $attribute);
-			if(count($tree) == 0) {
-				$tree  = $this->getTotal($parent_id);
-				$merge = false;
-			} else {
-				$merge = true;
-			}
-			if(count($tree) > 0 && is_array($tree) && $merge == true) {
-				$array_children = ArrayHelper::merge($array_children, $tree);
-			}
-			foreach($tree as $item => $id) {
-				$array_children = $this->getTotalChildren($attribute != null ? $item : $id, $array_children, $role, $attribute);
-			}
-		} else {
-			$tree = $this->getTotal($parent_id, null, $attribute);
-			if(count($tree) > 0 && is_array($tree)) {
-				$array_children = ArrayHelper::merge($array_children, $tree);
-			}
-			foreach($tree as $item => $id) {
-				$array_children = $this->getTotalChildren($attribute != null ? $item : $id, $array_children, $role, $attribute);
-			}
+	public function getTotalChildren($parent_id, $array_children = []) {
+		$tree = $this->getTotal($parent_id);
+		if(count($tree) > 0 && is_array($tree)) {
+			$array_children = ArrayHelper::merge($array_children, $tree);
+		}
+		foreach($tree as $item => $id) {
+			$array_children = $this->getTotalChildren($id, $array_children);
 		}
 		return $array_children;
 	}
@@ -317,24 +301,13 @@ class Model extends ActiveRecord {
 	 *
 	 * @return array
 	 */
-	public function getTotal($id, $role = null, $attribute = null) {
+	public function getTotal($id) {
 		/**@var self[] $lv1s */
 		$array_children = [];
-		if($role != null) {
-			$lv1s = User::find()->where([
-				'parent_id' => $id,
-				'role_id'   => $role,
-			])->all();
-		} else {
-			$lv1s = User::find()->where([
-				'parent_id' => $id,
-			])->all();
-		}
-		if($attribute != null) {
-			foreach($lv1s as $lv1) {
-				$array_children[$lv1->id] = $lv1->$attribute;
-			}
-		} else {
+		$lv1s           = User::find()->where([
+			'parent_id' => $id,
+		])->all();
+		if($lv1s != null) {
 			foreach($lv1s as $lv1) {
 				$array_children[] = $lv1->id;
 			}
@@ -345,8 +318,12 @@ class Model extends ActiveRecord {
 	/**
 	 *Trả về tất cả user có role khác cskh
 	 */
-	public function getTotalUser() {
-		$total_user = User::find()->all();
+	public function getTotalUser($role = null) {
+		if($role != null) {
+			$total_user = User::find()->where(['role_id' => $role])->all();
+		} else {
+			$total_user = User::find()->all();
+		}
 		return ArrayHelper::map($total_user, 'id', 'username');
 	}
 

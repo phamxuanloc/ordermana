@@ -6,5 +6,6 @@ echo $this->render('_form', [
 	'orderItem' => $orderItem,
 	'order'     => $order,
 	'children'  => $children,
+	'role'      => $role,
 ]);
 ?>

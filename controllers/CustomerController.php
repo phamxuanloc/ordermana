@@ -205,8 +205,12 @@ class CustomerController extends Controller {
 	}
 
 	public function actionMove() {
-		$model    = new Customer();
-		$children = $model->getTotalChildren(Yii::$app->user->id, [], null, 'username');
+		$model = new Customer();
+		if($this->user->role_id != $model::ROLE_ADMIN && $this->user->role_id != $model::ROLE_CARE) {
+			$children = $model->getTotalChildren(Yii::$app->user->id);
+		} else {
+			$children = [];
+		}
 		if($model->load(Yii::$app->request->post())) {
 			$customer = Customer::findOne($model->list_customer);
 			if($customer->is_move >= 2) {
