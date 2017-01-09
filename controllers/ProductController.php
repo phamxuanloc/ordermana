@@ -90,7 +90,7 @@ class ProductController extends Controller {
 					foreach($admins as $admin) {
 						$noti          = new Notification();
 						$noti->user_id = $admin->id;
-						$noti->content = $this->user->username . ' đã nhập sản phẩm ' . $model->name . ' vào kho thành công vào lúc ' . date('d-m-Y H:i:s');
+						$noti->content = $this->user->username . ' đã nhập sản phẩm ' . $model->name . ' vào kho thành công vào lúc ' .  date('H:i:s d-m-Y');
 						//								$noti->url= Url::to(['/product-history/update','id'=>$history->id);
 						if($noti->save()) {
 							$noti->updateAttributes([
@@ -171,7 +171,7 @@ class ProductController extends Controller {
 					foreach($admins as $admin) {
 						$noti          = new Notification();
 						$noti->user_id = $admin->id;
-						$noti->content = $this->user->username . ' đã nhập sản phẩm ' . $model->name . ' vào kho thành công vào lúc ' . date('d-m-Y H:i:s');
+						$noti->content = $this->user->username . ' đã nhập sản phẩm ' . $model->name . ' vào kho thành công vào lúc ' .  date('H:i:s d-m-Y');
 						//								$noti->url= Url::to(['/product-history/update','id'=>$history->id);
 						if($noti->save()) {
 							$noti->updateAttributes([

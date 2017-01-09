@@ -90,7 +90,7 @@ class ProductHistoryController extends Controller {
 						foreach($admins as $admin) {
 							$noti          = new Notification();
 							$noti->user_id = $admin->id;
-							$noti->content = $this->user->username . ' đã thêm sản phẩm ' . $model->name . ' vào kho thành công vào lúc ' . date('d-m-Y H:i:s');
+							$noti->content = $this->user->username . ' đã thêm sản phẩm ' . $model->name . ' vào kho thành công vào lúc ' . date('H:i:s d-m-Y');
 							//								$noti->url= Url::to(['/product-history/update','id'=>$history->id);
 							if($noti->save()) {
 								$noti->updateAttributes([
@@ -150,14 +150,14 @@ class ProductHistoryController extends Controller {
 		}
 		$model   = $this->findModel($id);
 		$oldBill = $model->bill_image;
-		if($model->load(Yii::$app->request->post()) && $model->save()) {
+		if($model->load(Yii::$app->request->post())) {
 			$admins = User::find()->where(['role_id' => $model::ROLE_ADMIN])->all();
 			if($admins != null) {
-				if($model->status == $model::RECEIPTED) {
+				if($model->getOldAttribute('status') != $model->status && $model->status == $model::RECEIPTED) {
 					foreach($admins as $admin) {
 						$noti          = new Notification();
 						$noti->user_id = $admin->id;
-						$noti->content = $this->user->username . ' đã thêm sản phẩm ' . $model->name . ' vào kho thành công vào lúc ' . date('d-m-Y H:i:s');
+						$noti->content = $this->user->username . ' đã thêm sản phẩm ' . $model->name . ' vào kho thành công vào lúc ' . date('H:i:s d-m-Y');
 						//								$noti->url= Url::to(['/product-history/update','id'=>$history->id);
 						if($noti->save()) {
 							$noti->updateAttributes([
@@ -175,6 +175,7 @@ class ProductHistoryController extends Controller {
 					}
 				}
 			}
+			$model->save();
 			$product_bill = $model->uploadPicture('bill_image', 'product_bill');
 			if($model->supplier_discount == null) {
 				$model->supplier_discount = 0;

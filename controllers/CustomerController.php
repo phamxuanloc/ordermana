@@ -224,7 +224,7 @@ class CustomerController extends Controller {
 					foreach($admins as $admin) {
 						$noti          = new Notification();
 						$noti->user_id = $admin->id;
-						$noti->content = $model->user->username . ' đã chuyển khách hàng thành công vào lúc ' . date('d-m-Y H:i:s');
+						$noti->content = $model->user->username . ' đã chuyển khách hàng thành công vào lúc ' . date('H:i:s d-m-Y');
 						//								$noti->url= Url::to(['/product-history/update','id'=>$history->id);
 						if($noti->save()) {
 							$noti->updateAttributes([

@@ -9,12 +9,22 @@ namespace app\components\widgets;
 
 use app\components\Model;
 use app\components\Widget;
+use app\models\Notification;
 
 class TopBar extends Widget {
 
 	public function run() {
 		$name  = explode('\\', self::className());
 		$model = new Model();
-		return $this->render(lcfirst(end($name)), ['model' => $model]);
+		$notis = Notification::find()->where(['user_id' => $this->user->id])->limit(10)->all();
+		$count = Notification::find()->where([
+			'user_id' => $this->user->id,
+			'status'  => Notification::NOT_SEEN,
+		])->count();
+		return $this->render(lcfirst(end($name)), [
+			'model' => $model,
+			'notis' => $notis,
+			'count' => $count,
+		]);
 	}
 }
