@@ -1,12 +1,15 @@
 <?php
 namespace app\controllers;
 
+use app\models\Notification;
 use app\models\Product;
+use app\models\User;
 use navatech\role\filters\RoleFilter;
 use Yii;
 use app\models\ProductHistory;
 use app\models\search\ProductHistorySearch;
 use app\components\Controller;
+use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -81,6 +84,30 @@ class ProductHistoryController extends Controller {
 			$model->save();
 			$product_bill = $model->uploadPicture('bill_image', 'product_bill');
 			if($model->save()) {
+				$admins = User::find()->where(['role_id' => $model::ROLE_ADMIN])->all();
+				if($admins != null) {
+					if($model->status == $model::RECEIPTED) {
+						foreach($admins as $admin) {
+							$noti          = new Notification();
+							$noti->user_id = $admin->id;
+							$noti->content = $this->user->username . ' đã thêm sản phẩm ' . $model->name . ' vào kho thành công vào lúc ' . date('d-m-Y H:i:s');
+							//								$noti->url= Url::to(['/product-history/update','id'=>$history->id);
+							if($noti->save()) {
+								$noti->updateAttributes([
+									'url' => Url::to([
+										'/product-history/update',
+										'id'   => $model->id,
+										'noti' => $noti->id,
+									]),
+								]);
+							} else {
+								//							echo '<pre>';
+								//							print_r($noti->errors);
+								//							die;
+							}
+						}
+					}
+				}
 				$model->updateAttributes(['old_value' => $model->product->in_stock]);
 				$model->updateAttributes(['new_value' => $model->product->in_stock + $model->quantity]);
 				if($model->status = $model::RECEIPTED) {
@@ -115,9 +142,39 @@ class ProductHistoryController extends Controller {
 	 * @return mixed
 	 */
 	public function actionUpdate($id) {
+		if(Yii::$app->request->get('noti')) {
+			$noti = Notification::findOne(Yii::$app->request->get('noti'));
+			if($noti) {
+				$noti->updateAttributes(['status' => $noti::SEEN]);
+			}
+		}
 		$model   = $this->findModel($id);
 		$oldBill = $model->bill_image;
 		if($model->load(Yii::$app->request->post()) && $model->save()) {
+			$admins = User::find()->where(['role_id' => $model::ROLE_ADMIN])->all();
+			if($admins != null) {
+				if($model->status == $model::RECEIPTED) {
+					foreach($admins as $admin) {
+						$noti          = new Notification();
+						$noti->user_id = $admin->id;
+						$noti->content = $this->user->username . ' đã thêm sản phẩm ' . $model->name . ' vào kho thành công vào lúc ' . date('d-m-Y H:i:s');
+						//								$noti->url= Url::to(['/product-history/update','id'=>$history->id);
+						if($noti->save()) {
+							$noti->updateAttributes([
+								'url' => Url::to([
+									'/product-history/update',
+									'id'   => $model->id,
+									'noti' => $noti->id,
+								]),
+							]);
+						} else {
+							//							echo '<pre>';
+							//							print_r($noti->errors);
+							//							die;
+						}
+					}
+				}
+			}
 			$product_bill = $model->uploadPicture('bill_image', 'product_bill');
 			if($model->supplier_discount == null) {
 				$model->supplier_discount = 0;

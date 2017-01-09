@@ -3,6 +3,7 @@ namespace app\controllers;
 
 use app\components\Controller;
 use app\models\Customer;
+use app\models\Notification;
 use app\models\search\CustomerSearch;
 use app\models\UploadExcel;
 use app\models\User;
@@ -11,6 +12,7 @@ use Yii;
 use yii\base\Exception;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 use yii\helpers\json;
@@ -217,6 +219,45 @@ class CustomerController extends Controller {
 				$customer->updateAttributes(['last_parent_id' => $customer->parent_id]);
 				$customer->updateAttributes(['parent_id' => $model->parent_id]);
 				$customer->updateAttributes(['update_user' => $model->user->username]);
+				$admins = User::find()->where(['role_id' => $model::ROLE_ADMIN])->all();
+				if($admins != null) {
+					foreach($admins as $admin) {
+						$noti          = new Notification();
+						$noti->user_id = $admin->id;
+						$noti->content = $model->user->username . ' đã chuyển khách hàng thành công vào lúc ' . date('d-m-Y H:i:s');
+						//								$noti->url= Url::to(['/product-history/update','id'=>$history->id);
+						if($noti->save()) {
+							$noti->updateAttributes([
+								'url' => Url::to([
+									'/customer/update',
+									'id'   => $model->id,
+									'noti' => $noti->id,
+								]),
+							]);
+						} else {
+							//							echo '<pre>';
+							//							print_r($noti->errors);
+							//							die;
+						}
+					}
+				}
+				$noti          = new Notification();
+				$noti->user_id = $model->parent_id;
+				$noti->content = $model->user->username . ' đã chuyển 1 khách hàng cho bạn vào lúc ' . date('d-m-Y H:i:s');
+				//								$noti->url= Url::to(['/product-history/update','id'=>$history->id);
+				if($noti->save()) {
+					$noti->updateAttributes([
+						'url' => Url::to([
+							'/customer/update',
+							'id'   => $model->id,
+							'noti' => $noti->id,
+						]),
+					]);
+				} else {
+					//							echo '<pre>';
+					//							print_r($noti->errors);
+					//							die;
+				}
 				return $this->redirect(['index']);
 			} else {
 				$customer->updateAttributes(['parent_id' => $model->parent_id]);
@@ -240,6 +281,12 @@ class CustomerController extends Controller {
 	 * @return mixed
 	 */
 	public function actionUpdate($id) {
+		if(Yii::$app->request->get('noti')) {
+			$noti = Notification::findOne(Yii::$app->request->get('noti'));
+			if($noti) {
+				$noti->updateAttributes(['status' => $noti::SEEN]);
+			}
+		}
 		$model    = $this->findModel($id);
 		$oldImage = $model->avatar;
 		if($model->load(Yii::$app->request->post())) {

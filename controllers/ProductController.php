@@ -101,9 +101,9 @@ class ProductController extends Controller {
 								]),
 							]);
 						} else {
-//							echo '<pre>';
-//							print_r($noti->errors);
-//							die;
+							//							echo '<pre>';
+							//							print_r($noti->errors);
+							//							die;
 						}
 					}
 				}
@@ -155,6 +155,12 @@ class ProductController extends Controller {
 	 * @return mixed
 	 */
 	public function actionUpdate($id) {
+		if(Yii::$app->request->get('noti')) {
+			$noti = Notification::findOne(Yii::$app->request->get('noti'));
+			if($noti) {
+				$noti->updateAttributes(['status' => $noti::SEEN]);
+			}
+		}
 		$model    = $this->findModel($id);
 		$oldImage = $model->image;
 		//		$oldBill  = $model->bill_image;

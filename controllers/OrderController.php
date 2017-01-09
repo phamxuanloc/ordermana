@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use app\components\Controller;
+use app\models\Notification;
 use app\models\Order;
 use app\models\OrderItem;
 use app\models\Product;
@@ -124,6 +125,12 @@ class OrderController extends Controller {
 	}
 
 	public function actionView($id) {
+		if(Yii::$app->request->get('noti')) {
+			$noti = Notification::findOne(Yii::$app->request->get('noti'));
+			if($noti) {
+				$noti->updateAttributes(['status' => $noti::SEEN]);
+			}
+		}
 		$model = $this->findModel($id);
 		$items = $model->orderItems;
 		Yii::$app->session->setFlash('warning', 'Chú ý: Chuyển trạng thái qua "Đã nhận đủ" để xuất kho');
@@ -136,13 +143,13 @@ class OrderController extends Controller {
 			$model->scenario  = 'update_status';
 			$model->update_at = date('Y-m-d H:i:s');
 			$model->update_by = $this->user->id;
-//			if($model->getOldAttribute('status') != $model::CONFIRM && $model->status == $model::RECEIPTED) {
-//				Yii::$app->session->setFlash('danger', 'Chú ý: Bạn phải đợi khách hàng xác nhận mới có thể xuất kho');
-//				return $this->redirect([
-//					'view',
-//					'id' => $id,
-//				]);
-//			}
+			//			if($model->getOldAttribute('status') != $model::CONFIRM && $model->status == $model::RECEIPTED) {
+			//				Yii::$app->session->setFlash('danger', 'Chú ý: Bạn phải đợi khách hàng xác nhận mới có thể xuất kho');
+			//				return $this->redirect([
+			//					'view',
+			//					'id' => $id,
+			//				]);
+			//			}
 			if($model->status == $model::CONFIRM) {
 				Yii::$app->session->setFlash('danger', 'Chú ý: Chỉ khách hàng mới có thể xác nhận');
 				return $this->redirect([
@@ -150,7 +157,19 @@ class OrderController extends Controller {
 					'id' => $id,
 				]);
 			}
-			if($model->save()) {
+			if($model->status != $model->getOldAttribute('status') && $model->save()) {
+				$noti          = new Notification();
+				$noti->user_id = $model->user_id;
+				$noti->content = 'Đơn hàng nhập kho của bạn đã chuyển sang trạng thái ' . $model::STATUS[$model->status];
+				if($noti->save()) {
+					$noti->updateAttributes([
+						'url' => Url::to([
+							'/order/view',
+							'id'   => $id,
+							'noti' => $noti->id,
+						]),
+					]);
+				}
 				if($model->status == $model::RECEIPTED) {
 					foreach($items as $item) {
 						if($item->status != $item::STATUS_RECEIPTED) {
