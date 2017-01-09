@@ -418,11 +418,28 @@ class AdminController extends BaseAdminController {
 		$model = new  Model();
 		//		$children = $model->getTotalChildren(Yii::$app->user->id);
 		if(Yii::$app->user->identity->role_id != $model::ROLE_ADMIN) {
+			$child   = $model->getTotalChildren(Yii::$app->user->id);
 			$adm_num = 0;
-			$pre_num = count($model->getTotalChildren(Yii::$app->user->id, [], $model::ROLE_PRE));
-			$big_num = count($model->getTotalChildren(Yii::$app->user->id, [], $model::ROLE_BIGA));
-			$age_num = count($model->getTotalChildren(Yii::$app->user->id, [], $model::ROLE_A));
-			$dis_num = count($model->getTotalChildren(Yii::$app->user->id, [], $model::ROLE_D));
+			$pre_num = count(User::find()->where([
+				'IN',
+				'id',
+				$child,
+			])->andWhere(['role_id' => $model::ROLE_PRE])->all());
+			$big_num = count(User::find()->where([
+				'IN',
+				'id',
+				$child,
+			])->andWhere(['role_id' => $model::ROLE_BIGA])->all());
+			$age_num = count(User::find()->where([
+				'IN',
+				'id',
+				$child,
+			])->andWhere(['role_id' => $model::ROLE_A])->all());;
+			$dis_num = count(User::find()->where([
+				'IN',
+				'id',
+				$child,
+			])->andWhere(['role_id' => $model::ROLE_D])->all());;
 		} else {
 			$adm_num = User::find()->where(['role_id' => $model::ROLE_ADMIN])->count();
 			$pre_num = User::find()->where(['role_id' => $model::ROLE_PRE])->count();

@@ -166,13 +166,17 @@ class CustomerController extends Controller {
 	 * @return mixed
 	 */
 	public function actionCreate() {
-		$model          = new Customer();
-		$children       = $model->getTotalChildren(Yii::$app->user->id);
-		$total_children = ArrayHelper::merge([Yii::$app->user->id => Yii::$app->user->identity->username], ArrayHelper::map(User::find()->where([
-			'IN',
-			'id',
-			$children,
-		])->all(), 'id', 'username'));
+		$model = new Customer();
+		if($this->user->role_id != $model::ROLE_ADMIN && $this->user->role_id != $model::ROLE_CARE) {
+			$children       = $model->getTotalChildren(Yii::$app->user->id);
+			$total_children = ArrayHelper::merge([Yii::$app->user->id => Yii::$app->user->identity->username], ArrayHelper::map(User::find()->where([
+				'IN',
+				'id',
+				$children,
+			])->all(), 'id', 'username'));
+		} else {
+			$total_children = [];
+		}
 		if($model->load(Yii::$app->request->post())) {
 			if($model->phone != null) {
 				$check = Customer::findOne(['phone' => $model->phone]);

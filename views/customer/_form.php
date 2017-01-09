@@ -58,7 +58,7 @@ use yii\helpers\Html;
 	])->label('Thành phố') ?>
 	<?php if($model->isNewRecord) { ?>
 		<?= $form->field($model, 'parent_id')->widget(Select2::className(), [
-			'data' => Yii::$app->user->identity->role_id == $model::ROLE_ADMIN ? ArrayHelper::map(User::find()->where(['blocked_at' => null])->all(), 'id', 'username') : $total_children,
+			'data' => (Yii::$app->user->identity->role_id != $model::ROLE_ADMIN && Yii::$app->user->identity->role_id != $model::ROLE_CARE) ? $total_children : $model->getTotalUser(),
 		])->label('Người sở hữu') ?>
 	<?php } ?>
 	<?= $form->field($model, 'link_fb')->textInput(['maxlength' => true]) ?>
