@@ -336,13 +336,13 @@ use yii\helpers\Url;
 			<li>
 				<a href="javascript:;">
 					<i class="icon-home"></i>
-					<span class="title">Quản lý showroom</span>
+					<span class="title">Quản lý center</span>
 					<span class="arrow "></span>
 				</a>
 				<ul class="sub-menu">
 					<li>
 						<a href="#">
-							Danh sách showroom</a>
+							Danh sách center</a>
 					</li>
 				</ul>
 			</li>
