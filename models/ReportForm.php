@@ -276,7 +276,6 @@ class ReportForm extends Form {
 		if($this->user->role_id != $model::ROLE_ADMIN) {
 			$children = $model->getTotalChildren(Yii::$app->user->id);
 			$child    = User::find();
-			
 			$child->andFilterWhere(['role_id' => $role]);
 		} else {
 			$children = ArrayHelper::map(User::find()->where(['role_id' => $role])->all(), 'id', 'id');
