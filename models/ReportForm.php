@@ -210,6 +210,57 @@ class ReportForm extends Form {
 	}
 
 	/**
+	 *Trả về mảng tiền hàng đại diện nhập
+	 */
+	public function getAgeArray($params) {
+		$model = new  Model();
+		$this->load($params);
+		$query = User::find();
+		$query->select('user.id,user.username,sum(order.total_amount) AS total');
+		$query->innerJoinWith('orders0', 'user.id=order.user_id');
+		$children = $model->getTotalChildren(Yii::$app->user->id);
+		$query->andFilterWhere([
+			'IN',
+			'id',
+			$children,
+		]);
+		$query->andFilterWhere(['role_id' => Model::ROLE_A]);
+		if($this->start_date != null) {
+			if($this->end_date == null) {
+				$this->end_date = date('Y-m-d');
+			}
+			$query->andFilterWhere([
+				'between',
+				'order.created_date',
+				$this->start_date,
+				$this->end_date,
+			]);
+		}
+		$query->asArray();
+		$array_pres = $query->groupBy('user.id')->orderBy('total DESC')->all();
+		$pre        = [];
+		foreach($array_pres as $array_pre) {
+			$pre[] = [
+				$array_pre['username'],
+				(int) $array_pre['total'],
+			];
+		}
+		if($array_pres == null) {
+			$pre[] = [
+				'Không có dữ liệu',
+				1,
+			];
+		}
+		$pre = ArrayHelper::merge([
+			[
+				'Doanh số bán ra',
+				'VNĐ',
+			],
+		], $pre);
+		return $pre;
+	}
+
+	/**
 	 *Trả về tổng số đơn hàng theo thời gian
 	 *
 	 * @param $params
@@ -276,7 +327,7 @@ class ReportForm extends Form {
 		if($this->user->role_id != $model::ROLE_ADMIN) {
 			$children = $model->getTotalChildren(Yii::$app->user->id);
 			$child    = User::find();
-			$child->andFilterWhere(['role_id' => 3]);
+			$child->andFilterWhere(['role_id' => $role]);
 		} else {
 			$children = ArrayHelper::map(User::find()->where(['role_id' => $role])->all(), 'id', 'id');
 			$child    = User::find();

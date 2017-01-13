@@ -5,12 +5,8 @@ use app\components\Controller;
 use app\components\Model;
 use app\models\Alert;
 use app\models\ContactForm;
-use app\models\Customer;
 use app\models\LoginForm;
-use app\models\Order;
-use app\models\Product;
 use app\models\ReportForm;
-use DateTime;
 use navatech\role\filters\RoleFilter;
 use Yii;
 use yii\filters\AccessControl;
@@ -47,8 +43,8 @@ class SiteController extends Controller {
 				//NOT REQUIRED, only if you want to translate
 				'actions' => [
 					//without translate
-					'index'       => 'Trang chủ ',
-					'report'      => 'Báo cáo ',
+					'index'  => 'Trang chủ ',
+					'report' => 'Báo cáo ',
 					//with translated, which will display on role _form
 				],
 			],
@@ -109,7 +105,6 @@ class SiteController extends Controller {
 			'profit_month'     => $profit_month,
 		]);
 	}
-	
 
 	/**
 	 * Login action.
@@ -180,6 +175,7 @@ class SiteController extends Controller {
 		//		die;
 		$top_product    = $model->getTopProduct($queryParams);
 		$data           = $model->getPreArray($queryParams);
+		$age_array      = $model->getAgeArray($queryParams);
 		$order          = $model->getTotalOrder($queryParams);
 		$total_children = $model->getTreeInfo($queryParams);
 		$admin_count    = $model->getTreeInfo($queryParams, Model::ROLE_ADMIN);
@@ -205,6 +201,7 @@ class SiteController extends Controller {
 			'revenue'        => $revenue,
 			'stock'          => $stock,
 			'top_customer'   => $top_customer,
+			'age_array'      => $age_array,
 		]);
 	}
 }
