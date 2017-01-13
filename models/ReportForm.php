@@ -210,7 +210,7 @@ class ReportForm extends Form {
 	}
 
 	/**
-	 *Trả về mảng tiền hàng đại diện nhập
+	 *Trả về mảng tiền hàng đại diện lý
 	 */
 	public function getAgeArray($params) {
 		$model = new  Model();
