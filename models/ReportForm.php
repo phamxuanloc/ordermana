@@ -221,7 +221,7 @@ class ReportForm extends Form {
 		$children = $model->getTotalChildren(Yii::$app->user->id);
 		$query->andFilterWhere([
 			'IN',
-			'id',
+			'user.id',
 			$children,
 		]);
 		$query->andFilterWhere(['role_id' => Model::ROLE_A]);
