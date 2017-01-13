@@ -336,6 +336,8 @@ class ReportForm extends Form {
 		$this->load($params);
 		$query_order    = Order::find();
 		$query_customer = OrderCustomer::find();
+		$query_order->where(['parent_id' => $this->user->id]);
+		$query_customer->where(['user_id' => $this->user->id]);
 		if($this->start_date != null) {
 			$oStart = $this->start_date;
 			if($this->end_date != null) {
@@ -343,7 +345,7 @@ class ReportForm extends Form {
 			} else {
 				$oEnd = date('Y-m-d');
 			}
-			$query_order->where(['parent_id' => $this->user->id])->where([
+			$query_order->where([
 				'>=',
 				'created_date',
 				$oStart,
@@ -352,7 +354,7 @@ class ReportForm extends Form {
 				'created_date',
 				$oEnd,
 			])->sum('total_amount');
-			$query_customer->where(['user_id' => $this->user->id])->where([
+			$query_customer->where([
 				'>=',
 				'created_date',
 				$oStart,
