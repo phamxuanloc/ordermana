@@ -16,7 +16,7 @@ class TopBar extends Widget {
 	public function run() {
 		$name  = explode('\\', self::className());
 		$model = new Model();
-		$notis = Notification::find()->where(['user_id' => $this->user->id])->limit(10)->all();
+		$notis = Notification::find()->where(['user_id' => $this->user->id])->limit(5)->all();
 		$count = Notification::find()->where([
 			'user_id' => $this->user->id,
 			'status'  => Notification::NOT_SEEN,
