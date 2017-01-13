@@ -431,6 +431,7 @@ class ReportForm extends Form {
 		$this->load($params);
 		if($this->user->role_id != Model::ROLE_ADMIN) {
 			$query = UserStock::find();
+			$query->andFilterWhere(['user_id' => $this->user->id]);
 			if($this->start_date != null) {
 				if($this->end_date == null) {
 					$this->end_date = date('Y-m-d');
