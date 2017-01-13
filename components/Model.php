@@ -294,6 +294,7 @@ class Model extends ActiveRecord {
 			$array_children = $this->getTotalChildren($id, $array_children);
 		}
 		return $array_children;
+
 	}
 
 	/**
@@ -307,6 +308,7 @@ class Model extends ActiveRecord {
 		$lv1s           = User::find()->where([
 			'parent_id' => $id,
 		])->all();
+
 		if($lv1s != null) {
 			foreach($lv1s as $lv1) {
 				$array_children[] = $lv1->id;

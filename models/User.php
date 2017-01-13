@@ -45,6 +45,8 @@ class User extends BaseUser {
 
 	public $image;
 
+	public $last_login_at;
+
 	/**
 	 * @inheritdoc
 	 */
