@@ -312,7 +312,7 @@ class ReportForm extends Form {
 			])->orFilterWhere([
 				'parent_id' => $this->user->id,
 			])->orFilterWhere([
-				'last_user_id' => $this->user->id,
+				'last_parent_id' => $this->user->id,
 			]);
 		}
 		if($this->start_date != null) {
