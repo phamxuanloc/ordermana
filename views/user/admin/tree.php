@@ -53,6 +53,8 @@ function (undefined,item) {
  var data_cissue=$('.modal-body').find('#customer_issue p');
  var data_csystem=$('.modal-body').find('#customer_system p');
  var data_crevenue=$('.modal-body').find('#change_revenue p');
+ var data_fb=$('.modal-body').find('#fb_link p');
+ var data_fblink=$('.modal-body').find('#fb_link a');
        $.ajax({
 			url    : item.url,
 			type   : "post",
@@ -69,6 +71,8 @@ function (undefined,item) {
 			data_cissue.html(data.customer_issue);
 			data_csystem.html(data.customer_system);
 			data_crevenue.html(data.change_revenue);
+			data_fb.html(data.fb_link);
+			data_fblink.attr("href",data.fb_link);
 			}
 			
 		});
@@ -117,6 +121,8 @@ $groupsContent = TreeView::widget([
 				<div class="modal-body">
 					<div class="col-sm-6" id="username" style="color: #7a43b6; font-weight: bold">Têm đămg nhập:
 						<p style="display: inline-block; color: #3fbf79"></p></div>
+					<div class="col-sm-6" id="fb_link" style="color: #7a43b6; font-weight: bold">Link fb:
+						<a href="#"><p style="display: inline-block; color: #3fbf79"></p></a></div>
 					<div class="col-sm-6" id="current_stock" style="color: #7a43b6; font-weight: bold">Tổng số hàng đã nhập tháng này:
 						<p style="display: inline-block ;color: #3fbf79"></p>
 					</div>

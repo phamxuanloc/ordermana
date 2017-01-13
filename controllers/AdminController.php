@@ -11,7 +11,6 @@ namespace app\controllers;
 
 use app\components\Model;
 use app\models\ChangeForm;
-use app\models\Customer;
 use app\models\OrderCustomer;
 use app\models\Product;
 use app\models\ProductHistory;
@@ -466,6 +465,7 @@ class AdminController extends BaseAdminController {
 			$account         = User::findOne($id);
 			$model           = new Model();
 			$children        = $model->getTotalChildren($id);
+			$fb_link         = $account->facebook_link;
 			$quantity_stock  = 0;
 			$total_amount    = 0;
 			$current_stock   = 0;
@@ -531,6 +531,7 @@ class AdminController extends BaseAdminController {
 				'customer_issue'  => $customer_issue,
 				'customer_system' => $customer_system,
 				'change_revenue'  => $change_revenue,
+				'fb_link'         => $fb_link,
 			];
 			return json_encode($value);
 		}
