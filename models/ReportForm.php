@@ -392,7 +392,7 @@ class ReportForm extends Form {
 			if($products != null) {
 				foreach($products as $product) {
 					$product_array[] = [
-						$product->name,
+						$product->product->name,
 						$product->in_stock,
 					];
 				}
