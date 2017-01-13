@@ -275,10 +275,12 @@ class ReportForm extends Form {
 		$this->load($params);
 		if($this->user->role_id != $model::ROLE_ADMIN) {
 			$children = $model->getTotalChildren(Yii::$app->user->id);
+			$child    = User::find();
+			$child->andFilterWhere(['role_id' => $role]);
 		} else {
-			$children = ArrayHelper::map(User::find()->andFilterWhere(['role_id' => $role])->all(), 'id', 'id');
+			$children = ArrayHelper::map(User::find()->where(['role_id' => $role])->all(), 'id', 'id');
+			$child    = User::find();
 		}
-		$child = \app\models\User::find();
 		$child->andFilterWhere([
 			'IN',
 			'id',
