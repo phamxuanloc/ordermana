@@ -653,7 +653,7 @@ class Model extends ActiveRecord {
 	}
 
 	/**
-	 * Hàm trả về doanh số theo tháng
+	 * Hàm trả về doanh số bán lẻ theo tháng
 	 */
 	public function getCustomerAmount($id, $month) {
 		$account = User::findOne($id);
@@ -661,7 +661,7 @@ class Model extends ActiveRecord {
 		$oEnd    = clone $oStart;
 		$oEnd->add(new DateInterval("P1M"));
 		$total_amount = 0;
-		foreach($account->orders as $order) {
+		foreach($account->orderCustomers as $order) {
 			if($order->status == $order::RECEIPTED) {
 				if($order->created_date >= $oStart->format('Y-m-d') && $order->created_date <= $oEnd->format('Y-m-d')) {
 					$total_amount += $order->total_amount;
@@ -670,6 +670,10 @@ class Model extends ActiveRecord {
 		}
 		return $total_amount;
 	}
+
+	/**
+	 * Hàm trả về doanh số bán buôn theo tháng
+	 */
 	public function getOrderAmount($id, $month) {
 		$account = User::findOne($id);
 		$oStart  = new DateTime(date('Y') . '-' . $month . '-1');

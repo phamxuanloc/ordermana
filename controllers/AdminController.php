@@ -501,17 +501,11 @@ class AdminController extends BaseAdminController {
 			//			$total_amount            =
 			//			$previous_total_amount   = 
 			//			$p_previous_total_amount = 
-			$customer_issue            = $model->getTotalAmount($id, date('m'));
-			$previous_customer_issue   = $model->getTotalAmount($id, $previous_month);
-			$p_previous_customer_issue = $model->getTotalAmount($id, $p_previous_month);
+			$customer_issue            = $model->getCustomerAmount($id, date('m'));
+			$previous_customer_issue   = $model->getCustomerAmount($id, $previous_month);
+			$p_previous_customer_issue = $model->getCustomerAmount($id, $p_previous_month);
 			$issue                     = 0;
-			foreach($account->orderCustomers as $order) {
-				if($order->status == $order::RECEIPTED) {
-					if($order->created_date >= $oStart->format('Y-m-d') && $order->created_date <= $oEnd->format('Y-m-d')) {
-						$customer_issue += $order->total_amount;
-					}
-				}
-			}
+			
 			$query = OrderCustomer::find();
 			$query->andFilterWhere([
 				'IN',
