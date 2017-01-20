@@ -294,7 +294,6 @@ class Model extends ActiveRecord {
 			$array_children = $this->getTotalChildren($id, $array_children);
 		}
 		return $array_children;
-
 	}
 
 	/**
@@ -308,7 +307,6 @@ class Model extends ActiveRecord {
 		$lv1s           = User::find()->where([
 			'parent_id' => $id,
 		])->all();
-
 		if($lv1s != null) {
 			foreach($lv1s as $lv1) {
 				$array_children[] = $lv1->id;
@@ -489,9 +487,13 @@ class Model extends ActiveRecord {
 	/**
 	 * Trả về tổng thu hàng tháng
 	 */
-	public function getProfit() {
-		$oStart = new DateTime(date('Y') . '-' . date('m') . '-1');
-		$oEnd   = clone $oStart;
+	public function getProfit($month = null) {
+		if($month != null) {
+			$oStart = new DateTime(date('Y') . '-' . $month . '-1');
+		} else {
+			$oStart = new DateTime(date('Y') . '-' . date('m') . '-1');
+		}
+		$oEnd = clone $oStart;
 		$oEnd->add(new DateInterval("P1M"));
 		$profit          = Order::find()->where(['parent_id' => $this->user->id])->where([
 			'>=',
@@ -640,5 +642,47 @@ class Model extends ActiveRecord {
 		}
 		return $number;
 		//		}
+	}
+
+	/**
+	 * Hàm trả về tháng trước
+	 */
+	public function getPreviousMonth($month) {
+		$prevMonth = date('m', strtotime("last month", strtotime($month)));
+		return $prevMonth;
+	}
+
+	/**
+	 * Hàm trả về doanh số theo tháng
+	 */
+	public function getCustomerAmount($id, $month) {
+		$account = User::findOne($id);
+		$oStart  = new DateTime(date('Y') . '-' . $month . '-1');
+		$oEnd    = clone $oStart;
+		$oEnd->add(new DateInterval("P1M"));
+		$total_amount = 0;
+		foreach($account->orders as $order) {
+			if($order->status == $order::RECEIPTED) {
+				if($order->created_date >= $oStart->format('Y-m-d') && $order->created_date <= $oEnd->format('Y-m-d')) {
+					$total_amount += $order->total_amount;
+				}
+			}
+		}
+		return $total_amount;
+	}
+	public function getOrderAmount($id, $month) {
+		$account = User::findOne($id);
+		$oStart  = new DateTime(date('Y') . '-' . $month . '-1');
+		$oEnd    = clone $oStart;
+		$oEnd->add(new DateInterval("P1M"));
+		$total_amount = 0;
+		foreach($account->orders as $order) {
+			if($order->status == $order::RECEIPTED) {
+				if($order->created_date >= $oStart->format('Y-m-d') && $order->created_date <= $oEnd->format('Y-m-d')) {
+					$total_amount += $order->total_amount;
+				}
+			}
+		}
+		return $total_amount;
 	}
 }

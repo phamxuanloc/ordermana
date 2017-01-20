@@ -467,7 +467,6 @@ class AdminController extends BaseAdminController {
 			$children        = $model->getTotalChildren($id);
 			$fb_link         = $account->facebook_link;
 			$quantity_stock  = 0;
-			$total_amount    = 0;
 			$current_stock   = 0;
 			$customer_issue  = 0;
 			$issue           = 0;
@@ -497,14 +496,15 @@ class AdminController extends BaseAdminController {
 					$current_stock += $stock->quantity;
 				}
 			}
-			foreach($account->orders as $order) {
-				if($order->status == $order::RECEIPTED) {
-					if($order->created_date >= $oStart->format('Y-m-d') && $order->created_date <= $oEnd->format('Y-m-d')) {
-						$total_amount += $order->total_amount;
-					}
-				}
-			}
-			$issue = $model->getProfit();
+			$previous_month   = $model->getPreviousMonth(date('m'));
+			$p_previous_month = $model->getPreviousMonth($previous_month);
+			//			$total_amount            =
+			//			$previous_total_amount   = 
+			//			$p_previous_total_amount = 
+			$customer_issue            = $model->getTotalAmount($id, date('m'));
+			$previous_customer_issue   = $model->getTotalAmount($id, $previous_month);
+			$p_previous_customer_issue = $model->getTotalAmount($id, $p_previous_month);
+			$issue                     = 0;
 			foreach($account->orderCustomers as $order) {
 				if($order->status == $order::RECEIPTED) {
 					if($order->created_date >= $oStart->format('Y-m-d') && $order->created_date <= $oEnd->format('Y-m-d')) {
@@ -523,15 +523,19 @@ class AdminController extends BaseAdminController {
 			}
 			$change_revenue = $model->getChangeRevenue();
 			$value          = [
-				'username'        => $account->username,
-				'quantity'        => $quantity_stock,
-				'amount'          => $total_amount,
-				'current_stock'   => $current_stock,
-				'issue'           => $issue,
-				'customer_issue'  => $customer_issue,
-				'customer_system' => $customer_system,
-				'change_revenue'  => $change_revenue,
-				'fb_link'         => $fb_link,
+				'username'                  => $account->username,
+				'quantity'                  => $quantity_stock,
+				'amount'                    => $total_amount,
+				'current_stock'             => $current_stock,
+				'issue'                     => $issue,
+				'customer_issue'            => $customer_issue,
+				'previous_customer_issue'   => $previous_customer_issue,
+				'p_previous_customer_issue' => $p_previous_customer_issue,
+				'customer_system'           => $customer_system,
+				'change_revenue'            => $change_revenue,
+				'fb_link'                   => $fb_link,
+				'previous_amount'           => $previous_total_amount,
+				'p_previous_total_amount'   => $p_previous_total_amount,
 			];
 			return json_encode($value);
 		}
