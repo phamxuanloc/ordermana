@@ -416,8 +416,12 @@ class AdminController extends BaseAdminController {
 	public function actionTree() {
 		$model = new  Model();
 		//		$children = $model->getTotalChildren(Yii::$app->user->id);
-		$previous_month   = $model->getPreviousMonth(date('m'));
+		$previous_month   = $model->getPreviousMonth(date('Y-m'));
 		$p_previous_month = $model->getPreviousMonth($previous_month);
+		$p_previous_month = new DateTime($p_previous_month);
+		$p_previous_month = $p_previous_month->format('m');
+		$previous_month   = new DateTime($previous_month);
+		$previous_month   = $previous_month->format('m');
 		if(Yii::$app->user->identity->role_id != $model::ROLE_ADMIN) {
 			$child   = $model->getTotalChildren(Yii::$app->user->id);
 			$adm_num = 0;
@@ -500,12 +504,12 @@ class AdminController extends BaseAdminController {
 					$current_stock += $stock->quantity;
 				}
 			}
-			$previous_month            = $model->getPreviousMonth(date('m'));
+			$previous_month            = $model->getPreviousMonth(date('Y-m'));
 			$p_previous_month          = $model->getPreviousMonth($previous_month);
-			$customer_issue            = $model->getCustomerAmount($id, date('m'));
+			$customer_issue            = $model->getCustomerAmount($id, date('Y-m'));
 			$previous_customer_issue   = $model->getCustomerAmount($id, $previous_month);
 			$p_previous_customer_issue = $model->getCustomerAmount($id, $p_previous_month);
-			$issue                     = $model->getOrderAmount($id, date('m'));
+			$issue                     = $model->getOrderAmount($id, date(' Y-m'));
 			$previous_issue            = $model->getOrderAmount($id, $previous_month);
 			$p_previous_issue          = $model->getOrderAmount($id, $p_previous_month);
 			$total_amount              = $customer_issue + $issue;

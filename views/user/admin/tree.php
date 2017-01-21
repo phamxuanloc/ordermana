@@ -48,14 +48,14 @@ function (undefined,item) {
  var data_username = $('.modal-body').find('#username p');
  var data_quantity = $('.modal-body').find('#quantity p');
  var data_amount = $('.modal-body').find('#amount p');
- var data_last_amount = $('.modal-body').find('#last_amount p');
- var data_last_last_amount = $('.modal-body').find('#last_last_amount p');
- var data_orderc=$('.modal-body').find('#orderc');
- var data_last_orderc=$('.modal-body').find('#last_orderc');
- var data_last_last_orderc=$('.modal-body').find('#last_last_orderc');
- var data_order=$('.modal-body').find('#order');
- var data_last_order=$('.modal-body').find('#last_order');
- var data_last_last_order=$('.modal-body').find('#last_last_order');
+ var data_last_amount = $('.modal-body').find('#last-amount p');
+ var data_last_last_amount = $('.modal-body').find('#last-last-amount p');
+ var data_orderc=$('.modal-body').find('#orderc p');
+ var data_last_orderc=$('.modal-body').find('#last-orderc p');
+ var data_last_last_orderc=$('.modal-body').find('#last-last-orderc p');
+ var data_order=$('.modal-body').find('#order p');
+ var data_last_order=$('.modal-body').find('#last-order p');
+ var data_last_last_order=$('.modal-body').find('#last-last-order p');
  
  var data_cstock=$('.modal-body').find('#current_stock p');
  var data_issue=$('.modal-body').find('#issue p');
@@ -147,7 +147,7 @@ $groupsContent = TreeView::widget([
 
 						<div class="col-sm-3 text-center well well-sm"><strong>Tổng doanh thu</strong></div>
 						<div class="col-sm-3 text-center" id="last-last-amount"><p>0</p></div>
-						<div class="col-sm-3 text-center" id="last-amount"><p>0</p></div>
+						<div class="col-sm-3 text-center" id="last-amount"><p></p></div>
 						<div class="col-sm-3 text-center" id="amount"><p>0</p></div>
 					</div>
 					<div class="col-sm-12">

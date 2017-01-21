@@ -648,8 +648,8 @@ class Model extends ActiveRecord {
 	 * Hàm trả về tháng trước
 	 */
 	public function getPreviousMonth($month) {
-		$date      = date('Y-' . $month . '-d');
-		$prevMonth = date('m', strtotime("last month", strtotime($date)));
+		$date      = date($month . '-d');
+		$prevMonth = date('Y-m', strtotime("last month", strtotime($date)));
 		return $prevMonth;
 	}
 
@@ -658,7 +658,7 @@ class Model extends ActiveRecord {
 	 */
 	public function getCustomerAmount($id, $month) {
 		$account = User::findOne($id);
-		$oStart  = new DateTime(date('Y') . '-' . $month . '-1');
+		$oStart  = new DateTime($month . '-1');
 		$oEnd    = clone $oStart;
 		$oEnd->add(new DateInterval("P1M"));
 		$total_amount = 0;
@@ -677,7 +677,7 @@ class Model extends ActiveRecord {
 	 */
 	public function getOrderAmount($id, $month) {
 		$account = User::findOne($id);
-		$oStart  = new DateTime(date('Y') . '-' . $month . '-1');
+		$oStart  = new DateTime($month . '-1');
 		$oEnd    = clone $oStart;
 		$oEnd->add(new DateInterval("P1M"));
 		$total_amount = 0;
