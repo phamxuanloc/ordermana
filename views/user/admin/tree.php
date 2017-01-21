@@ -48,6 +48,15 @@ function (undefined,item) {
  var data_username = $('.modal-body').find('#username p');
  var data_quantity = $('.modal-body').find('#quantity p');
  var data_amount = $('.modal-body').find('#amount p');
+ var data_last_amount = $('.modal-body').find('#last_amount p');
+ var data_last_last_amount = $('.modal-body').find('#last_last_amount p');
+ var data_orderc=$('.modal-body').find('#orderc');
+ var data_last_orderc=$('.modal-body').find('#last_orderc');
+ var data_last_last_orderc=$('.modal-body').find('#last_last_orderc');
+ var data_order=$('.modal-body').find('#order');
+ var data_last_order=$('.modal-body').find('#last_order');
+ var data_last_last_order=$('.modal-body').find('#last_last_order');
+ 
  var data_cstock=$('.modal-body').find('#current_stock p');
  var data_issue=$('.modal-body').find('#issue p');
  var data_cissue=$('.modal-body').find('#customer_issue p');
@@ -63,14 +72,23 @@ function (undefined,item) {
 			},
 				dataType: "json",
 			success: function(data) {
+			data_amount.html(data.amount);
+			data_last_amount.html(data.previous_amount);
+			data_last_last_amount.html(data.p_previous_amount);
+				data_orderc.html(data.customer_issue);
+				data_last_orderc.html(data.previous_customer_issue);
+				data_last_last_orderc.html(data.p_previous_customer_issue);	
+				data_order.html(data.issue);
+				data_last_order.html(data.previous_issue);
+				data_last_last_order.html(data.p_previous_issue);
 			data_username.html(data.username);
 			data_quantity.html(data.quantity);
-			data_amount.html(data.amount);
+			
 			data_cstock.html(data.current_stock);
 			data_issue.html(data.issue);
 			data_cissue.html(data.customer_issue);
-			data_csystem.html(data.customer_system);
-			data_crevenue.html(data.change_revenue);
+			// data_csystem.html(data.customer_system);
+			// data_crevenue.html(data.change_revenue);
 			data_fb.html(data.fb_link);
 			data_fblink.attr("href",data.fb_link);
 			}
@@ -110,7 +128,7 @@ $groupsContent = TreeView::widget([
 	</p>
 
 	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -119,29 +137,56 @@ $groupsContent = TreeView::widget([
 					<h4 class="modal-title" style="color: #00aa00; font-weight: bold">Thông tin cơ bản</h4>
 				</div>
 				<div class="modal-body">
+					<div class="col-sm-12">
+						<div class="col-sm-3 text-center well well-sm"><strong>Tháng</strong></div>
+						<div class="col-sm-3 text-center"><?= $p_previous_month ?></div>
+						<div class="col-sm-3 text-center"><?= $previous_month ?></div>
+						<div class="col-sm-3 text-center"><?= date('m') ?></div>
+					</div>
+					<div class="col-sm-12">
+
+						<div class="col-sm-3 text-center well well-sm"><strong>Tổng doanh thu</strong></div>
+						<div class="col-sm-3 text-center" id="last-last-amount"><p>0</p></div>
+						<div class="col-sm-3 text-center" id="last-amount"><p>0</p></div>
+						<div class="col-sm-3 text-center" id="amount"><p>0</p></div>
+					</div>
+					<div class="col-sm-12">
+
+						<div class="col-sm-3 text-center well well-sm"><strong>Doanh thu bán buôn</strong></div>
+						<div class="col-sm-3 text-center last-last-orderc"><p>0</p></div>
+						<div class="col-sm-3 text-center last-orderc"><p>0</p></div>
+						<div class="col-sm-3 text-center orderc"><p>0</p></div>
+					</div>
+					<div class="col-sm-12" style="border-bottom: solid black 1px">
+
+						<div class="col-sm-3 text-center well well-sm"><strong>Doanh thu bán lẻ</strong></div>
+						<div class="col-sm-3 text-center last-last-order"><p>0</p></div>
+						<div class="col-sm-3 text-center last-order"><p>0</p></div>
+						<div class="col-sm-3 text-center order"><p>0</p></div>
+					</div>
 					<div class="col-sm-6" id="username" style="color: #7a43b6; font-weight: bold">Têm đămg nhập:
 						<p style="display: inline-block; color: #3fbf79"></p></div>
-					<div class="col-sm-6" id="fb_link" style="color: #7a43b6; font-weight: bold">Link fb:
+					<div class="col-sm-6" id="fb_link" style="display: inline-block; color: #7a43b6; font-weight: bold">Link fb:
 						<a href="#"><p style="display: inline-block; color: #3fbf79"></p></a></div>
-					<div class="col-sm-6" id="current_stock" style="color: #7a43b6; font-weight: bold">Tổng số hàng đã nhập tháng này:
-						<p style="display: inline-block ;color: #3fbf79"></p>
-					</div>
-					<div class="col-sm-6" id="amount" style="color: #7a43b6; font-weight: bold">Tổng số tiền đã nhập hàng tháng này:
-						<p style="display: inline-block ;color: #3fbf79"></p> VNĐ
-					</div>
-					<div class="col-sm-6" id="issue" style="color: #7a43b6; font-weight: bold">Tổng tiền xuất hàng tháng này:
-						<p style="display: inline-block;color: #3fbf79"></p> VNĐ
-					</div>
-					<div class="col-sm-6" id="customer_issue" style="color: #7a43b6; font-weight: bold">Tổng tiền bán lẻ tháng này:
-						<p style="display: inline-block;color: #3fbf79""></p></div>
-					<div class="col-sm-6" id="customer_system" style="color: #7a43b6; font-weight: bold">Bán lẻ trong hệ thống tháng này:
-						<p style="display: inline-block;color: #3fbf79""></p> VNĐ
-					</div>
-					<div class="col-sm-6" id="change_revenue" style="color: #7a43b6; font-weight: bold">Thay đổi so với cùng kỳ tháng trước:
-						<p style="display: inline-block;color: #3fbf79""></p> %
-					</div>
-					<div class="col-sm-6" id="quantity" style="color: #7a43b6; font-weight: bold">Số sản phẩm còn trong kho:
-						<p style="display: inline-block ;color: #3fbf79"></p></div>
+					<!--					<div class="col-sm-6" id="current_stock" style="color: #7a43b6; font-weight: bold">Tổng số hàng đã nhập tháng này:-->
+					<!--						<p style="display: inline-block ;color: #3fbf79"></p>-->
+					<!--					</div>-->
+					<!--					<div class="col-sm-6" id="amount" style="color: #7a43b6; font-weight: bold">Tổng số tiền đã nhập hàng tháng này:-->
+					<!--						<p style="display: inline-block ;color: #3fbf79"></p> VNĐ-->
+					<!--					</div>-->
+					<!--					<div class="col-sm-6" id="issue" style="color: #7a43b6; font-weight: bold">Tổng tiền xuất hàng tháng này:-->
+					<!--						<p style="display: inline-block;color: #3fbf79"></p> VNĐ-->
+					<!--					</div>-->
+					<!--					<div class="col-sm-6" id="customer_issue" style="color: #7a43b6; font-weight: bold">Tổng tiền bán lẻ tháng này:-->
+					<!--						<p style="display: inline-block;color: #3fbf79""></p></div>-->
+					<!--					<div class="col-sm-6" id="customer_system" style="color: #7a43b6; font-weight: bold">Bán lẻ trong hệ thống tháng này:-->
+					<!--						<p style="display: inline-block;color: #3fbf79""></p> VNĐ-->
+					<!--					</div>-->
+					<!--					<div class="col-sm-6" id="change_revenue" style="color: #7a43b6; font-weight: bold">Thay đổi so với cùng kỳ tháng trước:-->
+					<!--						<p style="display: inline-block;color: #3fbf79""></p> %-->
+					<!--					</div>-->
+					<!--					<div class="col-sm-6" id="quantity" style="color: #7a43b6; font-weight: bold">Số sản phẩm còn trong kho:-->
+					<!--						<p style="display: inline-block ;color: #3fbf79"></p></div>-->
 
 				</div>
 				<div class="modal-footer">

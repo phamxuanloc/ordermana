@@ -416,6 +416,8 @@ class AdminController extends BaseAdminController {
 	public function actionTree() {
 		$model = new  Model();
 		//		$children = $model->getTotalChildren(Yii::$app->user->id);
+		$previous_month   = $model->getPreviousMonth(date('m'));
+		$p_previous_month = $model->getPreviousMonth($previous_month);
 		if(Yii::$app->user->identity->role_id != $model::ROLE_ADMIN) {
 			$child   = $model->getTotalChildren(Yii::$app->user->id);
 			$adm_num = 0;
@@ -448,12 +450,14 @@ class AdminController extends BaseAdminController {
 		}
 		//		echo $pre_num;die;
 		return $this->render('tree', [
-			'model'   => $model,
-			'adm_num' => $adm_num,
-			'pre_num' => $pre_num,
-			'big_num' => $big_num,
-			'age_num' => $age_num,
-			'dis_num' => $dis_num,
+			'previous_month'   => $previous_month,
+			'p_previous_month' => $p_previous_month,
+			'model'            => $model,
+			'adm_num'          => $adm_num,
+			'pre_num'          => $pre_num,
+			'big_num'          => $big_num,
+			'age_num'          => $age_num,
+			'dis_num'          => $dis_num,
 		]);
 	}
 
@@ -496,17 +500,18 @@ class AdminController extends BaseAdminController {
 					$current_stock += $stock->quantity;
 				}
 			}
-			$previous_month   = $model->getPreviousMonth(date('m'));
-			$p_previous_month = $model->getPreviousMonth($previous_month);
-			//			$total_amount            =
-			//			$previous_total_amount   = 
-			//			$p_previous_total_amount = 
+			$previous_month            = $model->getPreviousMonth(date('m'));
+			$p_previous_month          = $model->getPreviousMonth($previous_month);
 			$customer_issue            = $model->getCustomerAmount($id, date('m'));
 			$previous_customer_issue   = $model->getCustomerAmount($id, $previous_month);
 			$p_previous_customer_issue = $model->getCustomerAmount($id, $p_previous_month);
-			$issue                     = 0;
-			
-			$query = OrderCustomer::find();
+			$issue                     = $model->getOrderAmount($id, date('m'));
+			$previous_issue            = $model->getOrderAmount($id, $previous_month);
+			$p_previous_issue          = $model->getOrderAmount($id, $p_previous_month);
+			$total_amount              = $customer_issue + $issue;
+			$previous_total_amount     = $previous_customer_issue + $previous_issue;
+			$p_previous_total_amount   = $p_previous_customer_issue + $p_previous_issue;
+			$query                     = OrderCustomer::find();
 			$query->andFilterWhere([
 				'IN',
 				'user_id',
@@ -519,17 +524,19 @@ class AdminController extends BaseAdminController {
 			$value          = [
 				'username'                  => $account->username,
 				'quantity'                  => $quantity_stock,
-				'amount'                    => $total_amount,
 				'current_stock'             => $current_stock,
 				'issue'                     => $issue,
+				'previous_issue'            => $previous_issue,
+				'p_previous_issue'          => $p_previous_issue,
 				'customer_issue'            => $customer_issue,
 				'previous_customer_issue'   => $previous_customer_issue,
 				'p_previous_customer_issue' => $p_previous_customer_issue,
 				'customer_system'           => $customer_system,
 				'change_revenue'            => $change_revenue,
 				'fb_link'                   => $fb_link,
+				'amount'                    => $total_amount,
 				'previous_amount'           => $previous_total_amount,
-				'p_previous_total_amount'   => $p_previous_total_amount,
+				'p_previous_amount'         => $p_previous_total_amount,
 			];
 			return json_encode($value);
 		}

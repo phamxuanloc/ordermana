@@ -53,14 +53,16 @@ use yii\helpers\Html;
 <div class="panel panel-danger" style="margin-top: 20px">
 	<div class="panel-heading">Báo cáo tổng hợp</div>
 	<div class="panel-body">
-		<div class="col-sm-4">Tổng số đơn hàng: <?= $order ?> đơn</div>
-		<div class="col-sm-4">Tổng số doanh thu: <?= number_format($revenue) ?> VNĐ</div>
-		<div class="col-sm-4">Tổng số khách hàng hệ thống: <?= $customer ?></div>
-		<div class="col-sm-4">Tổng số tài khoản hệ thống: <?= $total_children ?></div>
-		<div class="col-sm-4">Tổng số đại diện: <?= $pre_count ?></div>
-		<div class="col-sm-4">Tổng số đại lý bán buôn: <?= $big_count ?></div>
-		<div class="col-sm-4">Tổng số đại lý bán lẻ: <?= $age_count ?></div>
-		<div class="col-sm-4">Tổng số điểm phân phối: <?= $dis_count ?></div>
+		<div class="col-sm-4">Tổng số đơn hàng: <span style="font-weight: bold"><?= $order ?> đơn</span></div>
+		<div class="col-sm-4">Tổng số doanh thu:
+			<span style="font-weight: bold"><?= number_format($revenue) ?> VNĐ</span></div>
+		<div class="col-sm-4">Tổng số khách hàng hệ thống: <span style="font-weight: bold"><?= $customer ?></span></div>
+		<div class="col-sm-4">Tổng số tài khoản hệ thống: <span style="font-weight: bold"><?= $total_children ?></span>
+		</div>
+		<div class="col-sm-4">Tổng số đại diện: <span style="font-weight: bold"><?= $pre_count ?></span></div>
+		<div class="col-sm-4">Tổng số đại lý bán buôn: <span style="font-weight: bold"><?= $big_count ?></span></div>
+		<div class="col-sm-4">Tổng số đại lý bán lẻ: <span style="font-weight: bold"><?= $age_count ?></span></div>
+		<div class="col-sm-4">Tổng số điểm phân phối: <span style="font-weight: bold"><?= $dis_count ?></span></div>
 	</div>
 </div>
 <div class="panel panel-info" style="margin-top: 20px">

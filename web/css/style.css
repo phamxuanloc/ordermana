@@ -1,16 +1,25 @@
-.file-preview-image{
+.file-preview-image {
     width: 100%;
 }
+
 .grid-display {
     display: inline-block;
     padding-left: 8px;
     padding-right: 0;
     margin-top: 10px;
-    text-align: center; }
+    text-align: center;
+}
+
 .grid-display input {
-    float: left; }
-.btn-success{
+    float: left;
+}
+
+.btn-success {
     color: #fff;
     background-color: #5d2d77;
     border-color: #5d2d77;
+}
+
+.modal-body {
+    min-height: 300px;
 }

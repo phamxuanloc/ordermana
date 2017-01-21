@@ -648,7 +648,8 @@ class Model extends ActiveRecord {
 	 * Hàm trả về tháng trước
 	 */
 	public function getPreviousMonth($month) {
-		$prevMonth = date('m', strtotime("last month", strtotime($month)));
+		$date      = date('Y-' . $month . '-d');
+		$prevMonth = date('m', strtotime("last month", strtotime($date)));
 		return $prevMonth;
 	}
 
