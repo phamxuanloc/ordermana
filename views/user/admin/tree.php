@@ -46,7 +46,7 @@ $data = $model->getUserTree();
 $onSelect      = new JsExpression(<<<JS
 function (undefined,item) {
  var data_username = $('.modal-body').find('#username p');
- var data_quantity = $('.modal-body').find('#quantity p');
+ var data_quantity = $('.modal-body').find('#quantity select');
  var data_amount = $('.modal-body').find('#amount p');
  var data_last_amount = $('.modal-body').find('#last-amount p');
  var data_last_last_amount = $('.modal-body').find('#last-last-amount p');
@@ -164,9 +164,9 @@ $groupsContent = TreeView::widget([
 						<div class="col-sm-3 text-center last-order"><p>0</p></div>
 						<div class="col-sm-3 text-center order"><p>0</p></div>
 					</div>
-					<div class="col-sm-6" id="username" style="color: #7a43b6; font-weight: bold">Têm đămg nhập:
+					<div class="col-sm-6" id="username" style="    min-height: 30px;color: #7a43b6; font-weight: bold">Têm đămg nhập:
 						<p style="display: inline-block; color: #3fbf79"></p></div>
-					<div class="col-sm-6" id="fb_link" style="display: inline-block; color: #7a43b6; font-weight: bold">Link fb:
+					<div class="col-sm-6" id="fb_link" style="    min-height: 30px;display: inline-block; color: #7a43b6; font-weight: bold">Link fb:
 						<a href="#"><p style="display: inline-block; color: #3fbf79"></p></a></div>
 					<!--					<div class="col-sm-6" id="current_stock" style="color: #7a43b6; font-weight: bold">Tổng số hàng đã nhập tháng này:-->
 					<!--						<p style="display: inline-block ;color: #3fbf79"></p>-->
@@ -185,8 +185,11 @@ $groupsContent = TreeView::widget([
 					<!--					<div class="col-sm-6" id="change_revenue" style="color: #7a43b6; font-weight: bold">Thay đổi so với cùng kỳ tháng trước:-->
 					<!--						<p style="display: inline-block;color: #3fbf79""></p> %-->
 					<!--					</div>-->
-					<!--					<div class="col-sm-6" id="quantity" style="color: #7a43b6; font-weight: bold">Số sản phẩm còn trong kho:-->
-					<!--						<p style="display: inline-block ;color: #3fbf79"></p></div>-->
+					<div class="col-sm-6" id="quantity" style="color: #7a43b6; font-weight: bold">
+						<form><label>
+								<select></select>
+							</label></form>
+					</div>
 
 				</div>
 				<div class="modal-footer">

@@ -476,8 +476,6 @@ class AdminController extends BaseAdminController {
 			$fb_link         = $account->facebook_link;
 			$quantity_stock  = 0;
 			$current_stock   = 0;
-			$customer_issue  = 0;
-			$issue           = 0;
 			$customer_system = 0;
 			if($account->role_id != Model::ROLE_ADMIN) {
 				foreach($account->userStocks as $stock) {
@@ -491,10 +489,13 @@ class AdminController extends BaseAdminController {
 					}
 				}
 			} else {
+				$total = 0;
 				foreach(Product::find()->all() as $stock) {
-					$quantity_stock += $stock->in_stock;
+					$total += $stock->in_stock;
+					$quantity_stock .= '<option>' . $stock->name . '--' . $stock->in_stock . '</option>';
 				};
-				$pro_history = ProductHistory::find()->where([
+				$quantity_stock = '<option>Tất cả hàng tồn: ' . $total . '</option>' . $quantity_stock;
+				$pro_history    = ProductHistory::find()->where([
 					'between',
 					'created_date',
 					$oStart->format('Y-m-d'),
