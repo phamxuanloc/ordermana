@@ -114,7 +114,7 @@ class ReportForm extends Form {
 		$query->select('product.name,SUM(order_item.quantity) as total');
 		$query->innerJoin('product', 'order_item.product_id=product.id');
 		$query->innerJoin('order', 'order_item.order_id=order.id');
-		$query->andFilterWhere(['order.parent_id' => $this->user->id]);
+		$query->andFilterWhere(['order.parent_id' => $this->username == null ? $this->user->id : $this->username]);
 		if($this->start_date != null) {
 			if($this->end_date == null) {
 				$this->end_date = date('Y-m-d');
@@ -281,7 +281,7 @@ class ReportForm extends Form {
 			$oEnd->add(new DateInterval("P1M"));
 		}
 		if($this->user->role_id == Model::ROLE_ADMIN) {
-			$order          = Order::find()->andFilterWhere(['parent_id' => $this->user->id])->andFilterWhere([
+			$order          = Order::find()->andFilterWhere(['parent_id' => $this->username == null ? $this->user->id : $this->username])->andFilterWhere([
 				'>=',
 				'created_date',
 				$oStart->format('Y-m-d'),
@@ -290,7 +290,7 @@ class ReportForm extends Form {
 				'created_date',
 				$oEnd->format('Y-m-d'),
 			])->count();
-			$customer_order = OrderCustomer::find()->andFilterWhere(['user_id' => $this->user->id])->andFilterWhere([
+			$customer_order = OrderCustomer::find()->andFilterWhere(['user_id' => $this->username == null ? $this->user->id : $this->username])->andFilterWhere([
 				'>=',
 				'created_date',
 				$oStart->format('Y-m-d'),
@@ -301,7 +301,7 @@ class ReportForm extends Form {
 			])->count();
 			$total          = $order + $customer_order;
 		} else {
-			$order          = Order::find()->where(['parent_id' => $this->user->id])->andFilterWhere([
+			$order          = Order::find()->where(['parent_id' => $this->username == null ? $this->user->id : $this->username])->andFilterWhere([
 				'>=',
 				'created_date',
 				$oStart->format('Y-m-d'),
@@ -310,7 +310,7 @@ class ReportForm extends Form {
 				'created_date',
 				$oEnd->format('Y-m-d'),
 			])->count();
-			$customer_order = OrderCustomer::find()->andFilterWhere(['user_id' => $this->user->id])->andFilterWhere([
+			$customer_order = OrderCustomer::find()->andFilterWhere(['user_id' => $this->username == null ? $this->user->id : $this->username])->andFilterWhere([
 				'>=',
 				'created_date',
 				$oStart->format('Y-m-d'),
@@ -328,7 +328,7 @@ class ReportForm extends Form {
 		$model = new  Model();
 		$this->load($params);
 		if($this->user->role_id != $model::ROLE_ADMIN) {
-			$children = ArrayHelper::merge([$this->user->id], $model->getTotalChildren(Yii::$app->user->id));
+			$children = ArrayHelper::merge([$this->username == null ? $this->user->id : $this->username], $model->getTotalChildren($this->username == null ? $this->user->id : $this->username));
 			$child    = User::find();
 			$child->andFilterWhere(['role_id' => $role]);
 		} else {
@@ -364,11 +364,11 @@ class ReportForm extends Form {
 		$query = Customer::find();
 		if($this->user->role_id != Model::ROLE_ADMIN) {
 			$query->andFilterWhere([
-				'user_id' => $this->user->id,
+				'user_id' => $this->username == null ? $this->user->id : $this->username,
 			])->orFilterWhere([
-				'parent_id' => $this->user->id,
+				'parent_id' => $this->username == null ? $this->user->id : $this->username,
 			])->orFilterWhere([
-				'last_parent_id' => $this->user->id,
+				'last_parent_id' => $this->username == null ? $this->user->id : $this->username,
 			]);
 		}
 		if($this->start_date != null) {
@@ -392,8 +392,8 @@ class ReportForm extends Form {
 		$this->load($params);
 		$query_order    = Order::find();
 		$query_customer = OrderCustomer::find();
-		$query_order->where(['parent_id' => $this->user->id]);
-		$query_customer->where(['user_id' => $this->user->id]);
+		$query_order->where(['parent_id' => $this->username == null ? $this->user->id : $this->username]);
+		$query_customer->where(['user_id' => $this->username == null ? $this->user->id : $this->username]);
 		if($this->start_date != null) {
 			$oStart = $this->start_date;
 			if($this->end_date != null) {
@@ -432,9 +432,9 @@ class ReportForm extends Form {
 	 */
 	public function getStock($params) {
 		$this->load($params);
-		if($this->user->role_id != Model::ROLE_ADMIN) {
+		if($this->user->role_id != Model::ROLE_ADMIN || $this->username != null) {
 			$query = UserStock::find();
-			$query->andFilterWhere(['user_id' => $this->user->id]);
+			$query->andFilterWhere(['user_id' => $this->username == null ? $this->user->id : $this->username]);
 			if($this->start_date != null) {
 				if($this->end_date == null) {
 					$this->end_date = date('Y-m-d');
@@ -510,7 +510,7 @@ class ReportForm extends Form {
 		$this->load($params);
 		$query = Customer::find();
 		$query->innerJoin('customer_item', 'customer.id=customer_item.customer_id');
-		if($this->user->role_id == Model::ROLE_ADMIN) {
+		if($this->user->role_id == Model::ROLE_ADMIN && $this->username == null) {
 			if($this->start_date != null) {
 				if($this->end_date == null) {
 					$this->end_date = date('Y-m-d');
@@ -524,7 +524,7 @@ class ReportForm extends Form {
 			}
 		} else {
 			$model    = new Model();
-			$children = $model->getTotalChildren($this->user->id);
+			$children = $model->getTotalChildren($this->username==null?$this->user->id:$this->username);
 			$query->andFilterWhere([
 				'IN',
 				'user_id',
@@ -540,7 +540,7 @@ class ReportForm extends Form {
 				'last_parent_id',
 				$children,
 			]);
-			$query->orFilterWhere(['user_id' => $this->user->id]);
+			$query->orFilterWhere(['user_id' => $this->username==null?$this->user->id:$this->username]);
 			if($this->start_date != null) {
 				if($this->end_date == null) {
 					$this->end_date = date('Y-m-d');

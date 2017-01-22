@@ -44,14 +44,14 @@ use yii\helpers\Html;
 		]);
 		?>
 	</div>
-<!--	<div class="col-sm-4">-->
-<!--		--><?php
-//		echo $form->field($model, 'username')->widget(\kartik\select2\Select2::className(), [
-//			'options' => ['placeholder' => 'Đại diện'],
-//			'data'    => ArrayHelper::map(User::find()->where(['role_id' => Model::ROLE_PRE])->all(), 'id', 'username'),
-//		]);
-//		?>
-<!--	</div>-->
+	<div class="col-sm-4">
+		<?php
+		echo $form->field($model, 'username')->widget(\kartik\select2\Select2::className(), [
+			'options' => ['placeholder' => 'Đại diện'],
+			'data'    => ArrayHelper::map(User::find()->where(['role_id' => Model::ROLE_PRE])->all(), 'id', 'username'),
+		]);
+		?>
+	</div>
 	<div class="col-sm-12" style="margin-top: 15px">
 		<?php echo \yii\helpers\Html::submitButton('Báo cáo', ['class' => 'btn btn-warning']) ?>
 		<?= Html::a('Reset', ['site/report'], ['class' => 'btn btn-default']) ?>
