@@ -35,4 +35,15 @@ echo GoogleChart::widget(array(
 		],
 	),
 ));
+echo GoogleChart::widget(array(
+	'visualization' => 'BarChart',
+	'data'          => $pre_receive,
+	'options'       => array(
+		'title'          => 'Top đại diện nhận khách hàng',
+		'titleTextStyle' => [
+			'color'    => 'green',
+			'fontSize' => 25,
+		],
+	),
+));
 ?>

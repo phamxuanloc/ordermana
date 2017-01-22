@@ -191,17 +191,18 @@ class ReportForm extends Form {
 		$query->asArray();
 		$array_pres = $query->groupBy('user.id')->orderBy('total DESC')->all();
 		$pre        = [];
-		foreach($array_pres as $array_pre) {
-			$pre[] = [
-				$array_pre['username'],
-				(int) $array_pre['total'],
-			];
-		}
 		if($array_pres == null || $this->username != null) {
 			$pre[] = [
 				'Không có dữ liệu',
 				1,
 			];
+		} else {
+			foreach($array_pres as $array_pre) {
+				$pre[] = [
+					$array_pre['username'],
+					(int) $array_pre['total'],
+				];
+			}
 		}
 		$pre = ArrayHelper::merge([
 			[
@@ -666,6 +667,35 @@ class ReportForm extends Form {
 		return ArrayHelper::merge([
 			[
 				'Đại diện nhập khách hàng',
+				'Đại diện',
+			],
+		], $customer_array);
+	}
+
+	public function getMoveToPre() {
+		$query = Customer::find();
+		$query->innerJoin('user', 'customer.to_pre=user.id');
+		$query->andFilterWhere(['user.role_id' => Customer::ROLE_PRE]);
+		$customers      = $query->select(['COUNT(*) as count,user.username as prename'])->groupBy('prename')->limit(10)->asArray()->all();
+		$customer_array = [];
+		if($customers != null) {
+			foreach($customers as $customer) {
+				$customer_array[] = [
+					$customer['prename'],
+					(int) $customer['count'],
+				];
+			}
+		} else {
+			$customer_array = [
+				[
+					'Không có đại diện nào',
+					1,
+				],
+			];
+		}
+		return ArrayHelper::merge([
+			[
+				'Đại diện nhận khách hàng',
 				'Đại diện',
 			],
 		], $customer_array);

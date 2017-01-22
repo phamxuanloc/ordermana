@@ -271,6 +271,7 @@ class CustomerController extends Controller {
 				return $this->redirect(['index']);
 			} else {
 				$customer->updateAttributes(['parent_id' => $model->parent_id]);
+				$customer->updateAttributes(['to_pre' => $model->parent_id]);
 				$customer->updateAttributes(['is_move' => 1]);
 				$customer->updateAttributes(['update_user' => $model->user->username]);
 				return $this->redirect(['index']);
@@ -359,16 +360,14 @@ class CustomerController extends Controller {
 	}
 
 	public function actionReport() {
-		$model = new ReportForm();
-		//		$customer= $model->getTopCustomer(Yii::$app->request->queryParams);
-		//		echo '<pre>';
-		//		print_r($customer);
-		//		die;
-		$source = $model->getCustomerSource();
-		$pre    = $model->getCustomerPre();
+		$model       = new ReportForm();
+		$source      = $model->getCustomerSource();
+		$pre         = $model->getCustomerPre();
+		$pre_receive = $model->getMoveToPre();
 		return $this->render('report', [
-			'source' => $source,
-			'pre'    => $pre,
+			'source'      => $source,
+			'pre'         => $pre,
+			'pre_receive' => $pre_receive,
 		]);
 	}
 }
