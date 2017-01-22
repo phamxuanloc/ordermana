@@ -611,7 +611,7 @@ class ReportForm extends Form {
 		if($customers != null) {
 			foreach($customers as $customer) {
 				$customer_array[] = [
-					$customer->source . '',
+					$customer->source != null ? $customer->source . '' : 'Chưa cập nhật',
 					(int) $customer->count,
 				];
 			}
