@@ -524,7 +524,7 @@ class ReportForm extends Form {
 			}
 		} else {
 			$model    = new Model();
-			$children = $model->getTotalChildren($this->username==null?$this->user->id:$this->username);
+			$children = $model->getTotalChildren($this->username == null ? $this->user->id : $this->username);
 			$query->andFilterWhere([
 				'IN',
 				'user_id',
@@ -540,7 +540,7 @@ class ReportForm extends Form {
 				'last_parent_id',
 				$children,
 			]);
-			$query->orFilterWhere(['user_id' => $this->username==null?$this->user->id:$this->username]);
+			$query->orFilterWhere(['user_id' => $this->username == null ? $this->user->id : $this->username]);
 			if($this->start_date != null) {
 				if($this->end_date == null) {
 					$this->end_date = date('Y-m-d');
@@ -574,6 +574,36 @@ class ReportForm extends Form {
 			[
 				'Top khách mua hàng',
 				'VNĐ',
+			],
+		], $customer_array);
+	}
+
+	/**
+	 * Trả về phần trăm khách hàng theo nguồn
+	 */
+	public function getCustomerSource() {
+		$query          = Customer::find();
+		$customers      = $query->select(['count(*) as count,source'])->groupBy('source')->all();
+		$customer_array = [];
+		if($customers != null) {
+			foreach($customers as $customer) {
+				$customer_array[] = [
+					$customer->source . '',
+					(int) $customer->count,
+				];
+			}
+		} else {
+			$customer_array = [
+				[
+					'Không có khách hàng nào',
+					1,
+				],
+			];
+		}
+		return ArrayHelper::merge([
+			[
+				'Nguồn',
+				'Nguồn',
 			],
 		], $customer_array);
 	}

@@ -243,6 +243,12 @@ use yii\helpers\Url;
 									Chuyển khách hàng lẻ</a>
 							</li>
 						<?php } ?>
+						<?php if(RoleChecker::isAuth(\app\controllers\CustomerController::className(), 'report')) { ?>
+							<li>
+								<a href="<?= Url::to(['/customer/report']) ?>">
+									Báo cáo khách hàng</a>
+							</li>
+						<?php } ?>
 
 					</ul>
 				</li>

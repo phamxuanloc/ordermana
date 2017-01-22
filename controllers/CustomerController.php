@@ -4,6 +4,7 @@ namespace app\controllers;
 use app\components\Controller;
 use app\models\Customer;
 use app\models\Notification;
+use app\models\ReportForm;
 use app\models\search\CustomerSearch;
 use app\models\UploadExcel;
 use app\models\User;
@@ -42,7 +43,8 @@ class CustomerController extends Controller {
 					'index'  => 'Danh sách khách ',
 					'update' => 'Cập nhật khách ',
 					'delete' => 'Xóa khách ',
-					'move'   => 'Chuyển khách'
+					'move'   => 'Chuyển khách',
+					'report' => 'Báo cáo',
 					//with translated, which will display on role _form
 				],
 			],
@@ -354,5 +356,15 @@ class CustomerController extends Controller {
 		} else {
 			throw new NotFoundHttpException('The requested page does not exist.');
 		}
+	}
+
+	public function actionReport() {
+		$model  = new ReportForm();
+//		$customer= $model->getTopCustomer(Yii::$app->request->queryParams);
+//		echo '<pre>';
+//		print_r($customer);
+//		die;
+		$source = $model->getCustomerSource();
+		return $this->render('report', ['source' => $source]);
 	}
 }
