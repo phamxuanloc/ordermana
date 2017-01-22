@@ -604,7 +604,7 @@ class ReportForm extends Form {
 				$children,
 			]);
 			$query->orFilterWhere(['user_id' => $this->username == null ? $this->user->id : $this->username]);
-			$customers = $query->select(['count(*) as count,source'])->groupBy('source')->all();
+			$customers = $query->select(['COUNT(*) as count,source'])->groupBy('source')->all();
 		}
 		$customer_array = [];
 		if($customers != null) {
@@ -626,6 +626,47 @@ class ReportForm extends Form {
 			[
 				'Nguồn',
 				'Nguồn',
+			],
+		], $customer_array);
+	}
+
+	/**
+	 * Trả về phần trăm khách hàng theo đại diện tạo trong tháng
+	 */
+	public function getCustomerPre() {
+		$oStart = new DateTime(date('Y') . '-' . date('m') . '-1');
+		$oEnd   = clone $oStart;
+		$oEnd->add(new DateInterval("P1M"));
+		$query = Customer::find();
+		$query->innerJoin('user', 'customer.user_id=user.id');
+		$query->andFilterWhere(['user.role_id' => Customer::ROLE_PRE]);
+		$query->andFilterWhere([
+			'between',
+			'customer.created_date',
+			$oStart->format('Y-m-d'),
+			$oEnd->format('Y-m-d'),
+		]);
+		$customers      = $query->select(['COUNT(*) as count,user.username as prename'])->groupBy('prename')->asArray()->all();
+		$customer_array = [];
+		if($customers != null) {
+			foreach($customers as $customer) {
+				$customer_array[] = [
+					$customer['prename'],
+					(int) $customer['count'],
+				];
+			}
+		} else {
+			$customer_array = [
+				[
+					'Không có đại diện nào',
+					1,
+				],
+			];
+		}
+		return ArrayHelper::merge([
+			[
+				'Đại diện nhập khách hàng',
+				'Đại diện',
 			],
 		], $customer_array);
 	}

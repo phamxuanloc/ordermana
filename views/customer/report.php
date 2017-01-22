@@ -22,4 +22,17 @@ echo GoogleChart::widget(array(
 		],
 	),
 ));
+echo GoogleChart::widget(array(
+	'visualization' => 'PieChart',
+	'data'          => $pre,
+	'options'       => array(
+		'title'          => 'Đại diện nhập KH trong tháng ',
+		'width'          => '100%',
+		'height'         => 500,
+		'titleTextStyle' => [
+			'color'    => 'orange',
+			'fontSize' => 25,
+		],
+	),
+));
 ?>

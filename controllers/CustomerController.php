@@ -359,12 +359,16 @@ class CustomerController extends Controller {
 	}
 
 	public function actionReport() {
-		$model  = new ReportForm();
-//		$customer= $model->getTopCustomer(Yii::$app->request->queryParams);
-//		echo '<pre>';
-//		print_r($customer);
-//		die;
+		$model = new ReportForm();
+		//		$customer= $model->getTopCustomer(Yii::$app->request->queryParams);
+		//		echo '<pre>';
+		//		print_r($customer);
+		//		die;
 		$source = $model->getCustomerSource();
-		return $this->render('report', ['source' => $source]);
+		$pre    = $model->getCustomerPre();
+		return $this->render('report', [
+			'source' => $source,
+			'pre'    => $pre,
+		]);
 	}
 }
