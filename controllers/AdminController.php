@@ -478,9 +478,12 @@ class AdminController extends BaseAdminController {
 			$current_stock   = 0;
 			$customer_system = 0;
 			if($account->role_id != Model::ROLE_ADMIN) {
+				$total = 0;
 				foreach($account->userStocks as $stock) {
-					$quantity_stock += $stock->in_stock;
+					$total += $stock->in_stock;
+					$quantity_stock .= '<option>' . $stock->product->name . '--' . $stock->in_stock . '</option>';
 				};
+				$quantity_stock = '<option>Tất cả hàng tồn: ' . $total . '</option>' . $quantity_stock;
 				foreach($account->orders0 as $receipted) {
 					if($receipted->created_date >= $oStart->format('Y-m-d') && $receipted->created_date <= $oEnd->format('Y-m-d')) {
 						foreach($receipted->orderItems as $item) {

@@ -20,12 +20,15 @@ class ReportForm extends Form {
 
 	public $end_date;
 
+	public $username;
+
 	public function rules() {
 		return [
 			[
 				[
 					'start_date',
 					'end_date',
+					'username',
 				],
 				'safe',
 			],
@@ -194,7 +197,7 @@ class ReportForm extends Form {
 				(int) $array_pre['total'],
 			];
 		}
-		if($array_pres == null) {
+		if($array_pres == null || $this->username != null) {
 			$pre[] = [
 				'Không có dữ liệu',
 				1,
@@ -210,7 +213,7 @@ class ReportForm extends Form {
 	}
 
 	/**
-	 *Trả về mảng tiền hàng đại diện lý
+	 *Trả về mảng tiền hàng đại lý
 	 */
 	public function getAgeArray($params) {
 		$model = new  Model();

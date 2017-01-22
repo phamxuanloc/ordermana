@@ -63,6 +63,10 @@ class CustomerItem extends Model {
 				'integer',
 			],
 			[
+				'created_date',
+				'safe',
+			],
+			[
 				['total_price'],
 				'number',
 			],
