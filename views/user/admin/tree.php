@@ -168,9 +168,9 @@ $groupsContent = TreeView::widget([
 						<p style="display: inline-block; color: #3fbf79"></p></div>
 					<div class="col-sm-6" id="fb_link" style="    min-height: 30px;display: inline-block; color: #7a43b6; font-weight: bold">Link fb:
 						<a href="#"><p style="display: inline-block; color: #3fbf79"></p></a></div>
-					<!--					<div class="col-sm-6" id="current_stock" style="color: #7a43b6; font-weight: bold">Tổng số hàng đã nhập tháng này:-->
-					<!--						<p style="display: inline-block ;color: #3fbf79"></p>-->
-					<!--					</div>-->
+					<div class="col-sm-6" id="current_stock" style="color: #7a43b6; font-weight: bold">Tổng số hàng đã nhập tháng này:
+						<p style="display: inline-block ;color: #3fbf79"></p>
+					</div>
 					<!--					<div class="col-sm-6" id="amount" style="color: #7a43b6; font-weight: bold">Tổng số tiền đã nhập hàng tháng này:-->
 					<!--						<p style="display: inline-block ;color: #3fbf79"></p> VNĐ-->
 					<!--					</div>-->

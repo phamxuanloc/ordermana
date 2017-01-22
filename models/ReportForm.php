@@ -582,8 +582,30 @@ class ReportForm extends Form {
 	 * Trả về phần trăm khách hàng theo nguồn
 	 */
 	public function getCustomerSource() {
-		$query          = Customer::find();
-		$customers      = $query->select(['count(*) as count,source'])->groupBy('source')->all();
+		$query = Customer::find();
+		if($this->user->role_id == Model::ROLE_ADMIN) {
+			$customers = $query->select(['count(*) as count,source'])->groupBy('source')->all();
+		} else {
+			$model    = new Model();
+			$children = $model->getTotalChildren($this->username == null ? $this->user->id : $this->username);
+			$query->andFilterWhere([
+				'IN',
+				'user_id',
+				$children,
+			]);
+			$query->andFilterWhere([
+				'IN',
+				'parent_id',
+				$children,
+			]);
+			$query->andFilterWhere([
+				'IN',
+				'last_parent_id',
+				$children,
+			]);
+			$query->orFilterWhere(['user_id' => $this->username == null ? $this->user->id : $this->username]);
+			$customers = $query->select(['count(*) as count,source'])->groupBy('source')->all();
+		}
 		$customer_array = [];
 		if($customers != null) {
 			foreach($customers as $customer) {
