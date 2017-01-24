@@ -161,12 +161,12 @@ class CenterController extends Controller {
 			$this->redirect(Url::to([
 				'finish',
 				'id'    => $order->id,
-				'phone' => $phone,
 			]));
 		}
 		return $this->render('info', [
 			'model' => $model,
 			'order' => $order,
+			'phone' => $phone,
 		]);
 	}
 
