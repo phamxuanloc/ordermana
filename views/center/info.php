@@ -119,6 +119,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		],
 	]) ?>
 	<?= $form->field($model, 'phone')->textInput([
+		'value'    => $phone,
 		'readOnly' => $model->isNewRecord ? false : true,
 	]) ?>
 	<?= $form->field($model, 'id_number')->textInput([
@@ -146,7 +147,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		'rows'     => 6,
 		'readOnly' => $model->isNewRecord ? false : true,
 	]) ?>
-
 
 	<div class="col-sm-offset-3">
 		<?= Html::submitButton('Thanh toán', ['class' => 'btn btn-primary']) ?>

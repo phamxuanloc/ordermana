@@ -160,7 +160,8 @@ class CenterController extends Controller {
 			]);
 			$this->redirect(Url::to([
 				'finish',
-				'id' => $order->id,
+				'id'    => $order->id,
+				'phone' => $phone,
 			]));
 		}
 		return $this->render('info', [
@@ -179,13 +180,13 @@ class CenterController extends Controller {
 		$model        = $this->findModel($id);
 		$items        = $model->centerItems;
 		$pdf          = new Pdf([
-			'content'     => $this->renderPartial('_finish', [
+			'content' => $this->renderPartial('_finish', [
 				'model' => $model,
 				'items' => $items,
 			]),
-			'mode'        => Pdf::MODE_UTF8,
-			'format'      => Pdf::FORMAT_FOLIO,
-			'cssFile'     => '@web/global/plugins/bootstrap/css/bootstrap.min.css',
+			'mode'    => Pdf::MODE_UTF8,
+			'format'  => Pdf::FORMAT_FOLIO,
+			'cssFile' => '@web/global/plugins/bootstrap/css/bootstrap.min.css',
 		]);
 		return $pdf->render();
 	}
