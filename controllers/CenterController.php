@@ -156,11 +156,13 @@ class CenterController extends Controller {
 			$order->updateAttributes([
 				'customer_id' => $model->id,
 				'status'      => $order::PAID,
-				'point'       => round($order->total_amount / 100000) * Yii::$app->setting->get('point_change'),
+			]);
+			$model->updateAttributes([
+				'point' => round($order->total_amount / 100000) * Yii::$app->setting->get('point_change'),
 			]);
 			$this->redirect(Url::to([
 				'finish',
-				'id'    => $order->id,
+				'id' => $order->id,
 			]));
 		}
 		return $this->render('info', [
