@@ -2,6 +2,11 @@
 use execut\widget\TreeView;
 use yii\web\JsExpression;
 
+?>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<?php
 /** @var app\components\Model $model */
 $data = $model->getUserTree();
 //$data = [
@@ -63,10 +68,11 @@ function (undefined,item) {
  var data_csystem=$('.modal-body').find('#customer_system p');
  var data_crevenue=$('.modal-body').find('#change_revenue p');
  var data_fb=$('.modal-body').find('#fb_link p');
- var data_fblink=$('.modal-body').find('#fb_link a');
+ var data_fblink=$('.modal-body').find('#fb_link a');       
        $.ajax({
 			url    : item.url,
 			type   : "post",
+             async: false,
 			data   : {
 				a: 1
 			},
@@ -91,10 +97,60 @@ function (undefined,item) {
 			// data_crevenue.html(data.change_revenue);
 			data_fb.html(data.fb_link);
 			data_fblink.attr("href",data.fb_link);
+			
+			// Load the Visualization API and the piechart package.
+    google.charts.load('current', {'packages':['corechart']});
+      
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawChart);
+ 
+    function drawChart() {
+    var jsonData = $.ajax({
+          url: item.url,
+          			type   : "post",
+
+          data   : {
+             a: 1,
+		     b: 1
+			},
+          dataType: "json",
+          async: false
+          }).responseText;
+     // var data = new google.visualization.DataTable();
+     var amount_chart=[];
+     if(data.previous_amount==0&&data.amount==0&&data.p_previous_amount==0){
+     amount_chart=[
+        {"c":[{"v":"Không có dữ liệu","f":null},{"v":1,"f":null}]},
+      ]
+     }else {
+      amount_chart=[
+        {"c":[{"v":"Mushrooms","f":null},{"v":1,"f":null}]},
+        {"c":[{"v":"Onions","f":null},{"v":data.previous_amount,"f":null}]},
+        {"c":[{"v":"Olives","f":null},{"v":data.p_previous_amount,"f":null}]},
+      ]
+     }
+		var data_chart = new google.visualization.DataTable({
+  "cols": [
+        {"id":"","label":"Topping","pattern":"","type":"string"},
+        {"id":"","label":"Slices","pattern":"","type":"number"}
+      ],
+  "rows": amount_chart
+});
+							// Set chart options
+							var options = {
+								'title' : 'Doanh thu tháng',
+								'width' : 400,
+								'height': 300
+							};
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      chart.draw(data_chart, options);
+    }
 			}
 			
 		});
-	
+								
 }
 JS
 );
@@ -163,6 +219,9 @@ $groupsContent = TreeView::widget([
 						<div class="col-sm-3 text-center last-last-order"><p>0</p></div>
 						<div class="col-sm-3 text-center last-order"><p>0</p></div>
 						<div class="col-sm-3 text-center order"><p>0</p></div>
+					</div>
+					<div class="col-sm-12" style="border-bottom: solid black 1px">
+						<div id="chart_div"></div>
 					</div>
 					<div class="col-sm-6" id="username" style="    min-height: 30px;color: #7a43b6; font-weight: bold">Têm đămg nhập:
 						<p style="display: inline-block; color: #3fbf79"></p></div>

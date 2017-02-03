@@ -546,7 +546,18 @@ class AdminController extends BaseAdminController {
 				'previous_amount'           => $previous_total_amount,
 				'p_previous_amount'         => $p_previous_total_amount,
 			];
-			return json_encode($value);
+			if(isset($_POST['b'])) {
+				return json_encode([
+					['Task', 'Hours per Day'],
+					['Work',     11],
+					['Eat',      2],
+					['Commute',  2],
+					['Watch TV', 2],
+					['Sleep',    7]
+				]);
+			} else {
+				return json_encode($value);
+			}
 		}
 	}
 
