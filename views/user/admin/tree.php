@@ -105,28 +105,52 @@ function (undefined,item) {
     google.charts.setOnLoadCallback(drawChart);
  
     function drawChart() {
-    var jsonData = $.ajax({
-          url: item.url,
-          			type   : "post",
-
-          data   : {
-             a: 1,
-		     b: 1
-			},
-          dataType: "json",
-          async: false
-          }).responseText;
+    // var jsonData = $.ajax({
+    //       url: item.url,
+    //       			type   : "post",
+	//
+    //       data   : {
+    //          a: 1,
+		//      b: 1
+		// 	},
+    //       dataType: "json",
+    //       async: false
+    //       }).responseText;
      // var data = new google.visualization.DataTable();
      var amount_chart=[];
+     var order_chart=[];
+     var orderc_chart=[];
      if(data.previous_amount==0&&data.amount==0&&data.p_previous_amount==0){
      amount_chart=[
         {"c":[{"v":"Không có dữ liệu","f":null},{"v":1,"f":null}]},
       ]
      }else {
       amount_chart=[
-        {"c":[{"v":"Mushrooms","f":null},{"v":1,"f":null}]},
-        {"c":[{"v":"Onions","f":null},{"v":data.previous_amount,"f":null}]},
-        {"c":[{"v":"Olives","f":null},{"v":data.p_previous_amount,"f":null}]},
+        {"c":[{"v":"T "+data.current,"f":null},{"v":data.amount,"f":null}]},
+        {"c":[{"v":"T "+data.previous_month,"f":null},{"v":data.previous_amount,"f":null}]},
+        {"c":[{"v":"T "+data.p_previous_month,"f":null},{"v":data.p_previous_amount,"f":null}]},
+      ]
+     }
+     if(data.issue==0&&data.previous_issue==0&&data.p_previous_issue==0){
+     order_chart=[
+        {"c":[{"v":"Không có dữ liệu","f":null},{"v":1,"f":null}]},
+      ]
+     }else {
+      order_chart=[
+        {"c":[{"v":"T "+data.current,"f":null},{"v":data.issue,"f":null}]},
+        {"c":[{"v":"T "+data.previous_month,"f":null},{"v":data.previous_issue,"f":null}]},
+        {"c":[{"v":"T "+data.p_previous_month,"f":null},{"v":data.p_previous_issue,"f":null}]},
+      ]
+     }
+     if(data.customer_issue==0&&data.previous_customer_issue==0&&data.p_previous_customer_issue==0){
+     orderc_chart=[
+        {"c":[{"v":"Không có dữ liệu","f":null},{"v":1,"f":null}]},
+      ]
+     }else {
+      orderc_chart=[
+        {"c":[{"v":"T "+data.current,"f":null},{"v":data.customer_issue,"f":null}]},
+        {"c":[{"v":"T "+data.previous_month,"f":null},{"v":data.previous_customer_issue,"f":null}]},
+        {"c":[{"v":"T "+data.p_previous_month,"f":null},{"v":data.p_previous_customer_issue,"f":null}]},
       ]
      }
 		var data_chart = new google.visualization.DataTable({
@@ -139,13 +163,46 @@ function (undefined,item) {
 							// Set chart options
 							var options = {
 								'title' : 'Doanh thu tháng',
-								'width' : 400,
+								'width' : 295,
+								'height': 300
+							};
+							
+							
+							var data_order = new google.visualization.DataTable({
+  "cols": [
+        {"id":"","label":"Topping","pattern":"","type":"string"},
+        {"id":"","label":"Slices","pattern":"","type":"number"}
+      ],
+  "rows": order_chart
+});
+							// Set chart options
+							var options_order = {
+								'title' : 'Doanh thu bán buôn',
+								'width' : 295,
+								'height': 300
+							};
+							
+							var data_orderc = new google.visualization.DataTable({
+  "cols": [
+        {"id":"","label":"Topping","pattern":"","type":"string"},
+        {"id":"","label":"Slices","pattern":"","type":"number"}
+      ],
+  "rows": orderc_chart
+});
+							// Set chart options
+							var options_orderc = {
+								'title' : 'Doanh thu bán lẻ',
+								'width' : 295,
 								'height': 300
 							};
 
       // Instantiate and draw our chart, passing in some options.
       var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
       chart.draw(data_chart, options);
+      var chart_order = new google.visualization.PieChart(document.getElementById('chart_order'));
+      chart_order.draw(data_order, options_order);
+      var chart_orderc = new google.visualization.PieChart(document.getElementById('chart_orderc'));
+      chart_orderc.draw(data_orderc, options_orderc);
     }
 			}
 			
@@ -221,7 +278,9 @@ $groupsContent = TreeView::widget([
 						<div class="col-sm-3 text-center order"><p>0</p></div>
 					</div>
 					<div class="col-sm-12" style="border-bottom: solid black 1px">
-						<div id="chart_div"></div>
+						<div id="chart_div" class="col-sm-4"></div>
+						<div id="chart_order" class="col-sm-4"></div>
+						<div id="chart_orderc" class="col-sm-4"></div>
 					</div>
 					<div class="col-sm-6" id="username" style="    min-height: 30px;color: #7a43b6; font-weight: bold">Têm đămg nhập:
 						<p style="display: inline-block; color: #3fbf79"></p></div>

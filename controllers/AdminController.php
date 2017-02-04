@@ -1,6 +1,5 @@
 <?php
 /**
- * Created by Navatech.
  * @project ordermana
  * @author  LocPX
  * @email   loc.xuanphama1t1[at]gmail.com
@@ -528,8 +527,17 @@ class AdminController extends BaseAdminController {
 			if($query->sum('total_amount') != null) {
 				$customer_system = $query->sum('total_amount');
 			}
-			$change_revenue = $model->getChangeRevenue();
-			$value          = [
+			$change_revenue   = $model->getChangeRevenue();
+			$previous_month   = $model->getPreviousMonth(date('Y-m'));
+			$p_previous_month = $model->getPreviousMonth($previous_month);
+			$p_previous_month = new DateTime($p_previous_month);
+			$p_previous_month = $p_previous_month->format('m');
+			$previous_month   = new DateTime($previous_month);
+			$previous_month   = $previous_month->format('m');
+			$value            = [
+				'current'                   => date('m'),
+				'previous_month'            => $previous_month,
+				'p_previous_month'          => $p_previous_month,
 				'username'                  => $account->username,
 				'quantity'                  => $quantity_stock,
 				'current_stock'             => $current_stock,
@@ -546,18 +554,7 @@ class AdminController extends BaseAdminController {
 				'previous_amount'           => $previous_total_amount,
 				'p_previous_amount'         => $p_previous_total_amount,
 			];
-			if(isset($_POST['b'])) {
-				return json_encode([
-					['Task', 'Hours per Day'],
-					['Work',     11],
-					['Eat',      2],
-					['Commute',  2],
-					['Watch TV', 2],
-					['Sleep',    7]
-				]);
-			} else {
-				return json_encode($value);
-			}
+			return json_encode($value);
 		}
 	}
 
