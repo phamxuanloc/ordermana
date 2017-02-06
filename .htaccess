@@ -1,8 +1,5 @@
-# prevent directory listings
-Options -Indexes
-IndexIgnore */*
-
-# follow symbolic links
-Options FollowSymlinks
-RewriteEngine on
-RewriteRule ^(.+)?$ web/$1
+RewriteEngine On
+RewriteRule ^$ web/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ web/$1
