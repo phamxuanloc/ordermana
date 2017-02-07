@@ -97,18 +97,18 @@ $config  = [
 ];
 if(YII_ENV_DEV) {
 	// configuration adjustments for 'dev' environment
-//	$config['bootstrap'][]      = 'debug';
-//	$config['modules']['debug'] = [
-//		'class' => 'yii\debug\Module',
-//	];
-//	$config['modules']['debug']['allowedIPs'] = ['*'];
+	$config['bootstrap'][]      = 'debug';
+	$config['modules']['debug'] = [
+		'class' => 'yii\debug\Module',
+	];
+	$config['modules']['debug']['allowedIPs'] = ['*'];
 	$config['bootstrap'][]      = 'gii';
 	$config['modules']['gii']   = [
 		'class' => 'yii\gii\Module',
 	];
-//	$config['modules']['gii']=[
-//		'class' =>  'yii\gii\Module',
-//		'allowedIPs' => ['*'],
-//	];
+	$config['modules']['gii']=[
+		'class' =>  'yii\gii\Module',
+		'allowedIPs' => ['*'],
+	];
 }
 return $config;
