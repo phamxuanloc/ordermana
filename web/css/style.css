@@ -23,3 +23,19 @@
 .modal-body {
     min-height: 300px;
 }
+
+.product-items ul {
+    list-style: none;
+}
+.product-image{
+    width: 100%;
+    height: 80%;
+}
+.product-items ul li {
+    height: 150px;
+
+}
+
+.product-items ul li img {
+    width: 100%;
+}

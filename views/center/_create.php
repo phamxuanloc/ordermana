@@ -33,7 +33,7 @@ use yii\widgets\ActiveForm;
 	</div>
 	<div class="items">
 		<?php for(
-			$i = 1; $i < 6; $i ++
+			$i = 1; $i < 2; $i ++
 		) { ?>
 			<div class="item-detail">
 				<div class="col-sm-1 id grid-display"><?= Html::input('text', '', $i, [
@@ -108,6 +108,19 @@ use yii\widgets\ActiveForm;
 		<!--	</div>-->
 	</div>
 	<?php \yii\widgets\ActiveForm::end() ?>
+	<div class="product-items">
+		<ul>
+			<?php for(
+				$i = 1; $i < 20; $i ++
+			) { ?>
+				<li class="col-sm-2">
+					<div class="product-image">
+						<img src="<?= Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif' ?>">
+					</div>
+				</li>
+			<?php } ?>
+		</ul>
+	</div>
 	<script>
 		$(".add-form").click(function() {
 			var number  = $(".items").find(".item-detail").length;
