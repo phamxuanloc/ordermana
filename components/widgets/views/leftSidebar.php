@@ -350,6 +350,10 @@ use yii\helpers\Url;
 						<a href="#">
 							Danh sách center</a>
 					</li>
+					<li>
+						<a href="<?= Url::to(['/center/create']) ?>">
+							Tạo đơn hàng center</a>
+					</li>
 				</ul>
 			</li>
 		</ul>
