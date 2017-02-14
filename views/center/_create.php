@@ -113,11 +113,13 @@ use yii\widgets\ActiveForm;
 		<ul>
 			<?php foreach($products as $product) { ?>
 				<li class="col-sm-2">
-					<div class="product-image">
-						<img src="<?= $product->getPictureUrl('image') ?>">
-						<span class="product-price"><?= $product->retail_sale ?>VNĐ</span>
-					</div>
-					<span class="product-title"><?= $product->name ?></span>
+					<a href="#">
+						<div class="product-image">
+							<img src="<?= $product->getPictureUrl('image') ?>" alt="<?= $product->name ?>">
+							<span class="product-price"><?= $product->retail_sale ?>VNĐ</span>
+						</div>
+						<span class="product-title"><?= $product->name ?></span>
+					</a>
 				</li>
 			<?php } ?>
 		</ul>
