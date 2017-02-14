@@ -10,6 +10,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /** @var \app\models\CenterItem $orderItem */
 /** @var \app\models\Order $order */
+/** @var \app\models\Product $product */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <div class="order-title text-center ">
@@ -100,7 +101,7 @@ use yii\widgets\ActiveForm;
 	</div>
 	<div class="row action-pager">
 		<div class="col-sm-6 action-item order-accept">
-			<?= Html::submitButton('Tạo đơn hàng', ['class' => 'fleft']) ?>
+			<?= Html::submitButton('Tạo đơn hàng', ['class' => 'fleft btn btn-primary']) ?>
 		</div>
 		<!--	<div class="col-sm-6 action-item order-cancel">-->
 		<!--		<a class="fright" href="">Hủy đơn</a>-->
@@ -108,15 +109,15 @@ use yii\widgets\ActiveForm;
 		<!--	</div>-->
 	</div>
 	<?php \yii\widgets\ActiveForm::end() ?>
-	<div class="product-items">
+	<div class="product-items clearfix">
 		<ul>
-			<?php for(
-				$i = 1; $i < 20; $i ++
-			) { ?>
+			<?php foreach($products as $product) { ?>
 				<li class="col-sm-2">
 					<div class="product-image">
-						<img src="<?= Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif' ?>">
+						<img src="<?= $product->getPictureUrl('image') ?>">
+						<span class="product-price"><?= $product->retail_sale ?>VNĐ</span>
 					</div>
+					<span class="product-title"><?= $product->name ?></span>
 				</li>
 			<?php } ?>
 		</ul>

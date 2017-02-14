@@ -116,9 +116,11 @@ class CenterController extends Controller {
 			];
 			return json_encode($value);
 		}
+		$products = Product::find()->all();
 		return $this->render('create', [
 			'orderItem' => $orderItem,
 			'order'     => $order,
+			'products'  => $products,
 		]);
 	}
 
