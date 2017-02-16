@@ -32,7 +32,7 @@ use yii\widgets\ActiveForm;
 	</div>
 	<div class="price-show grid-display col-sm-2"><p style="text-transform: uppercase">Tổng tiền</p>
 	</div>
-	<div class="items">
+	<div class="center-items">
 		<?php for(
 			$i = 1; $i < 2; $i ++
 		) { ?>
@@ -77,12 +77,12 @@ use yii\widgets\ActiveForm;
 			</div>
 		<?php } ?>
 	</div>
-	<div class="row action-pager ">
-		<div class="col-sm-6 action-item add-item">
-			<a class="fleft add-form" href="">Thêm sản phẩm</a>
-		</div>
-	</div>
-
+<!--	<div class="row action-pager ">-->
+<!--		<div class="col-sm-6 action-item add-item">-->
+<!--			<a class="fleft add-form" href="">Thêm sản phẩm</a>-->
+<!--		</div>-->
+<!--	</div>-->
+<div class="order-info">
 	<div class=" row final-total">
 		<div class="col-sm-6 total">
 			<p>Tổng</p>
@@ -108,6 +108,7 @@ use yii\widgets\ActiveForm;
 		<!---->
 		<!--	</div>-->
 	</div>
+</div>
 	<?php \yii\widgets\ActiveForm::end() ?>
 	<div class="product-items clearfix">
 		<ul>

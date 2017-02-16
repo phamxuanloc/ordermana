@@ -27,10 +27,12 @@
 .product-items ul {
     list-style: none;
 }
-.product-image{
+
+.product-image {
     width: 100%;
     position: relative;
 }
+
 .product-items ul li {
     height: 150px;
 
@@ -39,7 +41,8 @@
 .product-items ul li img {
     width: 100%;
 }
-.product-price{
+
+.product-price {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -52,7 +55,8 @@
     line-height: 25px;
     vertical-align: middle;
 }
-.product-title{
+
+.product-title {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -61,7 +65,21 @@
     margin-top: 8px;
     font-weight: bold;
 }
-.product-items{
+
+.product-items {
     border: #4bc6f2 solid 1px;
     margin-top: 20px;
+}
+
+.center-items {
+    min-height: 300px;
+    border: #4bc6f2 solid 1px;
+    overflow: scroll;
+
+}
+
+.order-info {
+    min-height: 80px;
+    border: #4bc6f2 solid 1px;
+
 }

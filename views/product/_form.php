@@ -199,6 +199,19 @@ use yii\helpers\Html;
 			]) ?>
 		</div>
 		<div class="col-sm-12" style="margin-bottom: 15px">
+			<?= $form->field($model, 'center_sale')->widget('\yii\widgets\MaskedInput', [
+				'options'       => [
+					'class' => 'col-sm-12 form-control',
+				],
+				'clientOptions' => [
+					'alias'              => 'decimal',
+					'groupSeparator'     => ',',
+					'autoGroup'          => true,
+					'removeMaskOnSubmit' => true,
+				],
+			]) ?>
+		</div>
+		<div class="col-sm-12" style="margin-bottom: 15px">
 
 			<?= $form->field($model, 'retail_sale')->widget('\yii\widgets\MaskedInput', [
 				'options'       => [

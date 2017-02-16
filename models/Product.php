@@ -18,6 +18,7 @@ use Yii;
  * @property double      $distribute_sale
  * @property double      $agent_sale
  * @property double      $retail_sale
+ * @property double      $center_sale
  * @property string      $created_date
  * @property string      $supplier
  * @property integer     $order_number
@@ -83,6 +84,7 @@ class Product extends Model {
 					'distribute_sale',
 					'agent_sale',
 					'retail_sale',
+					'center_sale',
 					'representative_sale',
 					'big_agent_sale',
 					'in_stock',
@@ -183,6 +185,7 @@ class Product extends Model {
 			'distribute_sale'     => 'Giá cho điểm phân phối',
 			'agent_sale'          => 'Giá bán cho đại lí',
 			'retail_sale'         => 'Giá bán lẻ',
+			'center_sale'         => 'Giá cho center',
 			'created_date'        => 'Ngày tạo',
 			'supplier'            => 'Nhà cung cấp',
 			'order_number'        => 'Mã đơn nhập',
