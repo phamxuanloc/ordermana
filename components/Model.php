@@ -22,26 +22,29 @@ class Model extends ActiveRecord {
 	/**@var User $user */
 	public $user;
 
-	const ROLE       = [
+	const ROLE        = [
 		1 => 'Admin',
 		'Đại diện',
 		'Đại lí bán buôn',
 		'Đại lí bán lẻ',
 		'Điểm phân phối',
 		'Chăm sóc khách hàng',
+		'Center',
 	];
 
-	const ROLE_ADMIN = 1;
+	const ROLE_ADMIN  = 1;
 
-	const ROLE_PRE   = 2;
+	const ROLE_PRE    = 2;
 
-	const ROLE_BIGA  = 3;
+	const ROLE_BIGA   = 3;
 
-	const ROLE_A     = 4;
+	const ROLE_A      = 4;
 
-	const ROLE_D     = 5;
+	const ROLE_D      = 5;
 
-	const ROLE_CARE  = 6;
+	const ROLE_CARE   = 6;
+
+	const ROLE_CENTER = 7;
 
 	public $start_date;
 

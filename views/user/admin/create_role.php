@@ -47,3 +47,9 @@ use yii\helpers\Url;
 		'/user/admin/create-care',
 	]), ['class' => 'btn green']) ?>
 <?php } ?>
+
+<?php if(RoleChecker::isAuth(AdminController::className(), 'create-care', Yii::$app->user->identity->role_id)) { ?>
+	<?= Html::a('Tạo tài khoản center', Url::to([
+		'/user/admin/create-care',
+	]), ['class' => 'btn btn-center']) ?>
+<?php } ?>

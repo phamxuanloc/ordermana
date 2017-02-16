@@ -406,10 +406,59 @@ class AdminController extends BaseAdminController {
 		]);
 	}
 
+	public function actionCreateCenter() {
+		$user  = \Yii::createObject([
+			'class'    => User::className(),
+			'scenario' => 'create',
+		]);
+		$role  = Model::ROLE_CENTER;
+		$event = $this->getUserEvent($user);
+		$this->performAjaxValidation($user);
+		$this->trigger(self::EVENT_BEFORE_CREATE, $event);
+		if($user->load(\Yii::$app->request->post())) {
+			$user->role_id      = $role;
+			$user->confirmed_at = 1456114858;
+			if($user->create()) {
+				$img = $user->uploadPicture('avatar', 'image');
+				if($user->save()) {
+					if($img !== false) {
+						$path = $user->getPictureFile('avatar');
+						$img->saveAs($path);
+					}
+				}
+				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
+				$this->trigger(self::EVENT_AFTER_CREATE, $event);
+				if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
+					return $this->redirect([
+						'tree',
+					]);
+				} else {
+					return $this->redirect([
+						'care',
+					]);
+				}
+			} else {
+				echo '<pre>';
+				print_r($user->errors);
+				die;
+			}
+		}
+		return $this->render('create', [
+			'user' => $user,
+			'role' => $role,
+		]);
+	}
+
 	public function actionCare() {
 		$searchModel  = \Yii::createObject(UserSearch::className());
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams, true);
 		return $this->render('care', ['dataProvider' => $dataProvider]);
+	}
+
+	public function actionCenter() {
+		$searchModel  = \Yii::createObject(UserSearch::className());
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams, false, true);
+		return $this->render('center', ['dataProvider' => $dataProvider]);
 	}
 
 	public function actionTree() {

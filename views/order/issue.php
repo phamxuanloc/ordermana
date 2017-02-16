@@ -32,3 +32,11 @@ use yii\helpers\Url;
 	]), ['class' => 'btn btn-default']) ?>
 <?php } ?>
 
+<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN) { ?>
+
+	<?= Html::a('Xuất kho cho center', Url::to([
+		'/order/order-item',
+		'role' => $order::ROLE_D,
+	]), ['class' => 'btn btn-center']) ?>
+<?php } ?>
+
