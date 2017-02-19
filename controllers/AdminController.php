@@ -373,7 +373,7 @@ class AdminController extends BaseAdminController {
 		$this->performAjaxValidation($user);
 		$this->trigger(self::EVENT_BEFORE_CREATE, $event);
 		if($user->load(\Yii::$app->request->post())) {
-			$user->role_id      = $role;
+			$user->role_id      = (int)$role;
 			$user->confirmed_at = 1456114858;
 			if($user->create()) {
 				$img = $user->uploadPicture('avatar', 'image');

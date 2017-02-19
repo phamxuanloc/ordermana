@@ -36,7 +36,7 @@ use yii\helpers\Url;
 
 	<?= Html::a('Xuất kho cho center', Url::to([
 		'/order/order-item',
-		'role' => $order::ROLE_D,
+		'role' => $order::ROLE_CENTER,
 	]), ['class' => 'btn btn-center']) ?>
 <?php } ?>
 

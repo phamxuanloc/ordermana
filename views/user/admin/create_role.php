@@ -50,6 +50,6 @@ use yii\helpers\Url;
 
 <?php if(RoleChecker::isAuth(AdminController::className(), 'create-care', Yii::$app->user->identity->role_id)) { ?>
 	<?= Html::a('Tạo tài khoản center', Url::to([
-		'/user/admin/create-care',
+		'/user/admin/create-center',
 	]), ['class' => 'btn btn-center']) ?>
 <?php } ?>
