@@ -38,7 +38,8 @@ class CenterController extends Controller {
 				'name'    => 'Trang center',
 				//NOT REQUIRED, only if you want to translate
 				'actions' => [
-					'create' => 'Tạo đơn hàng',
+					'create'     => 'Tạo đơn hàng',
+					'order-list' => 'Danh sách đơn hàng center',
 					//without translate
 					//					'index'  => 'Danh sách',
 					//					'view'       => 'Chi tiết đơn hàng',
@@ -145,12 +146,18 @@ class CenterController extends Controller {
 			];
 			return json_encode($value);
 		}
-		$products = UserStock::find()->where(['user_id' => $this->user->id])->all();
+		$products   = UserStock::find()->where(['user_id' => $this->user->id])->all();
+		$admin_show = false;
+		if($this->user->role_id == $order::ROLE_ADMIN) {
+			$admin_show = true;
+			$products   = Product::find()->all();
+		}
 		return $this->render('create', [
-			'orderItem' => $orderItem,
-			'order'     => $order,
-			'products'  => $products,
-			'stock'     => $stock,
+			'orderItem'  => $orderItem,
+			'order'      => $order,
+			'products'   => $products,
+			'stock'      => $stock,
+			'admin_show' => $admin_show,
 		]);
 	}
 

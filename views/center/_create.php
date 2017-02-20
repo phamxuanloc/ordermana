@@ -11,6 +11,7 @@ use yii\widgets\ActiveForm;
 /** @var \app\models\CenterItem $orderItem */
 /** @var \app\models\Order $order */
 /** @var \app\models\UserStock $product */
+/** @var \app\models\Product $product */
 /** @var \app\models\UserStock $stock */
 /* @var $form yii\widgets\ActiveForm */
 ?>
@@ -113,19 +114,36 @@ use yii\widgets\ActiveForm;
 	<?php \yii\widgets\ActiveForm::end() ?>
 	<div class="product-items clearfix">
 		<ul>
-			<?php foreach($products as $product) { ?>
-				<li class="col-sm-2">
-					<a href="#" class="add-form">
-						<div class="product-image">
-							<img src="<?= $product->product->getPictureUrl('image') ?>" alt="<?= $product->product->name ?>">
-							<span class="product-price"><?= $product->product->retail_sale ?>VNĐ</span>
-							<span class="product-id" style="display: none"><?= $product->product_id ?></span>
-							<span class="category-id" style="display: none"><?= $product->product->category_id ?></span>
-						</div>
-						<span class="product-title"><?= $product->product->name ?></span>
-					</a>
-				</li>
+			<?php if($admin_show) { ?>
+				<?php foreach($products as $product) { ?>
+					<li class="col-sm-2">
+						<a href="#" class="add-form">
+							<div class="product-image">
+								<img src="<?= $product->getPictureUrl('image') ?>" alt="<?= $product->name ?>">
+								<span class="product-price"><?= $product->retail_sale ?>VNĐ</span>
+								<span class="product-id" style="display: none"><?= $product->id ?></span>
+								<span class="category-id" style="display: none"><?= $product->category_id ?></span>
+							</div>
+							<span class="product-title"><?= $product->name ?></span>
+						</a>
+					</li>
+				<?php } ?>
+			<?php } else { ?>
+				<?php foreach($products as $product) { ?>
+					<li class="col-sm-2">
+						<a href="#" class="add-form">
+							<div class="product-image">
+								<img src="<?= $product->product->getPictureUrl('image') ?>" alt="<?= $product->product->name ?>">
+								<span class="product-price"><?= $product->product->retail_sale ?>VNĐ</span>
+								<span class="product-id" style="display: none"><?= $product->product_id ?></span>
+								<span class="category-id" style="display: none"><?= $product->product->category_id ?></span>
+							</div>
+							<span class="product-title"><?= $product->product->name ?></span>
+						</a>
+					</li>
+				<?php } ?>
 			<?php } ?>
+
 		</ul>
 	</div>
 	<script>
