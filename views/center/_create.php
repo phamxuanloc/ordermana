@@ -10,7 +10,8 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /** @var \app\models\CenterItem $orderItem */
 /** @var \app\models\Order $order */
-/** @var \app\models\Product $product */
+/** @var \app\models\UserStock $product */
+/** @var \app\models\UserStock $stock */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <div class="order-title text-center ">
@@ -34,9 +35,9 @@ use yii\widgets\ActiveForm;
 	</div>
 	<div class="center-items">
 		<?php for(
-			$i = 1; $i < 2; $i ++
+			$i = 0; $i < 1; $i ++
 		) { ?>
-			<div class="item-detail">
+			<div class="item-detail" style="display: none">
 				<div class="col-sm-1 id grid-display"><?= Html::input('text', '', $i, [
 						'class'    => 'ordinal form-control form-height form-boder',
 						"disabled" => true,
@@ -52,7 +53,7 @@ use yii\widgets\ActiveForm;
 					]) ?>
 				</div>
 				<div class="col-sm-2 product-select grid-display">
-					<div class="overflow"><?= Html::activeDropDownList($orderItem, 'product_id', [], [
+					<div class="overflow"><?= Html::activeDropDownList($orderItem, 'product_id', $stock->getStockProduct(), [
 							'name'   => 'CenterItem[' . $i . '][product_id]',
 							'class'  => 'form-control form-height form-boder',
 							'prompt' => 'Chọn sản phẩm',
@@ -77,64 +78,58 @@ use yii\widgets\ActiveForm;
 			</div>
 		<?php } ?>
 	</div>
-<!--	<div class="row action-pager ">-->
-<!--		<div class="col-sm-6 action-item add-item">-->
-<!--			<a class="fleft add-form" href="">Thêm sản phẩm</a>-->
-<!--		</div>-->
-<!--	</div>-->
-<div class="order-info">
-	<div class=" row final-total">
-		<div class="col-sm-6 total">
-			<p>Tổng</p>
-		</div>
-		<div class="detail-total col-sm-6 ">
-			<div class="col-sm-6 label-item">
-				<p>Tổng giá trị đơn hàng:</p>
-				<!--			<p>Giảm giá: </p>-->
-				<!--			<p>Tổng số:</p>-->
+	<!--		<div class="row action-pager ">-->
+	<!--			<div class="col-sm-6 action-item add-item">-->
+	<!--				<a class="fleft add-form" href="">Thêm sản phẩm</a>-->
+	<!--			</div>-->
+	<!--		</div>-->
+	<div class="order-info">
+		<div class=" row final-total">
+			<div class="col-sm-6 total">
+				<p>Tổng</p>
 			</div>
-			<div class="col-sm-6 value-item">
-				<p>0</p>
-			</div>
+			<div class="detail-total col-sm-6 ">
+				<div class="col-sm-6 label-item">
+					<p>Tổng giá trị đơn hàng:</p>
+					<!--			<p>Giảm giá: </p>-->
+					<!--			<p>Tổng số:</p>-->
+				</div>
+				<div class="col-sm-6 value-item">
+					<p>0</p>
+				</div>
 
+			</div>
+		</div>
+		<div class="row action-pager">
+			<div class="col-sm-6 action-item order-accept">
+				<?= Html::submitButton('Tạo đơn hàng', ['class' => 'fleft btn btn-primary']) ?>
+			</div>
+			<!--	<div class="col-sm-6 action-item order-cancel">-->
+			<!--		<a class="fright" href="">Hủy đơn</a>-->
+			<!---->
+			<!--	</div>-->
 		</div>
 	</div>
-	<div class="row action-pager">
-		<div class="col-sm-6 action-item order-accept">
-			<?= Html::submitButton('Tạo đơn hàng', ['class' => 'fleft btn btn-primary']) ?>
-		</div>
-		<!--	<div class="col-sm-6 action-item order-cancel">-->
-		<!--		<a class="fright" href="">Hủy đơn</a>-->
-		<!---->
-		<!--	</div>-->
-	</div>
-</div>
 	<?php \yii\widgets\ActiveForm::end() ?>
 	<div class="product-items clearfix">
 		<ul>
 			<?php foreach($products as $product) { ?>
 				<li class="col-sm-2">
-					<a href="#">
+					<a href="#" class="add-form">
 						<div class="product-image">
-							<img src="<?= $product->getPictureUrl('image') ?>" alt="<?= $product->name ?>">
-							<span class="product-price"><?= $product->retail_sale ?>VNĐ</span>
+							<img src="<?= $product->product->getPictureUrl('image') ?>" alt="<?= $product->product->name ?>">
+							<span class="product-price"><?= $product->product->retail_sale ?>VNĐ</span>
+							<span class="product-id" style="display: none"><?= $product->product_id ?></span>
+							<span class="category-id" style="display: none"><?= $product->product->category_id ?></span>
 						</div>
-						<span class="product-title"><?= $product->name ?></span>
+						<span class="product-title"><?= $product->product->name ?></span>
 					</a>
 				</li>
 			<?php } ?>
 		</ul>
 	</div>
 	<script>
-		$(".add-form").click(function() {
-			var number  = $(".items").find(".item-detail").length;
-			var context = $("<div class='item-detail' >" + $(".item-detail").html() + "</div>");
-			context.find("input,select").val("");
-			context.appendTo(".items").find('input:first').val(parseInt(number) + 1);
-			$('.items .item-detail:last div:nth-child(4) select:first').attr('name', 'CenterItem[' + parseInt(number + 1) + '][product_id]');
-			$('.items .item-detail:last div:nth-child(5) input:first').attr('name', 'CenterItem[' + parseInt(number + 1) + '][quantity]');
-			return false;
-		});
+
 		$(document).on("change", ".category-select .form-control", function() {
 			var context           = $(this).closest(".item-detail");
 			var dependentDropdown = context.find("select[id='centeritem-product_id']");
@@ -222,4 +217,37 @@ use yii\widgets\ActiveForm;
 				grand_total_price_event();
 			}
 		}
+		$(".add-form").click(function() {
+
+			var number   = $(".center-items").find(".item-detail").length - 1;
+			var context  = $("<div class='item-detail' >" + $(".item-detail").html() + "</div>");
+			var category = $(this).find(".category-id").html();
+			var product  = $(this).find(".product-id").html();
+			var price    = $(this).find(".product-price").html();
+			var quantity = $(this).find(".quantity").html();
+			var isset    = false;
+
+			$(".product-select select").each(function() {
+				var product_value = $(this).val();
+				if(product_value == product) {
+					isset                = true;
+					var quantity_context = $(this).closest(".item-detail").find(".quantity input");
+					quantity_context.val(parseInt(quantity_context.val()) + 1);
+				}
+
+			});
+			if(isset == false) {
+				context.find(".category-select select").val(category);
+				context.find(".product-select select").val(product);
+				context.find(".price-show input").val(parseInt(price));
+				context.find(".quantity input").val(1);
+				context.appendTo(".center-items").find('input:first').val(parseInt(number) + 1);
+				$('.center-items .item-detail:last div:nth-child(4) select:first').attr('name', 'CenterItem[' + parseInt(number + 1) + '][product_id]');
+				$('.center-items .item-detail:last div:nth-child(5) input:first').attr('name', 'CenterItem[' + parseInt(number + 1) + '][quantity]');
+			}
+			//			context.find("input,select").val(1);
+
+			grand_total_price_event();
+			return false;
+		});
 	</script>

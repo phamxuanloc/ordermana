@@ -97,4 +97,15 @@ class UserStock extends Model {
 	public function getUsers() {
 		return $this->hasOne(User::className(), ['id' => 'user_id']);
 	}
+
+	public function getStockProduct() {
+		$products      = UserStock::find()->where(['user_id' => $this->user->id])->all();
+		$product_array = [];
+		if($products) {
+			foreach($products as $product) {
+				$product_array[$product->product->id] = $product->product->name;
+			}
+		}
+		return $product_array;
+	}
 }

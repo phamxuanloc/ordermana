@@ -14,6 +14,7 @@ use app\models\Order;
 use app\models\OrderCenter;
 use app\models\OrderItem;
 use app\models\Product;
+use app\models\UserStock;
 use kartik\mpdf\Pdf;
 use navatech\role\filters\RoleFilter;
 use Yii;
@@ -51,6 +52,7 @@ class CenterController extends Controller {
 	public function actionCreate() {
 		$orderItem = new CenterItem();
 		$order     = new OrderCenter();
+		$stock     = new UserStock();
 		if(isset($_POST['CenterItem'])) {
 			$order->load(Yii::$app->request->post());
 			$order->user_id      = $this->user->id;
@@ -116,11 +118,12 @@ class CenterController extends Controller {
 			];
 			return json_encode($value);
 		}
-		$products = Product::find()->all();
+		$products = UserStock::find()->where(['user_id' => $this->user->id])->all();
 		return $this->render('create', [
 			'orderItem' => $orderItem,
 			'order'     => $order,
 			'products'  => $products,
+			'stock'     => $stock,
 		]);
 	}
 

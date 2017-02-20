@@ -6,5 +6,6 @@ echo $this->render('_create', [
 	'orderItem' => $orderItem,
 	'order'     => $order,
 	'products'  => $products,
+	'stock'     => $stock,
 ]);
 ?>
