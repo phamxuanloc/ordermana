@@ -232,7 +232,12 @@ use yii\widgets\ActiveForm;
 				if(product_value == product) {
 					isset                = true;
 					var quantity_context = $(this).closest(".item-detail").find(".quantity input");
+					var total_price      = $(this).closest(".item-detail").find(".price-show input");
 					quantity_context.val(parseInt(quantity_context.val()) + 1);
+					var quantity_detail = $(this).closest(".item-detail").find(".quantity .form-control");
+					sub_total_price_event(quantity_detail);
+					//					total_price.val()
+					grand_total_price_event();
 				}
 
 			});
@@ -241,6 +246,7 @@ use yii\widgets\ActiveForm;
 				context.find(".product-select select").val(product);
 				context.find(".price-show input").val(parseInt(price));
 				context.find(".quantity input").val(1);
+				context.find(".product-select select option:selected").attr("data-price", parseInt(price));
 				context.appendTo(".center-items").find('input:first').val(parseInt(number) + 1);
 				$('.center-items .item-detail:last div:nth-child(4) select:first').attr('name', 'CenterItem[' + parseInt(number + 1) + '][product_id]');
 				$('.center-items .item-detail:last div:nth-child(5) input:first').attr('name', 'CenterItem[' + parseInt(number + 1) + '][quantity]');
