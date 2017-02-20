@@ -112,4 +112,36 @@ class OrderCenter extends \app\components\Model {
 	public function getCenterItems() {
 		return $this->hasMany(CenterItem::className(), ['order_id' => 'id']);
 	}
+
+	public function getUsers() {
+		return $this->hasOne(User::className(), ['id' => 'user_id']);
+	}
+
+	public function getType() {
+		if($this->type == $this::ROLE_ADMIN) {
+			return 'Đơn hàng lỗi';
+		} elseif($this->type == $this::ROLE_PRE) {
+			return 'Xuất kho cho đại diện';
+		} elseif($this->type == $this::ROLE_BIGA) {
+			return 'Xuất kho cho đại lí bán buôn';
+		} elseif($this->type == $this::ROLE_A) {
+			return 'Xuất kho cho đại lí bán lẻ';
+		} elseif($this->type == $this::ROLE_D) {
+			return 'Xuất kho cho điểm phân phối';
+		} else {
+			return 'Đơn hàng lẻ';
+		}
+	}
+
+	public function getColorStatus() {
+		if($this->status == $this::RECEIPTED) {
+			return 'btn-success';
+		} elseif($this->status == $this::CONFIRM) {
+			return 'btn-info';
+		} elseif($this->status == $this::NOT_PAID || $this->status == $this::NOT_RECEIPTED) {
+			return 'btn-danger';
+		} else {
+			return 'btn-warning';
+		}
+	}
 }

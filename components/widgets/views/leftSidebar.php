@@ -347,8 +347,12 @@ use yii\helpers\Url;
 				</a>
 				<ul class="sub-menu">
 					<li>
-						<a href="#">
+						<a href="<?= Url::to(['/user/admin/center']) ?>">
 							Danh sách center</a>
+					</li>
+					<li>
+						<a href="<?= Url::to(['/center/order-list']) ?>">
+							Danh sách đơn hàng center</a>
 					</li>
 					<li>
 						<a href="<?= Url::to(['/center/create']) ?>">

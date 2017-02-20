@@ -14,6 +14,7 @@ use app\models\Order;
 use app\models\OrderCenter;
 use app\models\OrderItem;
 use app\models\Product;
+use app\models\search\OrderCenterSearch;
 use app\models\UserStock;
 use kartik\mpdf\Pdf;
 use navatech\role\filters\RoleFilter;
@@ -47,6 +48,32 @@ class CenterController extends Controller {
 				],
 			],
 		];
+	}
+
+	public function actionOrderList() {
+		$searchModel  = new OrderCenterSearch();
+		$params       = Yii::$app->request->queryParams;
+		$dataProvider = $searchModel->search($params);
+		$order_num    = $searchModel->getInfo($params, 'quantity');
+		$order_sum    = $searchModel->getInfo($params, 'total_money');
+		//		$order_pre    = $searchModel->getInfo($params, 'pre_quantity');
+		//		$order_big    = $searchModel->getInfo($params, 'big_quantity');
+		//		$order_age    = $searchModel->getInfo($params, 'age_quantity');
+		//		$order_dis    = $searchModel->getInfo($params, 'dis_quantity');
+		return $this->render('order-list', [
+			'searchModel'  => $searchModel,
+			'dataProvider' => $dataProvider,
+			'order_num'    => $order_num,
+			'order_sum'    => $order_sum,
+			//			'order_pre'    => $order_pre,
+			//			'order_big'    => $order_big,
+			//			'order_age'    => $order_age,
+			//			'order_dis'    => $order_dis,
+		]);
+	}
+
+	public function actionView() {
+		return $this->render('view');
 	}
 
 	public function actionCreate() {

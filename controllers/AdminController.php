@@ -373,7 +373,7 @@ class AdminController extends BaseAdminController {
 		$this->performAjaxValidation($user);
 		$this->trigger(self::EVENT_BEFORE_CREATE, $event);
 		if($user->load(\Yii::$app->request->post())) {
-			$user->role_id      = (int)$role;
+			$user->role_id      = (int) $role;
 			$user->confirmed_at = 1456114858;
 			if($user->create()) {
 				$img = $user->uploadPicture('avatar', 'image');
@@ -426,17 +426,11 @@ class AdminController extends BaseAdminController {
 						$img->saveAs($path);
 					}
 				}
-				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
+				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User center has been created'));
 				$this->trigger(self::EVENT_AFTER_CREATE, $event);
-				if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
-					return $this->redirect([
-						'tree',
-					]);
-				} else {
-					return $this->redirect([
-						'care',
-					]);
-				}
+				return $this->redirect([
+					'center',
+				]);
 			} else {
 				echo '<pre>';
 				print_r($user->errors);
