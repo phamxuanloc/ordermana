@@ -113,6 +113,7 @@ class CenterController extends Controller {
 				$check_order = CenterItem::findOne(['order_id' => $order_id]);
 				if($check_order == null) {
 					$this->findModel($order_id)->delete();
+					return $this->goBack(['/center/create']);
 				} else {
 					$count = CenterItem::find()->where(['order_id' => $order_id])->sum('total_price');
 					$order->updateAttributes(['total_amount' => $count]);
@@ -146,7 +147,11 @@ class CenterController extends Controller {
 			];
 			return json_encode($value);
 		}
-		$products   = UserStock::find()->where(['user_id' => $this->user->id])->all();
+		$products   = UserStock::find()->where(['user_id' => $this->user->id])->andWhere([
+			'>',
+			'in_stock',
+			0,
+		])->all();
 		$admin_show = false;
 		if($this->user->role_id == $order::ROLE_ADMIN) {
 			$admin_show = true;

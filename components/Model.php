@@ -275,6 +275,8 @@ class Model extends ActiveRecord {
 			$price = $product->agent_sale;
 		} elseif($role == self::ROLE_D) {
 			$price = $product->distribute_sale;
+		} elseif($role == self::ROLE_CENTER) {
+			$price = $product->center_sale;
 		} else {
 			$price = $product->retail_sale;
 		}

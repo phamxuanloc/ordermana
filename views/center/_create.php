@@ -123,6 +123,7 @@ use yii\widgets\ActiveForm;
 								<span class="product-price"><?= $product->retail_sale ?>VNĐ</span>
 								<span class="product-id" style="display: none"><?= $product->id ?></span>
 								<span class="category-id" style="display: none"><?= $product->category_id ?></span>
+								<span class="in-stock" style="display: none"><?= $product->in_stock ?></span>
 							</div>
 							<span class="product-title"><?= $product->name ?></span>
 						</a>
@@ -137,6 +138,7 @@ use yii\widgets\ActiveForm;
 								<span class="product-price"><?= $product->product->retail_sale ?>VNĐ</span>
 								<span class="product-id" style="display: none"><?= $product->product_id ?></span>
 								<span class="category-id" style="display: none"><?= $product->product->category_id ?></span>
+								<span class="in-stock" style="display: none"><?= $product->product->in_stock ?></span>
 							</div>
 							<span class="product-title"><?= $product->product->name ?></span>
 						</a>
