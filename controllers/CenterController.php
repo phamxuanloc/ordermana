@@ -8,6 +8,7 @@
 namespace app\controllers;
 
 use app\components\Controller;
+use app\components\Model;
 use app\models\CenterItem;
 use app\models\Customer;
 use app\models\Order;
@@ -218,7 +219,15 @@ class CenterController extends Controller {
 
 	public function actionFinish($id) {
 		$model = $this->findModel($id);
-		$items = $model->centerItems;
+		if($this->user->role_id!=Model::ROLE_ADMIN){
+			$items = $model->centerItems;
+			foreach($items as $item){
+//				$item->updateAttributes(['in_stock'=>$item->i])
+		}
+			$model->updateAttributes(['status' => $model::RECEIPTED]);
+
+		}
+
 		return $this->render('finish', ['model' => $model]);
 	}
 
