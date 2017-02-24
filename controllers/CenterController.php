@@ -218,6 +218,7 @@ class CenterController extends Controller {
 
 	public function actionFinish($id) {
 		$model = $this->findModel($id);
+		$items = $model->centerItems;
 		return $this->render('finish', ['model' => $model]);
 	}
 
