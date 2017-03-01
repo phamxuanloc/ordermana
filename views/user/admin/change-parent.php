@@ -16,8 +16,8 @@ $this->title = 'Chuyển tài khoản tuyến dưới';
 	'module' => Yii::$app->getModule('user'),
 ]) ?>
 <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
-<?= $form->field($model, 'from_user')->dropDownList($model->getAllUser()) ?>
-<?= $form->field($model, 'to_user')->dropDownList($model->getAllUser()) ?>
+<?= $form->field($model, 'from_user')->widget(\kartik\select2\Select2::className(), ['data' => $model->getAllUser()]) ?>
+<?= $form->field($model, 'to_user')->widget(\kartik\select2\Select2::className(), ['data' => $model->getAllUser()]) ?>
 <div class="col-sm-offset-3">
 	<?= Html::submitButton('Chuyển', ['class' => 'btn btn-primary']) ?>
 </div>
