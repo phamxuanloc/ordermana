@@ -247,14 +247,14 @@ class AdminController extends BaseAdminController {
 		if($user->load(\Yii::$app->request->post())) {
 			$user->role_id      = $role;
 			$user->confirmed_at = 1456114858;
-			$img                = $user->uploadPicture('avatar', 'image');
-			if($user->save()) {
-				if($img !== false) {
-					$path = $user->getPictureFile('avatar');
-					$img->saveAs($path);
-				}
-			}
 			if($user->create()) {
+				$img = $user->uploadPicture('avatar', 'image');
+				if($user->save()) {
+					if($img !== false) {
+						$path = $user->getPictureFile('avatar');
+						$img->saveAs($path);
+					}
+				}
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
 				$this->trigger(self::EVENT_AFTER_CREATE, $event);
 				if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
