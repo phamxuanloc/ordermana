@@ -219,15 +219,13 @@ class CenterController extends Controller {
 
 	public function actionFinish($id) {
 		$model = $this->findModel($id);
-		if($this->user->role_id!=Model::ROLE_ADMIN){
+		if($this->user->role_id != Model::ROLE_ADMIN) {
 			$items = $model->centerItems;
-			foreach($items as $item){
-//				$item->updateAttributes(['in_stock'=>$item->i])
-		}
+			foreach($items as $item) {
+				//				$item->updateAttributes(['in_stock'=>$item->i])
+			}
 			$model->updateAttributes(['status' => $model::RECEIPTED]);
-
 		}
-
 		return $this->render('finish', ['model' => $model]);
 	}
 
@@ -245,6 +243,11 @@ class CenterController extends Controller {
 			'cssFile' => '@web/global/plugins/bootstrap/css/bootstrap.min.css',
 		]);
 		return $pdf->render();
+	}
+
+	public function actionDelete($id) {
+		$this->findModel($id)->delete();
+		return $this->redirect(['order-list']);
 	}
 
 	protected function findModel($id) {
