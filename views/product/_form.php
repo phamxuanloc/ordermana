@@ -98,47 +98,54 @@ use yii\helpers\Html;
 				],
 			]) ?>
 		</div>
-		<?php if($model->isNewRecord) { ?>
 
-			<div class="col-sm-6" style="margin-bottom: 15px">
+		<div class="col-sm-6" style="margin-bottom: 15px">
 
-				<?= $form->field($model, 'in_stock')->textInput() ?>
-			</div>
-			<div class="col-sm-6" style="margin-bottom: 15px">
+			<?= $form->field($model, 'in_stock')->textInput(['readOnly' => !$model->isNewRecord]) ?>
+		</div>
+		<div class="col-sm-6" style="margin-bottom: 15px">
 
-				<?= $form->field($model, 'color')->textInput(['maxlength' => true]) ?>
-			</div>
-			<div class="col-sm-6" style="margin-bottom: 15px">
+			<?= $form->field($model, 'color')->textInput([
+				'maxlength' => true,
+				'readOnly'  => !$model->isNewRecord,
+			]) ?>
+		</div>
+		<div class="col-sm-6" style="margin-bottom: 15px">
 
-				<?= $form->field($model, 'weight')->textInput() ?>
-			</div>
-			<div class="col-sm-6" style="margin-bottom: 15px">
+			<?= $form->field($model, 'weight')->textInput(['readOnly' => !$model->isNewRecord]) ?>
+		</div>
+		<div class="col-sm-6" style="margin-bottom: 15px">
 
-				<?= $form->field($model, 'unit')->textInput(['maxlength' => true]) ?>
-			</div>
+			<?= $form->field($model, 'unit')->textInput([
+				'maxlength' => true,
+				'readOnly'  => !$model->isNewRecord,
+			]) ?>
+		</div>
 
-			<div class="col-sm-6" style="margin-bottom: 15px">
+		<div class="col-sm-6" style="margin-bottom: 15px">
 
-				<?= $form->field($model, 'order_number')->textInput() ?>
-			</div>
-			<div class="col-sm-6" style="margin-bottom: 15px">
+			<?= $form->field($model, 'order_number')->textInput(['readOnly' => !$model->isNewRecord]) ?>
+		</div>
+		<div class="col-sm-6" style="margin-bottom: 15px">
 
-				<?= $form->field($model, 'bill_number')->textInput(['maxlength' => true]) ?>
-			</div>
+			<?= $form->field($model, 'bill_number')->textInput([
+				'maxlength' => true,
+				'readOnly'  => !$model->isNewRecord,
+			]) ?>
+		</div>
 
-			<div class="col-sm-6" style="margin-bottom: 15px">
+		<div class="col-sm-6" style="margin-bottom: 15px">
 
-				<?= $form->field($model, 'receiver')->textInput(['maxlength' => true]) ?>
-			</div>
-			<div class="col-sm-6" style="margin-bottom: 15px">
+			<?= $form->field($model, 'receiver')->textInput(['maxlength' => true]) ?>
+		</div>
+		<div class="col-sm-6" style="margin-bottom: 15px">
 
-				<?= $form->field($model, 'deliver')->textInput(['maxlength' => true]) ?>
-			</div>
-			<div class="col-sm-6" style="margin-bottom: 15px">
+			<?= $form->field($model, 'deliver')->textInput(['maxlength' => true]) ?>
+		</div>
+		<div class="col-sm-6" style="margin-bottom: 15px">
 
-				<?= $form->field($model, 'supplier_discount')->textInput() ?>
-			</div>
-		<?php } ?>
+			<?= $form->field($model, 'supplier_discount')->textInput() ?>
+		</div>
 	</div>
 </div>
 <div class="panel panel-warning">
