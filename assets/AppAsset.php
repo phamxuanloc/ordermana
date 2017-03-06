@@ -42,7 +42,7 @@ class AppAsset extends AssetBundle {
 	public $js        = [
 		'global/plugins/respond.min.js',
 		'global/plugins/excanvas.min.js',
-						'global/plugins/jquery.min.js',
+//						'global/plugins/jquery.min.js',
 		'global/plugins/jquery-migrate.min.js',
 		'global/plugins/jquery-ui/jquery-ui.min.js',
 		//				'global/plugins/bootstrap/js/bootstrap.min.js',
