@@ -10,7 +10,7 @@ use yii\helpers\Url;
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
 			<a href="<?= Url::home() ?>">
-				<img style="width: 39%;" src="https://myphamlinhnham.vn/wp-content/themes/thietkewebwordpress/img/logo.png" alt="logo" class="logo-default"/>
+				<img style="width: 39%;" src="<?=Url::base()?>/logo.png" alt="logo" class="logo-default"/>
 			</a>
 			<div class="menu-toggler sidebar-toggler hide">
 			</div>

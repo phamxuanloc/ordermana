@@ -1,6 +1,7 @@
 <?php
 use app\assets\LoginAsset;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 Yii::$app->layout = false;
@@ -31,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 <!-- BEGIN LOGO -->
 <div class="logo">
 	<a href="index.html">
-		<img src="https://myphamlinhnham.vn/wp-content/themes/thietkewebwordpress/img/logo.png" alt=""/>
+		<img src="<?=Url::base()?>/logo.png" alt=""/>
 	</a>
 </div>
 <!-- END LOGO -->
