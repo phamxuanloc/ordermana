@@ -2,6 +2,7 @@
 use app\models\Category;
 use app\models\User;
 use kartik\select2\Select2;
+use kartik\widgets\DateTimePicker;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -18,13 +19,24 @@ use yii\widgets\ActiveForm;
 </div>
 
 <?php $form = ActiveForm::begin() ?>
-<?= $form->field($order, 'downline')->widget(Select2::className(), [
-	'data' => Yii::$app->user->identity->role_id != $order::ROLE_ADMIN ? ArrayHelper::map(User::find()->andWhere([
-		"IN",
-		"id",
-		$children,
-	])->andWhere(['role_id' => $role])->all(), 'id', 'username') : $order->getTotalUser($role),
-])->label('Xuất cho tài khoản') ?>
+<div class="col-sm-12">
+	<div class="col-sm-6">
+		<?= $form->field($order, 'downline')->widget(Select2::className(), [
+			'data' => Yii::$app->user->identity->role_id != $order::ROLE_ADMIN ? ArrayHelper::map(User::find()->andWhere([
+				"IN",
+				"id",
+				$children,
+			])->andWhere(['role_id' => $role])->all(), 'id', 'username') : $order->getTotalUser($role),
+		])->label('Xuất cho tài khoản') ?>
+	</div>
+	<div>
+		<?= $form->field($order, 'created_date')->widget(DateTimePicker::className(), [
+			'pluginOptions' => [
+				'autoclose' => true,
+			],
+		])->label('Ngày xuất kho'); ?>
+	</div>
+</div>
 <div class="item-header">
 	<div class="col-sm-1 id grid-display"><p style="text-transform: uppercase">STT</p></div>
 	<div class="col-sm-2 code grid-display"><p style="text-transform: uppercase">Mã sản phẩm</p></div>
@@ -58,8 +70,7 @@ use yii\widgets\ActiveForm;
 					]) ?>
 				</div>
 				<div class="col-sm-2 product-select grid-display">
-					<div class="overflow"><?= Html::activeDropDownList($orderItem, 'product_id', [
-						], [
+					<div class="overflow"><?= Html::activeDropDownList($orderItem, 'product_id', [], [
 							'name'   => 'OrderItem[' . $i . '][product_id]',
 							'class'  => 'form-control form-height form-boder',
 							'prompt' => 'Chọn sản phẩm',

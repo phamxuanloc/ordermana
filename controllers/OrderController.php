@@ -217,6 +217,9 @@ class OrderController extends Controller {
 	/**
 	 * Creates a new Order model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 *
+	 * @param null $role
+	 *
 	 * @return mixed
 	 */
 	public function actionOrderItem($role = null) {
@@ -244,10 +247,11 @@ class OrderController extends Controller {
 		}
 		if(isset($_POST['OrderItem'])) {
 			$order->load(Yii::$app->request->post());
-			$order->user_id   = $_POST['Order']['downline'];
-			$order->parent_id = $this->user->id;
-			$order->status    = $order::NOT_PAID;
-			$order->type      = $role;
+			$order->user_id      = $_POST['Order']['downline'];
+			$order->created_date = $_POST['Order']['created_date'];
+			$order->parent_id    = $this->user->id;
+			$order->status       = $order::NOT_PAID;
+			$order->type         = $role;
 			if($order->save()) {
 				$order_id = $order->getPrimaryKey();
 				foreach($_POST['OrderItem'] as $item) {
