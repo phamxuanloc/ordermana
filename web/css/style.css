@@ -89,3 +89,7 @@
     background-color: #104d0b;
     border-color: #104d0b;
 }
+
+.label-item p {
+    font-weight: bold;
+}

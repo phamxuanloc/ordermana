@@ -121,10 +121,15 @@ use yii\widgets\ActiveForm;
 		<div class="col-sm-6 action-item order-accept">
 			<?= Html::submitButton('Tạo đơn hàng', ['class' => 'fleft']) ?>
 		</div>
-		<!--	<div class="col-sm-6 action-item order-cancel">-->
-		<!--		<a class="fright" href="">Hủy đơn</a>-->
-		<!---->
-		<!--	</div>-->
+		<div class="col-sm-6">
+			<div class="col-sm-6 label-item">
+				<p>Tổng số hàng đã xuất kho:</p>
+			</div>
+			<div class="col-sm-6 value-item">
+				<p>0</p>
+			</div>
+
+		</div>
 	</div>
 	<?php \yii\widgets\ActiveForm::end() ?>
 	<script>
@@ -146,7 +151,7 @@ use yii\widgets\ActiveForm;
 			dependentDropdown.hide();
 			dependentDropdown.parent().append('<i class="fa fa-spin fa-spinner"></i>');
 			$.ajax({
-				url    : "<?=\yii\helpers\Url::to([
+				url    : "<?=Url::to([
 					'/order/order-item',
 					'role' => $_GET['role'],
 				])?>",
