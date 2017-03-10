@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
 							Tổng tiền:
 						</div>
 						<div class="col-md-7 value">
-							<?= $model->total_amount ?> VNĐ
+							<?= number_format($model->total_amount) ?> VNĐ
 						</div>
 					</div>
 					<!--					<div class="row static-info">-->
