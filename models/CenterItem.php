@@ -9,6 +9,7 @@ use Yii;
  * @property integer     $id
  * @property integer     $order_id
  * @property integer     $product_id
+ * @property double     $discount
  * @property integer     $quantity
  * @property double      $total_price
  *
@@ -47,7 +48,7 @@ class CenterItem extends \app\components\Model {
 				'integer',
 			],
 			[
-				['total_price'],
+				['total_price','discount'],
 				'number',
 			],
 			[

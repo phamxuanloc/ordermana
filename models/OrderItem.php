@@ -13,6 +13,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $product_id
  * @property integer $quantity
  * @property double  $total_price
+ * @property double  $discount
  *
  * @property Order   $order
  * @property Product $product
@@ -28,7 +29,6 @@ class OrderItem extends Model {
 
 	const STATUS_NOT_RECEIPTED = 0;
 
-	public $discount;
 
 	/**
 	 * @inheritdoc
@@ -57,12 +57,14 @@ class OrderItem extends Model {
 					'product_id',
 					'quantity',
 					'status',
-					'discount',
 				],
 				'integer',
 			],
 			[
-				['total_price'],
+				[
+					'total_price',
+					'discount',
+				],
 				'number',
 			],
 			[

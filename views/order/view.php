@@ -144,7 +144,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	</div>
 	<?php $form = ActiveForm::begin() ?>
 	<div class="item-header">
-		<div class="col-sm-2 code grid-display"><p style="text-transform: uppercase">Mã sản phẩm</p></div>
+		<div class="col-sm-1 code grid-display"><p style="text-transform: uppercase">Mã</p></div>
 		<div class="col-sm-2 category-select grid-display">
 			<p style="text-transform: uppercase">Tên danh mục</p>
 		</div>
@@ -152,6 +152,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		</div>
 		<div class="quantity grid-display col-sm-1"><p style="text-transform: uppercase">Số lượng</p></div>
 		<div class="price-show grid-display col-sm-2"><p style="text-transform: uppercase">Tổng tiền</p></div>
+		<div class="discount-show grid-display col-sm-1"><p style="text-transform: uppercase">Giảm giá</p></div>
 		<div class="status-show grid-display col-sm-2"><p style="text-transform: uppercase">Trạng thái</p>
 		</div>
 	</div>
@@ -159,7 +160,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		<?php $i = 0; ?>
 		<?php foreach($items as $item) { ?>
 			<div class="item-detail">
-				<div class="col-sm-2 code grid-display"><?= Html::input('text', 'code', $item->isNewRecord ? '' : $item->product->code, [
+				<div class="col-sm-1 code grid-display"><?= Html::input('text', 'code', $item->isNewRecord ? '' : $item->product->code, [
 						'class'    => 'form-control form-height form-boder',
 						"disabled" => true,
 					]) ?></div>
@@ -189,8 +190,16 @@ $this->params['breadcrumbs'][] = $this->title;
 						"disabled" => true,
 					]) ?></div>
 				<div class="col-sm-2 price-show grid-display"><?= Html::activeTextInput($item, 'total_price', [
-						'class'    => 'form-control form-height form-boder',
+						'class'    => 'form-control form-height form-boder text-center',
 						'disabled' => true,
+						'value'    => number_format($item->total_price),
+					]) ?></div>
+				<div class="col-sm-1 discount grid-display"><?= Html::activeTextInput($item, 'discount', [
+						'class'    => 'form-control form-height form-boder text-center',
+						'value'    => number_format($item->discount),
+//						'min'      => 0,
+						'name'     => 'OrderItem[' . $i . '][discount]',
+						"disabled" => true,
 					]) ?></div>
 				<div class="col-sm-2 grid-display"><?= Html::activeTextInput($item, 'status', [
 						'class'    => 'form-control form-height form-boder',

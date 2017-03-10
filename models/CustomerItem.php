@@ -15,6 +15,7 @@ use yii\helpers\ArrayHelper;
  * @property integer       $customer_id
  * @property integer       $status
  * @property double        $total_price
+ * @property double        $discount
  *
  * @property OrderCustomer $orderCustomer
  * @property Product       $product
@@ -67,7 +68,10 @@ class CustomerItem extends Model {
 				'safe',
 			],
 			[
-				['total_price'],
+				[
+					'total_price',
+					'discount',
+				],
 				'number',
 			],
 			[

@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="panel-body">
 			<div class="col-sm-6">
 				<p>Tổng số đơn hàng: <?= $order_num ?> Đơn</p>
-				<p>Tổng số tiền hàng: <?= $order_sum ?> VNĐ</p>
+				<p>Tổng số tiền hàng: <?= number_format($order_sum) ?> VNĐ</p>
 				<p>Tổng số đơn đại diện: <?= $order_pre ?> Đơn</p>
 			</div>
 			<div class="col-sm-6">
@@ -50,7 +50,12 @@ $this->params['breadcrumbs'][] = $this->title;
 					return $data->users->username;
 				},
 			],
-			'total_amount',
+			[
+				'attribute' => 'total_amount',
+				'value'     => function (Order $data) {
+					return number_format($data->total_amount);
+				},
+			],
 			'note',
 			'created_date',
 			// 'update_at',
