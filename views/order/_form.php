@@ -128,13 +128,16 @@ use yii\widgets\ActiveForm;
 	</div>
 	<?php \yii\widgets\ActiveForm::end() ?>
 	<script>
+		//		Xử lí sự kiện click vào thêm form
 		$(".add-form").click(function() {
 			var number  = $(".items").find(".item-detail").length;
 			var context = $("<div class='item-detail' >" + $(".item-detail").html() + "</div>");
 			context.find("input,select").val("");
+			context.find(".discount input").val(0);
 			context.appendTo(".items").find('input:first').val(parseInt(number) + 1);
 			$('.items .item-detail:last div:nth-child(4) select:first').attr('name', 'OrderItem[' + parseInt(number + 1) + '][product_id]');
 			$('.items .item-detail:last div:nth-child(5) input:first').attr('name', 'OrderItem[' + parseInt(number + 1) + '][quantity]');
+			$('.items .item-detail:last div:nth-child(6) input:first').attr('name', 'OrderItem[' + parseInt(number + 1) + '][discount]');
 			return false;
 		});
 		$(document).on("change", ".category-select .form-control", function() {
