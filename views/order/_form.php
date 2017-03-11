@@ -123,7 +123,7 @@ use yii\widgets\ActiveForm;
 		</div>
 		<div class="col-sm-6">
 			<div class="col-sm-6 label-quantity">
-				<p>Tổng số hàng đã xuất kho:</p>
+				<p>Tổng số hàng xuất kho:</p>
 			</div>
 			<div class="col-sm-6 value-quantity">
 				<p>0</p>
