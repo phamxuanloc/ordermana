@@ -78,7 +78,7 @@ use yii\widgets\ActiveForm;
 						]) ?></div>
 				</div>
 				<div class="col-sm-1 quantity grid-display"><?= Html::activeTextInput($orderItem, 'quantity', [
-						'class' => 'form-control form-height form-boder',
+						'class' => 'form-control form-height form-boder quantity-input',
 						'type'  => 'number',
 						'min'   => 0,
 						'name'  => 'OrderItem[' . $i . '][quantity]',
@@ -122,10 +122,10 @@ use yii\widgets\ActiveForm;
 			<?= Html::submitButton('Tạo đơn hàng', ['class' => 'fleft']) ?>
 		</div>
 		<div class="col-sm-6">
-			<div class="col-sm-6 label-item">
+			<div class="col-sm-6 label-quantity">
 				<p>Tổng số hàng đã xuất kho:</p>
 			</div>
-			<div class="col-sm-6 value-item">
+			<div class="col-sm-6 value-quantity">
 				<p>0</p>
 			</div>
 
@@ -195,14 +195,17 @@ use yii\widgets\ActiveForm;
 					codeGen.val(data.product_code);
 					quantity.val(1);
 					sub_total_price_event(context.find('.quantity input'));
+					grand_total_quantity_event();
 				}
 			})
 		});
 		$(document).on("change", ".quantity .form-control", function() {
 			sub_total_price_event($(this));
+			grand_total_quantity_event();
 		});
 		$(document).on("keyup", ".quantity .form-control", function() {
 			sub_total_price_event($(this));
+			grand_total_quantity_event();
 		});
 		$(document).on("change", ".discount .form-control", function() {
 			var quantity = $(this).closest(".item-detail").find(".quantity .form-control");
@@ -233,5 +236,12 @@ use yii\widgets\ActiveForm;
 				sub_total.val(numberFormat(sub_total_value));
 				grand_total_price_event();
 			}
+		}
+		function grand_total_quantity_event() {
+			var sub_total = 0;
+			$(".quantity input").each(function() {
+				sub_total += Number($(this).val());
+			});
+			$(".value-quantity p:nth-child(1)").html(sub_total + " sp");
 		}
 	</script>

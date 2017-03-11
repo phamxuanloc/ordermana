@@ -93,3 +93,12 @@
 .label-item p {
     font-weight: bold;
 }
+.label-quantity p {
+    font-weight: bold;
+    font-size: 15px;
+    color: blue;
+}
+.value-quantity p{
+    font-weight: bold;
+    color: red;
+}
