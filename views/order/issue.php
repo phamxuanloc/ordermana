@@ -5,7 +5,7 @@ use yii\helpers\Url;
 
 /** @var app\models\Order $order */
 ?>
-<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN) { ?>
+<?php if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN || Yii::$app->user->identity->role_id == $order::ROLE_PRE) { ?>
 	<?= Html::a('Xuất kho cho đại diện', Url::to([
 		'/order/order-item',
 		'role' => $order::ROLE_PRE,
