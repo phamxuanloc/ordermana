@@ -173,7 +173,16 @@ class OrderController extends Controller {
 				if($model->status == $model::RECEIPTED) {
 					foreach($items as $item) {
 						if($item->status != $item::STATUS_RECEIPTED) {
-							if($item->quantity > $item->product->in_stock) {
+							//
+							if($this->user->role_id == Order::ROLE_ADMIN) {
+								$quantity_item = $item->product->in_stock;
+							} else {
+								$quantity_item = UserStock::findOne([
+									'user_id'    => $this->user->id,
+									'product_id' => $item->product_id,
+								])->in_stock;
+							}
+							if((int) $item->quantity > (int) $quantity_item ) {
 								Yii::$app->session->setFlash('danger', 'Chú ý: Sản phẩm ' . $item->product->name . ' không đủ số lượng để xuất');
 								$model->updateAttributes(['status' => $model::NOT_RECEIPTED]);
 								$item->updateAttributes(['status' => $item::STATUS_NOT_RECEIPTED]);
@@ -193,7 +202,15 @@ class OrderController extends Controller {
 									$stock->save();
 								}
 								$item->updateAttributes(['status' => $item::STATUS_RECEIPTED]);
-								$item->product->updateAttributes(['in_stock' => $item->product->in_stock - $item->quantity]);
+								if($this->user->id == $item::ROLE_ADMIN) {
+									$item->product->updateAttributes(['in_stock' => $item->product->in_stock - $item->quantity]);
+								} else {
+									$user_stock = UserStock::findOne([
+										'user_id'    => $this->user->id,
+										'product_id' => $item->product_id,
+									]);
+									$user_stock->updateAttributes(['in_stock' => $user_stock->in_stock - $item->quantity]);
+								}
 							}
 						}
 					}
