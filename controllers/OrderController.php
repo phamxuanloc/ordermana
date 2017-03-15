@@ -235,15 +235,6 @@ class OrderController extends Controller {
 				'orderItem' => $orderItem,
 				'order'     => $order,
 			]);
-		} else {
-			if(\Yii::$app->user->identity->role_id != $order::ROLE_ADMIN) {
-				if(\Yii::$app->user->identity->role_id >= $role) {
-					return $this->redirect([
-						'order-item',
-						'role' => \Yii::$app->user->identity->role_id + 1,
-					]);
-				}
-			}
 		}
 		if(isset($_POST['OrderItem'])) {
 			$order->load(Yii::$app->request->post());
