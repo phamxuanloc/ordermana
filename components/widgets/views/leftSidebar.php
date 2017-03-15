@@ -150,7 +150,7 @@ use yii\helpers\Url;
 						<?php if(RoleChecker::isAuth(OrderController::className(), 'order-item')) { ?>
 							<li>
 								<a href="<?= Url::to(['/order/order-item']) ?>">
-									Tạo đơn hàng</a>
+									Xuất kho</a>
 							</li>
 						<?php } ?>
 
