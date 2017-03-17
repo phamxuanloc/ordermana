@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Provider */
 $this->title = 'Cập nhật nhà cung cấp: ' . $model->name;
 $this->params['breadcrumbs'][] = [
-	'label' => 'Providers',
+	'label' => 'Nhà cung cấp',
 	'url'   => ['index'],
 ];
 $this->params['breadcrumbs'][] = [
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = [
 		'id' => $model->id,
 	],
 ];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Cập nhật';
 ?>
 <div class="provider-update">
 

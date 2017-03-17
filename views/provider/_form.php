@@ -16,7 +16,7 @@ use yii\helpers\Html;
 	<?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
 	<?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
-	
+
 	<?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
 	<?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>

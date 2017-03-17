@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Provider */
 
 $this->title = 'Thêm mới nhà cung cấp';
-$this->params['breadcrumbs'][] = ['label' => 'Providers', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Nhà cung cấp', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="provider-create">
