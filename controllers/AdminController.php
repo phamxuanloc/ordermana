@@ -55,7 +55,8 @@ class AdminController extends BaseAdminController {
 					'tree'          => 'Xem cây hệ thống',
 					'delete'        => 'Xóa người dùng',
 					'block'         => 'Khóa người dùng',
-					'change-parent' => 'Di chuyển hệ thống'
+					'change-parent' => 'Di chuyển hệ thống',
+					'care'          => 'Danh sách tài khoản chăm sóc khách hàng'
 					//with translated, which will display on role _form
 				],
 			],

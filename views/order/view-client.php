@@ -22,7 +22,7 @@ $this->title = 'Xác nhận đơn hàng';
 	<?php $i = 0; ?>
 	<?php foreach($items as $item) { ?>
 		<div class="item-detail">
-			<div class="col-sm-2 code grid-display"><?= Html::input('text', 'code', $item->isNewRecord ? '' : $item->product->code, [
+			<div class="col-sm-1 code grid-display"><?= Html::input('text', 'code', $item->isNewRecord ? '' : $item->product->code, [
 					'class'    => 'form-control form-height form-boder',
 					"disabled" => true,
 				]) ?></div>
@@ -54,6 +54,14 @@ $this->title = 'Xác nhận đơn hàng';
 			<div class="col-sm-2 price-show grid-display"><?= Html::activeTextInput($item, 'total_price', [
 					'class'    => 'form-control form-height form-boder',
 					'disabled' => true,
+					'value'    => number_format($item->total_price),
+				]) ?></div>
+			<div class="col-sm-1 discount grid-display"><?= Html::activeTextInput($item, 'discount', [
+					'class'    => 'form-control form-height form-boder text-center',
+					'value'    => number_format($item->discount),
+					//						'min'      => 0,
+					'name'     => 'OrderItem[' . $i . '][discount]',
+					"disabled" => true,
 				]) ?></div>
 			<div class="col-sm-2 grid-display"><?= Html::activeTextInput($item, 'status', [
 					'class'    => 'form-control form-height form-boder',
