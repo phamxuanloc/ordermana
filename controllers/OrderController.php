@@ -136,7 +136,9 @@ class OrderController extends Controller {
 		Yii::$app->session->setFlash('warning', 'Chú ý: Chuyển trạng thái qua "Đã nhận đủ" để xuất kho');
 		if($this->user->role_id != $model::ROLE_ADMIN) {
 			if($model->parent_id != $this->user->id) {
-				return $this->goHome();
+				if($model->user_id != $this->user->id || $model->status != $model::RECEIPTED) {
+					return $this->goHome();
+				}
 			}
 		}
 		if($model->load(Yii::$app->request->post())) {
@@ -182,7 +184,7 @@ class OrderController extends Controller {
 									'product_id' => $item->product_id,
 								])->in_stock;
 							}
-							if((int) $item->quantity > (int) $quantity_item ) {
+							if((int) $item->quantity > (int) $quantity_item) {
 								Yii::$app->session->setFlash('danger', 'Chú ý: Sản phẩm ' . $item->product->name . ' không đủ số lượng để xuất');
 								$model->updateAttributes(['status' => $model::NOT_RECEIPTED]);
 								$item->updateAttributes(['status' => $item::STATUS_NOT_RECEIPTED]);
