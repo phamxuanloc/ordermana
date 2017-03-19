@@ -65,23 +65,39 @@ class ReportForm extends Form {
 			$value    = Order::find();
 			$customer = OrderCustomer::find();
 			if($this->user->role_id == Model::ROLE_ADMIN) {
-				$value->joinWith('parent');
-				$value->andFilterWhere(['user.role_id' => Model::ROLE_ADMIN])->andFilterWhere([
-					'between',
-					'created_date',
-					$oStart->format('Y-m-d') . ' 00:00:00',
-					$oStart->format('Y-m-d') . ' 23:59:59',
-				]);
-				$order = $value->sum('total_amount');
-				$customer->joinWith('users');
-				$customer->andFilterWhere(['user.role_id' => Model::ROLE_ADMIN])->andFilterWhere([
-					'between',
-					'created_date',
-					$oStart->format('Y-m-d') . ' 00:00:00',
-					$oStart->format('Y-m-d') . ' 23:59:59',
-				]);
-				$order_customer = $customer->sum('total_amount');
-				$total          = $order_customer + $order;
+				if($this->username != null) {
+					$order          = $value->where(['parent_id' => $this->username])->andWhere([
+						'between',
+						'created_date',
+						$oStart->format('Y-m-d') . ' 00:00:00',
+						$oStart->format('Y-m-d') . ' 23:59:59',
+					])->sum('total_amount');
+					$order_customer = $customer->where(['user_id' => $this->username])->andWhere([
+						'between',
+						'created_date',
+						$oStart->format('Y-m-d') . ' 00:00:00',
+						$oStart->format('Y-m-d') . ' 23:59:59',
+					])->sum('total_amount');
+					$total          = $order + $order_customer;
+				} else {
+					$value->joinWith('parent');
+					$value->andFilterWhere(['user.role_id' => Model::ROLE_ADMIN])->andFilterWhere([
+						'between',
+						'created_date',
+						$oStart->format('Y-m-d') . ' 00:00:00',
+						$oStart->format('Y-m-d') . ' 23:59:59',
+					]);
+					$order = $value->sum('total_amount');
+					$customer->joinWith('users');
+					$customer->andFilterWhere(['user.role_id' => Model::ROLE_ADMIN])->andFilterWhere([
+						'between',
+						'created_date',
+						$oStart->format('Y-m-d') . ' 00:00:00',
+						$oStart->format('Y-m-d') . ' 23:59:59',
+					]);
+					$order_customer = $customer->sum('total_amount');
+					$total          = $order_customer + $order;
+				}
 			} else {
 				$order          = $value->where(['parent_id' => $this->user->id])->andWhere([
 					'between',
