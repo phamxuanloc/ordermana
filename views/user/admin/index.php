@@ -8,8 +8,8 @@
  * file that was distributed with this source code.
  */
 use dektrium\user\models\UserSearch;
+use kartik\grid\GridView;
 use yii\data\ActiveDataProvider;
-use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\Pjax;
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	'layout'       => "{items}\n{pager}",
 	'columns'      => [
 		[
-			'class'  => 'yii\grid\SerialColumn',
+			'class'  => 'kartik\grid\SerialColumn',
 			'header' => 'STT',
 		],
 		[
@@ -119,7 +119,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'format' => 'raw',
 		],
 		[
-			'class'    => 'yii\grid\ActionColumn',
+			'class'    => 'kartik\grid\ActionColumn',
 			'template' => '{update} {delete}',
 		],
 	],
