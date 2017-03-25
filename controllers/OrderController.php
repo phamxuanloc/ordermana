@@ -204,7 +204,7 @@ class OrderController extends Controller {
 									$stock->save();
 								}
 								$item->updateAttributes(['status' => $item::STATUS_RECEIPTED]);
-								if($this->user->id == $item::ROLE_ADMIN) {
+								if($this->user->role_id == $item::ROLE_ADMIN) {
 									$item->product->updateAttributes(['in_stock' => $item->product->in_stock - $item->quantity]);
 								} else {
 									$user_stock = UserStock::findOne([
