@@ -175,7 +175,7 @@ class Model extends ActiveRecord {
 
 	public static function getUserTree() {
 		$model = new Model();
-		if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN) {
+		if(Yii::$app->user->identity->role_id == Model::ROLE_ADMIN || Yii::$app->user->identity->role_id == Model::ROLE_CARE) {
 			$cats = User::find()->where([
 				'parent_id' => null,
 			])->all();
@@ -209,7 +209,7 @@ class Model extends ActiveRecord {
 				];
 			}
 		}
-		if(Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
+		if(Yii::$app->user->identity->role_id != Model::ROLE_ADMIN && Yii::$app->user->identity->role_id != Model::ROLE_CARE) {
 			$color    = $model->getColor(Yii::$app->user->identity->role_id);
 			$response = [
 				ArrayHelper::merge([
