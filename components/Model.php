@@ -365,6 +365,11 @@ class Model extends ActiveRecord {
 		return $response;
 	}
 
+	public static function getAllUser() {
+		$all = User::find()->all();
+		return ArrayHelper::map($all, 'id', 'username');
+	}
+
 	public function getChildrenList($models, $response, $level, $real_lv) {
 		foreach($models as $model) {
 			if($level > $real_lv) {

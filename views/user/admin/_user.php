@@ -56,7 +56,7 @@ use yii\helpers\Html;
 ])->label('Thành phố') ?>
 <?php if($role != Model::ROLE_ADMIN) { ?>
 	<?= $form->field($user, 'parent_id')->widget(Select2::className(), [
-		'data' => Model::getUserLv($role),
+		'data' => Yii::$app->user->identity->role_id != Model::ROLE_CARE ? Model::getUserLv($role) : Model::getAllUser(),
 	])->label('Người quản lý') ?>
 <?php } ?>
 <?= $form->field($user, 'password')->passwordInput() ?>
