@@ -11,6 +11,7 @@ namespace app\models\search;
 
 use app\components\Model;
 use app\models\User;
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 
@@ -28,9 +29,9 @@ class UserSearch extends \dektrium\user\models\UserSearch {
 
 	public function search($params, $care = false, $center = false) {
 		$query = $this->finder->getUserQuery();
-		if(\Yii::$app->user->identity->role_id != Model::ROLE_ADMIN) {
+		if(Yii::$app->user->identity->role_id != Model::ROLE_ADMIN && Yii::$app->user->identity->role_id != Model::ROLE_CARE) {
 			$model    = new Model();
-			$children = $model->getTotalChildren(\Yii::$app->user->id);
+			$children = $model->getTotalChildren(Yii::$app->user->id);
 			$query->where([
 				'IN',
 				'id',
