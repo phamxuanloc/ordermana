@@ -121,7 +121,7 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 			</div>
 			<div class="details">
 				<div class="number">
-					<?= $change_revenue ?>%
+					<?= ceil($change_revenue) ?>%
 				</div>
 				<div class="desc">
 					Biến động doanh số(so với cùng kỳ tháng trước)
