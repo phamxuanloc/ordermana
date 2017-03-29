@@ -169,12 +169,7 @@ use yii\helpers\Url;
 						<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
-						<?php if(RoleChecker::isAuth(DefaultController::className(), 'create')) { ?>
-							<li>
-								<a href="<?= Url::to(['/role']) ?>">
-									Phân quyền</a>
-							</li>
-						<?php } ?>
+
 						<?php if(RoleChecker::isAuth(AdminController::className(), 'tree')) { ?>
 
 							<li>
@@ -253,92 +248,10 @@ use yii\helpers\Url;
 					</ul>
 				</li>
 			<?php } ?>
-			<?php if(RoleChecker::isAuth(\app\controllers\CategoryController::className(), 'create')) { ?>
 
-				<li>
-					<a href="javascript:;">
-						<i class="icon-docs"></i>
-						<span class="title">Quản lý Danh mục sản phẩm</span>
-						<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-						<li>
-							<a href="<?= Url::to(['/category']) ?>">
-								<i class="icon-paper-plane"></i>
-								<span class="badge badge-warning"></span>Danh sách danh mục</a>
-						</li>
-						<li>
-							<a href="<?= Url::to(['/category/create']) ?>">
-								<i class="icon-user-following"></i>
-								<span class="badge badge-success badge-roundless">new</span>Thêm mới danh mục</a>
-						</li>
-					</ul>
-				</li>
-			<?php } ?>
-			<?php if(RoleChecker::isAuth(\app\controllers\PointController::className(), 'index')) { ?>
 
-				<li>
-					<a href="javascript:;">
-						<i class="icon-puzzle"></i>
-						<span class="title">Quản lý hệ thống điểm khách hàng</span>
-						<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-						<li>
-							<a href="<?= Url::to(['/point']) ?>">
-								Danh sách mốc điểm</a>
-						</li>
-						<li>
-							<a href="<?= Url::to(['/point/create']) ?>">
-								Thêm mốc điểm</a>
-						</li>
-						<li>
-							<a href="<?= Url::to(['/setting']) ?>">
-								Cấu hình đổi điểm</a>
-						</li>
-					</ul>
-				</li>
-			<?php } ?>
-			<?php if(RoleChecker::isAuth(\app\controllers\ProviderController::className(), 'create')) { ?>
 
-				<li>
-					<a href="javascript:;">
-						<i class="icon-present"></i>
-						<span class="title">Nhà cung cấp</span>
-						<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-						<li>
-							<a href="<?= Url::to(['/provider']) ?>">
-								Danh sách nhà cung cấp</a>
-						</li>
-						<li>
-							<a href="<?= Url::to(['/provider/create']) ?>">
-								Thêm mới nhà cung cấp</a>
-						</li>
-					</ul>
-				</li>
-			<?php } ?>
-			<?php if(RoleChecker::isAuth(\app\controllers\AlertController::className(), 'create')) { ?>
 
-				<li>
-					<a href="javascript:;">
-						<i class="icon-present"></i>
-						<span class="title">Quản lý thông báo</span>
-						<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-						<li>
-							<a href="<?= Url::to(['/alert']) ?>">
-								Danh sách thông báo</a>
-						</li>
-						<li>
-							<a href="<?= Url::to(['/alert/create']) ?>">
-								Thêm mới thông báo</a>
-						</li>
-					</ul>
-				</li>
-			<?php } ?>
 			<li>
 				<a href="javascript:;">
 					<i class="icon-home"></i>
@@ -358,6 +271,107 @@ use yii\helpers\Url;
 						<a href="<?= Url::to(['/center/create']) ?>">
 							Tạo đơn hàng center</a>
 					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<i class="icon-home"></i>
+					<span class="title">Cài đặt</span>
+					<span class="arrow "></span>
+				</a>
+				<ul class="sub-menu">
+					<?php if(RoleChecker::isAuth(DefaultController::className(), 'create')) { ?>
+						<li>
+							<a href="<?= Url::to(['/role']) ?>">
+								Phân quyền</a>
+						</li>
+					<?php } ?>
+					<?php if(RoleChecker::isAuth(\app\controllers\PointController::className(), 'index')) { ?>
+
+						<li>
+							<a href="javascript:;">
+								<i class="icon-puzzle"></i>
+								<span class="title">Quản lý hệ thống điểm khách hàng</span>
+								<span class="arrow "></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="<?= Url::to(['/point']) ?>">
+										Danh sách mốc điểm</a>
+								</li>
+								<li>
+									<a href="<?= Url::to(['/point/create']) ?>">
+										Thêm mốc điểm</a>
+								</li>
+								<li>
+									<a href="<?= Url::to(['/setting']) ?>">
+										Cấu hình đổi điểm</a>
+								</li>
+							</ul>
+						</li>
+					<?php } ?>
+					<?php if(RoleChecker::isAuth(\app\controllers\ProviderController::className(), 'create')) { ?>
+
+						<li>
+							<a href="javascript:;">
+								<i class="icon-present"></i>
+								<span class="title">Nhà cung cấp</span>
+								<span class="arrow "></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="<?= Url::to(['/provider']) ?>">
+										Danh sách nhà cung cấp</a>
+								</li>
+								<li>
+									<a href="<?= Url::to(['/provider/create']) ?>">
+										Thêm mới nhà cung cấp</a>
+								</li>
+							</ul>
+						</li>
+					<?php } ?>
+					<?php if(RoleChecker::isAuth(\app\controllers\CategoryController::className(), 'create')) { ?>
+
+						<li>
+							<a href="javascript:;">
+								<i class="icon-docs"></i>
+								<span class="title">Quản lý Danh mục sản phẩm</span>
+								<span class="arrow "></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="<?= Url::to(['/category']) ?>">
+										<i class="icon-paper-plane"></i>
+										<span class="badge badge-warning"></span>Danh sách danh mục</a>
+								</li>
+								<li>
+									<a href="<?= Url::to(['/category/create']) ?>">
+										<i class="icon-user-following"></i>
+										<span class="badge badge-success badge-roundless">new</span>Thêm mới danh mục</a>
+								</li>
+							</ul>
+						</li>
+					<?php } ?>
+					<?php if(RoleChecker::isAuth(\app\controllers\AlertController::className(), 'create')) { ?>
+
+						<li>
+							<a href="javascript:;">
+								<i class="icon-present"></i>
+								<span class="title">Quản lý thông báo</span>
+								<span class="arrow "></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="<?= Url::to(['/alert']) ?>">
+										Danh sách thông báo</a>
+								</li>
+								<li>
+									<a href="<?= Url::to(['/alert/create']) ?>">
+										Thêm mới thông báo</a>
+								</li>
+							</ul>
+						</li>
+					<?php } ?>
 				</ul>
 			</li>
 		</ul>
