@@ -409,8 +409,11 @@ class ReportForm extends Form {
 		$this->load($params);
 		$query_order    = Order::find();
 		$query_customer = OrderCustomer::find();
-		$query_order->where(['parent_id' => $this->username == null ? $this->user->id : $this->username]);
-		$query_customer->where(['user_id' => $this->username == null ? $this->user->id : $this->username]);
+		$query_order->andFilterWhere(['parent_id' => $this->username == null ? $this->user->id : $this->username]);
+		$query_customer->andFilterWhere(['user_id' => $this->username == null ? $this->user->id : $this->username]);
+		//		if($this->username!=null){
+		//			echo $query_customer->count();die;
+		//		}
 		if($this->start_date != null) {
 			$oStart = $this->start_date;
 			if($this->end_date != null) {
@@ -418,7 +421,7 @@ class ReportForm extends Form {
 			} else {
 				$oEnd = date('Y-m-d');
 			}
-			$query_order->where([
+			$query_order->andFilterWhere([
 				'>=',
 				'created_date',
 				$oStart,
@@ -427,11 +430,11 @@ class ReportForm extends Form {
 				'created_date',
 				$oEnd,
 			])->sum('total_amount');
-			$query_customer->where([
+			$query_customer->andFilterWhere([
 				'>=',
 				'created_date',
 				$oStart,
-			])->andWhere([
+			])->andFilterWhere([
 				'<=',
 				'created_date',
 				$oEnd,

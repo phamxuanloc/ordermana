@@ -2,6 +2,7 @@
 /* @var $this yii\web\View */
 use app\components\Model;
 use scotthuangzl\googlechart\GoogleChart;
+use yii\helpers\Html;
 
 $this->title = 'Mỹ phẩm Linh Nhâm';
 ?>
@@ -134,8 +135,8 @@ $this->title = 'Mỹ phẩm Linh Nhâm';
 	</div>
 </div>
 <div class="col-sm-12">
-	<?= \yii\helpers\Html::a('Xuất kho', ['/order/order-item'], ['class' => 'btn btn-danger col-sm-1']) ?>
-	<?= \yii\helpers\Html::a('Bán lẻ', ['/order-customer/order-item'], ['class' => 'btn btn-warning col-sm-1']) ?>
+	<?= Html::a('Xuất kho', ['/order/order-item'], ['class' => 'btn btn-danger col-sm-1']) ?>
+	<?= Html::a('Bán lẻ', ['/order-customer/order-item'], ['class' => 'btn btn-warning col-sm-1']) ?>
 </div>
 
 <!-- END DASHBOARD STATS -->
