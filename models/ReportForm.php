@@ -425,7 +425,7 @@ class ReportForm extends Form {
 				'>=',
 				'created_date',
 				$oStart,
-			])->andWhere([
+			])->andFilterWhere([
 				'<=',
 				'created_date',
 				$oEnd,
