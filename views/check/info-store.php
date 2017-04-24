@@ -3,6 +3,7 @@ use app\assets\LoginAsset;
 use kartik\file\FileInput;
 use kartik\select2\Select2;
 use kartik\widgets\DatePicker;
+use navatech\roxymce\widgets\RoxyMceWidget;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -79,7 +80,15 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 							],
 						],
 					]); ?>
-					<?= $form->field($model, 'store_description')->textarea(['rows' => 6])->label('Mô tả') ?>
+					<?= $form->field($model, 'store_description')->widget(RoxyMceWidget::className(), [
+						'model'         => $model,
+						'clientOptions' => [
+							'menubar'   => false,
+							'statusbar' => false,
+							'toolbar'   => false,
+							'title'     => false,
+						],
+					])->label('Mô tả') ?>
 
 					<?= $form->field($model, 'address')->textInput()->label('Địa chỉ') ?>
 
