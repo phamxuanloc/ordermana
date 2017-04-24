@@ -89,12 +89,23 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 							'toolbar'   => false,
 							'title'     => false,
 						],
+						//						'options'       => [
+						//							'disabled' => true,
+						//						],
 					])->label('Mô tả') ?>
 
-					<?= $form->field($model, 'address')->textInput()->label('Địa chỉ') ?>
+					<?= $form->field($model, 'address')->textInput([
+						'disabled' => true,
+					])->label('Địa chỉ') ?>
 
-					<?= $form->field($model, 'phone')->textInput(['maxlength' => 255])->label('Số điện thoại') ?>
-					<?= $form->field($model, 'created_at')->textInput(['value' => date('Y-m-d H:i:s', $model->created_at)])->label('Ngày tham gia') ?>
+					<?= $form->field($model, 'phone')->textInput([
+						'maxlength' => 255,
+						'disabled'  => true,
+					])->label('Số điện thoại') ?>
+					<?= $form->field($model, 'created_at')->textInput([
+						'value'    => date('Y-m-d H:i:s', $model->created_at),
+						'disabled' => true,
+					])->label('Ngày tham gia') ?>
 				</div>
 			</div>
 		</div>
@@ -119,15 +130,30 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 						],
 						'disabled'      => true,
 					])->label('Ảnh cửa hàng'); ?>
-					<?= $form->field($model, 'store_address')->textInput()->label('Địa chỉ cửa hàng') ?>
-					<?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
-					<?= $form->field($model, 'facebook_link')->textInput(['maxlength' => 255]) ?>
-					<?= $form->field($model, 'zalo')->textInput(['maxlength' => 255]) ?>
-					<?= $form->field($model, 'viber')->textInput(['maxlength' => 255]) ?>
+					<?= $form->field($model, 'store_address')->textInput([
+						'disabled' => true,
+					])->label('Địa chỉ cửa hàng') ?>
+					<?= $form->field($model, 'email')->textInput([
+						'maxlength' => 255,
+						'disabled'  => true,
+					]) ?>
+					<?= $form->field($model, 'facebook_link')->textInput([
+						'maxlength' => 255,
+						'disabled'  => true,
+					]) ?>
+					<?= $form->field($model, 'zalo')->textInput([
+						'maxlength' => 255,
+						'disabled'  => true,
+					]) ?>
+					<?= $form->field($model, 'viber')->textInput([
+						'maxlength' => 255,
+						'disabled'  => true,
+					]) ?>
 					<?= $form->field($model, 'city')->widget(Select2::className(), [
-						'data' => ArrayHelper::map(\app\models\City::find()->andWhere([
+						'data'     => ArrayHelper::map(\app\models\City::find()->andWhere([
 							'status' => 1,
 						])->all(), 'id', 'name'),
+						'disabled' => true,
 					])->label('Thành phố') ?>
 
 
