@@ -8,6 +8,7 @@
 namespace app\controllers;
 
 use app\models\Customer;
+use app\models\User;
 use Yii;
 use yii\web\Controller;
 
@@ -30,5 +31,30 @@ class CheckController extends Controller {
 		return $this->render('check-point', [
 			'model' => $model,
 		]);
+	}
+
+	public function actionCheckStore() {
+		$model = new User();
+		if($model->load(Yii::$app->request->post())) {
+			$model = User::findOne(['code' => 'code']);
+			if($model) {
+				return $this->redirect([
+					'/check/info-store',
+					'code' => $model->code,
+				]);
+			} else {
+				Yii::$app->session->setFlash('check', 'Mã số đại diện không đúng');
+				return $this->refresh();
+			}
+		}
+		return $this->render('check-store', ['model' => $model]);
+	}
+
+	public function actionInfoStore($code) {
+		$model = User::findOne(['code' => $code]);
+		if(!$model) {
+			$model = new User();
+		}
+		return $this->render('info-store', ['model' => $model]);
 	}
 }

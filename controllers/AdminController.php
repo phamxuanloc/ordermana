@@ -205,6 +205,10 @@ class AdminController extends BaseAdminController {
 		if($user->load(\Yii::$app->request->post())) {
 			$user->role_id      = $role;
 			$user->confirmed_at = 1456114858;
+			$user->code_number  = $user->getCodeNumber();
+			if($user->code_number) {
+				$user->code = $user->cities->code . $user->code_number;
+			}
 			if($user->create()) {
 				$img = $user->uploadPicture('avatar', 'image');
 				if($user->save()) {
@@ -248,6 +252,10 @@ class AdminController extends BaseAdminController {
 		if($user->load(\Yii::$app->request->post())) {
 			$user->role_id      = $role;
 			$user->confirmed_at = 1456114858;
+			$user->code_number  = $user->getCodeNumber();
+			if($user->code_number) {
+				$user->code = $user->cities->code . $user->code_number;
+			}
 			if($user->create()) {
 				$img = $user->uploadPicture('avatar', 'image');
 				if($user->save()) {
@@ -291,6 +299,10 @@ class AdminController extends BaseAdminController {
 		if($user->load(\Yii::$app->request->post())) {
 			$user->role_id      = $role;
 			$user->confirmed_at = 1456114858;
+			$user->code_number  = $user->getCodeNumber();
+			if($user->code_number) {
+				$user->code = $user->cities->code . $user->code_number;
+			}
 			if($user->create()) {
 				$img = $user->uploadPicture('avatar', 'image');
 				if($user->save()) {
@@ -334,6 +346,10 @@ class AdminController extends BaseAdminController {
 		if($user->load(\Yii::$app->request->post())) {
 			$user->role_id      = $role;
 			$user->confirmed_at = 1456114858;
+			$user->code_number  = $user->getCodeNumber();
+			if($user->code_number) {
+				$user->code = $user->cities->code . $user->code_number;
+			}
 			if($user->create()) {
 				$img = $user->uploadPicture('avatar', 'image');
 				if($user->save()) {
@@ -420,6 +436,10 @@ class AdminController extends BaseAdminController {
 		if($user->load(\Yii::$app->request->post())) {
 			$user->role_id      = $role;
 			$user->confirmed_at = 1456114858;
+			$user->code_number  = $user->getCodeNumber();
+			if($user->code_number) {
+				$user->code = $user->cities->code . $user->code_number;
+			}
 			if($user->create()) {
 				$img = $user->uploadPicture('avatar', 'image');
 				if($user->save()) {

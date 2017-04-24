@@ -20,7 +20,14 @@ use yii\web\UploadedFile;
  * @property string          $unconfirmed_email
  * @property string          $facebook_link
  * @property string          $phone
+ * @property string          $code
+ * @property string          $zalo
+ * @property string          $viber
+ * @property string          $store_address
+ * @property string          $store_image
+ * @property string          $store_description
  * @property integer         $blocked_at
+ * @property integer         $code_number
  * @property string          $registration_ip
  * @property string          $address
  * @property integer         $created_at
@@ -46,6 +53,28 @@ class User extends BaseUser {
 	public $image;
 
 	public $last_login_at;
+
+	const BEST_NUMBER = [
+		1111,
+		2222,
+		3333,
+		4444,
+		5555,
+		6666,
+		7777,
+		8888,
+		9999,
+		6868,
+		8686,
+		6886,
+		1234,
+		5678,
+		1102,
+		6789,
+		8668,
+		2468,
+		1357,
+	];
 
 	/**
 	 * @inheritdoc
@@ -83,6 +112,8 @@ class User extends BaseUser {
 				're_pass',
 				'image',
 				'avatar',
+				'code',
+				'code_number',
 			],
 			'admin_create' => [
 				'username',
@@ -114,6 +145,11 @@ class User extends BaseUser {
 				'birthday',
 				'image',
 				'avatar',
+				'zalo',
+				'viber',
+				'store_image',
+				'store_address',
+				'store_description',
 			],
 			'settings'     => [
 				'username',
@@ -153,6 +189,13 @@ class User extends BaseUser {
 				'message' => 'Không được để trống {attribute}',
 			],
 			[
+				[
+					'code',
+					'code_number',
+				],
+				'safe',
+			],
+			[
 				're_pass',
 				'compare',
 				'compareAttribute' => 'password',
@@ -186,9 +229,14 @@ class User extends BaseUser {
 					'id_number',
 					'image',
 					'avatar',
+					'zalo',
+					'viber',
+					'store_image',
+					'store_address',
+					'store_description',
 				],
 				'string',
-				'max' => 255,
+				'max' => 1000,
 			],
 			[
 				['password_hash'],
@@ -255,6 +303,7 @@ class User extends BaseUser {
 			're_pass'           => 'Xác nhận mật khẩu',
 			'image'             => 'Ảnh đại diện',
 			'avatar'            => 'Ảnh đại diện',
+			'code'              => 'Mã đại lý, đại diện',
 		];
 	}
 
@@ -377,5 +426,26 @@ class User extends BaseUser {
 	public function getPictureFile($picture = '') {
 		$dir = Yii::getAlias('@app/web') . '/uploads/' . $this->tableName() . '/';
 		return isset($this->$picture) ? $dir . $this->$picture : null;
+	}
+
+	public function getCodeNumber() {
+		if($this->city != null) {
+			$last = User::find()->where(['city' => $this->city])->andFilterWhere([
+				'!=',
+				'code',
+				null,
+			])->orderBy('id DESC')->one();
+			if($last) {
+				$number         = $last->code_number;
+				$current_number = $number + 1;
+				if(in_array($current_number, User::BEST_NUMBER)) {
+					$current_number = $current_number + 1;
+				};
+			} else {
+				$current_number = 1000;
+			}
+			return $current_number;
+		}
+		return null;
 	}
 }
