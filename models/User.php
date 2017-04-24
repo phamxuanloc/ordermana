@@ -456,7 +456,7 @@ class User extends BaseUser {
 					$current_number = $current_number + 1;
 				};
 			} else {
-				$current_number = 1000;
+				$current_number = 0001;
 			}
 			return $current_number;
 		}
