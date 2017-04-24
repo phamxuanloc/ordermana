@@ -114,6 +114,11 @@ class User extends BaseUser {
 				'avatar',
 				'code',
 				'code_number',
+				'zalo',
+				'viber',
+				'store_image',
+				'store_address',
+				'store_description',
 			],
 			'admin_create' => [
 				'username',
@@ -130,6 +135,11 @@ class User extends BaseUser {
 				're_pass',
 				'image',
 				'avatar',
+				'zalo',
+				'viber',
+				'store_image',
+				'store_address',
+				'store_description',
 			],
 			'update'       => [
 				'username',
@@ -220,6 +230,11 @@ class User extends BaseUser {
 				'extensions' => 'jpg, gif, png',
 			],
 			[
+				['store_image'],
+				'file',
+				'extensions' => 'jpg, gif, png',
+			],
+			[
 				[
 					'username',
 					'email',
@@ -231,7 +246,6 @@ class User extends BaseUser {
 					'avatar',
 					'zalo',
 					'viber',
-					'store_image',
 					'store_address',
 					'store_description',
 				],

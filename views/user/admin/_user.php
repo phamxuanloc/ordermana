@@ -38,6 +38,24 @@ use yii\helpers\Html;
 		],
 	],
 ]); ?>
+
+<?= $form->field($user, 'store_image')->widget(FileInput::className(), [
+	'options'       => ['accept' => 'image/*'],
+	'pluginOptions' => [
+		'allowedFileExtensions' => [
+			'jpg',
+			'gif',
+			'png',
+		],
+		'showUpload'            => false,
+		'initialPreview'        => $user->getIsNewRecord() ? [
+			Html::img(Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif', ['class' => 'file-preview-image']),
+		] : [
+			Html::img($user->getPictureUrl('store_image'), ['class' => 'file-preview-image']),
+		],
+	],
+])->label('Ảnh cửa hàng'); ?>
+<?= $form->field($user, 'store_description')->textarea(['rows' => 6])->label('Mô tả') ?>
 <?= $form->field($user, 'phone')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'id_number')->textInput() ?>
 <?= $form->field($user, 'birthday')->widget(DatePicker::className(), [
@@ -47,8 +65,11 @@ use yii\helpers\Html;
 	],
 ]) ?>
 <?= $form->field($user, 'address')->textInput() ?>
+<?= $form->field($user, 'store_address')->textInput()->label('Địa chỉ cửa hàng') ?>
 <?= $form->field($user, 'email')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'facebook_link')->textInput(['maxlength' => 255]) ?>
+<?= $form->field($user, 'zalo')->textInput(['maxlength' => 255]) ?>
+<?= $form->field($user, 'viber')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'city')->widget(Select2::className(), [
 	'data' => ArrayHelper::map(\app\models\City::find()->andWhere([
 		'status' => 1,

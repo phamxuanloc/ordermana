@@ -40,12 +40,14 @@ $this->params['breadcrumbs'][] = $this->title;
 			'filter'    => false,
 			'format'    => 'html',
 			'value'     => function (\app\models\User $data) {
-				return Html::img($data->getPictureUrl('avatar'), ['width'  => '100px',
-				                                                  'height' => '70px',
+				return Html::img($data->getPictureUrl('avatar'), [
+					'width'  => '100px',
+					'height' => '70px',
 				]);
 			},
 		],
 		'username',
+		'code',
 		'email:email',
 		[
 			'attribute' => 'created_at',

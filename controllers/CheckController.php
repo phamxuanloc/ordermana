@@ -36,7 +36,7 @@ class CheckController extends Controller {
 	public function actionCheckStore() {
 		$model = new User();
 		if($model->load(Yii::$app->request->post())) {
-			$model = User::findOne(['code' => 'code']);
+			$model = User::findOne(['code' => $model->code]);
 			if($model) {
 				return $this->redirect([
 					'/check/info-store',

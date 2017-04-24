@@ -109,15 +109,24 @@ class AdminController extends BaseAdminController {
 		$this->performAjaxValidation($user);
 		$this->trigger(self::EVENT_BEFORE_UPDATE, $event);
 		$oldImage = $user->avatar;
+		$oldStore = $user->store_image;
 		if($user->load(\Yii::$app->request->post()) && $user->save()) {
-			$img = $user->uploadPicture('avatar', 'image');
+			$img       = $user->uploadPicture('avatar', 'image');
+			$store_img = $user->uploadPicture('store_image', 'store_image');
 			if($img == false) {
 				$user->avatar = $oldImage;
+			}
+			if($store_img == false) {
+				$user->store_image = $oldStore;
 			}
 			if($user->save()) {
 				if($img !== false) {
 					$path = $user->getPictureFile('avatar');
 					$img->saveAs($path);
+				}
+				if($store_img !== false) {
+					$path = $user->getPictureFile('store_image');
+					$store_img->saveAs($path);
 				}
 			}
 			\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'Account details have been updated'));
@@ -163,11 +172,16 @@ class AdminController extends BaseAdminController {
 			$user->role_id      = Model::ROLE_ADMIN;
 			$user->confirmed_at = 1456114858;
 			if($user->create()) {
-				$img = $user->uploadPicture('avatar', 'image');
+				$img       = $user->uploadPicture('avatar', 'image');
+				$store_img = $user->uploadPicture('store_image', 'store_image');
 				if($user->save()) {
 					if($img !== false) {
 						$path = $user->getPictureFile('avatar');
 						$img->saveAs($path);
+					}
+					if($store_img !== false) {
+						$path = $user->getPictureFile('store_image');
+						$store_img->saveAs($path);
 					}
 				}
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
@@ -210,11 +224,16 @@ class AdminController extends BaseAdminController {
 				$user->code = $user->cities->code . $user->code_number;
 			}
 			if($user->create()) {
-				$img = $user->uploadPicture('avatar', 'image');
+				$img       = $user->uploadPicture('avatar', 'image');
+				$store_img = $user->uploadPicture('store_image', 'store_image');
 				if($user->save()) {
 					if($img !== false) {
 						$path = $user->getPictureFile('avatar');
 						$img->saveAs($path);
+					}
+					if($store_img !== false) {
+						$path = $user->getPictureFile('store_image');
+						$store_img->saveAs($path);
 					}
 				}
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
@@ -257,11 +276,16 @@ class AdminController extends BaseAdminController {
 				$user->code = $user->cities->code . $user->code_number;
 			}
 			if($user->create()) {
-				$img = $user->uploadPicture('avatar', 'image');
+				$img       = $user->uploadPicture('avatar', 'image');
+				$store_img = $user->uploadPicture('store_image', 'store_image');
 				if($user->save()) {
 					if($img !== false) {
 						$path = $user->getPictureFile('avatar');
 						$img->saveAs($path);
+					}
+					if($store_img !== false) {
+						$path = $user->getPictureFile('store_image');
+						$store_img->saveAs($path);
 					}
 				}
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
@@ -304,11 +328,16 @@ class AdminController extends BaseAdminController {
 				$user->code = $user->cities->code . $user->code_number;
 			}
 			if($user->create()) {
-				$img = $user->uploadPicture('avatar', 'image');
+				$img       = $user->uploadPicture('avatar', 'image');
+				$store_img = $user->uploadPicture('store_image', 'store_image');
 				if($user->save()) {
 					if($img !== false) {
 						$path = $user->getPictureFile('avatar');
 						$img->saveAs($path);
+					}
+					if($store_img !== false) {
+						$path = $user->getPictureFile('store_image');
+						$store_img->saveAs($path);
 					}
 				}
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
@@ -351,11 +380,16 @@ class AdminController extends BaseAdminController {
 				$user->code = $user->cities->code . $user->code_number;
 			}
 			if($user->create()) {
-				$img = $user->uploadPicture('avatar', 'image');
+				$img       = $user->uploadPicture('avatar', 'image');
+				$store_img = $user->uploadPicture('store_image', 'store_image');
 				if($user->save()) {
 					if($img !== false) {
 						$path = $user->getPictureFile('avatar');
 						$img->saveAs($path);
+					}
+					if($store_img !== false) {
+						$path = $user->getPictureFile('store_image');
+						$store_img->saveAs($path);
 					}
 				}
 				\Yii::$app->getSession()->setFlash('success', \Yii::t('user', 'User has been created'));
