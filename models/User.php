@@ -445,7 +445,7 @@ class User extends BaseUser {
 	public function getCodeNumber() {
 		if($this->city != null) {
 			$last = User::find()->where(['city' => $this->city])->andFilterWhere([
-				'!=',
+				'!==',
 				'code',
 				null,
 			])->orderBy('id DESC')->one();
