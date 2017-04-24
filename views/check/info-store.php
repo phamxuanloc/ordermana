@@ -79,6 +79,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 								Html::img($model->getPictureUrl('avatar'), ['class' => 'file-preview-image']),
 							],
 						],
+						'disabled'      => true,
 					]); ?>
 					<?= $form->field($model, 'store_description')->widget(RoxyMceWidget::className(), [
 						'model'         => $model,
@@ -116,6 +117,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 								Html::img($model->getPictureUrl('store_image'), ['class' => 'file-preview-image']),
 							],
 						],
+						'disabled'      => true,
 					])->label('Ảnh cửa hàng'); ?>
 					<?= $form->field($model, 'store_address')->textInput()->label('Địa chỉ cửa hàng') ?>
 					<?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
