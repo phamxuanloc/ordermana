@@ -55,7 +55,7 @@ use yii\helpers\Html;
 		],
 	],
 ])->label('Ảnh cửa hàng'); ?>
-<?= $form->field($user, 'store_description')->textarea(['rows' => 6])->label('Mô tả') ?>
+<?= $form->field($user, 'store_description')->widget(\navatech\roxymce\widgets\RoxyMceWidget::className(), ['model' => $model])->label('Mô tả') ?>
 <?= $form->field($user, 'phone')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'id_number')->textInput() ?>
 <?= $form->field($user, 'birthday')->widget(DatePicker::className(), [
