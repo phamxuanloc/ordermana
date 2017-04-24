@@ -450,16 +450,12 @@ class User extends BaseUser {
 				'',
 			])->orderBy('id DESC')->one();
 			if($last) {
-				echo "a";
-				die;
 				$number         = $last->code_number;
 				$current_number = $number + 1;
 				if(in_array($current_number, User::BEST_NUMBER)) {
 					$current_number = $current_number + 1;
 				};
 			} else {
-				echo 'b';
-				die;
 				$current_number = 0001;
 			}
 			return $current_number;
