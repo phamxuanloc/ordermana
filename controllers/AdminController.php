@@ -221,7 +221,15 @@ class AdminController extends BaseAdminController {
 			$user->confirmed_at = 1456114858;
 			$user->code_number  = $user->getCodeNumber();
 			if($user->code_number) {
-				$user->code = $user->cities->code . $user->code_number;
+				if($user->code_number < 10) {
+					$user->code = $user->cities->code . '000' . $user->code_number;
+				} elseif(10 <= $user->code_number && $user->code_number < 100) {
+					$user->code = $user->cities->code . '00' . $user->code_number;
+				} elseif($user->code_number >= 100 && $user->code_number < 1000) {
+					$user->code = $user->cities->code . '0' . $user->code_number;
+				} else {
+					$user->code = $user->cities->code . $user->code_number;
+				}
 			}
 			if($user->create()) {
 				$img       = $user->uploadPicture('avatar', 'image');
@@ -273,7 +281,15 @@ class AdminController extends BaseAdminController {
 			$user->confirmed_at = 1456114858;
 			$user->code_number  = $user->getCodeNumber();
 			if($user->code_number) {
-				$user->code = $user->cities->code . $user->code_number;
+				if($user->code_number < 10) {
+					$user->code = $user->cities->code . '000' . $user->code_number;
+				} elseif(10 <= $user->code_number && $user->code_number < 100) {
+					$user->code = $user->cities->code . '00' . $user->code_number;
+				} elseif($user->code_number >= 100 && $user->code_number < 1000) {
+					$user->code = $user->cities->code . '0' . $user->code_number;
+				} else {
+					$user->code = $user->cities->code . $user->code_number;
+				}
 			}
 			if($user->create()) {
 				$img       = $user->uploadPicture('avatar', 'image');
@@ -325,7 +341,15 @@ class AdminController extends BaseAdminController {
 			$user->confirmed_at = 1456114858;
 			$user->code_number  = $user->getCodeNumber();
 			if($user->code_number) {
-				$user->code = $user->cities->code . $user->code_number;
+				if($user->code_number < 10) {
+					$user->code = $user->cities->code . '000' . $user->code_number;
+				} elseif(10 <= $user->code_number && $user->code_number < 100) {
+					$user->code = $user->cities->code . '00' . $user->code_number;
+				} elseif($user->code_number >= 100 && $user->code_number < 1000) {
+					$user->code = $user->cities->code . '0' . $user->code_number;
+				} else {
+					$user->code = $user->cities->code . $user->code_number;
+				}
 			}
 			if($user->create()) {
 				$img       = $user->uploadPicture('avatar', 'image');
@@ -377,7 +401,15 @@ class AdminController extends BaseAdminController {
 			$user->confirmed_at = 1456114858;
 			$user->code_number  = $user->getCodeNumber();
 			if($user->code_number) {
-				$user->code = $user->cities->code . $user->code_number;
+				if($user->code_number < 10) {
+					$user->code = $user->cities->code . '000' . $user->code_number;
+				} elseif(10 <= $user->code_number && $user->code_number < 100) {
+					$user->code = $user->cities->code . '00' . $user->code_number;
+				} elseif($user->code_number >= 100 && $user->code_number < 1000) {
+					$user->code = $user->cities->code . '0' . $user->code_number;
+				} else {
+					$user->code = $user->cities->code . $user->code_number;
+				}
 			}
 			if($user->create()) {
 				$img       = $user->uploadPicture('avatar', 'image');
