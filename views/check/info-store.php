@@ -93,12 +93,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 					<?= $form->field($model, 'address')->textInput()->label('Địa chỉ') ?>
 
 					<?= $form->field($model, 'phone')->textInput(['maxlength' => 255])->label('Số điện thoại') ?>
-					<?= $form->field($model, 'created_at')->widget(DatePicker::className(), [
-						'pluginOptions' => [
-							'autoclose' => true,
-							'format'    => 'yyyy-mm-dd',
-						],
-					])->label('Ngày tham gia') ?>
+					<?= $form->field($model, 'created_at')->textInput(['value' => date('Y-m-d H:i:s', $model->created_at)])->label('Ngày tham gia') ?>
 				</div>
 			</div>
 		</div>
