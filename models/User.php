@@ -317,7 +317,7 @@ class User extends BaseUser {
 			're_pass'           => 'Xác nhận mật khẩu',
 			'image'             => 'Ảnh đại diện',
 			'avatar'            => 'Ảnh đại diện',
-			'code'              => 'Mã đại lý, đại diện',
+			'code'              => 'Mã',
 		];
 	}
 
