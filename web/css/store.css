@@ -24,6 +24,9 @@ ul.nav-inline li {
 }
 
 .content {
+    background-image: url("../uploads/store/background-left.png"), url("../uploads/store/background-right.png");
+    background-position: left bottom, right bottom;
+    background-repeat: no-repeat, no-repeat;
 }
 
 .margin-store {

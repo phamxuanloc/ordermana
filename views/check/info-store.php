@@ -129,15 +129,18 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 				<!-- BEGIN REGISTRATION FORM -->
 				<!-- END REGISTRATION FORM -->
 			</div>
-
+			<div class="col-sm-12 text-center" style="font-weight: bold;font-size: 18px">
+				<p>@ Bản quyền thuộc về Myphamlinhnham.vn</p>
+				<p>Mọi phản ánh vui lòng liên hệ Hotline công ty: 0968.886.992</p>
+			</div>
 		</div>
 		<!--	<div class="copyright">-->
 		<!--		2016 © Myphamlinhnham.vn-->
 		<!--	</div>-->
 	</div>
-	<div>
-		<?php echo Html::img(Url::base() . '/uploads/store/footer.png', ['class' => 'footer-store']) ?>
-	</div>
+	<!--	<div>-->
+	<!--		--><?php //echo Html::img(Url::base() . '/uploads/store/footer.png', ['class' => 'footer-store']) ?>
+	<!--	</div>-->
 	<?php $this->endBody() ?>
 	</body>
 	<script>
