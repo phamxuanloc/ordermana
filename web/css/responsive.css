@@ -1,5 +1,52 @@
 @media screen and (max-width: 768px) {
     .footer-store {
-        max-height: 200px;
+        max-height: 120px;
+    }
+
+    .intro-image {
+        width: 100%;
+    }
+
+    ul.nav-inline {
+        display: none;
+    }
+
+    .logo {
+        float: left;
+        text-align: left;
+    }
+
+    .border-store {
+        border-right: none;
+    }
+
+    .menu ul {
+        list-style: none;
+        position: absolute;
+        z-index: 100;
+        opacity: 0.7;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        background: black;
+        font-size: 16px;
+        top: 83px;
+    }
+
+    .menu ul li {
+        height: 60px;
+        z-index: 100;
+    }
+
+    .menu ul li a {
+        color: white;
+    }
+
+    .button-menu {
+        display: block;
+        position: absolute;
+        top: 47px;
+        right: 0;
+        z-index: 9999;
     }
 }

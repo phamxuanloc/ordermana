@@ -38,6 +38,15 @@ ul.nav-inline li {
     width: 100%;
     height: 218px;
 }
-.logo img{
+
+.logo img {
     vertical-align: baseline;
+}
+
+.menu {
+    display: none;
+}
+
+.button-menu {
+    display: none;
 }

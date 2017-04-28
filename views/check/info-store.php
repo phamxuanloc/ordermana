@@ -36,11 +36,19 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 	</div>
 	<!-- END SIDEBAR TOGGLER BUTTON -->
 	<!-- BEGIN LOGO -->
+	<div class="menu">
+		<ul class="menu-responsive">
+			<li><a href="https://myphamlinhnham.vn">Trang chủ</a></li>
+			<li><a href="https://myphamlinhnham.vn/gioi-thieu/">Giới thiệu</a></li>
+			<li><a href="https://myphamlinhnham.vn/#all">Sản phẩm</a></li>
+			<li><a href="https://myphamlinhnham.vn/#su-kien">Tin tức</a></li>
+		</ul>
+	</div>
 	<div class="container">
 		<div class="text-center">
 			<ul class="nav-inline">
-				<li><a href="#">Trang chủ</a></li>
-				<li><a href="#">Giới thiệu</a></li>
+				<li><a href="https://myphamlinhnham.vn">Trang chủ</a></li>
+				<li><a href="https://myphamlinhnham.vn/gioi-thieu/">Giới thiệu</a></li>
 			</ul>
 			<div class="logo" style="text-align: center; margin-bottom: 15px; display: inline-block">
 				<a href="<?= \yii\helpers\Url::home() ?>">
@@ -48,12 +56,13 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 				</a>
 			</div>
 			<ul class="nav-inline">
-				<li><a href="#">Sản phẩm</a></li>
-				<li><a href="#">Tin tức</a></li>
+				<li><a href="https://myphamlinhnham.vn/#all">Sản phẩm</a></li>
+				<li><a href="https://myphamlinhnham.vn/#su-kien">Tin tức</a></li>
 			</ul>
+			<?= Html::submitButton('Menu', ['class' => 'btn btn-danger pull-right button-menu']) ?>
 		</div>
 		<div class="text-center col-sm-12">
-			<?php echo Html::img(Url::base() . '/uploads/store/gioi-thieu.png', ['style' => 'width:100%;']) ?>
+			<?php echo Html::img(Url::base() . '/uploads/store/gioi-thieu.png', ['class' => 'intro-image']) ?>
 		</div>
 		<!-- END SIDEBAR TOGGLER BUTTON -->
 		<!-- BEGIN LOGO -->
@@ -66,6 +75,9 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 				<div class="user-avatar text-center clearfix margin-store col-sm-12">
 					<?= Html::img($model->getPictureUrl('avatar'), ['class' => 'file-preview-image img-circle img-responsive col-sm-8 col-sm-offset-2']) ?>
 				</div>
+				<div class="user-avatar clearfix margin-store col-sm-12">
+					<span style="font-weight: bold">Trạng thái: Hoạt động </span>
+				</div>
 				<div class="col-sm-5 col-sm-offset-1 margin-store">
 					<span style="font-weight: bold">ID:</span><?= $model->code ?></div>
 				<div class="col-sm-5 col-sm-offset-1 margin-store">
@@ -74,10 +86,10 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 					<a><img src="<?= Url::base() ?>/uploads/store/facebook.png"></a><?= $model->facebook_link ?>
 				</div>
 				<div class="col-sm-11 col-sm-offset-1 row margin-store">
-					<div class="col-sm-6 row">
+					<div class="col-sm-6 margin-store">
 						<a><img src="<?= Url::base() ?>/uploads/store/viber.png"></a><?= $model->viber ?>
 					</div>
-					<div class="col-sm-6 row">
+					<div class="col-sm-6">
 						<a><img src="<?= Url::base() ?>/uploads/store/zalo.png"></a><?= $model->zalo ?>
 					</div>
 				</div>
@@ -127,6 +139,8 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 		//		Login.init();
 		//		Demo.init();
 		//	});
-	</script>
+		$(".button-menu").click(function() {
+			$(".menu").toggle();
+		});    </script>
 	</html>
 <?php $this->endPage() ?>
