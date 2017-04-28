@@ -700,4 +700,22 @@ class Model extends ActiveRecord {
 		}
 		return $total_amount;
 	}
+
+	public static function subtext($text, $num = 100) {
+		$text = strip_tags(html_entity_decode($text));
+		if(strlen($text) <= $num) {
+			return $text;
+		}
+		$text = substr($text, 0, $num);
+		if($text[$num - 1] == ' ') {
+			return trim($text) . "...";
+		}
+		$x  = explode(" ", $text);
+		$sz = sizeof($x);
+		if($sz <= 1) {
+			return $text . "...";
+		}
+		$x[$sz - 1] = '';
+		return trim(implode(" ", $x)) . "...";
+	}
 }

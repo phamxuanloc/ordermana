@@ -1,10 +1,12 @@
 <?php
 use app\assets\LoginAsset;
+use app\components\Model;
 use kartik\file\FileInput;
 use kartik\select2\Select2;
 use kartik\widgets\DatePicker;
 use navatech\roxymce\widgets\RoxyMceWidget;
 use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Modal;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -116,7 +118,13 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 				<div class="col-sm-12 margin-store text-center"><span class="">Ảnh cửa hàng</span></div>
 				<div class="col-sm-12 margin-store">
 					<span style="font-weight: bold">Địa chỉ cửa hàng:</span><?= $model->store_address ?></div>
-				<div class="col-sm-12 margin-store"><?php echo $model->store_description ?></div>
+				<div class="col-sm-12 margin-store"><?php echo Model::subtext($model->store_description, 500);
+					Modal::begin([
+						'toggleButton' => ['label' => 'Xem thêm'],
+					]);
+					echo $model->store_description;
+					?>
+					<?php Modal::end(); ?></div>
 				<!-- END FORGOT PASSWORD FORM -->
 				<!-- BEGIN REGISTRATION FORM -->
 				<!-- END REGISTRATION FORM -->

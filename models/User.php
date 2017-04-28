@@ -247,10 +247,14 @@ class User extends BaseUser {
 					'zalo',
 					'viber',
 					'store_address',
-					'store_description',
 				],
 				'string',
 				'max' => 1000,
+			],
+			[
+				['store_description'],
+				'string',
+				'max' => 10000,
 			],
 			[
 				['password_hash'],
