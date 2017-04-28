@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 				<div class="user-avatar text-center clearfix margin-store col-sm-12">
 					<?= Html::img($model->getPictureUrl('avatar'), ['class' => 'file-preview-image img-circle img-responsive col-sm-8 col-sm-offset-2']) ?>
 				</div>
-				<div class="user-avatar clearfix margin-store col-sm-12">
+				<div class="user-avatar clearfix col-sm-offset-1 margin-store col-sm-11">
 					<span style="font-weight: bold">Trạng thái: Hoạt động </span>
 				</div>
 				<div class="col-sm-5 col-sm-offset-1 margin-store">
