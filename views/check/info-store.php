@@ -9,6 +9,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+/** @var app\models\User $model */
 Yii::$app->layout = false;
 \app\assets\StoreAsset::register($this)
 ?>
@@ -35,141 +36,79 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 	</div>
 	<!-- END SIDEBAR TOGGLER BUTTON -->
 	<!-- BEGIN LOGO -->
-	<div class="logo" style="text-align: center; margin-bottom: 15px">
-		<a href="<?= \yii\helpers\Url::home() ?>">
-			<img style="" src="<?= Url::base() ?>/logo.png" alt="logo" class="logo-default"/>
-		</a>
-	</div>
-	<!-- END SIDEBAR TOGGLER BUTTON -->
-	<!-- BEGIN LOGO -->
-	<!-- END LOGO -->
-	<!-- BEGIN LOGIN -->
-	<div class="content col-sm-12">
-		<!-- BEGIN LOGIN FORM -->
+	<div class="container">
+		<div class="text-center">
+			<ul class="nav-inline">
+				<li><a href="#">Trang chủ</a></li>
+				<li><a href="#">Giới thiệu</a></li>
+			</ul>
+			<div class="logo" style="text-align: center; margin-bottom: 15px; display: inline-block">
+				<a href="<?= \yii\helpers\Url::home() ?>">
+					<img style="" src="<?= Url::base() ?>/logo.png" alt="logo" class="logo-default"/>
+				</a>
+			</div>
+			<ul class="nav-inline">
+				<li><a href="#">Sản phẩm</a></li>
+				<li><a href="#">Tin tức</a></li>
+			</ul>
+		</div>
+		<!-- END SIDEBAR TOGGLER BUTTON -->
+		<!-- BEGIN LOGO -->
+		<!-- END LOGO -->
+		<!-- BEGIN LOGIN -->
+		<div class="content col-sm-12">
+			<!-- BEGIN LOGIN FORM -->
 
-		<div class="col-sm-6">
-			<div class="panel panel-success">
-				<div class="panel-heading">Basic info</div>
-				<div class="panel-body">
-					<?php $form = ActiveForm::begin([
-						'layout'                 => 'horizontal',
-						'enableAjaxValidation'   => true,
-						'enableClientValidation' => false,
-						'options'                => [
-							'enctype' => 'multipart/form-data',
-						],
-						'fieldConfig'            => [
-							'horizontalCssClasses' => [
-								'wrapper' => 'col-sm-9',
-							],
-						],
-					]); ?>
-					<?= $form->field($model, 'image')->widget(FileInput::className(), [
-						'options'       => ['accept' => 'image/*'],
-						'pluginOptions' => [
-							'allowedFileExtensions' => [
-								'jpg',
-								'gif',
-								'png',
-							],
-							'showUpload'            => false,
-							'initialPreview'        => $model->getIsNewRecord() ? [
-								Html::img(Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif', ['class' => 'file-preview-image']),
-							] : [
-								Html::img($model->getPictureUrl('avatar'), ['class' => 'file-preview-image']),
-							],
-						],
-						'disabled'      => true,
-					]); ?>
-					<?= $form->field($model, 'store_description')->widget(RoxyMceWidget::className(), [
-						'model'         => $model,
-						'clientOptions' => [
-							'menubar'   => false,
-							'statusbar' => false,
-							'toolbar'   => false,
-							'title'     => false,
-						],
-						//						'options'       => [
-						//							'disabled' => true,
-						//						],
-					])->label('Mô tả') ?>
-
-					<?= $form->field($model, 'address')->textInput([
-						'disabled' => true,
-					])->label('Địa chỉ') ?>
-
-					<?= $form->field($model, 'phone')->textInput([
-						'maxlength' => 255,
-						'disabled'  => true,
-					])->label('Số điện thoại') ?>
-					<?= $form->field($model, 'created_at')->textInput([
-						'value'    => date('Y-m-d H:i:s', $model->created_at),
-						'disabled' => true,
-					])->label('Ngày tham gia') ?>
+			<div class="col-sm-6 border-store">
+				<div class="user-avatar text-center clearfix margin-store">
+					<?= Html::img($model->getPictureUrl('avatar'), ['class' => 'file-preview-image img-circle img-responsive col-sm-8']) ?>
+				</div>
+				<div class="col-sm-6 margin-store"><span style="font-weight: bold">ID:</span><?= $model->code ?></div>
+				<div class="col-sm-6 margin-store"><span style="font-weight: bold">SĐT:</span><?= $model->phone ?></div>
+				<div class="col-sm-12 margin-store">
+					<a><img src="<?= Url::base() ?>/uploads/store/facebook.png"></a><?= $model->facebook_link ?>
+				</div>
+				<div class="col-sm-12 row margin-store">
+					<div class="col-sm-6">
+						<a><img src="<?= Url::base() ?>/uploads/store/viber.png"></a><?= $model->viber ?>
+					</div>
+					<div class="col-sm-6">
+						<a><img src="<?= Url::base() ?>/uploads/store/zalo.png"></a><?= $model->zalo ?>
+					</div>
+				</div>
+				<div class="col-sm-6 margin-store">
+					<span style="font-weight: bold">Cấp độ:</span><?= $model->role->name ?></div>
+				<div class="col-sm-6 margin-store">
+					<span style="font-weight: bold">Tỉnh:</span><?= $model->cities->name ?></div>
+				<div class="col-sm-12 margin-store ">
+					<span style="font-weight: bold">Ngày tham gia:</span><?= date('d-m-Y', $model->created_at) ?></div>
+				<div class="col-sm-12 margin-store">
+					<span style="font-weight: bold">Địa chỉ hiện tại:</span><?= $model->address ?>
 				</div>
 			</div>
-		</div>
-		<div class="col-sm-6">
-			<div class="panel panel-info">
-				<div class="panel-heading">Basic info</div>
-				<div class="panel-body">
-					<?= $form->field($model, 'store_image')->widget(FileInput::className(), [
-						'options'       => ['accept' => 'image/*'],
-						'pluginOptions' => [
-							'allowedFileExtensions' => [
-								'jpg',
-								'gif',
-								'png',
-							],
-							'showUpload'            => false,
-							'initialPreview'        => $model->getIsNewRecord() ? [
-								Html::img(Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif', ['class' => 'file-preview-image']),
-							] : [
-								Html::img($model->getPictureUrl('store_image'), ['class' => 'file-preview-image']),
-							],
-						],
-						'disabled'      => true,
-					])->label('Ảnh cửa hàng'); ?>
-					<?= $form->field($model, 'store_address')->textInput([
-						'disabled' => true,
-					])->label('Địa chỉ cửa hàng') ?>
-					<?= $form->field($model, 'email')->textInput([
-						'maxlength' => 255,
-						'disabled'  => true,
-					]) ?>
-					<?= $form->field($model, 'facebook_link')->textInput([
-						'maxlength' => 255,
-						'disabled'  => true,
-					]) ?>
-					<?= $form->field($model, 'zalo')->textInput([
-						'maxlength' => 255,
-						'disabled'  => true,
-					]) ?>
-					<?= $form->field($model, 'viber')->textInput([
-						'maxlength' => 255,
-						'disabled'  => true,
-					]) ?>
-					<?= $form->field($model, 'city')->widget(Select2::className(), [
-						'data'     => ArrayHelper::map(\app\models\City::find()->andWhere([
-							'status' => 1,
-						])->all(), 'id', 'name'),
-						'disabled' => true,
-					])->label('Thành phố') ?>
+			<div class="col-sm-6">
+				<div class="user-store text-center clearfix">
 
-
-					<?php ActiveForm::end(); ?>
-
-					<!-- END FORGOT PASSWORD FORM -->
-					<!-- BEGIN REGISTRATION FORM -->
-					<!-- END REGISTRATION FORM -->
+					<!--								Html::img(Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif', ['class' => 'file-preview-image']),-->
+					<?php echo Html::img($model->getPictureUrl('store_image'), ['class' => 'file-preview-image img-rounded img-responsive col-sm-6'])
+					?>
 				</div>
+				<div class="col-sm-12 margin-store"><span class="col-sm-offset-2">Ảnh cửa hàng</span></div>
+				<div class="col-sm-12 margin-store">
+					<span style="font-weight: bold">Địa chỉ cửa hàng:</span><?= $model->store_address ?></div>
+				<div class="col-sm-12 margin-store"><?php echo $model->store_description ?></div>
+				<!-- END FORGOT PASSWORD FORM -->
+				<!-- BEGIN REGISTRATION FORM -->
+				<!-- END REGISTRATION FORM -->
+			</div>
+			<div class="col-sm-12">
+				<?= Html::a('Quay lại', ['/check/check-store'], ['class' => 'btn btn-success']) ?>
 			</div>
 		</div>
-		<?= Html::a('Quay lại', ['/check/check-store'], ['class' => 'btn btn-success']) ?>
+		<!--	<div class="copyright">-->
+		<!--		2016 © Myphamlinhnham.vn-->
+		<!--	</div>-->
 	</div>
-	<!--	<div class="copyright">-->
-	<!--		2016 © Myphamlinhnham.vn-->
-	<!--	</div>-->
 	<?php $this->endBody() ?>
 	</body>
 	<script>

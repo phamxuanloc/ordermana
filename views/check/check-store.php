@@ -13,7 +13,7 @@ LoginAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <?php
-$this->title                   = 'Tra cứu Đại diện, đại lý';
+$this->title                   = 'Cổng tra cứu thông tin Đại diện, Đại lý, Đại lý bán lẻ,  Điểm phân phối Mỹ phẩm Linh Nhâm';
 $this->params['breadcrumbs'][] = $this->title; ?>
 	<!DOCTYPE html>
 	<html lang="en">
@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 			//			'validateOnType'         => false,
 			//			'validateOnChange'       => false,
 		]) ?>
-		<h3 class="form-title">Tra cứu thông tin đại diện-đại lý</h3>
+		<h3 class="form-title"> Cổng tra cứu thông tin Đại diện, Đại lý, Đại lý bán lẻ,  Điểm phân phối Mỹ phẩm Linh Nhâm</h3>
 		<div class="form-group">
 			<?= $form->field($model, 'code', ['labelOptions' => ['class' => 'control-label visible-ie8 visible-ie9']])->textInput([
 				'autofocus'   => 'autofocus',

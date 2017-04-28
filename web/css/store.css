@@ -1,0 +1,29 @@
+ul.nav-inline {
+    display: inline-block;
+    list-style: none;
+}
+
+ul.nav-inline li {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 26px;
+    padding: 26px;
+}
+
+.nav-inline li a {
+    color: black !important;
+}
+
+.user-avatar {
+}
+
+.content {
+    margin: 10%;
+}
+
+.margin-store {
+    margin-bottom: 15px;
+}
+
+.border-store {
+}
