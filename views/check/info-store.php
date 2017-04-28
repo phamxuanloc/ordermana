@@ -52,6 +52,9 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 				<li><a href="#">Tin tức</a></li>
 			</ul>
 		</div>
+		<div class="text-center">
+			<?php echo Html::img(Url::base() . '/uploads/store/gioi-thieu.png') ?>
+		</div>
 		<!-- END SIDEBAR TOGGLER BUTTON -->
 		<!-- BEGIN LOGO -->
 		<!-- END LOGO -->
@@ -60,15 +63,17 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 			<!-- BEGIN LOGIN FORM -->
 
 			<div class="col-sm-6 border-store">
-				<div class="user-avatar text-center clearfix margin-store">
-					<?= Html::img($model->getPictureUrl('avatar'), ['class' => 'file-preview-image img-circle img-responsive col-sm-8']) ?>
+				<div class="user-avatar text-center clearfix margin-store col-sm-12">
+					<?= Html::img($model->getPictureUrl('avatar'), ['class' => 'file-preview-image img-circle img-responsive col-sm-8 col-sm-offset-2']) ?>
 				</div>
-				<div class="col-sm-6 margin-store"><span style="font-weight: bold">ID:</span><?= $model->code ?></div>
-				<div class="col-sm-6 margin-store"><span style="font-weight: bold">SĐT:</span><?= $model->phone ?></div>
-				<div class="col-sm-12 margin-store">
+				<div class="col-sm-5 col-sm-offset-1 margin-store">
+					<span style="font-weight: bold">ID:</span><?= $model->code ?></div>
+				<div class="col-sm-5 col-sm-offset-1 margin-store">
+					<span style="font-weight: bold">SĐT:</span><?= $model->phone ?></div>
+				<div class="col-sm-11 col-sm-offset-1 margin-store">
 					<a><img src="<?= Url::base() ?>/uploads/store/facebook.png"></a><?= $model->facebook_link ?>
 				</div>
-				<div class="col-sm-12 row margin-store">
+				<div class="col-sm-11 col-sm-offset-1 row margin-store">
 					<div class="col-sm-6">
 						<a><img src="<?= Url::base() ?>/uploads/store/viber.png"></a><?= $model->viber ?>
 					</div>
@@ -76,13 +81,13 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 						<a><img src="<?= Url::base() ?>/uploads/store/zalo.png"></a><?= $model->zalo ?>
 					</div>
 				</div>
-				<div class="col-sm-6 margin-store">
+				<div class="col-sm-5 margin-store col-sm-offset-1">
 					<span style="font-weight: bold">Cấp độ:</span><?= $model->role->name ?></div>
-				<div class="col-sm-6 margin-store">
+				<div class="col-sm-5 margin-store col-sm-offset-1">
 					<span style="font-weight: bold">Tỉnh:</span><?= $model->cities->name ?></div>
-				<div class="col-sm-12 margin-store ">
+				<div class="col-sm-11 margin-store col-sm-offset-1">
 					<span style="font-weight: bold">Ngày tham gia:</span><?= date('d-m-Y', $model->created_at) ?></div>
-				<div class="col-sm-12 margin-store">
+				<div class="col-sm-11 margin-store col-sm-offset-1">
 					<span style="font-weight: bold">Địa chỉ hiện tại:</span><?= $model->address ?>
 				</div>
 			</div>
@@ -90,10 +95,10 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 				<div class="user-store text-center clearfix">
 
 					<!--								Html::img(Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif', ['class' => 'file-preview-image']),-->
-					<?php echo Html::img($model->getPictureUrl('store_image'), ['class' => 'file-preview-image img-rounded img-responsive col-sm-6'])
+					<?php echo Html::img($model->getPictureUrl('store_image'), ['class' => 'file-preview-image img-rounded img-responsive col-sm-8 col-sm-offset-2'])
 					?>
 				</div>
-				<div class="col-sm-12 margin-store"><span class="col-sm-offset-2">Ảnh cửa hàng</span></div>
+				<div class="col-sm-12 margin-store text-center"><span class="">Ảnh cửa hàng</span></div>
 				<div class="col-sm-12 margin-store">
 					<span style="font-weight: bold">Địa chỉ cửa hàng:</span><?= $model->store_address ?></div>
 				<div class="col-sm-12 margin-store"><?php echo $model->store_description ?></div>
@@ -101,13 +106,14 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 				<!-- BEGIN REGISTRATION FORM -->
 				<!-- END REGISTRATION FORM -->
 			</div>
-			<div class="col-sm-12">
-				<?= Html::a('Quay lại', ['/check/check-store'], ['class' => 'btn btn-success']) ?>
-			</div>
+
 		</div>
 		<!--	<div class="copyright">-->
 		<!--		2016 © Myphamlinhnham.vn-->
 		<!--	</div>-->
+	</div>
+	<div>
+		<?php echo Html::img(Url::base() . '/uploads/store/footer.png', ['class' => 'footer-store']) ?>
 	</div>
 	<?php $this->endBody() ?>
 	</body>

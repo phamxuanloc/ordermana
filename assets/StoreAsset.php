@@ -17,6 +17,7 @@ class StoreAsset extends AssetBundle {
 
 	public $css      = [
 		'css/store.css',
+		'css/responsive.css',
 	];
 
 	public $js       = [];
