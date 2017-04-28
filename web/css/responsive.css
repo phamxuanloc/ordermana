@@ -1,6 +1,5 @@
-@media screen {
-    
-}
-.footer-store {
-
+@media screen and (max-width: 768px) {
+    .footer-store {
+        max-height: 200px;
+    }
 }

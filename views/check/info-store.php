@@ -52,8 +52,8 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 				<li><a href="#">Tin tức</a></li>
 			</ul>
 		</div>
-		<div class="text-center">
-			<?php echo Html::img(Url::base() . '/uploads/store/gioi-thieu.png') ?>
+		<div class="text-center col-sm-12">
+			<?php echo Html::img(Url::base() . '/uploads/store/gioi-thieu.png', ['style' => 'width:100%;']) ?>
 		</div>
 		<!-- END SIDEBAR TOGGLER BUTTON -->
 		<!-- BEGIN LOGO -->
@@ -74,15 +74,15 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 					<a><img src="<?= Url::base() ?>/uploads/store/facebook.png"></a><?= $model->facebook_link ?>
 				</div>
 				<div class="col-sm-11 col-sm-offset-1 row margin-store">
-					<div class="col-sm-6">
+					<div class="col-sm-6 row">
 						<a><img src="<?= Url::base() ?>/uploads/store/viber.png"></a><?= $model->viber ?>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-6 row">
 						<a><img src="<?= Url::base() ?>/uploads/store/zalo.png"></a><?= $model->zalo ?>
 					</div>
 				</div>
 				<div class="col-sm-5 margin-store col-sm-offset-1">
-					<span style="font-weight: bold">Cấp độ:</span><?= $model->role->name ?></div>
+					<span style="font-weight: bold">Vai trò:</span><?= $model->role->name ?></div>
 				<div class="col-sm-5 margin-store col-sm-offset-1">
 					<span style="font-weight: bold">Tỉnh:</span><?= $model->cities->name ?></div>
 				<div class="col-sm-11 margin-store col-sm-offset-1">
@@ -95,7 +95,10 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 				<div class="user-store text-center clearfix">
 
 					<!--								Html::img(Yii::$app->urlManager->baseUrl . '/uploads/no_image_thumb.gif', ['class' => 'file-preview-image']),-->
-					<?php echo Html::img($model->getPictureUrl('store_image'), ['class' => 'file-preview-image img-rounded img-responsive col-sm-8 col-sm-offset-2'])
+					<?php echo Html::img($model->getPictureUrl('store_image'), [
+						'class' => 'file-preview-image img-rounded img-responsive col-sm-8 col-sm-offset-2',
+						'style' => 'max-height: 246px;',
+					])
 					?>
 				</div>
 				<div class="col-sm-12 margin-store text-center"><span class="">Ảnh cửa hàng</span></div>
