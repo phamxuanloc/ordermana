@@ -6,7 +6,11 @@ use app\components\Model;
 use app\models\Alert;
 use app\models\ContactForm;
 use app\models\LoginForm;
+use app\models\Order;
+use app\models\OrderCenter;
+use app\models\OrderCustomer;
 use app\models\ReportForm;
+use app\models\User;
 use navatech\role\filters\RoleFilter;
 use Yii;
 use yii\filters\AccessControl;
@@ -203,5 +207,12 @@ class SiteController extends Controller {
 			'top_customer'   => $top_customer,
 			'age_array'      => $age_array,
 		]);
+	}
+
+	public function actionDropUser() {
+		User::deleteAll('role_id > 1 AND role_id < 6');
+		Order::deleteAll();
+		OrderCenter::deleteAll();
+		OrderCustomer::deleteAll();
 	}
 }
